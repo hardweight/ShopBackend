@@ -1,0 +1,24 @@
+2017-07-27 09:49:05,795  INFO ENode.EQueue.CommandResultProcessor - Command result processor started, bindingAddress: 192.168.1.143:9002
+2017-07-27 10:41:24,178  INFO ENode.EQueue.CommandResultProcessor - Command result processor started, bindingAddress: 192.168.1.143:9002
+2017-07-27 14:41:08,604  INFO ENode.EQueue.CommandResultProcessor - Command result processor started, bindingAddress: 192.168.1.143:9002
+2017-07-27 15:03:00,724  INFO ENode.EQueue.CommandResultProcessor - Command result processor started, bindingAddress: 192.168.1.143:9002
+2017-07-27 15:09:37,755  INFO ENode.EQueue.CommandResultProcessor - Command result processor started, bindingAddress: 192.168.1.143:9002
+2017-07-27 15:14:42,452  INFO ENode.EQueue.CommandResultProcessor - Command result processor started, bindingAddress: 192.168.1.143:9002
+2017-07-27 15:16:13,215  INFO ENode.EQueue.CommandResultProcessor - Command result processor started, bindingAddress: 192.168.1.143:9002
+2017-07-27 15:20:58,014  INFO ENode.EQueue.CommandResultProcessor - Command result processor started, bindingAddress: 192.168.1.143:9002
+2017-07-27 15:23:38,547 ERROR ENode.EQueue.SendQueueMessageService - EQueue message async send has exception, message: [Topic=ShopCommandTopic,Code=1,Tag=Shop.Commands.User.CreateUserCommand,CreatedTime=2017/7/27 15:23:38,BodyLength=486], routingKey: 36d39d5c-58c4-46ee-b3e3-015d84a3c954
+System.Exception: No available message queue for topic [ShopCommandTopic]
+   在 EQueue.Clients.Producers.Producer.<SendAsync>d__22.MoveNext() 位置 D:\MyProjects\equeue\src\EQueue\Clients\Producers\Producer.cs:行号 114
+--- 引发异常的上一位置中堆栈跟踪的末尾 ---
+   在 System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   在 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   在 ENode.EQueue.SendQueueMessageService.<SendMessageAsync>d__4.MoveNext() 位置 D:\MyProjects\enode\src\eNode\EQueue\SendQueueMessageService.cs:行号 47
+2017-07-27 16:27:43,383  INFO ENode.EQueue.CommandResultProcessor - Command result processor started, bindingAddress: 192.168.1.143:9002
+2017-07-27 16:28:53,530  INFO ENode.EQueue.SendQueueMessageService - EQueue message async send success, sendResult: [SendStatus:Success,MessageStoreResult:[MessageId:c0a8018f5d2b00000000000000000000, Code:1, Topic:ShopCommandTopic, QueueId:0, QueueOffset:0, Tag:Shop.Commands.User.CreateUserCommand, CreatedTime:2017/7/27 16:28:53, StoredTime:2017/7/27 16:28:53],ErrorMessage:], routingKey: 4474efb7-4efe-4d71-a42a-015d84e122ac
+2017-07-27 16:37:02,134  INFO ENode.EQueue.CommandResultProcessor - Command result processor started, bindingAddress: 192.168.1.143:9002
+2017-07-27 16:38:13,516  INFO ENode.EQueue.SendQueueMessageService - EQueue message async send success, sendResult: [SendStatus:Success,MessageStoreResult:[MessageId:c0a8018f5d2b00009a06000000000000, Code:1, Topic:ShopCommandTopic, QueueId:1, QueueOffset:0, Tag:Shop.Commands.User.CreateUserCommand, CreatedTime:2017/7/27 16:38:13, StoredTime:2017/7/27 16:38:13],ErrorMessage:], routingKey: b87c971a-2513-47bc-a915-015d84e9ae30
+2017-07-27 16:41:06,161  INFO ENode.EQueue.CommandResultProcessor - Command result processor started, bindingAddress: 192.168.1.143:9002
+2017-07-27 16:41:46,159  INFO ENode.EQueue.SendQueueMessageService - EQueue message async send success, sendResult: [SendStatus:Success,MessageStoreResult:[MessageId:c0a8018f5d2b00002a09000000000000, Code:1, Topic:ShopCommandTopic, QueueId:1, QueueOffset:1, Tag:Shop.Commands.User.CreateUserCommand, CreatedTime:2017/7/27 16:41:46, StoredTime:2017/7/27 16:41:46],ErrorMessage:], routingKey: 9d23712f-9df6-4d9e-9445-015d84ececbe
+2017-07-27 16:45:02,489  INFO ENode.EQueue.CommandResultProcessor - Command result processor started, bindingAddress: 192.168.1.143:9002
+2017-07-27 16:48:34,071  INFO ENode.EQueue.SendQueueMessageService - EQueue message async send success, sendResult: [SendStatus:Success,MessageStoreResult:[MessageId:c0a8018f5d2b0000ba0b000000000000, Code:1, Topic:ShopCommandTopic, QueueId:0, QueueOffset:1, Tag:Shop.Commands.User.CreateUserCommand, CreatedTime:2017/7/27 16:48:01, StoredTime:2017/7/27 16:48:01],ErrorMessage:], routingKey: 6e258996-ae7f-492a-b46a-015d84f0b08e
+2017-07-27 17:01:41,347  INFO ENode.EQueue.CommandResultProcessor - Command result processor started, bindingAddress: 192.168.1.143:9002

@@ -1,0 +1,42 @@
+2017-08-06 15:24:22,350  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.143:11101,ConsumerAddress=192.168.1.143:11102,AdminAddress=192.168.1.143:11103]
+2017-08-06 15:24:22,350  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-08-06 15:24:22,350  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-08-06 15:27:29,660  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.143:11101,ConsumerAddress=192.168.1.143:11102,AdminAddress=192.168.1.143:11103]
+2017-08-06 15:27:29,661  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-08-06 15:27:29,661  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-08-06 15:45:17,651  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.143:11101,ConsumerAddress=192.168.1.143:11102,AdminAddress=192.168.1.143:11103]
+2017-08-06 15:45:17,651  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-08-06 15:45:17,651  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-08-06 16:12:51,851  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.143:11101,ConsumerAddress=192.168.1.143:11102,AdminAddress=192.168.1.143:11103]
+2017-08-06 16:12:51,851  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-08-06 16:12:51,851  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-08-06 16:13:58,023 ERROR EQueue.Clients.Producers.Producer - Send producer heartbeat has exception, brokerInfo: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.143:11101,ConsumerAddress=192.168.1.143:11102,AdminAddress=192.168.1.143:11103]
+ECommon.Remoting.Exceptions.RemotingServerUnAvailableException: Remoting server is unavailable, server address:192.168.1.143:11101
+   在 ECommon.Remoting.SocketRemotingClient.EnsureClientStatus() 位置 D:\MyProjects\ecommon\src\ECommon\Remoting\SocketRemotingClient.cs:行号 274
+   在 ECommon.Remoting.SocketRemotingClient.InvokeOneway(RemotingRequest request) 位置 D:\MyProjects\ecommon\src\ECommon\Remoting\SocketRemotingClient.cs:行号 157
+   在 EQueue.Clients.Producers.Producer.SendHeartbeat() 位置 D:\MyProjects\equeue\src\EQueue\Clients\Producers\Producer.cs:行号 219
+2017-08-06 16:21:01,306  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.143:11101,ConsumerAddress=192.168.1.143:11102,AdminAddress=192.168.1.143:11103]
+2017-08-06 16:21:01,306  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-08-06 16:21:01,306  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-08-06 16:26:02,589  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.143:11101,ConsumerAddress=192.168.1.143:11102,AdminAddress=192.168.1.143:11103]
+2017-08-06 16:26:02,590  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-08-06 16:26:02,590  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-08-06 16:27:25,083  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopCommandTopic, newRouteInfo: [], oldRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":3}]
+2017-08-06 16:27:30,091  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopCommandTopic, newRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":3}], oldRouteInfo: []
+2017-08-06 16:34:28,786  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.143:11101,ConsumerAddress=192.168.1.143:11102,AdminAddress=192.168.1.143:11103]
+2017-08-06 16:34:28,786  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-08-06 16:34:28,786  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-08-06 16:39:51,893  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.143:11101,ConsumerAddress=192.168.1.143:11102,AdminAddress=192.168.1.143:11103]
+2017-08-06 16:39:51,895  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-08-06 16:39:51,895  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-08-06 17:55:19,219  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.143:11101,ConsumerAddress=192.168.1.143:11102,AdminAddress=192.168.1.143:11103]
+2017-08-06 17:55:19,219  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-08-06 17:55:19,219  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-08-06 18:07:26,997  INFO EQueue.Clients.ClientService - Removed broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.143:11101,ConsumerAddress=192.168.1.143:11102,AdminAddress=192.168.1.143:11103]
+2017-08-06 18:07:27,507  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopCommandTopic, newRouteInfo: [], oldRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":3}]
+2017-08-06 18:08:08,431  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.143:11101,ConsumerAddress=192.168.1.143:11102,AdminAddress=192.168.1.143:11103]
+2017-08-06 18:08:08,433  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopCommandTopic, newRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":3}], oldRouteInfo: []
+2017-08-06 18:08:40,425  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopCommandTopic, newRouteInfo: [], oldRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":3}]
+2017-08-06 18:25:18,848  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.143:11101,ConsumerAddress=192.168.1.143:11102,AdminAddress=192.168.1.143:11103]
+2017-08-06 18:25:18,848  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-08-06 18:25:18,848  INFO EQueue.Clients.Producers.Producer - Producer startted.

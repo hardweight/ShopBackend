@@ -1,0 +1,4 @@
+C:\Users\xiazhaowei\OneDrive\悟行工作文件\Shop\UserBC\User.Messages\bin\Debug\User.Messages.dll
+C:\Users\xiazhaowei\OneDrive\悟行工作文件\Shop\UserBC\User.Messages\bin\Debug\User.Messages.pdb
+C:\Users\xiazhaowei\OneDrive\悟行工作文件\Shop\UserBC\User.Messages\obj\Debug\User.Messages.dll
+C:\Users\xiazhaowei\OneDrive\悟行工作文件\Shop\UserBC\User.Messages\obj\Debug\User.Messages.pdb
