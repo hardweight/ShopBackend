@@ -1,0 +1,48 @@
+2017-08-16 09:12:37,673  INFO - ECommon 初始化成功.
+2017-08-16 09:12:39,697  INFO - ENode 初始化成功.
+2017-08-16 09:16:36,113  INFO - ECommon 初始化成功.
+2017-08-16 09:16:37,877  INFO - ENode 初始化成功.
+2017-08-16 11:25:19,954  INFO - ECommon 初始化成功.
+2017-08-16 11:25:21,805  INFO - ENode 初始化成功.
+2017-08-16 11:43:06,534  INFO - ECommon 初始化成功.
+2017-08-16 11:43:07,497 ERROR - ENode 初始化失败.
+System.Exception: Shop.Domain.Events.Orders.OrderSuccessedEvent must have a default constructor.
+   在 ENode.Configurations.ENodeConfiguration.ValidateTypes(Assembly[] assemblies) 位置 D:\MyProjects\enode\src\eNode\Configurations\Configuration.cs:行号 242
+   在 ENode.Configurations.ENodeConfiguration.InitializeBusinessAssemblies(Assembly[] assemblies) 位置 D:\MyProjects\enode\src\eNode\Configurations\Configuration.cs:行号 197
+   在 Shop.ProcessorHost.Bootstrap.InitializeENode() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.ProcessorHost\Bootstrap.cs:行号 108
+   在 Shop.ProcessorHost.Bootstrap.Initialize() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.ProcessorHost\Bootstrap.cs:行号 32
+2017-08-16 11:43:52,719  INFO - ECommon 初始化成功.
+2017-08-16 11:43:53,761 ERROR - ENode 初始化失败.
+System.Exception: Shop.Domain.Events.Orders.OrderSuccessedEvent must have a default constructor.
+   在 ENode.Configurations.ENodeConfiguration.ValidateTypes(Assembly[] assemblies) 位置 D:\MyProjects\enode\src\eNode\Configurations\Configuration.cs:行号 242
+   在 ENode.Configurations.ENodeConfiguration.InitializeBusinessAssemblies(Assembly[] assemblies) 位置 D:\MyProjects\enode\src\eNode\Configurations\Configuration.cs:行号 197
+   在 Shop.ProcessorHost.Bootstrap.InitializeENode() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.ProcessorHost\Bootstrap.cs:行号 108
+   在 Shop.ProcessorHost.Bootstrap.Initialize() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.ProcessorHost\Bootstrap.cs:行号 32
+2017-08-16 11:45:46,112  INFO - ECommon 初始化成功.
+2017-08-16 11:45:47,609  INFO - ENode 初始化成功.
+2017-08-16 12:16:07,706  INFO - ECommon 初始化成功.
+2017-08-16 12:16:09,550  INFO - ENode 初始化成功.
+2017-08-16 14:01:05,588  INFO - ECommon 初始化成功.
+2017-08-16 14:01:06,954  INFO - ENode 初始化成功.
+2017-08-16 14:13:24,622  INFO - ECommon 初始化成功.
+2017-08-16 14:13:26,125  INFO - ENode 初始化成功.
+2017-08-16 14:25:55,068  INFO - ECommon 初始化成功.
+2017-08-16 14:25:57,011  INFO - ENode 初始化成功.
+2017-08-16 15:31:37,239  INFO - ECommon 初始化成功.
+2017-08-16 15:31:38,713  INFO - ENode 初始化成功.
+2017-08-16 16:08:37,301  INFO - ECommon 初始化成功.
+2017-08-16 16:08:38,825  INFO - ENode 初始化成功.
+2017-08-16 16:14:30,969  INFO - ECommon 初始化成功.
+2017-08-16 16:14:32,557  INFO - ENode 初始化成功.
+2017-08-16 16:24:30,919  INFO - ECommon 初始化成功.
+2017-08-16 16:24:32,660  INFO - ENode 初始化成功.
+2017-08-16 16:28:04,359  INFO - ECommon 初始化成功.
+2017-08-16 16:28:05,995  INFO - ENode 初始化成功.
+2017-08-16 16:33:22,386  INFO - ECommon 初始化成功.
+2017-08-16 16:33:24,270  INFO - ENode 初始化成功.
+2017-08-16 16:48:14,381  INFO - ECommon 初始化成功.
+2017-08-16 16:48:15,787  INFO - ENode 初始化成功.
+2017-08-16 17:43:47,051  INFO - ECommon 初始化成功.
+2017-08-16 17:43:48,689  INFO - ENode 初始化成功.
+2017-08-16 17:45:36,070  INFO - ECommon 初始化成功.
+2017-08-16 17:45:37,658  INFO - ENode 初始化成功.

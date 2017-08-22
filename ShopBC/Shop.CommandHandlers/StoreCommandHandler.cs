@@ -1,4 +1,5 @@
-﻿using ECommon.Components;
+﻿using System;
+using ECommon.Components;
 using ENode.Commanding;
 using Shop.Commands.Stores;
 using Shop.Domain.Models.Stores;
@@ -8,7 +9,9 @@ namespace Shop.CommandHandlers
     [Component]
     public class StoreCommandHandler:
         ICommandHandler<CreateStoreCommand>,
+        ICommandHandler<CustomerUpdateStoreCommand>,
         ICommandHandler<UpdateStoreCommand>,
+        ICommandHandler<UpdateStoreStautsCommand>,
         ICommandHandler<AcceptNewStoreOrderCommand>,
         ICommandHandler<SetAccessCodeCommand>
     {
@@ -30,12 +33,21 @@ namespace Shop.CommandHandlers
             //添加到上下文
             context.Add(store);
         }
-        public void Handle(ICommandContext context, UpdateStoreCommand command)
+        public void Handle(ICommandContext context, CustomerUpdateStoreCommand command)
         {
-            context.Get<Store>(command.AggregateRootId).Update(new StoreEditableInfo (
+            context.Get<Store>(command.AggregateRootId).CustomerUpdate(new StoreCustomerEditableInfo (
                 command.Name,
                 command.Description,
                 command.Address
+            ));
+        }
+        public void Handle(ICommandContext context, UpdateStoreCommand command)
+        {
+            context.Get<Store>(command.AggregateRootId).Update(new StoreEditableInfo(
+                command.Name,
+                command.Description,
+                command.Address,
+                command.Type
             ));
         }
         public void Handle(ICommandContext context, AcceptNewStoreOrderCommand command)
@@ -46,6 +58,11 @@ namespace Shop.CommandHandlers
         public void Handle(ICommandContext context, SetAccessCodeCommand command)
         {
             context.Get<Store>(command.AggregateRootId).SetAccessCode(command.AccessCode);
+        }
+
+        public void Handle(ICommandContext context, UpdateStoreStautsCommand command)
+        {
+            context.Get<Store>(command.AggregateRootId).UpdateStatus(command.Status);
         }
     }
 }

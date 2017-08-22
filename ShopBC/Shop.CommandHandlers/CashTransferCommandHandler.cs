@@ -18,10 +18,10 @@ namespace Shop.CommandHandlers
                 command.Number,
                 new CashTransferInfo (command.Amount,
                 command.Fee,
-                command.Direction.ToWalletDirection(),
+                command.Direction,
                 command.Remark),
-                command.Type.ToCashTransferType(),
-                command.Status.ToCashTransferStatus());
+                command.Type,
+                command.Status);
             context.Add(cashTransfer);
         }
 

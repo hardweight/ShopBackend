@@ -15,6 +15,7 @@ namespace Shop.Commands.Users
         public string Mobile { get; private set; }
         public string Region { get; private set; }
         public string Password { get; private set; }
+        public string WeixinId { get; private set; }
 
         public CreateUserCommand() { }
         public CreateUserCommand(Guid id,
@@ -24,7 +25,8 @@ namespace Shop.Commands.Users
             string gender,
             string mobile,
             string region,
-            string password):base(id)
+            string password,
+            string weixinId):base(id)
         {
             ParentId = parentId;
             NickName = nickName;
@@ -33,6 +35,7 @@ namespace Shop.Commands.Users
             Mobile = mobile;
             Region = region;
             Password = password;
+            WeixinId = weixinId;
         }
     }
 }

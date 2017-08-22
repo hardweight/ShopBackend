@@ -1,0 +1,59 @@
+2017-08-21 22:21:54,714  INFO - ECommon 初始化成功.
+2017-08-21 22:21:57,304  INFO - ENode initialized.
+2017-08-21 22:27:19,570  INFO - ECommon 初始化成功.
+2017-08-21 22:27:21,538  INFO - ENode initialized.
+2017-08-21 22:32:00,037  INFO - ECommon 初始化成功.
+2017-08-21 22:33:48,515  INFO - ECommon 初始化成功.
+2017-08-21 22:33:50,279 ERROR - ENode 初始化失败.
+System.Net.Sockets.SocketException (0x80004005): 通常每个套接字地址(协议/网络地址/端口)只允许使用一次。
+   在 System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   在 ECommon.Socketing.ServerSocket.Start() 位置 D:\MyProjects\ecommon\src\ECommon\Socketing\ServerSocket.cs:行号 64
+   在 ENode.EQueue.CommandResultProcessor.Start() 位置 D:\MyProjects\enode\src\eNode\EQueue\Command\CommandResultProcessor.cs:行号 66
+   在 ENode.EQueue.CommandService.Start() 位置 D:\MyProjects\enode\src\eNode\EQueue\Command\CommandService.cs:行号 49
+   在 Shop.TimerTask.ENodeExtensions.StartEQueue(ENodeConfiguration enodeConfiguration) 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\ENodeExtensions.cs:行号 34
+   在 Shop.TimerTask.Bootstrap.InitializeENode() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\Bootstrap.cs:行号 102
+   在 Shop.TimerTask.Bootstrap.Initialize() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\Bootstrap.cs:行号 28
+2017-08-21 22:34:33,171  INFO - ECommon 初始化成功.
+2017-08-21 22:34:35,112 ERROR - ENode 初始化失败.
+System.Net.Sockets.SocketException (0x80004005): 通常每个套接字地址(协议/网络地址/端口)只允许使用一次。
+   在 System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   在 ECommon.Socketing.ServerSocket.Start() 位置 D:\MyProjects\ecommon\src\ECommon\Socketing\ServerSocket.cs:行号 64
+   在 ENode.EQueue.CommandResultProcessor.Start() 位置 D:\MyProjects\enode\src\eNode\EQueue\Command\CommandResultProcessor.cs:行号 66
+   在 ENode.EQueue.CommandService.Start() 位置 D:\MyProjects\enode\src\eNode\EQueue\Command\CommandService.cs:行号 49
+   在 Shop.TimerTask.ENodeExtensions.StartEQueue(ENodeConfiguration enodeConfiguration) 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\ENodeExtensions.cs:行号 34
+   在 Shop.TimerTask.Bootstrap.InitializeENode() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\Bootstrap.cs:行号 102
+   在 Shop.TimerTask.Bootstrap.Initialize() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\Bootstrap.cs:行号 28
+2017-08-21 22:41:38,416  INFO - ECommon 初始化成功.
+2017-08-21 22:41:40,366 ERROR - ENode 初始化失败.
+System.Net.Sockets.SocketException (0x80004005): 通常每个套接字地址(协议/网络地址/端口)只允许使用一次。
+   在 System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   在 ECommon.Socketing.ServerSocket.Start() 位置 D:\MyProjects\ecommon\src\ECommon\Socketing\ServerSocket.cs:行号 64
+   在 ENode.EQueue.CommandResultProcessor.Start() 位置 D:\MyProjects\enode\src\eNode\EQueue\Command\CommandResultProcessor.cs:行号 66
+   在 ENode.EQueue.CommandService.Start() 位置 D:\MyProjects\enode\src\eNode\EQueue\Command\CommandService.cs:行号 49
+   在 Shop.TimerTask.ENodeExtensions.StartEQueue(ENodeConfiguration enodeConfiguration) 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\ENodeExtensions.cs:行号 34
+   在 Shop.TimerTask.Bootstrap.InitializeENode() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\Bootstrap.cs:行号 102
+   在 Shop.TimerTask.Bootstrap.Initialize() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\Bootstrap.cs:行号 28
+2017-08-21 22:43:29,674  INFO - ECommon 初始化成功.
+2017-08-21 22:43:31,466 ERROR - ENode 初始化失败.
+System.Net.Sockets.SocketException (0x80004005): 通常每个套接字地址(协议/网络地址/端口)只允许使用一次。
+   在 System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   在 ECommon.Socketing.ServerSocket.Start() 位置 D:\MyProjects\ecommon\src\ECommon\Socketing\ServerSocket.cs:行号 64
+   在 ENode.EQueue.CommandResultProcessor.Start() 位置 D:\MyProjects\enode\src\eNode\EQueue\Command\CommandResultProcessor.cs:行号 66
+   在 ENode.EQueue.CommandService.Start() 位置 D:\MyProjects\enode\src\eNode\EQueue\Command\CommandService.cs:行号 49
+   在 Shop.TimerTask.ENodeExtensions.StartEQueue(ENodeConfiguration enodeConfiguration) 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\ENodeExtensions.cs:行号 34
+   在 Shop.TimerTask.Bootstrap.InitializeENode() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\Bootstrap.cs:行号 102
+   在 Shop.TimerTask.Bootstrap.Initialize() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\Bootstrap.cs:行号 28
+2017-08-21 22:52:57,193  INFO - ECommon 初始化成功.
+2017-08-21 22:52:59,272  INFO - ENode initialized.
+2017-08-21 22:54:18,509  INFO - ECommon 初始化成功.
+2017-08-21 22:54:20,574  INFO - ENode initialized.
+2017-08-21 22:58:46,597  INFO - ECommon 初始化成功.
+2017-08-21 22:58:48,432  INFO - ENode initialized.
+2017-08-21 23:04:12,518  INFO - ECommon 初始化成功.
+2017-08-21 23:04:14,530  INFO - ENode initialized.
+2017-08-21 23:15:09,626  INFO - ECommon 初始化成功.
+2017-08-21 23:15:12,672  INFO - ENode initialized.

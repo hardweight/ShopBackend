@@ -29,6 +29,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
@@ -61,9 +64,11 @@
     <Compile Include="AnnouncementCommandHandler.cs" />
     <Compile Include="BenevolenceTransferCommandHandler.cs" />
     <Compile Include="CartCommandHandler.cs" />
+    <Compile Include="OrderCommandHandler.cs" />
+    <Compile Include="PaymentCommandHandler.cs" />
+    <Compile Include="PubCategoryCommandHandler.cs" />
     <Compile Include="CategoryCommandHandler.cs" />
     <Compile Include="CommentCommandHandler.cs" />
-    <Compile Include="EnumExtensions.cs" />
     <Compile Include="GoodsCommandHandler.cs" />
     <Compile Include="GranteeCommandHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,6 +85,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Shop.Common\Shop.Common.csproj">
+      <Project>{890eac5d-4afc-4ad5-b8ae-246e73d111ad}</Project>
+      <Name>Shop.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Xia.Common\Xia.Common.csproj">
+      <Project>{f31f8b62-a8b2-4d83-b8e1-fc705d9f5a88}</Project>
+      <Name>Xia.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Shop.Commands\Shop.Commands.csproj">
       <Project>{d96cf52c-0504-45c5-98e3-e1f7c4f864e8}</Project>
       <Name>Shop.Commands</Name>

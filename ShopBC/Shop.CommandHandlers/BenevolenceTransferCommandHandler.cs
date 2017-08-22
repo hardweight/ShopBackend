@@ -17,13 +17,13 @@ namespace Shop.CommandHandlers
                 command.WalletId,
                 command.Number,
                 new BenevolenceTransferInfo (
-                   command.Amount,
+                    command.Amount,
                     command.Fee,
-                    command.Direction.ToWalletDirection(),
-                   command.Remark
+                    command.Direction,
+                    command.Remark
                 ),
-                command.Type.ToBenevolenceTransferType(),
-                command.Status.ToBenevolenceTransferStatus());
+                command.Type,
+                command.Status);
             context.Add(cashTransfer);
         }
 

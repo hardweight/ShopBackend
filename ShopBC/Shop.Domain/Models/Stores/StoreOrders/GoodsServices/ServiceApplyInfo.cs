@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shop.Common.Enums;
+using System;
 
 namespace Shop.Domain.Models.Stores.StoreOrders.GoodsServices
 {
@@ -31,30 +32,5 @@ namespace Shop.Domain.Models.Stores.StoreOrders.GoodsServices
         }
     }
 
-    /// <summary>
-    /// 商品服务类型
-    /// </summary>
-    public enum GoodsServiceType
-    {
-        /// <summary>
-        /// 退货
-        /// </summary>
-        SalesReturn=1,
-        /// <summary>
-        /// 退款
-        /// </summary>
-        Refund=2,
-        /// <summary>
-        /// 维修
-        /// </summary>
-        Service=3,
-        /// <summary>
-        /// 上门服务
-        /// </summary>
-        ToDoorService=4,
-        /// <summary>
-        /// 换货
-        /// </summary>
-        Change=5
-    }
+   
 }

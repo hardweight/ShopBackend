@@ -3,31 +3,51 @@
 namespace Shop.Commands.Stores
 {
     /// <summary>
-    /// 订单商品 命令端
+    /// 订单商品 有两个地方使用了一个是创建订单商品时，一个是创建商家订单时
     /// </summary>
     [Serializable]
     public class OrderGoods
     {
         public Guid GoodsId { get;private set; }
         public Guid SpecificationId { get; private set; }
+        //创建订单商品命令单独可以设置这两个属性
+        public Guid WalletId { get;  set; }
+        public Guid StoreOwnerWalletId { get;  set; }
+
+        public string GoodsName { get; private set; }
+        public string GoodsPic { get; private set; }
         public string SpecificationName { get; private set; }
         public int Quantity { get; private set; }
+        public decimal Price { get; private set; }
+        public decimal OrigianlPrice { get; private set; }
         public decimal Total { get; private set; }
-        public decimal SurrenderPersent { get; private set; }
+        public decimal StoreTotal { get; private set; }
+        public decimal Surrender { get; private set; }
 
-        public OrderGoods(Guid goodsId,
+        public OrderGoods
+            (Guid goodsId,
             Guid specificationId,
+            string goodsName,
+            string goodsPic,
             string specificationName,
+            decimal price,
+            decimal originalPrice,
             int quantity,
             decimal total,
-            decimal surrenderPersent)
+            decimal storeTotal,
+            decimal surrender)
         {
             GoodsId = goodsId;
             SpecificationId = specificationId;
+            GoodsName = goodsName;
+            GoodsPic = goodsPic;
             SpecificationName = specificationName;
+            Price = price;
+            OrigianlPrice = originalPrice;
             Quantity = quantity;
             Total = total;
-            SurrenderPersent = surrenderPersent;
+            StoreTotal = storeTotal;
+            Surrender = surrender;
         }
     }
 }

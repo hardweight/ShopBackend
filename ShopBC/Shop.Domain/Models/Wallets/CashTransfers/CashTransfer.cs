@@ -1,4 +1,5 @@
 ﻿using ENode.Domain;
+using Shop.Common.Enums;
 using Shop.Domain.Events.Wallets.CashTransfers;
 using System;
 using Xia.Common.Extensions;
@@ -59,6 +60,7 @@ namespace Shop.Domain.Models.Wallets.CashTransfers
             _info = evnt.Info;
             _type = evnt.Type;
             _status = evnt.Status;
+            _walletId = evnt.WalletId;
         }
         private void Handle(CashTransferStatusChangedEvent evnt)
         {

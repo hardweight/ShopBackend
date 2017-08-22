@@ -9,9 +9,13 @@ namespace Shop.Domain.Models.Goodses.Specifications
     public class SpecificationInfo
     {
         /// <summary>
-        /// 规格名称 红色+M
+        /// 规格名称 颜色,尺码
         /// </summary>
         public string Name { get; private set; }
+        /// <summary>
+        /// 规格值 红色,M
+        /// </summary>
+        public string Value { get; private set; }
         /// <summary>
         /// 缩略图
         /// </summary>
@@ -33,9 +37,10 @@ namespace Shop.Domain.Models.Goodses.Specifications
         /// </summary>
         public string BarCode { get; private set; }
 
-        public SpecificationInfo(string name, string thumb, decimal price,decimal originalPrice,string number,string barCode)
+        public SpecificationInfo(string name,string value, string thumb, decimal price,decimal originalPrice,string number,string barCode)
         {
             Name = name;
+            Value = value;
             Thumb = thumb;
             Price = price;
             OriginalPrice = originalPrice;

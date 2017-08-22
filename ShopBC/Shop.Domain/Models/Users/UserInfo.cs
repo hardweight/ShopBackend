@@ -5,15 +5,23 @@ namespace Shop.Domain.Models.Users
     [Serializable]
     public class UserInfo
     {
-        public string NickName { get;  set; }
+        public string NickName { get;  set; }//因为要可单独修改
         public string Portrait { get;  set; }
         public string Gender { get;  set; }
         public string Mobile { get;  set; }
         public string Region { get;  set; }
         public string Password { get;  set; }
+        public string WeixinId { get;  set; }
 
         public UserInfo() { }
-        public UserInfo(string mobile,string nickName,string portrait,string gender,string region,string password)
+        public UserInfo(string mobile,
+            string nickName,
+            string portrait,
+            string gender,
+            string region,
+            string password,
+            string weixinId
+            )
         {
             Mobile = mobile;
             NickName = nickName;
@@ -21,6 +29,7 @@ namespace Shop.Domain.Models.Users
             Gender = gender;
             Region = region;
             Password = password;
+            WeixinId = weixinId;
         }
     }
 }

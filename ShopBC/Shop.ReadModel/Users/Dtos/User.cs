@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shop.Common.Enums;
+using System;
 using System.ComponentModel;
 
 namespace Shop.ReadModel.Users.Dtos
@@ -9,6 +10,9 @@ namespace Shop.ReadModel.Users.Dtos
     public class User
     {
         public Guid Id { get; set; }
+        public Guid ParentId { get; set; }
+        public Guid WalletId { get; set; }
+        public Guid CartId { get; set; }
         public string NickName { get; set; }
         public string Mobile { get; set; }
         public string Password { get; set; }
@@ -20,25 +24,6 @@ namespace Shop.ReadModel.Users.Dtos
 
         public UserRole Role { get; set; }
     }
-    /// <summary>
-    /// 用户角色
-    /// </summary>
-    public enum UserRole
-    {
-        [Description("善心使者")]
-        Consumer = 0,
-
-        [Description("传递使者")]
-        Passer = 1,
-
-        [Description("传递大使")]
-        Ambassador = 2,
-
-        [Description("区域合伙人")]
-        RegionPartner = 3,
-
-        [Description("行业合伙人")]
-        SectionPartner = 4
-    }
+    
 
 }

@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MessagePublisher\OrderGoodsMessagePublisher.cs" />
+    <Compile Include="MessagePublisher\PaymentMessagePublisher.cs" />
     <Compile Include="MessagePublisher\WalletMessagePublisher.cs" />
     <Compile Include="MessagePublisher\GoodsMessagePublisher.cs" />
     <Compile Include="Messages\Goodses\SpecificationInsufficientMessage.cs" />
@@ -66,12 +67,17 @@
     <Compile Include="Messages\Goodses\SpecificationReservationCancelledMessage.cs" />
     <Compile Include="Messages\Goodses\SpecificationReservationCommittedMessage.cs" />
     <Compile Include="Messages\Goodses\SpecificationReservedMessage.cs" />
+    <Compile Include="Messages\Payments\PaymentCompletedMessage.cs" />
+    <Compile Include="Messages\Payments\PaymentMessage.cs" />
+    <Compile Include="Messages\Payments\PaymentRejectedMessage.cs" />
     <Compile Include="Messages\Stores\OrderGoodses\ServiceExpiredMessage.cs" />
     <Compile Include="Messages\Stores\OrderGoodses\ServiceFinishedMessage.cs" />
-    <Compile Include="Messages\Users\IncentiveUserBenevolenceMessage.cs" />
+    <Compile Include="Messages\Wallets\IncentiveUserBenevolenceMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Messages\Users\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

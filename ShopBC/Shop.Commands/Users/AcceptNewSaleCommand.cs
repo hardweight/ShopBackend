@@ -6,13 +6,11 @@ namespace Shop.Commands.Users
     public class AcceptNewSaleCommand : Command<Guid>
     {
         public decimal Amount { get; private set; }
-        public decimal SurrenderPersent { get; private set; }
 
         public AcceptNewSaleCommand() { }
-        public AcceptNewSaleCommand(decimal amount,decimal surrenderPersent)
+        public AcceptNewSaleCommand(decimal amount)
         {
             Amount = amount;
-            SurrenderPersent = surrenderPersent;
         }
     }
 }

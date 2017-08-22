@@ -9,6 +9,7 @@ using System;
 using Shop.Domain.Models.Users;
 using Shop.Domain.Events.Users.ExpressAddresses;
 using Shop.Domain.Events.Users.UserGifts;
+using Shop.Common.Enums;
 
 namespace Shop.ReadModel.Users
 {
@@ -18,7 +19,7 @@ namespace Shop.ReadModel.Users
     [Component]
     public class UserViewModelGenerator: BaseGenerator,
         IMessageHandler<UserCreatedEvent>,
-
+        IMessageHandler<UserEditedEvent>,
         IMessageHandler<UserNickNameUpdatedEvent>,
         IMessageHandler<UserPasswordUpdatedEvent>,
         IMessageHandler<UserPortraitUpdatedEvent>,
@@ -58,6 +59,8 @@ namespace Shop.ReadModel.Users
                 return connection.InsertAsync(new
                 {
                     Id = evnt.AggregateRootId,
+                    WalletId=evnt.WalletId,
+                    CartId=evnt.CartId,
                     Mobile = info.Mobile,
                     NickName = info.NickName,
                     Portrait = info.Portrait,
@@ -69,6 +72,7 @@ namespace Shop.ReadModel.Users
                     IsFreeze = 0,
                     CreatedOn = evnt.Timestamp,
                     AmbassadorExpireTime=evnt.Timestamp,
+                    WeixinId=info.WeixinId,
                     Version = evnt.Version,
                     EventSequence = evnt.Sequence
                 }, ConfigSettings.UserTable);
@@ -87,16 +91,15 @@ namespace Shop.ReadModel.Users
         {
             return TryUpdateRecordAsync(connection =>
             {
-                var nickName = evnt.NickName;
                 return connection.UpdateAsync(new
                 {
-                    NickName = nickName,                    
+                    NickName = evnt.NickName,                    
                     Version = evnt.Version,
                     EventSequence = evnt.Sequence
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.UserTable);
             });
         }
@@ -109,16 +112,15 @@ namespace Shop.ReadModel.Users
         {
             return TryUpdateRecordAsync(connection =>
             {
-                var portrait = evnt.Portrait;
                 return connection.UpdateAsync(new
                 {
-                    Portrait = portrait,
+                    Portrait = evnt.Portrait,
                     Version = evnt.Version,
                     EventSequence = evnt.Sequence
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.UserTable);
             });
         }
@@ -131,16 +133,15 @@ namespace Shop.ReadModel.Users
         {
             return TryUpdateRecordAsync(connection =>
             {
-                var gender = evnt.Gender;
                 return connection.UpdateAsync(new
                 {
-                    Gender = gender,
+                    Gender = evnt.Gender,
                     Version = evnt.Version,
                     EventSequence = evnt.Sequence
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.UserTable);
             });
         }
@@ -153,16 +154,15 @@ namespace Shop.ReadModel.Users
         {
             return TryUpdateRecordAsync(connection =>
             {
-                var password = evnt.Password;
                 return connection.UpdateAsync(new
                 {
-                    Password = password,
+                    Password = evnt.Password,
                     Version = evnt.Version,
                     EventSequence = evnt.Sequence
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.UserTable);
             });
         }
@@ -175,16 +175,15 @@ namespace Shop.ReadModel.Users
         {
             return TryUpdateRecordAsync(connection =>
             {
-                var region = evnt.Region;
                 return connection.UpdateAsync(new
                 {
-                    Region = region,
+                    Region = evnt.Region,
                     Version = evnt.Version,
                     EventSequence = evnt.Sequence
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.UserTable);
             });
         }
@@ -194,13 +193,13 @@ namespace Shop.ReadModel.Users
             {
                 return connection.UpdateAsync(new
                 {
-                    IsLocked = 1,
+                    IsLocked = (int)UserLock.Locked,
                     Version = evnt.Version,
                     EventSequence = evnt.Sequence
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.UserTable);
             });
         }
@@ -210,13 +209,13 @@ namespace Shop.ReadModel.Users
             {
                 return connection.UpdateAsync(new
                 {
-                    IsLocked = 0,
+                    IsLocked = (int)UserLock.UnLocked,
                     Version = evnt.Version,
                     EventSequence = evnt.Sequence
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.UserTable);
             });
         }
@@ -226,13 +225,13 @@ namespace Shop.ReadModel.Users
             {
                 return connection.UpdateAsync(new
                 {
-                    IsFreeze = 1,
+                    IsFreeze = (int)UserFreeze.Freeze,
                     Version = evnt.Version,
                     EventSequence = evnt.Sequence
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.UserTable);
             });
         }
@@ -242,13 +241,13 @@ namespace Shop.ReadModel.Users
             {
                 return connection.UpdateAsync(new
                 {
-                    IsFreeze = 0,
+                    IsFreeze = (int)UserFreeze.UnFreeze,
                     Version = evnt.Version,
                     EventSequence = evnt.Sequence
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.UserTable);
             });
         }
@@ -272,7 +271,7 @@ namespace Shop.ReadModel.Users
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.UserTable, transaction);
                 if (effectedRows == 1)
                 {
@@ -306,7 +305,7 @@ namespace Shop.ReadModel.Users
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.UserTable, transaction);
 
                 if (effectedRows == 1)
@@ -341,7 +340,7 @@ namespace Shop.ReadModel.Users
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.UserTable, transaction);
                 if (effectedRows == 1)
                 {
@@ -370,7 +369,7 @@ namespace Shop.ReadModel.Users
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.UserTable, transaction);
                 if (effectedRows == 1)
                 {
@@ -398,7 +397,7 @@ namespace Shop.ReadModel.Users
                     }, new
                     {
                         Id = evnt.AggregateRootId,
-                        Version = evnt.Version - 1
+                        //Version = evnt.Version - 1
                     }, ConfigSettings.UserTable);
                 });
             }
@@ -415,7 +414,7 @@ namespace Shop.ReadModel.Users
                     }, new
                     {
                         Id = evnt.AggregateRootId,
-                        Version = evnt.Version - 1
+                        //Version = evnt.Version - 1
                     }, ConfigSettings.UserTable);
                 });
             }
@@ -432,7 +431,7 @@ namespace Shop.ReadModel.Users
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.UserTable);
             });
         }
@@ -449,7 +448,7 @@ namespace Shop.ReadModel.Users
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.UserTable);
             });
         }
@@ -466,7 +465,7 @@ namespace Shop.ReadModel.Users
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.UserTable, transaction);
                 if (effectedRows == 1)
                 {
@@ -499,7 +498,7 @@ namespace Shop.ReadModel.Users
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.UserTable, transaction);
                 if (effectedRows == 1)
                 {
@@ -526,7 +525,7 @@ namespace Shop.ReadModel.Users
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.UserTable, transaction);
                 if (effectedRows == 1)
                 {
@@ -539,6 +538,24 @@ namespace Shop.ReadModel.Users
                         Id = evnt.UserGiftId
                     }, ConfigSettings.UserGiftTable, transaction);
                 }
+            });
+        }
+
+        public Task<AsyncTaskResult> HandleAsync(UserEditedEvent evnt)
+        {
+            return TryUpdateRecordAsync(connection =>
+            {
+                return connection.UpdateAsync(new
+                {
+                    NickName = evnt.NickName,
+                    Gender=evnt.Gender,
+                    Version = evnt.Version,
+                    EventSequence = evnt.Sequence
+                }, new
+                {
+                    Id = evnt.AggregateRootId,
+                    //Version = evnt.Version - 1
+                }, ConfigSettings.UserTable);
             });
         }
         #endregion

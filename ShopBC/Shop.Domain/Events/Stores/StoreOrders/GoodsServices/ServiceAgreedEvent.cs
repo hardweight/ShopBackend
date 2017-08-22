@@ -1,4 +1,5 @@
-﻿using Shop.Domain.Models.Stores;
+﻿using Shop.Common.Enums;
+using Shop.Domain.Models.Stores;
 using System;
 
 namespace Shop.Domain.Events.Stores.StoreOrders.GoodsServices

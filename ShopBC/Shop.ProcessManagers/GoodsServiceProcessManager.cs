@@ -34,12 +34,11 @@ namespace Shop.ProcessManagers
             //结算用户奖励
             tasks.Add(_commandService.SendAsync(new AcceptMyNewSpendingCommand(
                 evnt.Total,
-                evnt.SurrenderPersent
+                evnt.Surrender
                 )));
             //结算商家奖励也是给用户结算
             tasks.Add(_commandService.SendAsync(new AcceptNewSaleCommand(
-                evnt.Total,
-                evnt.SurrenderPersent
+                evnt.Total
                 )));
 
             Task.WaitAll(tasks.ToArray());
@@ -58,12 +57,11 @@ namespace Shop.ProcessManagers
             //结算用户奖励
             tasks.Add(_commandService.SendAsync(new AcceptMyNewSpendingCommand(
                 evnt.Total,
-                evnt.SurrenderPersent
+                evnt.Surrender
                 )));
             //结算商家奖励也是给用户结算
             tasks.Add(_commandService.SendAsync(new AcceptNewSaleCommand(
-                evnt.Total,
-                evnt.SurrenderPersent
+                evnt.Total
                 )));
 
             return Task.FromResult(AsyncTaskResult.Success);

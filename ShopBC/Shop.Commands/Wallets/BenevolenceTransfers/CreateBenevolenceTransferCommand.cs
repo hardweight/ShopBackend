@@ -1,4 +1,5 @@
 ﻿using ENode.Commanding;
+using Shop.Common.Enums;
 using System;
 
 namespace Shop.Commands.Wallets.BenevolenceTransfers

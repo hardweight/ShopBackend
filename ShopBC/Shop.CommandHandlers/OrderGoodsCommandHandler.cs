@@ -2,6 +2,8 @@
 using ENode.Commanding;
 using ENode.Infrastructure;
 using Shop.Commands.Stores.StoreOrders.OrderGoodses;
+using Shop.Common;
+using Shop.Common.Enums;
 using Shop.Domain.Models.Stores;
 using Shop.Domain.Models.Stores.StoreOrders.GoodsServices;
 using System;
@@ -42,13 +44,18 @@ namespace Shop.CommandHandlers
                     new OrderGoodsInfo(
                         command.OrderGoods.GoodsId,
                         command.OrderGoods.SpecificationId,
+                        command.OrderGoods.WalletId,
+                        command.OrderGoods.StoreOwnerWalletId,
+                        command.OrderGoods.GoodsName,
+                        command.OrderGoods.GoodsPic,
                         command.OrderGoods.SpecificationName,
-                        command.OrderGoods.SpecificationName,
-                        0,
+                        command.OrderGoods.Price,
+                        command.OrderGoods.OrigianlPrice,
                         command.OrderGoods.Quantity,
                         command.OrderGoods.Total,
-                        DateTime.Now,
-                        command.OrderGoods.SurrenderPersent)
+                        command.OrderGoods.StoreTotal,
+                        DateTime.Now.Add(ConfigSettings.OrderGoodsServiceAutoExpiration),
+                        command.OrderGoods.Surrender)
                 );
             //添加到上下文
             context.Add(orderGoods);

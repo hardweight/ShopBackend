@@ -1,5 +1,6 @@
 ﻿using ENode.Commanding;
 using Shop.Commands.Users;
+using Shop.Common.Enums;
 using System;
 
 namespace Shop.Commands.Partners

@@ -6,8 +6,18 @@ namespace Shop.ReadModel.Wallets
 {
     public interface IWalletQueryService
     {
-        Wallet Info(Guid userId);
-        Wallet InfoByUserId(Guid userId);
+        Wallet Info(Guid Id);
+
+        decimal TotalBenevolence();
+
+        IEnumerable<Wallet> ListPage();
+
+
+        IEnumerable<WithdrawApply> WithdrawApplyLogs(Guid walletId);
+        IEnumerable<WithdrawApply> WithdrawApplyLogs();
+
+        IEnumerable<RechargeApply> RechargeApplyLogs(Guid walletId);
+        IEnumerable<RechargeApply> RechargeApplyLogs();
 
 
         IEnumerable<BankCard> GetBankCards(Guid walletId);

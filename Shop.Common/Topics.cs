@@ -11,15 +11,15 @@
         public const string ShopExceptionTopic = "ShopExceptionTopic";
 
         //Buy边界
-        public const string BuyCommandTopic = "BuyCommandTopic";
-        public const string BuyApplicationMessageTopic = "BuyApplicationMessageTopic";
-        public const string BuyDomainEventTopic = "BuyDomainEventTopic";
-        public const string BuyExceptionTopic = "BuyExceptionTopic";
+        //public const string BuyCommandTopic = "BuyCommandTopic";
+        //public const string BuyApplicationMessageTopic = "BuyApplicationMessageTopic";
+        //public const string BuyDomainEventTopic = "BuyDomainEventTopic";
+        //public const string BuyExceptionTopic = "BuyExceptionTopic";
 
         //Payment边界
-        public const string PaymentCommandTopic = "PaymentCommandTopic";
-        public const string PaymentDomainEventTopic = "PaymentDomainEventTopic";
-        public const string PaymentApplicationMessageTopic = "PaymentApplicationMessageTopic";
-        public const string PaymentExceptionTopic = "PaymentExceptionTopic";
+        //public const string PaymentCommandTopic = "PaymentCommandTopic";
+        //public const string PaymentDomainEventTopic = "PaymentDomainEventTopic";
+        //public const string PaymentApplicationMessageTopic = "PaymentApplicationMessageTopic";
+        //public const string PaymentExceptionTopic = "PaymentExceptionTopic";
     }
 }

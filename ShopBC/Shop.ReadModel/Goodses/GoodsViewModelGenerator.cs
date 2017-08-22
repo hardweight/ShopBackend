@@ -18,6 +18,7 @@ namespace Shop.ReadModel.Goodses
     [Component]
     public class GoodsViewModelGenerator:BaseGenerator,
         IMessageHandler<GoodsCreatedEvent>,
+        IMessageHandler<GoodsStoreUpdatedEvent>,
         IMessageHandler<GoodsUpdatedEvent>,
         IMessageHandler<GoodsPublishedEvent>,
         IMessageHandler<GoodsUnpublishedEvent>,
@@ -29,7 +30,7 @@ namespace Shop.ReadModel.Goodses
         IMessageHandler<SpecificationReservationCommittedEvent>,
         IMessageHandler<SpecificationReservationCancelledEvent>,
         
-        IMessageHandler<SpecificationsUpdatedEvent>,
+        IMessageHandler<SpecificationsAddedEvent>,
         IMessageHandler<SpecificationAddedEvent>,
         IMessageHandler<SpecificationUpdatedEvent>,
         IMessageHandler<SpecificationStockChangedEvent>
@@ -38,10 +39,10 @@ namespace Shop.ReadModel.Goodses
     {
         public Task<AsyncTaskResult> HandleAsync(GoodsCreatedEvent evnt)
         {
-            return TryInsertRecordAsync(connection =>
+            return TryTransactionAsync(async (connection, transaction) =>
             {
                 var info = evnt.Info;
-                return connection.InsertAsync(new
+                var effectedRows = await connection.InsertAsync(new
                 {
                     Id = evnt.AggregateRootId,
                     StoreId = evnt.StoreId,
@@ -50,6 +51,9 @@ namespace Shop.ReadModel.Goodses
                     Pics = info.Pics.ExpandAndToString("|"),
                     Price = info.Price,
                     OriginalPrice = info.OriginalPrice,
+
+                    Surrender = info.Surrender,
+
                     Stock = info.Stock,
                     SellOut = info.SellOut,
                     IsPayOnDelivery = info.IsPayOnDelivery,
@@ -66,22 +70,40 @@ namespace Shop.ReadModel.Goodses
                     IsPublished = 1,
                     Version = evnt.Version,
                     EventSequence = evnt.Sequence
-                }, ConfigSettings.GoodsTable);
+                }, ConfigSettings.GoodsTable,transaction);
+
+                
+                var tasks = new List<Task>();
+                //删除原来的记录
+                tasks.Add(connection.DeleteAsync(new
+                {
+                    GoodsId = evnt.AggregateRootId
+                }, ConfigSettings.GoodsPubCategorysTable, transaction));
+
+                //插入新的记录
+                foreach (var categoryId in evnt.CategoryIds)
+                {
+                    tasks.Add(connection.InsertAsync(new
+                    {
+                        Id = Guid.NewGuid(),
+                        GoodsId = evnt.AggregateRootId,
+                        CategoryId = categoryId
+                    }, ConfigSettings.GoodsPubCategorysTable, transaction));
+                }
+                Task.WaitAll(tasks.ToArray());
             });
         }
-        public Task<AsyncTaskResult> HandleAsync(GoodsUpdatedEvent evnt)
+        public Task<AsyncTaskResult> HandleAsync(GoodsStoreUpdatedEvent evnt)
         {
-            return TryUpdateRecordAsync(connection =>
+            return TryTransactionAsync(async (connection, transaction) =>
             {
                 var info = evnt.Info;
-                return connection.UpdateAsync(new
+                var effectedRows = await connection.UpdateAsync(new
                 {
                     Name = info.Name,
                     Description = info.Description,
                     Pics=info.Pics.ExpandAndToString("|"),
-                    Price = info.Price,
                     OriginalPrice = info.OriginalPrice,
-                    SellOut = info.SellOut,
                     Sort = info.Sort,
                     Stock = info.Stock,
                     Is7SalesReturn=info.Is7SalesReturn,
@@ -92,8 +114,48 @@ namespace Shop.ReadModel.Goodses
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
-                }, ConfigSettings.GoodsTable);
+                    //Version = evnt.Version - 1
+                }, ConfigSettings.GoodsTable,transaction);
+
+                //更新分类
+                var tasks = new List<Task>();
+                tasks.Add(connection.DeleteAsync(new
+                {
+                    GoodsId = evnt.AggregateRootId
+                }, ConfigSettings.GoodsPubCategorysTable, transaction));
+                //插入新的记录
+                foreach (var categoryId in evnt.CategoryIds)
+                {
+                    tasks.Add(connection.InsertAsync(new
+                    {
+                        Id = Guid.NewGuid(),
+                        GoodsId = evnt.AggregateRootId,
+                        CategoryId = categoryId
+                    }, ConfigSettings.GoodsPubCategorysTable, transaction));
+                }
+                Task.WaitAll(tasks.ToArray());
+                
+            });
+        }
+        public Task<AsyncTaskResult> HandleAsync(GoodsUpdatedEvent evnt)
+        {
+            return TryTransactionAsync(async (connection, transaction) =>
+            {
+                var info = evnt.Info;
+                var effectedRows = await connection.UpdateAsync(new
+                {
+                    Name = info.Name,
+                    Description = info.Description,
+                    Pics = info.Pics.ExpandAndToString("|"),
+                    Price = info.Price,
+                    SellOut=info.SellOut,
+                    Version = evnt.Version,
+                    EventSequence = evnt.Sequence
+                }, new
+                {
+                    Id = evnt.AggregateRootId,
+                    //Version = evnt.Version - 1
+                }, ConfigSettings.GoodsTable, transaction);
             });
         }
         public Task<AsyncTaskResult> HandleAsync(GoodsPublishedEvent evnt)
@@ -108,7 +170,7 @@ namespace Shop.ReadModel.Goodses
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.GoodsTable);
             });
         }
@@ -124,7 +186,7 @@ namespace Shop.ReadModel.Goodses
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.GoodsTable);
             });
         }
@@ -139,7 +201,7 @@ namespace Shop.ReadModel.Goodses
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.GoodsTable, transaction);
 
                 if (effectedRows == 1)
@@ -171,7 +233,7 @@ namespace Shop.ReadModel.Goodses
                         }, ConfigSettings.SpecificationTable, transaction));
                     }
 
-                    await Task.WhenAll(tasks);
+                    Task.WaitAll(tasks.ToArray());
                 }
             });
         }
@@ -186,7 +248,7 @@ namespace Shop.ReadModel.Goodses
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.GoodsTable, transaction);
 
                 if (effectedRows == 1)
@@ -213,7 +275,7 @@ namespace Shop.ReadModel.Goodses
                         }, ConfigSettings.SpecificationTable, transaction));
                     }
 
-                    await Task.WhenAll(tasks);
+                    Task.WaitAll(tasks.ToArray());
                 }
             });
         }
@@ -228,7 +290,7 @@ namespace Shop.ReadModel.Goodses
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.GoodsTable, transaction);
 
                 if (effectedRows == 1)
@@ -255,7 +317,7 @@ namespace Shop.ReadModel.Goodses
                         }, ConfigSettings.SpecificationTable, transaction));
                     }
 
-                    await Task.WhenAll(tasks);
+                    Task.WaitAll(tasks.ToArray());
                 }
             });
         }
@@ -270,7 +332,7 @@ namespace Shop.ReadModel.Goodses
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.GoodsTable, transaction);
 
                 if (effectedRows == 1)
@@ -293,11 +355,11 @@ namespace Shop.ReadModel.Goodses
                             Value = goodsParam.Value
                         }, ConfigSettings.GoodsParamTable, transaction));
                     }
-                    await Task.WhenAll(tasks);
+                    Task.WaitAll(tasks.ToArray());
                 }
             });
         }
-        public Task<AsyncTaskResult> HandleAsync(SpecificationsUpdatedEvent evnt)
+        public Task<AsyncTaskResult> HandleAsync(SpecificationsAddedEvent evnt)
         {
             return TryTransactionAsync(async (connection, transaction) =>
             {
@@ -308,7 +370,7 @@ namespace Shop.ReadModel.Goodses
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.GoodsTable, transaction);
 
                 if (effectedRows == 1)
@@ -325,18 +387,20 @@ namespace Shop.ReadModel.Goodses
                     {
                         tasks.Add(connection.InsertAsync(new
                         {
-                            GoodsId = evnt.AggregateRootId,
                             Id = specification.Id,
+                            GoodsId = evnt.AggregateRootId,
                             Name = specification.Info.Name,
+                            Value = specification.Info.Value,
                             Price=specification.Info.Price,
                             OriginalPrice=specification.Info.OriginalPrice,
                             Stock=specification.Stock,
                             Number = specification.Info.Number,
                             Thumb=specification.Info.Thumb,
-                            BarCode=specification.Info.BarCode
+                            BarCode=specification.Info.BarCode,
+                            AvailableQuantity=specification.Stock
                         }, ConfigSettings.SpecificationTable, transaction));
                     }
-                    await Task.WhenAll(tasks);
+                    Task.WaitAll(tasks.ToArray());
                 }
             });
         }
@@ -351,21 +415,24 @@ namespace Shop.ReadModel.Goodses
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.GoodsTable, transaction);
                 if (effectedRows == 1)
                 {
                     await connection.InsertAsync(new
                     {
                         Id = evnt.SpecificationId,
+                        GoodsId = evnt.AggregateRootId,
                         Name = evnt.SpecificationInfo.Name,
+                        Value=evnt.SpecificationInfo.Value,
                         Thumb=evnt.SpecificationInfo.Thumb,
                         Price=evnt.SpecificationInfo.Price,
                         OriginalPrice=evnt.SpecificationInfo.OriginalPrice,
                         Number = evnt.SpecificationInfo.Number,
+                        BarCode=evnt.SpecificationInfo.BarCode,
                         Stock = evnt.Stock,
                         AvailableQuantity = evnt.Stock,
-                        GoodsId = evnt.AggregateRootId,
+                        
                     }, ConfigSettings.SpecificationTable, transaction);
                 }
             });
@@ -381,7 +448,7 @@ namespace Shop.ReadModel.Goodses
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.GoodsTable, transaction);
 
                 if (effectedRows == 1)
@@ -389,6 +456,7 @@ namespace Shop.ReadModel.Goodses
                     await connection.UpdateAsync(new
                     {
                         Name = evnt.SpecificationInfo.Name,
+                        Value=evnt.SpecificationInfo.Value,
                         Price = evnt.SpecificationInfo.Price,
                         OriginalPrice=evnt.SpecificationInfo.OriginalPrice,
                         Number=evnt.SpecificationInfo.Number,
@@ -447,7 +515,7 @@ namespace Shop.ReadModel.Goodses
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.GoodsTable);
             });
         }

@@ -1,4 +1,6 @@
-﻿namespace Shop.Domain.Models.Wallets.CashTransfers
+﻿using Shop.Common.Enums;
+
+namespace Shop.Domain.Models.Wallets.CashTransfers
 {
     /// <summary>
     /// 现金记录 信息

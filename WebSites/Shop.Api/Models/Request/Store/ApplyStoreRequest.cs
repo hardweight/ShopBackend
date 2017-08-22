@@ -7,6 +7,7 @@ namespace Shop.Api.Models.Request.Store
 {
     public class ApplyStoreRequest
     {
+        public string AccessCode { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Region { get; set; }

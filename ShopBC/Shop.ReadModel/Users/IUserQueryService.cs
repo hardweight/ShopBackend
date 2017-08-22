@@ -15,5 +15,10 @@ namespace Shop.ReadModel.Users
 
         IEnumerable<ExpressAddress> GetExpressAddresses(Guid userId);
         IEnumerable<UserGift> UserGifts(Guid userId);
+
+        #region 管理
+        IEnumerable<User> UserList();
+
+        #endregion
     }
 }

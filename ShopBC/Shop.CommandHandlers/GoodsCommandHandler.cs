@@ -6,20 +6,30 @@ using Shop.Commands.Goodses.Specifications;
 using Shop.Domain.Models.Comments;
 using Shop.Domain.Models.Goodses;
 using System.Linq;
+using System;
+using Xia.Common;
 
 namespace Shop.CommandHandlers
 {
     [Component]
     public class ConferenceCommandHandler :
         ICommandHandler<CreateGoodsCommand>,
+        ICommandHandler<StoreUpdateGoodsCommand>,
         ICommandHandler<UpdateGoodsCommand>,
+
         ICommandHandler<PublishGoodsCommand>,
         ICommandHandler<UnpublishGoodsCommand>,
+
         ICommandHandler<AddSpecificationCommand>,
+        ICommandHandler<AddSpecificationsCommand>,
         ICommandHandler<UpdateSpecificationCommand>,
+
+        ICommandHandler<UpdateParamsCommand>,
+
         ICommandHandler<MakeSpecificationReservationCommand>,
         ICommandHandler<CommitSpecificationReservationCommand>,
         ICommandHandler<CancelSpecificationReservationCommand>,
+
         ICommandHandler<AcceptNewCommentCommand>
     {
         private readonly ILockService _lockService;
@@ -32,15 +42,17 @@ namespace Shop.CommandHandlers
         public void Handle(ICommandContext context, CreateGoodsCommand command)
         {
             //创建聚合跟对象
-            var goods = new Goods(command.AggregateRootId,command.StoreId, new GoodsInfo(
+            var goods = new Goods(command.AggregateRootId,command.StoreId, 
+                command.CategoryIds,
+                new GoodsInfo(
                 command.Name,
                 command.Description,
                 command.Pics,
-                command.Price,
+                command.OriginalPrice*1.2M,//平台售价，默认是产品供应商的1.2倍,
                 command.OriginalPrice,
                 command.Stock,
-                new SurrenderInfo(command.Price,command.SurrenderPersent),
-                command.SellOut,
+                1,//默认单倍返善心
+                0,//已销售量
                 command.IsPayOnDelivery,
                 command.IsInvoice,
                 command.Is7SalesReturn,
@@ -48,21 +60,30 @@ namespace Shop.CommandHandlers
             //添加到上下文
             context.Add(goods);
         }
-        public void Handle(ICommandContext context, UpdateGoodsCommand command)
+        public void Handle(ICommandContext context, StoreUpdateGoodsCommand command)
         {
-            context.Get<Goods>(command.AggregateRootId).Update(new GoodsEditableInfo(
+            context.Get<Goods>(command.AggregateRootId).Update(
+                command.CategoryIds,
+                new GoodsStoreEditableInfo(
                 command.Name,
                 command.Description,
                 command.Pics,
-                command.Price,
                 command.OriginalPrice,
                 command.Stock,
-                command.SurrenderPersent,
-                command.SellOut,
                 command.IsPayOnDelivery,
                 command.IsInvoice,
                 command.Is7SalesReturn,
                 command.Sort));
+        }
+        public void Handle(ICommandContext context, UpdateGoodsCommand command)
+        {
+            context.Get<Goods>(command.AggregateRootId).AdminUpdate(
+                new GoodsEditableInfo(
+                command.Name,
+                command.Description,
+                command.Pics,
+                command.Price,
+                command.SellOut));
         }
         public void Handle(ICommandContext context, PublishGoodsCommand command)
         {
@@ -77,6 +98,7 @@ namespace Shop.CommandHandlers
             context.Get<Goods>(command.AggregateRootId).AddSpecification(
                 new Domain.Models.Goodses.Specifications.SpecificationInfo(
                     command.Name,
+                    command.Value,
                     command.Thumb,
                     command.Price,
                     command.OriginalPrice,
@@ -92,6 +114,7 @@ namespace Shop.CommandHandlers
                 command.SpecificationId,
                 new Domain.Models.Goodses.Specifications.SpecificationInfo(
                     command.Name, 
+                    command.Value,
                     command.Thumb,
                     command.Price,
                     command.OriginalPrice,
@@ -120,6 +143,29 @@ namespace Shop.CommandHandlers
         public void Handle(ICommandContext context, AcceptNewCommentCommand command)
         {
             context.Get<Goods>(command.AggregateRootId).AcceptNewComment(context.Get<Comment>(command.CommentId));
+        }
+
+        public void Handle(ICommandContext context, AddSpecificationsCommand command)
+        {
+            context.Get<Goods>(command.AggregateRootId).AddSpecifications(command.Specifications.Select(x =>new Domain.Models.Goodses.Specifications.Specification(
+                GuidUtil.NewSequentialId(), 
+                new Domain.Models.Goodses.Specifications.SpecificationInfo(
+                    x.Name,
+                    x.Value,
+                    x.Thumb,
+                    x.Price,
+                    x.OriginalPrice,
+                    x.Number,
+                    x.BarCode
+                ),
+                x.Stock)).ToList());
+        }
+
+        public void Handle(ICommandContext context, UpdateParamsCommand command)
+        {
+            context.Get<Goods>(command.AggregateRootId).UpdateParams(command.GoodsParams.Select(x => new GoodsParam(
+                x.Name,
+                x.Value)).ToList());
         }
     }
 }

@@ -3,9 +3,11 @@ using CacheManager.Core;
 using ECommon.Autofac;
 using ECommon.Components;
 using Shop.Api.Extensions;
+using Shop.Api.ViewModels.Carts;
 using Shop.Api.ViewModels.Store;
 using Shop.Api.ViewModels.User;
 using Shop.Api.ViewModels.Wallet;
+using Shop.ReadModel.Carts;
 using Shop.ReadModel.Stores;
 using Shop.ReadModel.Users;
 using Shop.ReadModel.Wallets;
@@ -28,6 +30,7 @@ namespace Shop.Api.Helper
         private UserQueryService _userQueryService;
         private WalletQueryService _walletQueryService;
         private StoreQueryService _storeQueryService;
+        private CartQueryService _cartQueryService;
 
         private ApiSession()
         {
@@ -38,6 +41,7 @@ namespace Shop.Api.Helper
             _userQueryService= container.Resolve<UserQueryService>();
             _walletQueryService = container.Resolve<WalletQueryService>();
             _storeQueryService = container.Resolve<StoreQueryService>();
+            _cartQueryService = container.Resolve<CartQueryService>();
 
 
             //缓存信息
@@ -105,7 +109,15 @@ namespace Shop.Api.Helper
         /// <param name="code"></param>
         public void SetMsgCode(string token,string code)
         {
-            _cache.Add(token, code);
+            var cacheCode = _cache.Get(token) as string;
+            if (!cacheCode.IsNullOrEmpty())
+            {
+                _cache.Update(token, u => code);
+            }
+            else
+            {
+                _cache.Add(token, code);
+            }
         }
         /// <summary>
         /// 获取短信验证码缓存
@@ -135,14 +147,14 @@ namespace Shop.Api.Helper
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public WalletViewModel GetWalletInfo(string userId)
+        public WalletViewModel GetWalletInfo(string walletId)
         {
-            userId.CheckNotNullOrEmpty(nameof(userId));
-            var walletInfo = _cache.Get(CacheKeySupplier.WalletModelCacheKey(userId)) as WalletViewModel;
+            walletId.CheckNotNullOrEmpty(nameof(walletId));
+            var walletInfo = _cache.Get(CacheKeySupplier.WalletModelCacheKey(walletId)) as WalletViewModel;
             if (walletInfo == null)
             {
-                walletInfo = _walletQueryService.InfoByUserId(userId.ToGuid()).ToWalletModel();
-                _cache.Add(CacheKeySupplier.WalletModelCacheKey(userId), walletInfo);
+                walletInfo = _walletQueryService.Info(walletId.ToGuid()).ToWalletModel();
+                _cache.Add(CacheKeySupplier.WalletModelCacheKey(walletId), walletInfo);
             }
             return walletInfo;
         }
@@ -150,14 +162,33 @@ namespace Shop.Api.Helper
         /// <summary>
         /// 设置模型到缓存
         /// </summary>
-        /// <param name="useridId"></param>
+        /// <param name="walletId"></param>
         /// <param name="walletInfo"></param>
-        public void SetWalletInfo(string useridId, WalletViewModel walletInfo)
+        public void SetWalletInfo(string walletId, WalletViewModel walletInfo)
         {
-            useridId.CheckNotNullOrEmpty(nameof(useridId));
+            walletId.CheckNotNullOrEmpty(nameof(walletId));
             walletInfo.CheckNotNull(nameof(walletInfo));
 
-            _cache.Add(CacheKeySupplier.WalletModelCacheKey(useridId), walletInfo);
+            _cache.Add(CacheKeySupplier.WalletModelCacheKey(walletId), walletInfo);
+        }
+
+        public CartViewModel GetCartInfo(string cartId)
+        {
+            cartId.CheckNotNullOrEmpty(nameof(cartId));
+            var cartInfo = _cache.Get(CacheKeySupplier.CartModelCacheKey(cartId)) as CartViewModel;
+            if (cartInfo == null)
+            {
+                cartInfo = _cartQueryService.Info(cartId.ToGuid()).ToCartModel();
+                _cache.Add(CacheKeySupplier.CartModelCacheKey(cartId), cartInfo);
+            }
+            return cartInfo;
+        }
+        public void SetCartInfo(string cartId, CartViewModel cartInfo)
+        {
+            cartId.CheckNotNullOrEmpty(nameof(cartId));
+            cartInfo.CheckNotNull(nameof(cartInfo));
+
+            _cache.Add(CacheKeySupplier.CartModelCacheKey(cartId), cartInfo);
         }
 
         /// <summary>

@@ -7,14 +7,13 @@ namespace Shop.Domain.Events.Stores.StoreOrders.GoodsServices
     public class ServiceFinishedEvent : DomainEvent<Guid>
     {
         public decimal Total { get; private set; }
-        public decimal SurrenderPersent { get; private set; }
-
+        public decimal Surrender { get; private set; }
 
         public ServiceFinishedEvent() { }
-        public ServiceFinishedEvent(decimal total,decimal surrenderPersent)
+        public ServiceFinishedEvent(decimal total,decimal surrender)
         {
             Total = total;
-            SurrenderPersent = surrenderPersent;
+            Surrender = surrender;
         }
     }
 }

@@ -23,7 +23,9 @@ namespace Shop.CommandHandlers
                 parent, 
                 command.Name,
                 command.Url,
-                command.Thumb);
+                command.Thumb,
+                command.Type,
+                command.Sort);
             
             //将领域对象添加到上下文中
             context.Add(category);
@@ -34,7 +36,9 @@ namespace Shop.CommandHandlers
             context.Get<Category>(command.AggregateRootId).UpdateCategory(
                 command.Name,
                 command.Url,
-                command.Thumb);
+                command.Thumb,
+                command.Type,
+                command.Sort);
         }
     }
 }

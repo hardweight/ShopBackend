@@ -5,8 +5,9 @@ namespace Shop.Commands.Goodses.Specifications
 {
     public class UpdateSpecificationCommand:Command<Guid>
     {
-        public Guid SpecificationId { get;private set; }
+        public Guid SpecificationId { get; private set; }
         public string Name { get; private set; }
+        public string Value { get; private set; }
         public string Thumb { get; private set; }
         public decimal Price { get; private set; }
         public decimal OriginalPrice { get; private set; }
@@ -18,6 +19,7 @@ namespace Shop.Commands.Goodses.Specifications
         public UpdateSpecificationCommand(Guid goodsId,
             Guid specificationId,
             string name,
+            string value,
             string thumb,
             decimal price,
             decimal originalPrice,
@@ -27,6 +29,7 @@ namespace Shop.Commands.Goodses.Specifications
         {
             SpecificationId = specificationId;
             Name = name;
+            Value = value;
             Thumb = thumb;
             Price = price;
             OriginalPrice = originalPrice;

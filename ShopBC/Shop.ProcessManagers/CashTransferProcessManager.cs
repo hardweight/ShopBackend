@@ -13,7 +13,7 @@ namespace Shop.ProcessManagers
     [Component]
     public class CashTransferProcessManager :
         IMessageHandler<CashTransferCreatedEvent>,
-        IMessageHandler<NewCashTransferEvent>  //钱包接受了新的现金记录  更新现金记录状态为成功
+        IMessageHandler<NewCashTransferAcceptedEvent>  //钱包接受了新的现金记录  更新现金记录状态为成功
     {
         private ICommandService _commandService;
 
@@ -35,7 +35,7 @@ namespace Shop.ProcessManagers
         /// </summary>
         /// <param name="evnt"></param>
         /// <returns></returns>
-        public Task<AsyncTaskResult> HandleAsync(NewCashTransferEvent evnt)
+        public Task<AsyncTaskResult> HandleAsync(NewCashTransferAcceptedEvent evnt)
         {
             return _commandService.SendAsync(
                 new SetCashTransferSuccessCommand(evnt.TransferId)

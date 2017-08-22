@@ -1,4 +1,5 @@
-﻿using Shop.Domain.Models.Wallets.BenevolenceTransfers;
+﻿using Shop.Common.Enums;
+using Shop.Domain.Models.Wallets.BenevolenceTransfers;
 using System;
 
 namespace Shop.Domain.Events.Wallets.BenevolenceTransfers

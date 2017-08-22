@@ -1,4 +1,5 @@
 ﻿using ENode.Eventing;
+using Shop.Common.Enums;
 using Shop.Domain.Models.Partners;
 using System;
 

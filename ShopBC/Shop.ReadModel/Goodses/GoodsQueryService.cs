@@ -5,6 +5,7 @@ using Shop.ReadModel.Goodses.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dapper;
 
 namespace Shop.ReadModel.Goodses
 {
@@ -29,22 +30,151 @@ namespace Shop.ReadModel.Goodses
             }
         }
 
-        public IList<GoodsAlias> GetPublishedGoodses()
+        public IEnumerable<GoodsAlias> GetPublishedGoodses()
         {
             using (var connection = GetConnection())
             {
-                return connection.QueryList<GoodsAlias>(new { IsPublished = 1 }, ConfigSettings.GoodsTable).ToList();
+                return connection.QueryList<GoodsAlias>(new { IsPublished = 1 }, ConfigSettings.GoodsTable);
             }
         }
 
-        public IList<Specification> GetPublishedSpecifications(Guid goodsId)
+        /// <summary>
+        /// 热卖产品
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public IEnumerable<GoodsAlias> GoodSellGoodses(int count)
+        {
+            var sql = string.Format(@"select Id,Pics,Name,Price from {0} 
+                where  IsPublished=1 
+                order by SellOut desc", ConfigSettings.GoodsTable);
+            using (var connection = GetConnection())
+            {
+                return connection.Query<GoodsAlias>(sql).Take(count);
+            }
+        }
+        /// <summary>
+        /// 新品
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public IEnumerable<GoodsAlias> NewGoodses(int count)
+        {
+            var sql = string.Format(@"select Id,Pics,Name,Price from {0} 
+                where  IsPublished=1 
+                order by CreatedOn desc", ConfigSettings.GoodsTable);
+            using (var connection = GetConnection())
+            {
+                return connection.Query<GoodsAlias>(sql).Take(count);
+            }
+        }
+
+        /// <summary>
+        /// 好评产品
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public IEnumerable<GoodsAlias> GoodRateGoodses(int count)
+        {
+            var sql = string.Format(@"select Id,Pics,Name,Price from {0} 
+                where  IsPublished=1 
+                order by Rate desc", ConfigSettings.GoodsTable);
+            using (var connection = GetConnection())
+            {
+                return connection.Query<GoodsAlias>(sql).Take(count);
+            }
+        }
+        /// <summary>
+        /// 搜索商品
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public IEnumerable<GoodsAlias> Search(string search)
+        {
+            var sql = string.Format(@"select Id,Pics,Name,Price from {0} 
+                where Name like '%{1}%' and IsPublished=1",ConfigSettings.GoodsTable,search);
+            using (var connection = GetConnection())
+            {
+                return connection.Query<GoodsAlias>(sql);
+            }
+        }
+
+        /// <summary>
+        /// 获取分类下 的商品
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
+        public IEnumerable<GoodsAlias> CategoryGoodses(Guid categoryId)
+        {
+            var sql = string.Format(@"select a.Id,a.Pics,a.Name,a.Price from {0} a inner join {1} b on a.Id=b.GoodsId
+                where b.CategoryId='{2}' and a.IsPublished=1", ConfigSettings.GoodsTable, ConfigSettings.GoodsPubCategorysTable, categoryId);
+            using (var connection = GetConnection())
+            {
+                return connection.Query<GoodsAlias>(sql);
+            }
+        }
+
+        /// <summary>
+        /// 产品最近的几个评论
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public IEnumerable<Comment> GetComments(int count)
+        {
+            var sql = string.Format(@"select top({2}) a.Id
+            ,a.UserId
+            ,a.[Body]
+            ,a.[CreatedOn]
+            ,a.Rate
+            ,a.Thumbs
+            ,b.NickName as NickName 
+            from {0} a inner join {1} b on a.UserId=b.Id 
+            order by a.CreatedOn desc", ConfigSettings.GoodsCommentsTable, ConfigSettings.UserTable,count);
+
+            using (var connection = GetConnection())
+            {
+                return connection.Query<Comment>(sql);
+            }
+        }
+
+        //获取默认规格
+        public Specification GetGoodsDefaultSpecification(Guid goodsId)
         {
             using (var connection = GetConnection())
             {
-                return connection.QueryList<Specification>(new { GoodsId = goodsId }, ConfigSettings.SpecificationTable).ToList();
+                return connection.QueryList<Specification>(new {SpecificationName="默认规格", GoodsId = goodsId }, ConfigSettings.SpecificationTable).SingleOrDefault();
             }
         }
-        public IList<SpecificationName> GetSpecificationNames(IEnumerable<Guid> specifications)
+
+        public IEnumerable<GoodsDetails> GetStoreGoodses(Guid storeId)
+        {
+            using (var connection = GetConnection())
+            {
+                return connection.QueryList<GoodsDetails>(new { StoreId = storeId }, ConfigSettings.GoodsTable);
+            }
+        }
+
+        /// <summary>
+        /// 所有商品
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<GoodsDetails> Goodses()
+        {
+            using (var connection = GetConnection())
+            {
+                return connection.QueryList<GoodsDetails>(new { }, ConfigSettings.GoodsTable);
+            }
+        }
+
+
+        public IEnumerable<Specification> GetPublishedSpecifications(Guid goodsId)
+        {
+            using (var connection = GetConnection())
+            {
+                return connection.QueryList<Specification>(new { GoodsId = goodsId }, ConfigSettings.SpecificationTable);
+            }
+        }
+        public IEnumerable<SpecificationName> GetSpecificationNames(IEnumerable<Guid> specifications)
         {
             var distinctIds = specifications.Distinct().ToArray();
             if (distinctIds.Length == 0)

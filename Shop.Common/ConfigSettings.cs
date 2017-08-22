@@ -11,7 +11,17 @@ namespace Shop.Common
         /// <summary>
         /// 订单预定自动过期时间 30分钟
         /// </summary>
-        public static TimeSpan ReservationAutoExpiration = TimeSpan.FromMinutes(30);
+        public static TimeSpan ReservationAutoExpiration = TimeSpan.FromMinutes(5);
+
+        /// <summary>
+        /// 包裹退款退货自动同意时间
+        /// </summary>
+        public static TimeSpan OrderAutoAgreeExpiration = TimeSpan.FromDays(3);
+
+        /// <summary>
+        /// 包裹退货填写发货单期限
+        /// </summary>
+        public static TimeSpan OrderReturnAddExpressExiration = TimeSpan.FromDays(5);
         /// <summary>
         /// 订单商品服务自动过期时间 10天
         /// </summary>
@@ -42,15 +52,10 @@ namespace Shop.Common
         /// 一个善心的价值
         /// </summary>
         public static decimal BenevolenceValue { get; set; }
+        
 
         /// <summary>
-        /// 消费者消费激励倍数
-        /// </summary>
-        public static int ConsumerMultiple { get; set; }
-        public static int StoreMultiple { get; set; }
-
-        /// <summary>
-        /// 拿推荐商家销售商品额的百分比3%
+        /// 拿推荐商家销售商品额的百分比1%
         /// </summary>
         public static decimal RecommandStoreGetPercent { get; set; }
 
@@ -61,11 +66,15 @@ namespace Shop.Common
         public static string UserGiftTable { get; set; }
         public static string PartnerApplyTable { get; set; }
 
+        public static string CartGoodsesTable { get; set; }
         public static string CartTable { get; set; }
+
         public static string AnnouncementTable { get; set; }
         public static string CategoryTable { get; set; }
+        public static string PubCategoryTable { get; set; }
 
         public static string GoodsTable { get; set; }
+        public static string GoodsPubCategorysTable { get;set; }
         public static string SpecificationTable { get; set; }
         public static string GoodsParamTable { get; set; }
         public static string GoodsCommentsTable { get; set; }
@@ -89,6 +98,8 @@ namespace Shop.Common
         public static string CashTransferTable { get; set; }
         public static string BenevolenceTransferTable { get; set; }
         public static string BankCardTable { get; set; }
+        public static string WithdrawApplysTable { get; set; }
+        public static string RechargeApplysTable { get; set; }
 
         public static string GranteeTable { get; set; }
         public static string GranteeMoneyHelpsTable { get; set; }
@@ -115,13 +126,11 @@ namespace Shop.Common
 
             ToPasserRecommendCount = 10;
             ToPasserSpendingAmount = 99;
-            ToAmbassadorChargeAmount = 365;
+            ToAmbassadorChargeAmount = 10000;
 
             BenevolenceValue = 100;
-            ConsumerMultiple = 5;
-            StoreMultiple = 2;
 
-            RecommandStoreGetPercent = 0.03M;//3%
+            RecommandStoreGetPercent = 0.01M;//1%
 
             UserTable = "Users";
             UserMobileIndexTable = "UserMobiles";
@@ -130,11 +139,15 @@ namespace Shop.Common
             PartnerApplyTable = "PartnerApplys";
 
             CartTable = "Carts";
+            CartGoodsesTable = "CartGoodses";
+
             CategoryTable = "Categorys";
+            PubCategoryTable = "PubCategorys";
             AnnouncementTable = "Announcements";
 
             GoodsTable = "Goodses";
-            SpecificationTable = "Specificationes";
+            GoodsPubCategorysTable = "GoodsPubCategorys";
+            SpecificationTable = "Specifications";
             GoodsParamTable = "GoodsParams";
             GoodsCommentsTable = "GoodsComments";
             ReservationItemsTable = "ReservationItems";
@@ -154,6 +167,8 @@ namespace Shop.Common
             CashTransferTable = "CashTransfers";
             BenevolenceTransferTable = "BenevolenceTransfers";
             BankCardTable = "BankCards";
+            WithdrawApplysTable = "WithdrawApplys";
+            RechargeApplysTable = "RechargeApplys";
 
             GranteeTable = "Grantees";
             GranteeMoneyHelpsTable = "GranteeMoneyHelps";

@@ -1,10 +1,7 @@
 ﻿using ENode.Domain;
+using Shop.Common.Enums;
 using Shop.Domain.Events.Categorys;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xia.Common.Extensions;
 
 namespace Shop.Domain.Models.Categorys
@@ -16,19 +13,21 @@ namespace Shop.Domain.Models.Categorys
     {
         private string _name;
         private string _url;
+        private CategoryType _type;
         private string _thumb;
+        private int _sort;
         private Guid _parentId;
 
-        public Category(Guid id,Category parent,string name,string url,string thumb):base(id)
+        public Category(Guid id,Category parent,string name,string url,string thumb,CategoryType type,int sort):base(id)
         {
             name.CheckNotNullOrEmpty(nameof(name));
             url.CheckNotNullOrEmpty(nameof(url));
-            ApplyEvent(new CategoryCreatedEvent(parent == null ? Guid.Empty : parent.Id,name, url,thumb));
+            ApplyEvent(new CategoryCreatedEvent(parent == null ? Guid.Empty : parent.Id,name, url,thumb,type,sort));
         }
 
-        public void UpdateCategory(string name,string url,string thumb)
+        public void UpdateCategory(string name,string url,string thumb,CategoryType type,int sort)
         {
-            ApplyEvent(new CategoryUpdatedEvent(name,url,thumb));
+            ApplyEvent(new CategoryUpdatedEvent(name,url,thumb,type,sort));
         }
 
 
@@ -41,12 +40,16 @@ namespace Shop.Domain.Models.Categorys
             _name = evnt.Name;
             _url = evnt.Url;
             _thumb = evnt.Thumb;
+            _type = evnt.Type;
+            _sort = evnt.Sort;
         }
         private void Handle(CategoryUpdatedEvent evnt)
         {
             _name = evnt.Name;
             _url = evnt.Url;
             _thumb = evnt.Thumb;
+            _type = evnt.Type;
+            _sort = evnt.Sort;
         }
         #endregion
     }

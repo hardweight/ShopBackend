@@ -1,5 +1,5 @@
 ﻿using ENode.Eventing;
-using Shop.Domain.Models.Carts.CartGoods;
+using Shop.Domain.Models.Carts.CartGoodses;
 using System;
 
 namespace Shop.Domain.Events.Carts
@@ -8,12 +8,14 @@ namespace Shop.Domain.Events.Carts
     {
         public Guid CartGoodsId { get; private set; }
         public CartGoodsInfo Info { get; private set; }
+        public int FinalCount { get; private set; }
 
         public CartAddedGoodsEvent() { }
-        public CartAddedGoodsEvent(Guid cartGoodsId,CartGoodsInfo info)
+        public CartAddedGoodsEvent(Guid cartGoodsId,CartGoodsInfo info,int finalCount)
         {
             CartGoodsId = cartGoodsId;
             Info = info;
+            FinalCount = finalCount;
         }
     }
 }

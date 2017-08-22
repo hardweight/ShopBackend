@@ -1,4 +1,5 @@
 ﻿using ENode.Domain;
+using Shop.Common.Enums;
 using Shop.Domain.Events.Grantees;
 using System;
 using System.Collections.Generic;
@@ -93,6 +94,7 @@ namespace Shop.Domain.Models.Grantees
             _verifications = new List<Verification>();
             _testifys = new List<Testify>();
             _status = GranteeStatus.Placed;
+            _moneyHelps = new List<MoneyHelp>();
         }
         private void Handle(AcceptedNewMoneyHelpEvent evnt)
         {

@@ -1,10 +1,9 @@
-﻿using System;
-using ENode.Domain;
-using System.Collections.Generic;
+﻿using ENode.Domain;
+using Shop.Common.Enums;
 using Shop.Domain.Events.Stores;
-using Shop.Common;
+using System;
+using System.Collections.Generic;
 using Xia.Common.Extensions;
-using System.Linq;
 
 namespace Shop.Domain.Models.Stores
 {
@@ -21,7 +20,7 @@ namespace Shop.Domain.Models.Stores
         private ISet<Guid> _orderIds;
         private StoreStatisticInfo _storeStatisticInfo;//店铺统计信息
         private StoreStatus _status;//店铺状态
-
+        private StoreType _type;//店铺类型
         /// <summary>
         /// 创建店铺
         /// </summary>
@@ -68,12 +67,18 @@ namespace Shop.Domain.Models.Stores
         /// 更新店铺-更新基本信息
         /// </summary>
         /// <param name="info"></param>
+        public void CustomerUpdate(StoreCustomerEditableInfo info)
+        {
+            ApplyEvent(new StoreCustomerUpdatedEvent(info));
+        }
+
         public void Update(StoreEditableInfo info)
         {
             ApplyEvent(new StoreUpdatedEvent(info));
         }
 
-        
+
+
 
         /// <summary>
         /// 接受新订单用户下单时 更新统计信息
@@ -82,20 +87,28 @@ namespace Shop.Domain.Models.Stores
         public void AcceptNewOrder(StoreOrder storeOrder)
         {
             if (!_orderIds.Add(storeOrder.Id)) return;
-            if (_storeStatisticInfo == null)
+
+            var storeStatisticInfo = _storeStatisticInfo;
+             if(_storeStatisticInfo.UpdatedOn.Date.Equals(DateTime.Now.Date))
             {
-                ApplyEvent(new StoreStatisticInfoChangedEvent(new StoreStatisticInfo(
-                    storeOrder.GetTotal(),
-                    storeOrder.GetTotal(),
-                    0)));
+                //如果是今日
+                storeStatisticInfo.TodaySale += storeOrder.GetTotal();
+                storeStatisticInfo.TotalSale += storeOrder.GetTotal();
+                storeStatisticInfo.TodayOrder += 1;
+                storeStatisticInfo.TotalOrder += 1;
+                storeStatisticInfo.UpdatedOn = DateTime.Now;
             }
             else
             {
-                ApplyEvent(new StoreStatisticInfoChangedEvent(new StoreStatisticInfo(
-                    _storeStatisticInfo.TodaySale+ storeOrder.GetTotal(),
-                    _storeStatisticInfo.TotalSale+ storeOrder.GetTotal(),
-                    0)));
+                //今日第一单
+                storeStatisticInfo.TodaySale = storeOrder.GetTotal();
+                storeStatisticInfo.TotalSale += storeOrder.GetTotal();
+                storeStatisticInfo.TodayOrder = 1;
+                storeStatisticInfo.TotalOrder += 1;
+                storeStatisticInfo.UpdatedOn = DateTime.Now;
             }
+
+            ApplyEvent(new StoreStatisticInfoChangedEvent(storeStatisticInfo));
         }
 
         /// <summary>
@@ -104,29 +117,16 @@ namespace Shop.Domain.Models.Stores
         /// <param name="isOnSale"></param>
         public void AcceptGoodsOnOffSale(bool isOnSale)
         {
-            if (_storeStatisticInfo == null)
+            var storeStatisticInfo = _storeStatisticInfo;
+            if (isOnSale)
             {
-                ApplyEvent(new StoreStatisticInfoChangedEvent(new StoreStatisticInfo(
-                    0,
-                    0,
-                    1)));
-            }
-            else if (isOnSale)
-            {
-                ApplyEvent(new StoreStatisticInfoChangedEvent(new StoreStatisticInfo(
-                    _storeStatisticInfo.TodaySale,
-                    _storeStatisticInfo.TotalSale,
-                    _storeStatisticInfo.OnSaleGoodsCount + 1
-                    )));
+                storeStatisticInfo.OnSaleGoodsCount += 1;
             }
             else
             {
-                ApplyEvent(new StoreStatisticInfoChangedEvent(new StoreStatisticInfo(
-                    _storeStatisticInfo.TodaySale,
-                    _storeStatisticInfo.TotalSale,
-                    _storeStatisticInfo.OnSaleGoodsCount - 1
-                    )));
+                storeStatisticInfo.OnSaleGoodsCount -= 1;
             }
+            ApplyEvent(new StoreStatisticInfoChangedEvent(storeStatisticInfo));
         }
 
 
@@ -162,6 +162,10 @@ namespace Shop.Domain.Models.Stores
         {
             return _info;
         }
+        public Guid GetUserId()
+        {
+            return _userId;
+        }
 
         public SubjectInfo GetSubjectInfo()
         {
@@ -177,7 +181,15 @@ namespace Shop.Domain.Models.Stores
             _sectionId = Guid.Empty;
             _orderIds = new HashSet<Guid>();
             _isLocked = false;
+            _storeStatisticInfo = new StoreStatisticInfo(
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    DateTime.Now);
             _status = StoreStatus.Apply;
+            _type = StoreType.ThirdParty;//默认为第三方店铺
         }
         private void Handle(StoreStatusUpdatedEvent evnt)
         {
@@ -186,6 +198,16 @@ namespace Shop.Domain.Models.Stores
         private void Handle(StoreAccessCodeUpdatedEvent evnt)
         {
             _info.AccessCode = evnt.AccessCode;
+        }
+        private void Handle(StoreCustomerUpdatedEvent evnt)
+        {
+            var editableInfo = evnt.Info;
+            _info = new StoreInfo(
+                _info.AccessCode,
+                editableInfo.Name, 
+                editableInfo.Description,
+                _info.Region,
+                editableInfo.Address);
         }
         private void Handle(StoreUpdatedEvent evnt)
         {
@@ -196,7 +218,9 @@ namespace Shop.Domain.Models.Stores
                 editableInfo.Description,
                 _info.Region,
                 editableInfo.Address);
+            _type = editableInfo.Type;
         }
+
         private void Handle(SubjectInfoUpdatedEvent evnt)
         {
             _subjectInfo = evnt.SubjectInfo;

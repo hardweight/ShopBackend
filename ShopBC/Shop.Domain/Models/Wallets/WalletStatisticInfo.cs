@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shop.Domain.Models.Wallets
 {
@@ -32,12 +28,23 @@ namespace Shop.Domain.Models.Wallets
         /// </summary>
         public decimal TodayBenevolenceAdded { get; set; }
 
-        public WalletStatisticInfo(decimal yesterdayEarnings,decimal earnings,decimal yesterdayIndex,decimal benevolenceTotal,decimal todayBenevolenceAdded)
+        public DateTime UpdatedOn { get;  set; }
+
+        public WalletStatisticInfo(
+            decimal yesterdayEarnings,
+            decimal earnings,
+            decimal yesterdayIndex,
+            decimal benevolenceTotal,
+            decimal todayBenevolenceAdded,
+            DateTime updatedOn)
         {
             YesterdayEarnings = yesterdayEarnings;
             Earnings = earnings;
             YesterdayIndex = yesterdayIndex;
             BenevolenceTotal = benevolenceTotal;
+            TodayBenevolenceAdded = todayBenevolenceAdded;
+
+            UpdatedOn = updatedOn;
         }
     }
 }

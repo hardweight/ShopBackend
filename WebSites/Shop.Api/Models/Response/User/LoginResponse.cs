@@ -18,6 +18,8 @@ namespace Shop.Api.Models.Response.User
         public string Mobile { get; set; }
 
         public string Role { get; set; }
+        public string CartId { get; set; }
+        public int CartGoodsCount { get; set; }
         public string StoreId { get; set; }
         /// <summary>
         /// 登录令牌 Token

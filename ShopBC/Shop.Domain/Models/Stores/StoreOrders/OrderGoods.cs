@@ -1,5 +1,6 @@
 ﻿using ENode.Domain;
 using Shop.Common;
+using Shop.Common.Enums;
 using Shop.Domain.Events.Stores.StoreOrders;
 using Shop.Domain.Events.Stores.StoreOrders.GoodsServices;
 using Shop.Domain.Models.Stores.StoreOrders.GoodsServices;
@@ -12,7 +13,7 @@ namespace Shop.Domain.Models.Stores
     /// </summary>
     public class OrderGoods:AggregateRoot<Guid>
     {
-        private Guid _orderId;
+        private Guid _orderId;//商家订单ID
         private OrderGoodsInfo _info;
         private ServiceApplyInfo _serviceApplyInfo;// 商品服务申请信息
         private ServiceExpressInfo _serviceExpressInfo;// 用户退货发货
@@ -42,7 +43,9 @@ namespace Shop.Domain.Models.Stores
         /// <param name="serviceNumber"></param>
         public void AgreeService(string serviceNumber)
         {
-            if(_serviceApplyInfo.ServiceType==GoodsServiceType.SalesReturn || _serviceApplyInfo.ServiceType==GoodsServiceType.Service || _serviceApplyInfo.ServiceType==GoodsServiceType.Change)
+            if(_serviceApplyInfo.ServiceType==GoodsServiceType.SalesReturn 
+                || _serviceApplyInfo.ServiceType==GoodsServiceType.Service 
+                || _serviceApplyInfo.ServiceType==GoodsServiceType.Change)
             {
                 ApplyEvent(new ServiceAgreedEvent(serviceNumber, OrderGoodsStatus.TobeSent));
             }
@@ -59,7 +62,7 @@ namespace Shop.Domain.Models.Stores
             }
             ApplyEvent(new ServiceExpressedEvent(serviceExpressInfo));
         }
-        
+
         /// <summary>
         /// 同意退款
         /// </summary>
@@ -88,7 +91,7 @@ namespace Shop.Domain.Models.Stores
         /// <param name="serviceNumber"></param>
         public void ServiceFinish(string serviceNumber)
         {
-            ApplyEvent(new ServiceFinishedEvent(_info.Total,_info.SurrenderPersent));
+            ApplyEvent(new ServiceFinishedEvent(_info.Total,_info.Surrender));
         }
         /// <summary>
         /// 设置过期
@@ -97,7 +100,7 @@ namespace Shop.Domain.Models.Stores
         {
             if (_status ==OrderGoodsStatus.Normal)
             {
-                ApplyEvent(new ServiceExpiredEvent(_info.Total,_info.SurrenderPersent));
+                ApplyEvent(new ServiceExpiredEvent(_info.Total,_info.Surrender));
             }
         }
 
@@ -141,6 +144,7 @@ namespace Shop.Domain.Models.Stores
         private void Handle(ServiceFinishExpressedEvent evnt)
         {
             _status = OrderGoodsStatus.Closed;
+            _serviceFinishExpressInfo = evnt.Info;
         }
         private void Handle(AgreedRefundEvent evnt)
         {

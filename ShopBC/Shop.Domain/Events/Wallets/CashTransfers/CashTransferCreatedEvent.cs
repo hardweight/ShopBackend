@@ -1,4 +1,5 @@
-﻿using Shop.Domain.Models.Wallets.CashTransfers;
+﻿using Shop.Common.Enums;
+using Shop.Domain.Models.Wallets.CashTransfers;
 using System;
 
 namespace Shop.Domain.Events.Wallets.CashTransfers

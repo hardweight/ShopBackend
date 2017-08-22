@@ -1,4 +1,6 @@
-﻿namespace Shop.Domain.Models.Wallets.BenevolenceTransfers
+﻿using Shop.Common.Enums;
+
+namespace Shop.Domain.Models.Wallets.BenevolenceTransfers
 {
     /// <summary>
     /// 善心记录 信息

@@ -1,15 +1,15 @@
-﻿using System;
-using ENode.Domain;
-using System.Collections.Generic;
-using Shop.Domain.Events.Users;
+﻿using ENode.Domain;
 using Shop.Common;
-using Xia.Common.Extensions;
-using System.Linq;
-using Shop.Domain.Models.Partners;
+using Shop.Common.Enums;
+using Shop.Domain.Events.Users;
 using Shop.Domain.Events.Users.ExpressAddresses;
-using Shop.Domain.Models.Users.UserGifts;
 using Shop.Domain.Events.Users.UserGifts;
 using Shop.Domain.Models.Users.ExpressAddresses;
+using Shop.Domain.Models.Users.UserGifts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Xia.Common.Extensions;
 
 namespace Shop.Domain.Models.Users
 {
@@ -22,14 +22,14 @@ namespace Shop.Domain.Models.Users
         private UserInfo _info;//用户信息
         private IList<ExpressAddress> _expressAddresses;
         private IList<UserGift> _userGifts;
-        private Guid _walletId;//用户钱包ID 怎样获取？
-        private Guid _storeId;//我的店铺ID  怎样获取？
+        private Guid _walletId;//用户钱包ID
+        private Guid _cartId;//购物车ID
+        private Guid _storeId;//我的店铺ID  还没获取
         private bool _isLocked;//是否锁定账号 只用于限制登陆
         private bool _isFreeze;//是否冻结账号 怀疑账号被盗可以冻结账号
         private UserRole _role;//用户角色
         private ISet<Guid> _myRecommends;//保存我推荐的用户
         private decimal _mySpending;//我的消费额
-        private decimal _unTransformSpending;//未转换为善心的消费额
         private DateTime _ambassadorExpireTime;//大使身份过期时间
 
 
@@ -44,10 +44,23 @@ namespace Shop.Domain.Models.Users
             {
                 throw new ArgumentException(string.Format("用户的推荐人不能是自己，Id:{0}", id));
             }
-            ApplyEvent(new UserCreatedEvent(info, parent == null ? Guid.Empty : parent.Id));
+            ApplyEvent(new UserCreatedEvent(info, parent == null ? Guid.Empty : parent.Id,Guid.NewGuid(),Guid.NewGuid()));
         }
 
         #region 基本信息修改
+        public void Edit(string nickName,string gender)
+        {
+            nickName.CheckNotNullOrEmpty(nameof(nickName));
+            if (nickName.Length > 20)
+            {
+                throw new Exception("昵称不得超过20字符");
+            }
+            if (!"男,女,保密".IsIncludeItem(gender))
+            {
+                throw new Exception("只接受参数值：男/女/保密");
+            }
+            ApplyEvent(new UserEditedEvent(nickName,gender));
+        }
         /// <summary>
         /// 更新昵称
         /// </summary>
@@ -58,7 +71,7 @@ namespace Shop.Domain.Models.Users
             nickName.CheckNotNullOrEmpty(nameof(nickName));
             if(nickName.Length>20)
             {
-                throw new Exception("20");
+                throw new Exception("昵称不得超过20字符");
             }
             ApplyEvent(new UserNickNameUpdatedEvent(nickName));
         }
@@ -69,18 +82,10 @@ namespace Shop.Domain.Models.Users
         /// <summary>
         /// 更新密码
         /// </summary>
-        /// <param name="password"></param>
+        /// <param name="password">HASHE</param>
         public void UpdatePassword(string password)
         {
             password.CheckNotNullOrEmpty(nameof(password));
-            if (password.Length < 8)
-            {
-                throw new Exception("密码长度不能小于8");
-            }
-            if (password.Length > 20)
-            {
-                throw new Exception("密码长度不能超过20");
-            }
             ApplyEvent(new UserPasswordUpdatedEvent(password));
         }
 
@@ -91,9 +96,9 @@ namespace Shop.Domain.Models.Users
         public void UpdateGender(string gender)
         {
             gender.CheckNotNullOrEmpty(nameof(gender));
-            if (!"男,女".IsIncludeItem(gender))
+            if (!"男,女,保密".IsIncludeItem(gender))
             {
-                throw new Exception("只接受参数值：男/女");
+                throw new Exception("只接受参数值：男/女/保密");
             }
             ApplyEvent(new UserGenderUpdatedEvent(gender));
         }
@@ -123,7 +128,7 @@ namespace Shop.Domain.Models.Users
         {
             if (_isLocked)
             {
-                throw new Exception("user already locked.");
+                throw new Exception("用户早已锁定.");
             }            
             ApplyEvent(new UserLockedEvent());
         }
@@ -134,7 +139,7 @@ namespace Shop.Domain.Models.Users
         {
             if (!_isLocked)
             {
-                throw new Exception("user already unlocked.");
+                throw new Exception("用户早已解算");
             }
             ApplyEvent(new UserUnLockedEvent());
         }
@@ -146,7 +151,7 @@ namespace Shop.Domain.Models.Users
         {
             if (_isFreeze)
             {
-                throw new Exception("user already Freeze.");
+                throw new Exception("用户早已冻结.");
             }
             ApplyEvent(new UserFreezeEvent());
         }
@@ -157,12 +162,35 @@ namespace Shop.Domain.Models.Users
         {
             if (!_isFreeze)
             {
-                throw new Exception("user already unFreeze.");
+                throw new Exception("用户早已解冻");
             }
             ApplyEvent(new UserUnFreezeEvent());
         }
-        
+
         #endregion
+
+        #region 获取信息
+        public Guid GetWalletId()
+        {
+            return _walletId;
+        }
+        #endregion
+
+        #region 开通大使
+        /// <summary>
+        /// 缴费成为大使
+        /// </summary>
+        /// <param name="chargeAmount"></param>
+        public void PayToAmbassador()
+        {
+            bool onlyupdatetime = false;
+            if (_role == UserRole.Ambassador || _role == UserRole.RegionPartner || _role == UserRole.SectionPartner)
+            {
+                onlyupdatetime = true;
+            }
+            var expireTime = _ambassadorExpireTime.AddYears(1);
+            ApplyEvent(new UserRoleToAmbassadorEvent(onlyupdatetime, expireTime));
+        }
 
         /// <summary>
         /// 添加用户礼物 未支付
@@ -196,7 +224,9 @@ namespace Shop.Domain.Models.Users
 
             ApplyEvent(new UserGiftRemarkChangedEvent(userGiftId, remark));
         }
+        #endregion
 
+        #region 推荐用户
         /// <summary>
         /// 接受新的推荐者
         /// </summary>
@@ -213,12 +243,15 @@ namespace Shop.Domain.Models.Users
                 ApplyEvent(new UserRoleToPasserEvent());
             }
         }
+        #endregion
+
+        #region 用户消费结算逻辑
         /// <summary>
         /// 接受自己新的消费额 我的订单完成时
         /// </summary>
         /// <param name="amount">订单额</param>
         /// <param name="surrenderPersent">商品的让利比例</param>
-        public void AcceptMyNewSpending(decimal amount,decimal surrenderPersent)
+        public void AcceptMyNewSpending(decimal amount,decimal surrender)
         {
             if (amount <= 0) return;
             ApplyEvent(new UserNewSpendingEvent(amount));
@@ -230,33 +263,21 @@ namespace Shop.Domain.Models.Users
                 ApplyEvent(new UserRoleToPasserEvent());
             }
 
-            //用户消费满100转换为善心
+            //用户消费转换为善心
             if (ConfigSettings.BenevolenceValue <= 0)
             {
                 throw new Exception("善心价值配置异常");
             }
-            var benevolenceAmount = Math.Floor(_unTransformSpending / ConfigSettings.BenevolenceValue);//可转换量
-            var leftUnTransformAmount = _unTransformSpending % ConfigSettings.BenevolenceValue;//剩余未转换量
-            if (benevolenceAmount>=1)
-            {
-                //大于一个善心才转换
-                ApplyEvent(new UserSpendingTransformToBenevolenceEvent(_walletId, benevolenceAmount,leftUnTransformAmount));
-            }
+            //消费获得的善心量 消费额* 返利倍数
+            var benevolenceAmount = (amount * surrender) / ConfigSettings.BenevolenceValue;
+            ApplyEvent(new UserSpendingTransformToBenevolenceEvent(_walletId, benevolenceAmount));
             
-
-            //是否可以享受消费激励 用户5倍 直接激励
-            if(_role!=UserRole.Consumer)
-            {
-                ///消费者都是5倍让利
-                var consumerBenevolence = Math.Round((amount * surrenderPersent * ConfigSettings.ConsumerMultiple / ConfigSettings.BenevolenceValue), 4);
-                ApplyEvent(new UserGetSpendingBenevolenceEvent(_walletId, consumerBenevolence));
-            }
 
             //计算我的推荐者的 间接激励
             if(_parentId!=Guid.Empty)
-            {//如果我有推荐者，将我消费的信息广播给我的推荐者推荐者自己计算自己的一度或二度激励
-                var consumerBenevolence = Math.Round((amount * surrenderPersent * ConfigSettings.ConsumerMultiple / ConfigSettings.BenevolenceValue), 4);
-                ApplyEvent(new MyParentCanGetBenevolenceEvent(_parentId, consumerBenevolence,1));
+            {
+                //如果我有推荐者，将我消费的信息广播给我的推荐者推荐者自己计算自己的一度或二度激励
+                ApplyEvent(new MyParentCanGetBenevolenceEvent(_parentId, benevolenceAmount, 1));
             }
         }
 
@@ -268,10 +289,10 @@ namespace Shop.Domain.Models.Users
         public void AcceptChildBenevolence(decimal amount,int level)
         {
             if (amount <= 0) return;
-            if(level>0 && level<=2)
-            {//目前只接受一度二度奖励
-                if (level==1)
-                {//一度
+            if(level>0 && level<=2)//目前只接受一度二度奖励
+            {
+                if (level==1)//一度
+                {
                     var myamount = Math.Round(amount * 0.05M,4);//我能获取的善心
                     if (_role != UserRole.Consumer)
                     {
@@ -284,8 +305,8 @@ namespace Shop.Domain.Models.Users
                         ApplyEvent(new MyParentCanGetBenevolenceEvent(_parentId, myamount, level+1));
                     }
                 }
-                if(level==2)
-                {//二度
+                if(level==2)//二度
+                {
                     if (_role != UserRole.Consumer)
                     {
                         var myamount = Math.Round(amount * 0.025M,4);//我能获取的善心
@@ -295,31 +316,18 @@ namespace Shop.Domain.Models.Users
             }
         }
 
-       
-
         /// <summary>
         /// 接受新的店铺销售额（商品服务结束时，非用户下单时）
         /// </summary>
         /// <param name="sale"></param>
         /// <param name="surrenderPersent"></param>
-        public void AcceptNewSale(decimal sale, decimal surrenderPersent)
+        public void AcceptNewSale(decimal sale)
         {
             if(ConfigSettings.BenevolenceValue<=0)
             {
                 throw new Exception("善心价值参数设置异常");
             }
-            var storeBenevolence = 0M;
-            if (surrenderPersent >= 0.15M)
-            {//让利超过15% 商家双倍让利
-                storeBenevolence = Math.Round((sale * surrenderPersent * ConfigSettings.StoreMultiple / ConfigSettings.BenevolenceValue), 4);
-            }
-            else
-            {//不超过15% 商家单倍让利
-                storeBenevolence = Math.Round((sale * surrenderPersent / ConfigSettings.BenevolenceValue), 4);
-            }
-            //认同公益事业并愿意为公益做贡献的商家，销售产品即可获得爱心激励
-            ApplyEvent(new UserGetSaleBenevolenceEvent(_walletId,storeBenevolence));
-
+            
             //计算我的推荐者的收益 商家销售额
             if(_parentId!=Guid.Empty)
             {
@@ -327,20 +335,10 @@ namespace Shop.Domain.Models.Users
                 ApplyEvent(new UserGetChildStoreSaleBenevolenceEvent(_walletId, parentBenevolenceGetAmount));
             }
         }
-        /// <summary>
-        /// 缴费成为大使
-        /// </summary>
-        /// <param name="chargeAmount"></param>
-        public void PayToAmbassador()
-        {
-            bool onlyupdatetime = false;
-            if (_role == UserRole.Ambassador || _role == UserRole.RegionPartner || _role == UserRole.SectionPartner)
-            {
-                onlyupdatetime = true;
-            }
-            var expireTime = _ambassadorExpireTime.AddYears(1);
-            ApplyEvent(new UserRoleToAmbassadorEvent(onlyupdatetime, expireTime));
-        }
+        #endregion
+
+        #region 善心联盟
+
 
         /// <summary>
         /// 设置用户为某个地区的联盟
@@ -362,17 +360,17 @@ namespace Shop.Domain.Models.Users
         public void ApplyToRegionPartner(string region, PartnerLevel level)
         {
             //判断申请条件，符合申请条件提交申请
-            if(_storeId==Guid.Empty)
-            {//如果没有店铺就不符合条件
+            //if(_storeId==Guid.Empty)
+            //{//如果没有店铺就不符合条件
                 if(_ambassadorExpireTime<DateTime.Now)
                 {//大使身份过期
                     throw new Exception("不是店主身份或大使身份过期，无法申请联盟");
                 }
-            }
+            //}
             ApplyEvent(new RegionPartnerApplyedEvent(region,level));
         }
 
-        
+        #endregion
 
         #region 快递地址
         /// <summary>
@@ -423,15 +421,29 @@ namespace Shop.Domain.Models.Users
             _myRecommends = new HashSet<Guid>();
             _role = UserRole.Consumer;
             _mySpending = 0;
+            _walletId = evnt.WalletId;
+            _cartId = evnt.CartId;
             _ambassadorExpireTime = DateTime.Now;
         }
+        private void Handle(UserGetChildBenevolenceEvent evnt) { }
+        private void Handle(MyParentCanGetBenevolenceEvent evnt) { }
+
+        private void Handle(UserGetSaleBenevolenceEvent evnt) { }
+        private void Handle(UserGetChildStoreSaleBenevolenceEvent evnt) { }
+
+        private void Handle(UserRoleToPartnerEvent evnt) { }
+        private void Handle(RegionPartnerApplyedEvent evnt) { }
 
         private void Handle(UserNickNameUpdatedEvent evnt)
         {
             _info.NickName = evnt.NickName;
         }
 
-      
+        private void Handle(UserEditedEvent evnt)
+        {
+            _info.NickName = evnt.NickName;
+            _info.Gender = evnt.Gender;
+        }
 
         private void Handle(UserGenderUpdatedEvent evnt)
         {
@@ -508,7 +520,6 @@ namespace Shop.Domain.Models.Users
         private void Handle(UserNewSpendingEvent evnt)
         {
             _mySpending += evnt.Amount;
-            _unTransformSpending += evnt.Amount;
         }
         private void Handle(UserRoleToAmbassadorEvent evnt)
         {
@@ -521,7 +532,6 @@ namespace Shop.Domain.Models.Users
         
         private void Handle(UserSpendingTransformToBenevolenceEvent evnt)
         {
-            _unTransformSpending = evnt.LeftUnTransformAmount;
         }
 
         #endregion

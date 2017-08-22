@@ -28,6 +28,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
@@ -60,14 +61,33 @@
   <ItemGroup>
     <Compile Include="Announcements\AnnouncementQueryService.cs" />
     <Compile Include="Announcements\AnnouncementViewModelGenerator.cs" />
+    <Compile Include="Announcements\Dtos\Announcement.cs" />
     <Compile Include="Announcements\IAnnouncementQueryService.cs" />
     <Compile Include="BaseGenerator.cs" />
     <Compile Include="BaseQueryService.cs" />
     <Compile Include="Carts\CartQueryService.cs" />
     <Compile Include="Carts\CartViewModelGenerator.cs" />
+    <Compile Include="Carts\Dtos\Cart.cs" />
+    <Compile Include="Carts\Dtos\CartGoods.cs" />
     <Compile Include="Carts\ICartQueryService.cs" />
+    <Compile Include="Goodses\Dtos\Comment.cs" />
+    <Compile Include="Orders\Dtos\OrderAlis.cs" />
+    <Compile Include="Orders\Dtos\Order.cs" />
+    <Compile Include="Orders\Dtos\OrderLine.cs" />
+    <Compile Include="Orders\IOrderQueryService.cs" />
+    <Compile Include="Orders\OrderQueryService.cs" />
+    <Compile Include="Orders\OrderViewModelGenerator.cs" />
+    <Compile Include="Payments\Dtos\Payment.cs" />
+    <Compile Include="Payments\IPaymentQueryService.cs" />
+    <Compile Include="Payments\PaymentQueryService.cs" />
+    <Compile Include="Payments\PaymentViewModelGenerator.cs" />
+    <Compile Include="PubCategorys\PubCategoryQueryService.cs" />
+    <Compile Include="PubCategorys\PubCategoryViewModelGenerator.cs" />
+    <Compile Include="PubCategorys\Dtos\PubCategory.cs" />
+    <Compile Include="PubCategorys\IPubCategoryQueryService.cs" />
     <Compile Include="Categorys\CategoryQueryService.cs" />
     <Compile Include="Categorys\CategoryViewModelGenerator.cs" />
+    <Compile Include="Categorys\Dtos\Category.cs" />
     <Compile Include="Categorys\ICategoryQueryService.cs" />
     <Compile Include="Comments\CommentQueryService.cs" />
     <Compile Include="Comments\CommentViewModelGenerator.cs" />
@@ -85,16 +105,20 @@
     <Compile Include="Grantees\IGranteeQueryService.cs" />
     <Compile Include="Partners\PartnerViewModelGenerator.cs" />
     <Compile Include="Partners\IPartnerQueryService.cs" />
-    <Compile Include="Stores\Dtos\SectionAndStatistic.cs" />
-    <Compile Include="Stores\Dtos\SectionInfo.cs" />
+    <Compile Include="Sections\Dtos\SectionAndStatistic.cs" />
+    <Compile Include="Sections\Dtos\SectionInfo.cs" />
+    <Compile Include="StoreOrders\Dtos\StoreOrder.cs" />
+    <Compile Include="StoreOrders\Dtos\StoreOrderDetails.cs" />
+    <Compile Include="StoreOrders\IStoreOrderQueryService.cs" />
+    <Compile Include="StoreOrders\StoreOrderQueryService.cs" />
     <Compile Include="Stores\Dtos\Store.cs" />
-    <Compile Include="Stores\ISectionQueryService.cs" />
+    <Compile Include="Sections\ISectionQueryService.cs" />
     <Compile Include="Stores\IStoreQueryService.cs" />
-    <Compile Include="Stores\SectionQueryService.cs" />
-    <Compile Include="Stores\OrderGoodsViewModelGenerator.cs" />
-    <Compile Include="Stores\StoreOrderViewModelGenerator.cs" />
+    <Compile Include="Sections\SectionQueryService.cs" />
+    <Compile Include="OrderGoodses\OrderGoodsViewModelGenerator.cs" />
+    <Compile Include="StoreOrders\StoreOrderViewModelGenerator.cs" />
     <Compile Include="Stores\StoreQueryService.cs" />
-    <Compile Include="Stores\SectionViewModelGenerator.cs" />
+    <Compile Include="Sections\SectionViewModelGenerator.cs" />
     <Compile Include="Stores\StoreViewModelGenerator.cs" />
     <Compile Include="Wallets\CashTransferViewModelGenerator.cs" />
     <Compile Include="Users\Dtos\ExpressAddresses\ExpressAddress.cs" />
@@ -105,6 +129,8 @@
     <Compile Include="Wallets\Dtos\BenevolenceTransfer.cs" />
     <Compile Include="Wallets\Dtos\CashTransfer.cs" />
     <Compile Include="Wallets\Dtos\Wallet.cs" />
+    <Compile Include="Wallets\Dtos\RechargeApply.cs" />
+    <Compile Include="Wallets\Dtos\WithdrawApply.cs" />
     <Compile Include="Wallets\IWalletQueryService.cs" />
     <Compile Include="Users\IUserQueryService.cs" />
     <Compile Include="Wallets\WalletQueryService.cs" />
@@ -137,6 +163,7 @@
   <ItemGroup>
     <Folder Include="Comments\Dtos\" />
     <Folder Include="Grantees\Dtos\" />
+    <Folder Include="OrderGoodses\Dtos\" />
     <Folder Include="Partners\Dtos\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

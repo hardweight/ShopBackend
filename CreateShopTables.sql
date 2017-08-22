@@ -1,5 +1,7 @@
-﻿CREATE TABLE [dbo].[Users] (
+CREATE TABLE [dbo].[Users] (
     [Id]            UNIQUEIDENTIFIER NOT NULL,
+    [WalletId]            UNIQUEIDENTIFIER NOT NULL,
+    [CartId]            UNIQUEIDENTIFIER NOT NULL,
     [Mobile]    NVARCHAR (15)     NOT NULL,
     [NickName]     NVARCHAR (20)   NOT NULL,
     [Portrait]    NVARCHAR (300)   NOT NULL,
@@ -11,6 +13,8 @@
 	[IsFreeze]		BIT			NOT NULL,
     [CreatedOn]       DATETIME         NOT NULL,
     [AmbassadorExpireTime]       DATETIME         NOT NULL,
+	[WeixinId]			NVARCHAR(2000)  NULL,
+
     [Version]       BIGINT           NOT NULL,
     [EventSequence] INT              NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
@@ -30,7 +34,7 @@ CREATE TABLE [dbo].[UserExpressAddresses] (
 	[Mobile]             NVARCHAR (15)   NOT NULL,   
     [Region]       NVARCHAR (250)   NOT NULL,
 	[Address]       NVARCHAR (250)   NOT NULL,
-	[Zip]       NVARCHAR (10)   NOT NULL,   
+	[Zip]       NVARCHAR (10)    NULL,   
     [CreatedOn]       DATETIME         NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
 )
@@ -55,17 +59,51 @@ GO
 CREATE TABLE [dbo].[Carts] (
     [Id]                UNIQUEIDENTIFIER NOT NULL,
     [UserId]      UNIQUEIDENTIFIER NOT NULL,
+    [GoodsCount]      INT NOT NULL,
 	[Version]       BIGINT           NOT NULL,
     [EventSequence] INT              NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
 )
+
+GO
+CREATE TABLE [dbo].[CartGoodses] (
+    [Id]                UNIQUEIDENTIFIER NOT NULL,
+    [CartId]      UNIQUEIDENTIFIER NOT NULL,
+    [StoreId]      UNIQUEIDENTIFIER NOT NULL,
+    [GoodsId]      UNIQUEIDENTIFIER NOT NULL,
+    [SpecificationId]      UNIQUEIDENTIFIER NOT NULL,
+    [GoodsName]              NVARCHAR (200)    NOT NULL,
+    [GoodsPic]              NVARCHAR (200)     NULL,
+    [SpecificationName]              NVARCHAR (200)    NOT NULL,
+    [Price]               DECIMAL (18, 2)  NOT NULL,
+    [OriginalPrice]               DECIMAL (18, 2)  NOT NULL,
+    [Stock]               INT  NOT NULL,
+    [Quantity]               INT  NOT NULL,
+    [CreatedOn]       DATETIME         NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC,[CartId] ASC,[StoreId] ASC,[GoodsId] ASC,[SpecificationId] ASC)
+)
+
 GO
 CREATE TABLE [dbo].[Categorys] (
     [Id]                UNIQUEIDENTIFIER NOT NULL,
     [ParentId]      UNIQUEIDENTIFIER NOT NULL,
     [Name]              NVARCHAR (100)    NOT NULL,
-    [Thumb]              NVARCHAR (200)    NOT NULL,
-    [Url]              NVARCHAR (200)    NOT NULL,
+    [Thumb]              NVARCHAR (200)     NULL,
+    [Url]              NVARCHAR (200)     NULL,
+    [Type]              INT   NOT NULL,
+    [Sort]      INT              NOT NULL,
+    [CreatedOn]       DATETIME         NOT NULL,
+	[Version]       BIGINT           NOT NULL,
+    [EventSequence] INT              NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+)
+GO
+CREATE TABLE [dbo].[PubCategorys] (
+    [Id]                UNIQUEIDENTIFIER NOT NULL,
+    [ParentId]      UNIQUEIDENTIFIER NOT NULL,
+    [Name]              NVARCHAR (100)    NOT NULL,
+    [Thumb]              NVARCHAR (200)     NULL,
+    [Sort]      INT              NOT NULL,
     [CreatedOn]       DATETIME         NOT NULL,
 	[Version]       BIGINT           NOT NULL,
     [EventSequence] INT              NOT NULL,
@@ -91,6 +129,7 @@ CREATE TABLE [dbo].[Goodses] (
     [Description]    NVARCHAR (MAX)   NOT NULL,
     [Price]               DECIMAL (18, 2)  NOT NULL,
     [OriginalPrice]               DECIMAL (18, 2)  NOT NULL,
+    [Surrender]               DECIMAL (18, 2)  NOT NULL,
     [Stock]      INT              NOT NULL,
     [SellOut]      INT              NOT NULL,
     [IsPayOnDelivery]   BIT              NOT NULL,
@@ -108,6 +147,13 @@ CREATE TABLE [dbo].[Goodses] (
     [Version]       BIGINT           NOT NULL,
     [EventSequence] INT              NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
+)
+GO
+CREATE TABLE [dbo].[GoodsPubCategorys] (
+    [Id]                UNIQUEIDENTIFIER NOT NULL,
+    [GoodsId]      UNIQUEIDENTIFIER NOT NULL,
+    [CategoryId]      UNIQUEIDENTIFIER NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC,[GoodsId] ASC,[CategoryId] ASC)
 )
 GO
 CREATE TABLE [dbo].[GoodsComments] (
@@ -211,7 +257,15 @@ CREATE TABLE [dbo].[Stores] (
 	[SubjectNumber]    NVARCHAR (400)    NULL,
 	[SubjectPic]    NVARCHAR (400)    NULL,
 
+	[TodaySale]		DECIMAL(18,2)	NOT NULL,
+	[TotalSale]		DECIMAL(18,2)	NOT NULL,
+	[TodayOrder]		INT	NOT NULL,
+	[TotalOrder]		INT	NOT NULL,
+	[OnSaleGoodsCount]		INT	NOT NULL,
+	[UpdatedOn]    DATETIME   NOT NULL,
+
     [CreatedOn]    DATETIME   NOT NULL,
+	[Type]		INT	NOT NULL,
 	[Status]		INT	NOT NULL,
 
 	[IsLocked]		INT	NOT NULL,
@@ -222,9 +276,30 @@ CREATE TABLE [dbo].[Stores] (
 GO
 CREATE TABLE [dbo].[StoreOrders] (
     [Id]            UNIQUEIDENTIFIER NOT NULL,
+	[UserId]		UNIQUEIDENTIFIER NOT NULL,
+	[OrderId]		UNIQUEIDENTIFIER NOT NULL,
 	[StoreId]		UNIQUEIDENTIFIER NOT NULL,
+	[WalletId]		UNIQUEIDENTIFIER NOT NULL,
+	[StoreOwnerWalletId]		UNIQUEIDENTIFIER NOT NULL,
+
+	[Region]    NVARCHAR (200)  NOT	NULL,
+	[Number]    NVARCHAR (200)  NOT  NULL,
+	[Remark]    NVARCHAR (200)    NULL,
+
+	[ExpressRegion]    NVARCHAR (200)  NOT  NULL,
+	[ExpressAddress]    NVARCHAR (200) NOT   NULL,
+	[ExpressName]    NVARCHAR (200)  NOT  NULL,
+	[ExpressMobile]    NVARCHAR (200)  NOT  NULL,
+	[ExpressZip]    NVARCHAR (200)  NOT  NULL,
+
+	[DeliverExpressName]    NVARCHAR (200)    NULL,
+	[DeliverExpressNumber]    NVARCHAR (200)    NULL,
+
+
     [CreatedOn]    DATETIME   NOT NULL,
 	[Total]		DECIMAL(18,2)	NOT NULL,
+	[StoreTotal]		DECIMAL(18,2)	NOT NULL,
+    [Status] INT              NOT NULL,
     [Version]       BIGINT           NOT NULL,
     [EventSequence] INT              NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
@@ -236,11 +311,19 @@ CREATE TABLE [dbo].[OrderGoodses] (
 	[OrderId]		UNIQUEIDENTIFIER NOT NULL,
 	[GoodsId]		UNIQUEIDENTIFIER NOT NULL,
 	[SpecificationId]		UNIQUEIDENTIFIER NOT NULL,
+
+	[WalletId]		UNIQUEIDENTIFIER NOT NULL,
+	[StoreOwnerWalletId]		UNIQUEIDENTIFIER NOT NULL,
+
 	[GoodsName]	NVARCHAR(400)	NOT NULL,
+	[GoodsPic]	NVARCHAR(400)	NOT NULL,
 	[SpecificationName]	NVARCHAR(400)	NOT NULL,
 	[Quantity]		INT	NOT NULL,
-	[UnitPrice]	DECIMAL(18,2)		NOT NULL,
+	[Price]	DECIMAL(18,2)		NOT NULL,
+	[OriginalPrice]	DECIMAL(18,2)		NOT NULL,
 	[Total]	DECIMAL(18,2)		NOT NULL,
+	[StoreTotal]	DECIMAL(18,2)		NOT NULL,
+	[Surrender]	DECIMAL(18,2)		NOT NULL,
     [CreatedOn]    DATETIME   NOT NULL,
 	[Status]		INT	NOT NULL,
     [Version]       BIGINT           NOT NULL,
@@ -312,6 +395,35 @@ CREATE TABLE [dbo].[BankCards] (
 )
 
 GO
+CREATE TABLE [dbo].[WithdrawApplys] (
+    [Id]            UNIQUEIDENTIFIER NOT NULL,
+    [WalletId]            UNIQUEIDENTIFIER NOT NULL,
+	[Amount]	DECIMAL(18,2)	NOT NULL,
+	[BankName]	NVARCHAR(200)	NOT NULL,
+	[BankOwner]	NVARCHAR(200)	NOT NULL,
+	[BankNumber]	NVARCHAR(200)	NOT NULL,
+    [CreatedOn]    DATETIME   NOT NULL,
+	[Remark]	NVARCHAR(200)	NOT NULL,
+    [Status]    INT   NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+)
+
+GO
+CREATE TABLE [dbo].[RechargeApplys] (
+    [Id]            UNIQUEIDENTIFIER NOT NULL,
+    [WalletId]            UNIQUEIDENTIFIER NOT NULL,
+	[Amount]	DECIMAL(18,2)	NOT NULL,
+	[Pic]	NVARCHAR(200)	 NULL,
+	[BankName]	NVARCHAR(200)	NOT NULL,
+	[BankOwner]	NVARCHAR(200)	NOT NULL,
+	[BankNumber]	NVARCHAR(200)	NOT NULL,
+    [CreatedOn]    DATETIME   NOT NULL,
+	[Remark]	NVARCHAR(200)	NOT NULL,
+    [Status]    INT   NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+)
+
+GO
 CREATE TABLE [dbo].[CashTransfers] (
     [Id]            UNIQUEIDENTIFIER NOT NULL,
 	[WalletId]            UNIQUEIDENTIFIER NOT NULL,
@@ -349,13 +461,14 @@ GO
 CREATE TABLE [dbo].[Specifications] (
     [Id]                UNIQUEIDENTIFIER NOT NULL,
     [GoodsId]      UNIQUEIDENTIFIER NOT NULL,
-    [Name]              NVARCHAR (70)    NOT NULL,
-    [Thumb]       NVARCHAR (250)   NOT NULL,
+    [Name]              NVARCHAR (200)    NOT NULL,
+    [Value]              NVARCHAR (200)    NOT NULL,
+    [Thumb]       NVARCHAR (250)    NULL,
     [Price]               DECIMAL (18, 2)  NOT NULL,
     [OriginalPrice]               DECIMAL (18, 2)  NOT NULL,
     [Stock]      INT              NOT NULL,
-	[Number]              NVARCHAR (70)    NOT NULL,
-	[BarCode]              NVARCHAR (70)    NOT NULL,
+	[Number]              NVARCHAR (70)     NULL,
+	[BarCode]              NVARCHAR (70)     NULL,
     [AvailableQuantity] INT              NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
 )
@@ -371,8 +484,14 @@ GO
 CREATE TABLE [dbo].[Orders] (
     [OrderId]                   UNIQUEIDENTIFIER NOT NULL,
     [UserId]              UNIQUEIDENTIFIER NOT NULL,
+	[ExpressRegion]    NVARCHAR (200)  NOT  NULL,
+	[ExpressAddress]    NVARCHAR (200) NOT   NULL,
+	[ExpressName]    NVARCHAR (200)  NOT  NULL,
+	[ExpressMobile]    NVARCHAR (200)  NOT  NULL,
+	[ExpressZip]    NVARCHAR (200)  NOT  NULL,
     [Status]                    INT              NOT NULL,
-    [TotalAmount]               DECIMAL (18, 2)  NOT NULL,
+    [Total]               DECIMAL (18, 2)  NOT NULL,
+    [StoreTotal]               DECIMAL (18, 2)  NOT NULL,
     [ReservationExpirationDate] DATETIME         NULL,
     [Version]                   BIGINT           NOT NULL,
     PRIMARY KEY CLUSTERED ([OrderId] ASC)
@@ -380,12 +499,18 @@ CREATE TABLE [dbo].[Orders] (
 GO
 CREATE TABLE [dbo].[OrderLines] (
     [OrderId]      UNIQUEIDENTIFIER NOT NULL,
+    [GoodsId]   UNIQUEIDENTIFIER NOT NULL,
+    [StoreId]   UNIQUEIDENTIFIER NOT NULL,
     [SpecificationId]   UNIQUEIDENTIFIER NOT NULL,
-    [SpecificationName] NVARCHAR (MAX)   NULL,
-    [UnitPrice]    DECIMAL (18, 2)  NOT NULL,
+    [GoodsName] NVARCHAR (400)   NULL,
+    [GoodsPic] NVARCHAR (400)   NULL,
+    [SpecificationName] NVARCHAR (400)   NULL,
+    [Price]    DECIMAL (18, 2)  NOT NULL,
+    [OriginalPrice]    DECIMAL (18, 2)  NOT NULL,
     [Quantity]     INT              NOT NULL,
     [LineTotal]    DECIMAL (18, 2)  NOT NULL,
-    PRIMARY KEY CLUSTERED ([OrderId] ASC, [SpecificationId] ASC)
+    [StoreLineTotal]    DECIMAL (18, 2)  NOT NULL,
+    PRIMARY KEY CLUSTERED ([OrderId] ASC,[GoodsId] ASC,[StoreId] ASC, [SpecificationId] ASC)
 )
 GO
 CREATE TABLE [dbo].[Payments] (

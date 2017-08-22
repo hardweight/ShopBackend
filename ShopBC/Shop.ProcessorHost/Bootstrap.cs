@@ -1,13 +1,12 @@
-﻿using System;
-using System.Configuration;
-using System.Reflection;
-using Shop.Common;
-using Shop.Domain.Models.Users;
-using ECommon.Components;
+﻿using ECommon.Components;
 using ECommon.Configurations;
 using ECommon.Logging;
 using ENode.Configurations;
 using ENode.Infrastructure;
+using Shop.Common;
+using Shop.Domain.Models.Users;
+using System;
+using System.Reflection;
 using ECommonConfiguration = ECommon.Configurations.Configuration;
 
 namespace Shop.ProcessorHost

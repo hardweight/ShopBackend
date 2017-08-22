@@ -2,7 +2,7 @@
 using ECommon.IO;
 using ENode.Infrastructure;
 using Shop.Domain.Events.Wallets;
-using Shop.Messages.Messages.Users;
+using Shop.Messages.Messages.Wallets;
 using System.Threading.Tasks;
 
 namespace Shop.Messages.MessagePublisher
@@ -31,7 +31,6 @@ namespace Shop.Messages.MessagePublisher
             return _messagePublisher.PublishAsync(new IncentiveUserBenevolenceMessage
             (
                 evnt.AggregateRootId,
-                evnt.UserId,
                 evnt.BenevolenceIndex,
                 evnt.IncentiveValue,
                 evnt.BenevolenceDeduct

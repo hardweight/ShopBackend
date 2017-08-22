@@ -9,8 +9,6 @@ using Shop.Api.Extensions;
 using Shop.Common;
 using System.Reflection;
 using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace Shop.Api
 {
@@ -31,6 +29,7 @@ namespace Shop.Api
 
             InitializeECommon();
             InitializeENode();
+
         }
 
         /// <summary>
@@ -62,12 +61,12 @@ namespace Shop.Api
                 Assembly.Load("Shop.Domain"),
                 Assembly.Load("Shop.ReadModel"),
 
-                Assembly.Load("Buy.Commands"),
-                Assembly.Load("Buy.Domain"),
-                Assembly.Load("Buy.ReadModel"),
+                //Assembly.Load("Buy.Commands"),
+                //Assembly.Load("Buy.Domain"),
+                //Assembly.Load("Buy.ReadModel"),
 
-                Assembly.Load("Payments.Commands"),
-                Assembly.Load("Payments.ReadModel"),
+                //Assembly.Load("Payments.Commands"),
+                //Assembly.Load("Payments.ReadModel"),
                 Assembly.GetExecutingAssembly()
             };
 

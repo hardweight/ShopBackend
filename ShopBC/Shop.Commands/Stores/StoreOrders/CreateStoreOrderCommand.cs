@@ -9,15 +9,31 @@ namespace Shop.Commands.Stores.StoreOrders
     /// </summary>
     public class CreateStoreOrderCommand:Command<Guid>
     {
+        public Guid UserId { get; private set; }
         public Guid StoreId { get; private set; }
         public Guid OrderId { get; private set; }
+        public string Number { get; private set; }
+        public string Remark { get; private set; }
+        public ExpressAddressInfo ExpressAddressInfo { get; private set; }
         public IList<OrderGoods> OrderGoodses { get; private set; }
 
         public CreateStoreOrderCommand() { }
-        public CreateStoreOrderCommand(Guid id,Guid storeId,Guid orderId,IList<OrderGoods> orderGoodses):base(id)
+        public CreateStoreOrderCommand(
+            Guid id,
+            Guid userId,
+            Guid storeId,
+            Guid orderId,
+            string number,
+            string remark,
+            ExpressAddressInfo expressAddressInfo,
+            IList<OrderGoods> orderGoodses):base(id)
         {
+            UserId = userId;
             StoreId = storeId;
             OrderId = orderId;
+            Number = number;
+            Remark = remark;
+            ExpressAddressInfo = expressAddressInfo;
             OrderGoodses = orderGoodses;
         }
     }

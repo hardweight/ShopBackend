@@ -1,5 +1,6 @@
 ﻿using Shop.Api.ViewModels.Wallet;
 using Shop.Commands.Wallets.BankCards;
+using System;
 using Dtos = Shop.ReadModel.Wallets.Dtos;
 
 namespace Shop.Api.Extensions
@@ -33,5 +34,6 @@ namespace Shop.Api.Extensions
 
             return command;
         }
+        
     }
 }

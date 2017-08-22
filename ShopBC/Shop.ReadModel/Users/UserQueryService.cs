@@ -65,7 +65,7 @@ namespace Shop.ReadModel.Users
         {
             using (var connection = GetConnection())
             {
-                return connection.QueryList<ExpressAddress>(new { userId = userId }, ConfigSettings.ExpressAddressTable).ToList();
+                return connection.QueryList<ExpressAddress>(new { UserId = userId }, ConfigSettings.ExpressAddressTable);
             }
         }
 
@@ -73,9 +73,20 @@ namespace Shop.ReadModel.Users
         {
             using (var connection = GetConnection())
             {
-                return connection.QueryList<UserGift>(new { userId = userId }, ConfigSettings.UserGiftTable).ToList();
+                return connection.QueryList<UserGift>(new { UserId = userId }, ConfigSettings.UserGiftTable);
             }
         }
 
+
+        #region 管理
+        public IEnumerable<User> UserList()
+        {
+            using (var connection = GetConnection())
+            {
+                return connection.QueryList<User>(new {  }, ConfigSettings.UserTable);
+            }
+        }
+
+        #endregion
     }
 }

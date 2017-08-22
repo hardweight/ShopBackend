@@ -52,7 +52,7 @@ namespace Shop.ReadModel.Partners
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.WalletTable);
             });
         }
@@ -68,7 +68,7 @@ namespace Shop.ReadModel.Partners
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.WalletTable);
             });
         }

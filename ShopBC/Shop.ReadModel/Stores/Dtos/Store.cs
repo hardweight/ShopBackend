@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Shop.Common.Enums;
+using System;
+using System.ComponentModel;
 
 namespace Shop.ReadModel.Stores.Dtos
 {
@@ -13,5 +15,21 @@ namespace Shop.ReadModel.Stores.Dtos
         public string Region { get; set; }
         public string Address { get; set; }
 
+        public decimal TodaySale { get; set; }
+        public decimal TotalSale { get; set; }
+        public int TodayOrder { get; set; }
+        public int TotalOrder { get; set; }
+        public int OnSaleGoodsCount { get; set; }
+
+        public string SubjectName { get; set; }
+        public string SubjectNumber { get; set; }
+        public string SubjectPic { get; set; }
+
+
+        public StoreStatus Status { get; set; }
+        public StoreType Type { get; set; }
+
     }
+
+    
 }

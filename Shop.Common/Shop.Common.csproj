@@ -42,6 +42,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigSettings.cs" />
+    <Compile Include="Enums\CategoryEnums.cs" />
+    <Compile Include="Enums\GranteeEnums.cs" />
+    <Compile Include="Enums\OrderEnums.cs" />
+    <Compile Include="Enums\OrderGoodsEnums.cs" />
+    <Compile Include="Enums\PartnerEnums.cs" />
+    <Compile Include="Enums\PaymentEnums.cs" />
+    <Compile Include="Enums\StoreEnums.cs" />
+    <Compile Include="Enums\StoreOrderEnums.cs" />
+    <Compile Include="Enums\UserEnums.cs" />
+    <Compile Include="Enums\WalletEnums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Topics.cs" />
   </ItemGroup>

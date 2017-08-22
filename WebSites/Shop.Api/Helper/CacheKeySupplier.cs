@@ -26,7 +26,13 @@
             const string Key = "WALLETMODEL_";
             return Key + walletId;
         }
-        
+
+        public static string CartModelCacheKey(string cartId)
+        {
+            const string Key = "CARTMODEL_";
+            return Key + cartId;
+        }
+
         /// <summary>
         /// 用户模型缓存key
         /// </summary>

@@ -10,7 +10,7 @@ namespace Xia.Common
         private static readonly long EpochMilliseconds = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).Ticks / 10000L;
 
         /// <summary>
-        /// Creates a sequential GUID according to SQL Server's ordering rules.
+        /// 创建一个Guid 依照 SQL Server 的排序规则
         /// </summary>
         public static Guid NewSequentialId()
         {

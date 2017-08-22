@@ -18,6 +18,7 @@ namespace Shop.CommandHandlers
     [Component]
     public class UserCommandHandler:
         ICommandHandler<CreateUserCommand>,
+        ICommandHandler<EditUserCommand>,
         ICommandHandler<UpdateNickNameCommand>,
         ICommandHandler<UpdatePasswordCommand>,
         ICommandHandler<UpdatePortraitCommand>,
@@ -33,12 +34,14 @@ namespace Shop.CommandHandlers
         ICommandHandler<LockUserCommand>,
         ICommandHandler<UnLockUserCommand>,
 
-        ICommandHandler<AcceptMyNewSpendingCommand>,
+        ICommandHandler<AcceptMyNewSpendingCommand>,//我的消费返还善心
         ICommandHandler<AcceptChildBenevolenceCommand>,
         ICommandHandler<ApplyToRegionPartnerCommand>,
 
         ICommandHandler<SetToPartnerCommand>,
-        ICommandHandler<PayToAmbassadorCommand>
+        ICommandHandler<PayToAmbassadorCommand>,
+
+        ICommandHandler<AcceptNewSaleCommand>//接受店铺销售额的1%奖励
         
     {
         private readonly ILockService _lockService;
@@ -72,7 +75,8 @@ namespace Shop.CommandHandlers
                     command.Portrait,
                     command.Gender,
                     command.Region,
-                    command.Password));
+                    command.Password,
+                    command.WeixinId));
 
                 //验证Mobile 的唯一性
                 _registerUserMobileService.RegisterMobile(command.Id, user.Id, command.Mobile);
@@ -150,7 +154,8 @@ namespace Shop.CommandHandlers
 
         public void Handle(ICommandContext context, AcceptMyNewSpendingCommand command)
         {
-            context.Get<User>(command.AggregateRootId).AcceptMyNewSpending(command.Amount,command.SurrenderPersent);
+            context.Get<User>(command.AggregateRootId).AcceptMyNewSpending(command.Amount,
+                command.Surrender);
         }
 
         public void Handle(ICommandContext context, AcceptChildBenevolenceCommand command)
@@ -160,7 +165,7 @@ namespace Shop.CommandHandlers
 
         public void Handle(ICommandContext context, ApplyToRegionPartnerCommand command)
         {
-            context.Get<User>(command.AggregateRootId).ApplyToRegionPartner(command.Region, command.Level.ToPartnerLevel());
+            context.Get<User>(command.AggregateRootId).ApplyToRegionPartner(command.Region, command.Level);
         }
 
         public void Handle(ICommandContext context, SetToPartnerCommand command)
@@ -170,7 +175,7 @@ namespace Shop.CommandHandlers
                 command.Province,
                 command.City,
                 command.County,
-                command.Level.ToPartnerLevel());
+                command.Level);
         }
 
         public void Handle(ICommandContext context, AddUserGiftCommand command)
@@ -195,6 +200,16 @@ namespace Shop.CommandHandlers
         public void Handle(ICommandContext context, SetUserGiftPayedCommand command)
         {
             context.Get<User>(command.AggregateRootId).SetUserGiftPayed(command.UserGiftId);
+        }
+
+        public void Handle(ICommandContext context, EditUserCommand command)
+        {
+            context.Get<User>(command.AggregateRootId).Edit(command.NickName, command.Gender);
+        }
+
+        public void Handle(ICommandContext context, AcceptNewSaleCommand command)
+        {
+            context.Get<User>(command.AggregateRootId).AcceptNewSale(command.Amount);
         }
 
         #endregion

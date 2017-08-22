@@ -1,0 +1,5 @@
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.Common\bin\Release\Shop.Common.dll
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.Common\bin\Release\Shop.Common.pdb
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.Common\obj\Release\Shop.Common.dll
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.Common\obj\Release\Shop.Common.pdb
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.Common\obj\Release\Shop.Common.csprojResolveAssemblyReference.cache

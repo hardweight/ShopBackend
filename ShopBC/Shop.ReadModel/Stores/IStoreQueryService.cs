@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Shop.ReadModel.Stores.Dtos;
+using System;
+using System.Collections.Generic;
 
 namespace Shop.ReadModel.Stores
 {
@@ -7,8 +9,12 @@ namespace Shop.ReadModel.Stores
     /// </summary>
     public interface  IStoreQueryService
     {
-        Dtos.Store Info(Guid id);
+        Store Info(Guid id);
 
-        Dtos.Store InfoByUserId(Guid userId);
+        IEnumerable<Store> StoreList();
+
+        Store InfoByUserId(Guid userId);
+
+        decimal TodaySale();
     }
 }

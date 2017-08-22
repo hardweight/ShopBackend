@@ -6,6 +6,7 @@ namespace Shop.Commands.Goodses.Specifications
     public class AddSpecificationCommand : Command<Guid>
     {
         public string Name { get; private set; }
+        public string Value { get; private set; }
         public string Thumb { get; private set; }
         public decimal Price { get; private set; }
         public int Stock { get; private set; }
@@ -17,6 +18,7 @@ namespace Shop.Commands.Goodses.Specifications
         public AddSpecificationCommand(
             Guid goodsId,
             string name,
+            string value,
             string thumb,
             decimal price,
             int stock,
@@ -26,6 +28,7 @@ namespace Shop.Commands.Goodses.Specifications
             ) : base(goodsId)
         {
             Name = name;
+            Value = value;
             Thumb = thumb;
             Price = price;
             Stock = stock;

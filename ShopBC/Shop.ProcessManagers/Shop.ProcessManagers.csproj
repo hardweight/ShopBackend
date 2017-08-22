@@ -60,17 +60,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BenevolenceTransferProcessManager.cs" />
+    <Compile Include="OrderProcessManager.cs" />
     <Compile Include="CashTransferProcessManager.cs" />
-    <Compile Include="EnumExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserProcessManager.cs" />
     <Compile Include="StoreOrderProcessManager.cs" />
     <Compile Include="GoodsServiceProcessManager.cs" />
+    <Compile Include="GoodsProcessManager.cs" />
+    <Compile Include="WalletProcessManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Shop.Common\Shop.Common.csproj">
+      <Project>{890eac5d-4afc-4ad5-b8ae-246e73d111ad}</Project>
+      <Name>Shop.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Xia.Common\Xia.Common.csproj">
       <Project>{f31f8b62-a8b2-4d83-b8e1-fc705d9f5a88}</Project>
       <Name>Xia.Common</Name>

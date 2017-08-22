@@ -20,6 +20,7 @@ namespace Shop.Domain.Models.Goodses
         private Guid _storeId;//所属店铺
         private IList<GoodsParam> _goodsParams;//商品参数
         private IList<Specification> _specifications;//商品规格 至少一个规格默认规格
+        private IList<Guid> _categoryIds;//产品所属类别
         private ISet<Guid> _commentIds;//评价
         private CommentStatisticInfo _commentStatisticInfo;//评价统计信息
         private IDictionary<Guid, IEnumerable<ReservationItem>> _reservations;//预定信息防止超卖
@@ -30,16 +31,22 @@ namespace Shop.Domain.Models.Goodses
         /// </summary>
         /// <param name="id"></param>
         /// <param name="info"></param>
-        public Goods(Guid id,Guid storeId, GoodsInfo info) : base(id)
+        public Goods(Guid id,Guid storeId,IList<Guid> categoryIds, GoodsInfo info) : base(id)
         {
-            ApplyEvent(new GoodsCreatedEvent(storeId,info));
+            ApplyEvent(new GoodsCreatedEvent(storeId, categoryIds, info));
         }
 
         /// <summary>
-        /// 更新-更新基本信息
+        /// 更新-更新基本信息-商家编辑
         /// </summary>
         /// <param name="info"></param>
-        public void Update(GoodsEditableInfo info)
+        public void Update(IList<Guid> categoryIds,GoodsStoreEditableInfo info)
+        {
+            info.CheckNotNull(nameof(info));
+            ApplyEvent(new GoodsStoreUpdatedEvent(categoryIds,info));
+        }
+
+        public void AdminUpdate(GoodsEditableInfo info)
         {
             info.CheckNotNull(nameof(info));
             ApplyEvent(new GoodsUpdatedEvent(info));
@@ -55,16 +62,16 @@ namespace Shop.Domain.Models.Goodses
             ApplyEvent(new GoodsParamsUpdatedEvent(goodsParams));
         }
         /// <summary>
-        /// 更新 -产品规格
+        /// 启用多规格
         /// </summary>
         /// <param name="goodSpecifications"></param>
-        public void UpdateSpecifications(IList<Specification> specifications)
+        public void AddSpecifications(IList<Specification> specifications)
         {
             specifications.CheckNotNull(nameof(specifications));
-            ApplyEvent(new SpecificationsUpdatedEvent(specifications));
+            ApplyEvent(new SpecificationsAddedEvent(specifications));
         }
         /// <summary>
-        /// 添加规格
+        /// 启用单规格
         /// </summary>
         /// <param name="specificationInfo"></param>
         /// <param name="stock"></param>
@@ -73,11 +80,10 @@ namespace Shop.Domain.Models.Goodses
             ApplyEvent(new SpecificationAddedEvent(Guid.NewGuid(), specificationInfo, stock));
         }
         /// <summary>
-        /// 更新规格
+        /// 更新单规格
         /// 因为当用户在前台下单订购时，数量也会变化。也就是数量可能会单独变化。
         /// 所以，我们考虑单独为数量的变化定义一个domain event。
         /// </summary>
-        /// <param name="specificationId"></param>
         /// <param name="SpecificationInfo"></param>
         /// <param name="stock"></param>
         public void UpdateSpecification(Guid specificationId, SpecificationInfo specificationInfo, int stock)
@@ -105,12 +111,6 @@ namespace Shop.Domain.Models.Goodses
         /// </summary>
         public void Publish()
         {
-            if (_isPublished)
-            {
-                throw new Exception("Goods already published.");
-            }
-            //ApplyEvent方法的逻辑是，先找到当前事件对应的Handle方法，
-            //然后调用该Handle方法；然后调用完成后，把当前事件放入一个聚合根内部的事件队列中
             ApplyEvent(new GoodsPublishedEvent());
         }
         /// <summary>
@@ -118,10 +118,6 @@ namespace Shop.Domain.Models.Goodses
         /// </summary>
         public void Unpublish()
         {
-            if (!_isPublished)
-            {
-                throw new Exception("Goods already unpublished.");
-            }
             ApplyEvent(new GoodsUnpublishedEvent());
         }
 
@@ -246,13 +242,30 @@ namespace Shop.Domain.Models.Goodses
         {
             _info = evnt.Info;
             _storeId = evnt.StoreId;
-
+            _categoryIds = evnt.CategoryIds;
             _commentIds = new HashSet<Guid>();
-
             _goodsParams = new List<GoodsParam>();
             _specifications = new List<Specification>();
             _reservations = new Dictionary<Guid, IEnumerable<ReservationItem>>();
             _isPublished = true;
+        }
+        private void Handle(GoodsStoreUpdatedEvent evnt)
+        {
+            _categoryIds = evnt.CategoryIds;
+            var editableInfo = evnt.Info;
+            _info = new GoodsInfo(
+                editableInfo.Name,
+                editableInfo.Description,
+                editableInfo.Pics,
+                _info.Price,
+                editableInfo.OriginalPrice,
+                editableInfo.Stock,
+                _info.Surrender,
+                _info.SellOut,
+                editableInfo.IsPayOnDelivery,
+                editableInfo.IsInvoice,
+                editableInfo.Is7SalesReturn,
+                editableInfo.Sort);
         }
         private void Handle(GoodsUpdatedEvent evnt)
         {
@@ -262,14 +275,14 @@ namespace Shop.Domain.Models.Goodses
                 editableInfo.Description,
                 editableInfo.Pics,
                 editableInfo.Price,
-                editableInfo.OriginalPrice,
-                editableInfo.Stock,
-                new SurrenderInfo(editableInfo.Price,editableInfo.SurrenderPersent),
+                _info.OriginalPrice,
+                _info.Stock,
+                _info.Surrender,
                 editableInfo.SellOut,
-                editableInfo.IsPayOnDelivery,
-                editableInfo.IsInvoice,
-                editableInfo.Is7SalesReturn,
-                editableInfo.Sort);
+                _info.IsPayOnDelivery,
+                _info.IsInvoice,
+                _info.Is7SalesReturn,
+                _info.Sort);
         }
         private void Handle(GoodsPublishedEvent evnt)
         {
@@ -279,17 +292,17 @@ namespace Shop.Domain.Models.Goodses
         {
             _isPublished = false;
         }
-        public void Handle(GoodsParamsUpdatedEvent evnt)
+        private void Handle(GoodsParamsUpdatedEvent evnt)
         {
             _goodsParams = evnt.GoodsParams;
         }
-        public void Handle(SpecificationsUpdatedEvent evnt)
+        private void Handle(SpecificationsAddedEvent evnt)
         {
             _specifications = evnt.Specifications;
         }
         private void Handle(SpecificationAddedEvent evnt)
         {
-            _specifications.Add(new Specification(evnt.SpecificationId, evnt.SpecificationInfo) { Stock=evnt.Stock});
+            _specifications.Add(new Specification(evnt.SpecificationId, evnt.SpecificationInfo,evnt.Stock));
         }
         private void Handle(SpecificationUpdatedEvent evnt)
         {

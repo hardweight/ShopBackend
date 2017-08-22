@@ -6,6 +6,7 @@ namespace Shop.Api.ViewModels.User
 
     public class UserViewModel
     {
+
         public string NickName { get; set; }
         public string Password { get; set; }
         public string Portrait { get; set; }
@@ -15,6 +16,8 @@ namespace Shop.Api.ViewModels.User
         public string Role { get; set; }
 
         public Guid Id { get; set; }
-
+        public Guid ParentId { get; set; }
+        public Guid WalletId { get; set; }
+        public Guid CartId { get; set; }
     }
 }

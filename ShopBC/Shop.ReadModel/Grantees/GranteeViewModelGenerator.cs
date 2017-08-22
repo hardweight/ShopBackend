@@ -3,6 +3,7 @@ using ECommon.Dapper;
 using ECommon.IO;
 using ENode.Infrastructure;
 using Shop.Common;
+using Shop.Common.Enums;
 using Shop.Domain.Events.Grantees;
 using Shop.Domain.Models.Grantees;
 using System;
@@ -59,7 +60,7 @@ namespace Shop.ReadModel.Grantees
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.GranteeTable, transaction);
                 if (effectedRows == 1)
                 {
@@ -86,7 +87,7 @@ namespace Shop.ReadModel.Grantees
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.GranteeTable, transaction);
                 if (effectedRows == 1)
                 {
@@ -118,7 +119,7 @@ namespace Shop.ReadModel.Grantees
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.GranteeTable);
             });
         }
@@ -134,7 +135,7 @@ namespace Shop.ReadModel.Grantees
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.GranteeTable);
             });
         }
@@ -150,7 +151,7 @@ namespace Shop.ReadModel.Grantees
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.GranteeTable);
             });
         }

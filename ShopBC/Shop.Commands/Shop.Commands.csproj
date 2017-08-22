@@ -63,6 +63,21 @@
     <Compile Include="Carts\AddCartGoodsCommand.cs" />
     <Compile Include="Carts\CreateCartCommand.cs" />
     <Compile Include="Carts\RemoveCartGoodsCommand.cs" />
+    <Compile Include="Goodses\UpdateGoodsCommand.cs" />
+    <Compile Include="Orders\CloseOrderCommand.cs" />
+    <Compile Include="Orders\ConfirmOneReservationCommand.cs" />
+    <Compile Include="Orders\ConfirmPaymentCommand.cs" />
+    <Compile Include="Orders\ExpressAddressInfo.cs" />
+    <Compile Include="Orders\MarkAsExpiredCommand.cs" />
+    <Compile Include="Orders\MarkAsSuccessCommand.cs" />
+    <Compile Include="Orders\PlaceOrderCommand.cs" />
+    <Compile Include="Orders\SpecificationiInfo.cs" />
+    <Compile Include="Payments\CancelPaymentCommand.cs" />
+    <Compile Include="Payments\CompletePaymentCommand.cs" />
+    <Compile Include="Payments\CreatePaymentCommand.cs" />
+    <Compile Include="Payments\PaymentLine.cs" />
+    <Compile Include="PubCategorys\CreatePubCategoryCommand.cs" />
+    <Compile Include="PubCategorys\UpdatePubCategoryCommand.cs" />
     <Compile Include="Categorys\UpdateCategoryCommand.cs" />
     <Compile Include="Categorys\CreateCategoryCommand.cs" />
     <Compile Include="Comments\CreateCommentCommand.cs" />
@@ -72,14 +87,14 @@
     <Compile Include="Goodses\Specifications\UpdateSpecificationCommand.cs" />
     <Compile Include="Goodses\UnpublishGoodsCommand.cs" />
     <Compile Include="Goodses\PublishGoodsCommand.cs" />
-    <Compile Include="Goodses\UpdateGoodsCommand.cs" />
+    <Compile Include="Goodses\StoreUpdateGoodsCommand.cs" />
     <Compile Include="Goodses\CreateGoodsCommand.cs" />
     <Compile Include="Goodses\Specifications\AddSpecificationCommand.cs" />
     <Compile Include="Goodses\Specifications\CancelSpecificationReservationCommand.cs" />
     <Compile Include="Goodses\Specifications\CommitSpecificationReservationCommand.cs" />
     <Compile Include="Goodses\Specifications\MakeSpecificationReservationCommand.cs" />
     <Compile Include="Goodses\Specifications\SpecificationReservationItemInfo.cs" />
-    <Compile Include="Goodses\Specifications\UpdateSpecificationsCommand.cs" />
+    <Compile Include="Goodses\Specifications\AddSpecificationsCommand.cs" />
     <Compile Include="Goodses\UpdateParamsCommand.cs" />
     <Compile Include="Grantees\AcceptMoneyHelpCommand.cs" />
     <Compile Include="Grantees\AddTestifyCommand.cs" />
@@ -91,10 +106,18 @@
     <Compile Include="Partners\ApplyBalanceCommand.cs" />
     <Compile Include="Partners\CreatePartnerCommand.cs" />
     <Compile Include="Stores\AcceptNewStoreOrderCommand.cs" />
+    <Compile Include="Stores\UpdateStoreCommand.cs" />
     <Compile Include="Stores\Sections\ChangeSectionNameCommand.cs" />
     <Compile Include="Stores\CreateStoreCommand.cs" />
     <Compile Include="Stores\Sections\CreateSectionCommand.cs" />
     <Compile Include="Stores\SetAccessCodeCommand.cs" />
+    <Compile Include="Stores\StoreOrders\AgreeRefundCommand.cs" />
+    <Compile Include="Stores\StoreOrders\AgreeReturnCommand.cs" />
+    <Compile Include="Stores\StoreOrders\ApplyReturnAndRefundCommand.cs" />
+    <Compile Include="Stores\StoreOrders\ApplyRefundCommand.cs" />
+    <Compile Include="Stores\StoreOrders\ConfirmDeliverCommand.cs" />
+    <Compile Include="Stores\StoreOrders\DeliverCommand.cs" />
+    <Compile Include="Stores\StoreOrders\ExpressAddressInfo.cs" />
     <Compile Include="Stores\StoreOrders\OrderGoodses\ToDoorServiceFinishCommand.cs" />
     <Compile Include="Stores\StoreOrders\OrderGoodses\ServiceFinishCommand.cs" />
     <Compile Include="Stores\StoreOrders\OrderGoodses\DisAgreeRefundCommand.cs" />
@@ -108,22 +131,21 @@
     <Compile Include="Stores\StoreOrders\OrderGoodses\ApplyServicesCommand.cs" />
     <Compile Include="Stores\StoreOrders\OrderGoodses\ServiceExpressInfo.cs" />
     <Compile Include="Stores\StoreOrders\OrderGoodses\ServiceFinishExpressInfo.cs" />
-    <Compile Include="Stores\UpdateStoreCommand.cs" />
+    <Compile Include="Stores\UpdateStoreStatusCommand.cs" />
+    <Compile Include="Stores\CustomerUpdateStoreCommand.cs" />
     <Compile Include="Users\AcceptChildBenevolenceCommand.cs" />
     <Compile Include="Users\AcceptNewSaleCommand.cs" />
     <Compile Include="Users\AcceptMyNewSpendingCommand.cs" />
     <Compile Include="Users\ApplyToRegionPartnerCommand.cs" />
+    <Compile Include="Users\EditUserCommand.cs" />
     <Compile Include="Users\PayToAmbassadorCommand.cs" />
     <Compile Include="Users\SetUserGiftPayedCommand.cs" />
     <Compile Include="Users\UserGifts\AddUserGiftCommand.cs" />
     <Compile Include="Wallets\BankCards\AddBankCardCommand.cs" />
-    <Compile Include="Users\PartnerLevel.cs" />
     <Compile Include="Users\SetToPartnerCommand.cs" />
     <Compile Include="Wallets\BankCards\RemoveBankCardCommand.cs" />
     <Compile Include="Wallets\BankCards\UpdateBankCardCommand.cs" />
-    <Compile Include="Wallets\BenevolenceTransfers\BenevolenceTransferType.cs" />
     <Compile Include="Wallets\BenevolenceTransfers\SetBenevolenceTransferSuccessCommand.cs" />
-    <Compile Include="Wallets\CashTransfers\CashTransferType.cs" />
     <Compile Include="Wallets\CashTransfers\SetCashTransferSuccessCommand.cs" />
     <Compile Include="Wallets\CreateWalletCommand.cs" />
     <Compile Include="Wallets\AcceptNewBenevolenceTransferCommand.cs" />
@@ -142,12 +164,21 @@
     <Compile Include="Users\UpdatePasswordCommand.cs" />
     <Compile Include="Users\UpdatePortraitCommand.cs" />
     <Compile Include="Users\UpdateRegionCommand.cs" />
+    <Compile Include="Wallets\IncentiveBenevolenceCommand.cs" />
     <Compile Include="Wallets\SetAccessCodeCommand.cs" />
-    <Compile Include="Wallets\WalletDirection.cs" />
+    <Compile Include="Wallets\RechargeApplys\ChangeRechargeStatusCommand.cs" />
+    <Compile Include="Wallets\RechargeApplys\CreateRechargeApplyCommand.cs" />
+    <Compile Include="Wallets\WithdrawApplys\ChangeWithdrawStatusCommand.cs" />
+    <Compile Include="Wallets\WithdrawApplys\CreateWithdrawApplyCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shop.Common\Shop.Common.csproj">
+      <Project>{890eac5d-4afc-4ad5-b8ae-246e73d111ad}</Project>
+      <Name>Shop.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

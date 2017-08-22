@@ -14,13 +14,14 @@ namespace Shop.Api.Extensions
         {
             var command = new CreateUserCommand(
                 userViewModel.Id,
-                Guid.Empty,//推荐人id
+                userViewModel.ParentId,//推荐人id
                 userViewModel.NickName,
                 userViewModel.Portrait,
                 userViewModel.Gender,
                 userViewModel.Mobile,
                 userViewModel.Region,
-                PasswordHash.CreateHash(userViewModel.Password));
+                PasswordHash.CreateHash(userViewModel.Password),
+                "");
             command.AggregateRootId = userViewModel.Id;
             
             return command;
@@ -31,6 +32,9 @@ namespace Shop.Api.Extensions
             return new UserViewModel()
             {
                 Id = value.Id,
+                ParentId=value.ParentId,
+                WalletId=value.WalletId,
+                CartId=value.CartId,
                 Mobile = value.Mobile,
                 Password = value.Password,
                 NickName = value.NickName,

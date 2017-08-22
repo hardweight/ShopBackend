@@ -1,4 +1,5 @@
 ﻿using ENode.Domain;
+using Shop.Common.Enums;
 using Shop.Domain.Events.Wallets.BenevolenceTransfers;
 using System;
 using Xia.Common.Extensions;
@@ -44,6 +45,11 @@ namespace Shop.Domain.Models.Wallets.BenevolenceTransfers
             _nunber = evnt.Number;
             _info = evnt.Info;
             _type = evnt.Type;
+            _walletId = evnt.WalletId;
+            _status = evnt.Status;
+        }
+        private void Handle(BenevolenceTransferStatusChangedEvent evnt)
+        {
             _status = evnt.Status;
         }
         #endregion

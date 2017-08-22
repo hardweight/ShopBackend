@@ -1,0 +1,56 @@
+﻿using ECommon.Components;
+using ECommon.Dapper;
+using ECommon.IO;
+using ENode.Infrastructure;
+using Shop.Common;
+using Shop.Domain.Events.PubCategorys;
+using System.Threading.Tasks;
+using System;
+
+namespace Shop.ReadModel.PubCategorys
+{
+    /// <summary>
+    /// 更新读库 Dapper
+    /// </summary>
+    [Component]
+    public class PubCategoryViewModelGenerator:BaseGenerator,
+        IMessageHandler<PubCategoryCreatedEvent>,
+        IMessageHandler<PubCategoryUpdatedEvent>
+    {
+        public Task<AsyncTaskResult> HandleAsync(PubCategoryCreatedEvent evnt)
+        {
+            return TryInsertRecordAsync(connection =>
+            {
+                return connection.InsertAsync(new
+                {
+                    Id = evnt.AggregateRootId,
+                    ParentId = evnt.ParentId,
+                    Name = evnt.Name,
+                    Thumb=evnt.Thumb,
+                    Sort=evnt.Sort,
+                    CreatedOn = evnt.Timestamp,
+                    Version = evnt.Version,
+                    EventSequence=evnt.Sequence
+                }, ConfigSettings.PubCategoryTable);
+            });
+        }
+
+        public Task<AsyncTaskResult> HandleAsync(PubCategoryUpdatedEvent evnt)
+        {
+            return TryUpdateRecordAsync(connection =>
+            {
+                return connection.UpdateAsync(new
+                {
+                    Name = evnt.Name,
+                    Thumb = evnt.Thumb,
+                    Sort = evnt.Sort,
+                    Version = evnt.Version
+                }, new
+                {
+                    Id = evnt.AggregateRootId,
+                    //Version = evnt.Version - 1
+                }, ConfigSettings.PubCategoryTable);
+            });
+        }
+    }
+}

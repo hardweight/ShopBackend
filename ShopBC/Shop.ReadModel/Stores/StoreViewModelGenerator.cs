@@ -3,6 +3,7 @@ using ECommon.Dapper;
 using ECommon.IO;
 using ENode.Infrastructure;
 using Shop.Common;
+using Shop.Common.Enums;
 using Shop.Domain.Events.Stores;
 using Shop.Domain.Models.Stores;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace Shop.ReadModel.Stores
     [Component]
     public class StoreViewModelGenerator:BaseGenerator,
         IMessageHandler<StoreCreatedEvent>,
+        IMessageHandler<StoreCustomerUpdatedEvent>,
         IMessageHandler<StoreUpdatedEvent>,
         IMessageHandler<StoreLockedEvent>,
         IMessageHandler<StoreUnLockedEvent>,
@@ -41,15 +43,29 @@ namespace Shop.ReadModel.Stores
                     SubjectName=evnt.SubjectInfo.SubjectName,
                     SubjectNumber=evnt.SubjectInfo.SubjectNumber,
                     SubjectPic=evnt.SubjectInfo.SubjectPic,
-                    CreatedOn=evnt.Timestamp,
-                    Status=(int)StoreStatus.Apply,
+                    UpdatedOn=evnt.Timestamp,
+
+                    TodaySale = 0,
+                    TotalSale = 0,
+                    TodayOrder = 0,
+                    TotalOrder = 0,
+                    OnSaleGoodsCount = 0,
+
+                    CreatedOn =evnt.Timestamp,
+                    Type=(int)StoreType.ThirdParty,
+                    Status = (int)StoreStatus.Apply,
                     IsLocked = 0,
                     Version = evnt.Version,
                     EventSequence = evnt.Sequence
                 }, ConfigSettings.StoreTable);
             });
         }
-        public Task<AsyncTaskResult> HandleAsync(StoreUpdatedEvent evnt)
+        /// <summary>
+        /// 商家更新店铺信息
+        /// </summary>
+        /// <param name="evnt"></param>
+        /// <returns></returns>
+        public Task<AsyncTaskResult> HandleAsync(StoreCustomerUpdatedEvent evnt)
         {
             return TryUpdateRecordAsync(connection =>
             {
@@ -64,7 +80,32 @@ namespace Shop.ReadModel.Stores
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
+                }, ConfigSettings.StoreTable);
+            });
+        }
+        /// <summary>
+        /// 后台更新店铺信息
+        /// </summary>
+        /// <param name="evnt"></param>
+        /// <returns></returns>
+        public Task<AsyncTaskResult> HandleAsync(StoreUpdatedEvent evnt)
+        {
+            return TryUpdateRecordAsync(connection =>
+            {
+                var info = evnt.Info;
+                return connection.UpdateAsync(new
+                {
+                    Name = info.Name,
+                    Description = info.Description,
+                    Address = info.Address,
+                    Type=(int)info.Type,
+                    Version = evnt.Version,
+                    EventSequence = evnt.Sequence
+                }, new
+                {
+                    Id = evnt.AggregateRootId,
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.StoreTable);
             });
         }
@@ -80,7 +121,7 @@ namespace Shop.ReadModel.Stores
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.StoreTable);
             });
         }
@@ -96,7 +137,7 @@ namespace Shop.ReadModel.Stores
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.StoreTable);
             });
         }
@@ -108,12 +149,17 @@ namespace Shop.ReadModel.Stores
                 {
                     TodaySale = evnt.StatisticInfo.TodaySale,
                     TotalSale = evnt.StatisticInfo.TotalSale,
+                    TodayOrder=evnt.StatisticInfo.TodayOrder,
+                    TotalOrder=evnt.StatisticInfo.TodayOrder,
                     OnSaleGoodsCount = evnt.StatisticInfo.OnSaleGoodsCount,
-                    Version = evnt.Version
+                    UpdatedOn=evnt.StatisticInfo.UpdatedOn,
+
+                    Version = evnt.Version,
+                    EventSequence=evnt.Sequence
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.StoreTable);
             });
         }
@@ -133,7 +179,7 @@ namespace Shop.ReadModel.Stores
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.StoreTable);
             });
         }
@@ -150,7 +196,7 @@ namespace Shop.ReadModel.Stores
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.StoreTable);
             });
         }
@@ -167,7 +213,7 @@ namespace Shop.ReadModel.Stores
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.StoreTable);
             });
         }

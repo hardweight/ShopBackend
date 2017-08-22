@@ -44,7 +44,7 @@ namespace Shop.Api.Controllers
                     //从缓存获取用户信息
                     _user = _apiSession.GetUserInfo(userId);
                     //从缓存获取钱包信息
-                    _wallet = _apiSession.GetWalletInfo(userId);
+                    _wallet = _apiSession.GetWalletInfo(_user.WalletId.ToString());
                 }
             }
         }

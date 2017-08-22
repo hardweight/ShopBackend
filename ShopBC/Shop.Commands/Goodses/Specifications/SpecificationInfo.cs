@@ -6,6 +6,7 @@ namespace Shop.Commands.Goodses.Specifications
     public class SpecificationInfo
     {
         public string Name { get; private set; }
+        public string Value { get; private set; }
         public string Thumb { get; private set; }
         public decimal Price { get; private set; }
         public decimal OriginalPrice { get; private set; }
@@ -14,6 +15,7 @@ namespace Shop.Commands.Goodses.Specifications
         public int Stock { get; private set; }
 
         public SpecificationInfo(string name,
+            string value,
             string thumb,
             decimal price,
             decimal originalPrice,
@@ -22,6 +24,7 @@ namespace Shop.Commands.Goodses.Specifications
             int stock)
         {
             Name = name;
+            Value = value;
             Thumb = thumb;
             Price = price;
             OriginalPrice = originalPrice;

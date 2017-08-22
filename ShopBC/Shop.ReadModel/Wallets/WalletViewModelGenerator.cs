@@ -5,7 +5,10 @@ using ENode.Infrastructure;
 using Shop.Common;
 using Shop.Domain.Events.Wallets;
 using Shop.Domain.Events.Wallets.BankCards;
+using Shop.Domain.Events.Wallets.WithdrawApplys;
 using System.Threading.Tasks;
+using System;
+using Shop.Domain.Events.Wallets.RechargeApplys;
 
 namespace Shop.ReadModel.Wallets
 {
@@ -16,15 +19,20 @@ namespace Shop.ReadModel.Wallets
     public class WalletViewModelGenerator: BaseGenerator,
         IMessageHandler<WalletCreatedEvent>,
 
-        IMessageHandler<NewCashTransferEvent>,
-        IMessageHandler<NewBenevolenceTransferEvent>,
+        IMessageHandler<NewCashTransferAcceptedEvent>,
+        IMessageHandler<NewBenevolenceTransferAcceptedEvent>,
 
-        IMessageHandler<WalletStatisticInfoChangedEvent>,
         IMessageHandler<WalletAccessCodeUpdatedEvent>,
 
         IMessageHandler<BankCardAddedEvent>,
         IMessageHandler<BankCardRemovedEvent>,
-        IMessageHandler<BankCardUpdatedEvent>
+        IMessageHandler<BankCardUpdatedEvent>,
+
+        IMessageHandler<WithdrawApplyCreatedEvent>,
+        IMessageHandler<WithdrawApplyStatusChangedEvent>,
+
+        IMessageHandler<RechargeApplyCreatedEvent>,
+        IMessageHandler<RechargeApplyStatusChangedEvent>
     {
         public Task<AsyncTaskResult> HandleAsync(WalletCreatedEvent evnt)
         {
@@ -49,64 +57,54 @@ namespace Shop.ReadModel.Wallets
                 }, ConfigSettings.WalletTable);
             });
         }
-        public Task<AsyncTaskResult> HandleAsync(NewCashTransferEvent evnt)
+        public Task<AsyncTaskResult> HandleAsync(NewCashTransferAcceptedEvent evnt)
         {
             return TryUpdateRecordAsync(connection =>
             {
 
                 return connection.UpdateAsync(new
                 {
-                    Version = evnt.Version,
                     Cash = evnt.FinallyValue,
-                    UpdatedOn = evnt.Timestamp,
+                    YesterdayEarnings = evnt.StatisticInfo.YesterdayEarnings,
+                    Earnings = evnt.StatisticInfo.Earnings,
+                    YesterdayIndex = evnt.StatisticInfo.YesterdayIndex,
+                    BenevolenceTotal = evnt.StatisticInfo.BenevolenceTotal,
+                    TodayBenevolenceAdded = evnt.StatisticInfo.TodayBenevolenceAdded,
+                    UpdatedOn=evnt.StatisticInfo.UpdatedOn,
+                    Version = evnt.Version,
                     EventSequence = evnt.Sequence
                 }, new
                 {
                     Id = evnt.AggregateRootId,
                     UserId=evnt.UserId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.WalletTable);
             });
         }
-        public Task<AsyncTaskResult> HandleAsync(NewBenevolenceTransferEvent evnt)
+        public Task<AsyncTaskResult> HandleAsync(NewBenevolenceTransferAcceptedEvent evnt)
         {
             return TryUpdateRecordAsync(connection =>
             {
                 return connection.UpdateAsync(new
                 {
                     Benevolence = evnt.FinallyValue,
-                    UpdatedOn = evnt.Timestamp,
+                    YesterdayEarnings = evnt.StatisticInfo.YesterdayEarnings,
+                    Earnings = evnt.StatisticInfo.Earnings,
+                    YesterdayIndex = evnt.StatisticInfo.YesterdayIndex,
+                    BenevolenceTotal = evnt.StatisticInfo.BenevolenceTotal,
+                    TodayBenevolenceAdded = evnt.StatisticInfo.TodayBenevolenceAdded,
+                    UpdatedOn = evnt.StatisticInfo.UpdatedOn,
                     Version = evnt.Version,
                     EventSequence=evnt.Sequence
                 }, new
                 {
                     Id = evnt.AggregateRootId,
                     UserId = evnt.UserId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.WalletTable);
             });
         }
-
-        public Task<AsyncTaskResult> HandleAsync(WalletStatisticInfoChangedEvent evnt)
-        {
-            return TryUpdateRecordAsync(connection =>
-            {
-                return connection.UpdateAsync(new
-                {
-                    YesterdayEarnings = evnt.StatisticInfo.YesterdayEarnings,
-                    Earnings = evnt.StatisticInfo.Earnings,
-                    YesterdayIndex = evnt.StatisticInfo.YesterdayIndex,
-                    BenevolenceTotal = evnt.StatisticInfo.BenevolenceTotal,
-                    TodayBenevolenceAdded=evnt.StatisticInfo.TodayBenevolenceAdded,
-                    Version = evnt.Version,
-                    EventSequence=evnt.Sequence
-                }, new
-                {
-                    Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
-                }, ConfigSettings.WalletTable);
-            });
-        }
+        
 
 
         #region 银行卡
@@ -126,7 +124,7 @@ namespace Shop.ReadModel.Wallets
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.WalletTable, transaction);
                 if (effectedRows == 1)
                 {
@@ -158,7 +156,7 @@ namespace Shop.ReadModel.Wallets
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.WalletTable, transaction);
 
                 if (effectedRows == 1)
@@ -192,7 +190,7 @@ namespace Shop.ReadModel.Wallets
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.WalletTable, transaction);
                 if (effectedRows == 1)
                 {
@@ -222,8 +220,129 @@ namespace Shop.ReadModel.Wallets
                 }, new
                 {
                     Id = evnt.AggregateRootId,
-                    Version = evnt.Version - 1
+                    //Version = evnt.Version - 1
                 }, ConfigSettings.WalletTable);
+            });
+        }
+
+        public Task<AsyncTaskResult> HandleAsync(WithdrawApplyCreatedEvent evnt)
+        {
+            return TryTransactionAsync(async (connection, transaction) =>
+            {
+                var effectedRows = await connection.UpdateAsync(new
+                {
+                    Version = evnt.Version,
+                    EventSequence = evnt.Sequence
+                }, new
+                {
+                    Id = evnt.AggregateRootId,
+                    //Version = evnt.Version - 1
+                }, ConfigSettings.WalletTable, transaction);
+                if (effectedRows == 1)
+                {
+                    await connection.InsertAsync(new
+                    {
+                        Id = evnt.WithdrawApplyId,
+                        WalletId = evnt.AggregateRootId,
+                        Amount =evnt.Info.Amount,
+                        BankName = evnt.Info.BankName,
+                        BankNumber=evnt.Info.BankNumber,
+                        BankOwner = evnt.Info.BankOwner,
+                        Remark=evnt.Info.Remark,
+                        CreatedOn = evnt.Timestamp,
+                        Status=(int)evnt.Status
+                    }, ConfigSettings.WithdrawApplysTable, transaction);
+                }
+            });
+        }
+
+        public Task<AsyncTaskResult> HandleAsync(WithdrawApplyStatusChangedEvent evnt)
+        {
+            return TryTransactionAsync(async (connection, transaction) =>
+            {
+                var effectedRows = await connection.UpdateAsync(new
+                {
+                    Version = evnt.Version,
+                    EventSequence = evnt.Sequence
+                }, new
+                {
+                    Id = evnt.AggregateRootId,
+                    //Version = evnt.Version - 1
+                }, ConfigSettings.WalletTable, transaction);
+
+                if (effectedRows == 1)
+                {
+                    await connection.UpdateAsync(new
+                    {
+                        Status = (int)evnt.Status,
+                        Remark = evnt.Remark,
+                    }, new
+                    {
+                        WalletId = evnt.AggregateRootId,
+                        Id = evnt.WithdrawApplyId
+                    }, ConfigSettings.WithdrawApplysTable, transaction);
+                }
+            });
+        }
+
+        public Task<AsyncTaskResult> HandleAsync(RechargeApplyCreatedEvent evnt)
+        {
+            return TryTransactionAsync(async (connection, transaction) =>
+            {
+                var effectedRows = await connection.UpdateAsync(new
+                {
+                    Version = evnt.Version,
+                    EventSequence = evnt.Sequence
+                }, new
+                {
+                    Id = evnt.AggregateRootId,
+                    //Version = evnt.Version - 1
+                }, ConfigSettings.WalletTable, transaction);
+                if (effectedRows == 1)
+                {
+                    await connection.InsertAsync(new
+                    {
+                        Id = evnt.RechargeApplyId,
+                        WalletId = evnt.AggregateRootId,
+                        Amount = evnt.Info.Amount,
+                        Pic=evnt.Info.Pic,
+                        BankName = evnt.Info.BankName,
+                        BankNumber = evnt.Info.BankNumber,
+                        BankOwner = evnt.Info.BankOwner,
+                        Remark = evnt.Info.Remark,
+                        CreatedOn = evnt.Timestamp,
+                        Status = (int)evnt.Status
+                    }, ConfigSettings.RechargeApplysTable, transaction);
+                }
+            });
+        }
+
+        public Task<AsyncTaskResult> HandleAsync(RechargeApplyStatusChangedEvent evnt)
+        {
+            return TryTransactionAsync(async (connection, transaction) =>
+            {
+                var effectedRows = await connection.UpdateAsync(new
+                {
+                    Version = evnt.Version,
+                    EventSequence = evnt.Sequence
+                }, new
+                {
+                    Id = evnt.AggregateRootId,
+                    //Version = evnt.Version - 1
+                }, ConfigSettings.WalletTable, transaction);
+
+                if (effectedRows == 1)
+                {
+                    await connection.UpdateAsync(new
+                    {
+                        Status = (int)evnt.Status,
+                        Remark = evnt.Remark,
+                    }, new
+                    {
+                        WalletId = evnt.AggregateRootId,
+                        Id = evnt.RechargeApplyId
+                    }, ConfigSettings.RechargeApplysTable, transaction);
+                }
             });
         }
     }

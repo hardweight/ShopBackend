@@ -7,14 +7,14 @@ using Shop.Commands.Partners;
 using Shop.Commands.Users;
 using Shop.Commands.Wallets;
 using Shop.Commands.Wallets.BenevolenceTransfers;
-using Shop.Commands.Wallets.CashTransfers;
+using Shop.Common.Enums;
 using Shop.Domain.Events.Partners;
 using Shop.Domain.Events.Users;
 using Shop.Domain.Events.Users.UserGifts;
-using Shop.Messages.Messages.Users;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xia.Common;
 using Xia.Common.Extensions;
 
 namespace Shop.ProcessManagers
@@ -23,7 +23,6 @@ namespace Shop.ProcessManagers
     public class UserProcessManager :
         IMessageHandler<UserCreatedEvent>,//创建用户
         IMessageHandler<UserSpendingTransformToBenevolenceEvent>,//用户消费转换为善心(User)
-        IMessageHandler<UserGetSpendingBenevolenceEvent>,//用户消费激励善心
         IMessageHandler<UserGetSaleBenevolenceEvent>,//用户店铺销售激励善心
         IMessageHandler<MyParentCanGetBenevolenceEvent>,//我的父亲可以获得推荐善心奖励
         IMessageHandler<UserGetChildBenevolenceEvent>,//获取子的善心分成
@@ -40,47 +39,6 @@ namespace Shop.ProcessManagers
         {
             _commandService = commandService;
         }
-
-        
-
-        /// <summary>
-        /// 激励用户善心
-        /// </summary>
-        /// <param name="message"></param>
-        /// <returns></returns>
-        public Task<AsyncTaskResult> HandleAsync(IncentiveUserBenevolenceMessage message)
-        {
-            //发布两个记录 一个现金记录  一个善心记录
-            var tasks = new List<Task>();
-            string number = DateTime.Now.ToSerialNuber();
-            //现金记录
-            tasks.Add(_commandService.SendAsync(new CreateCashTransferCommand(
-                    Guid.NewGuid(),
-                    message.WalletId,
-                    number,
-                    CashTransferType.Incentive,
-                    CashTransferStatus.Placed,
-                    message.IncentiveValue,
-                    0,
-                    WalletDirection.In,
-                    "善心激励")));
-            //善心记录
-            tasks.Add(_commandService.SendAsync(new CreateBenevolenceTransferCommand(
-                    Guid.NewGuid(),    
-                    message.WalletId,
-                    number,
-                    BenevolenceTransferType.Incentive,
-                    BenevolenceTransferStatus.Placed,
-                    message.BenevolenceDeduct,
-                    0,
-                    WalletDirection.Out,
-                    "善心激励")));
-            //执行所以的任务  
-            Task.WaitAll(tasks.ToArray());
-            //Task.WhenAll(tasks).ConfigureAwait(false);
-            return Task.FromResult(AsyncTaskResult.Success);
-        }
-
        
         /// <summary>
         /// 用户消费额转换为善心 用户剩余未转换逻辑已经实现，这里只需增加用户的善心就行了
@@ -89,9 +47,9 @@ namespace Shop.ProcessManagers
         /// <returns></returns>
         public Task<AsyncTaskResult> HandleAsync(UserSpendingTransformToBenevolenceEvent evnt)
         {
-            var number = DateTime.Now.ToSerialNuber();
+            var number = DateTime.Now.ToSerialNumber();
             return _commandService.SendAsync(new CreateBenevolenceTransferCommand(
-                    Guid.NewGuid(),
+                    GuidUtil.NewSequentialId(),
                     evnt.WalletId,
                     number,
                     BenevolenceTransferType.ShoppingAward,
@@ -102,25 +60,12 @@ namespace Shop.ProcessManagers
                     "购物激励"));
         }
 
-        public Task<AsyncTaskResult> HandleAsync(UserGetSpendingBenevolenceEvent evnt)
-        {
-            var number = DateTime.Now.ToSerialNuber();
-            return _commandService.SendAsync(new CreateBenevolenceTransferCommand(
-                    Guid.NewGuid(),    
-                    evnt.WalletId,
-                    number,
-                    BenevolenceTransferType.ShoppingAward,
-                    BenevolenceTransferStatus.Success,
-                    evnt.Amount,
-                    0,
-                    WalletDirection.In,
-                    "消费5倍激励"));
-        }
+      
         public Task<AsyncTaskResult> HandleAsync(UserGetSaleBenevolenceEvent evnt)
         {
-            var number = DateTime.Now.ToSerialNuber();
+            var number = DateTime.Now.ToSerialNumber();
             return _commandService.SendAsync(new CreateBenevolenceTransferCommand(
-                    Guid.NewGuid(),     
+                    GuidUtil.NewSequentialId(),     
                     evnt.WalletId,
                     number,
                     BenevolenceTransferType.StoreAward,
@@ -128,7 +73,7 @@ namespace Shop.ProcessManagers
                     evnt.Amount,
                     0,
                     WalletDirection.In,
-                    "店铺销售激励"));
+                    "店铺销售奖励"));
         }
         /// <summary>
         /// 我的父亲可以获得推荐善心奖励
@@ -146,9 +91,9 @@ namespace Shop.ProcessManagers
         /// <returns></returns>
         public Task<AsyncTaskResult> HandleAsync(UserGetChildBenevolenceEvent evnt)
         {
-            var number = DateTime.Now.ToSerialNuber();
+            var number = DateTime.Now.ToSerialNumber();
             return _commandService.SendAsync(new CreateBenevolenceTransferCommand(
-                    Guid.NewGuid(),
+                    GuidUtil.NewSequentialId(),
                     evnt.WalletId,
                     number,
                     BenevolenceTransferType.RecommendUserAward,
@@ -165,9 +110,9 @@ namespace Shop.ProcessManagers
         /// <returns></returns>
         public Task<AsyncTaskResult> HandleAsync(UserGetChildStoreSaleBenevolenceEvent evnt)
         {
-            var number = DateTime.Now.ToSerialNuber();
+            var number = DateTime.Now.ToSerialNumber();
             return _commandService.SendAsync(new CreateBenevolenceTransferCommand(
-                    Guid.NewGuid(),
+                    GuidUtil.NewSequentialId(),
                     evnt.WalletId,
                     number,
                     BenevolenceTransferType.RecommendStoreAward,
@@ -182,14 +127,14 @@ namespace Shop.ProcessManagers
         {
             //创建联盟聚合跟 需要根据级别初始化省市县信息
             return _commandService.SendAsync(new CreatePartnerCommand(
-                Guid.NewGuid(),
+                GuidUtil.NewSequentialId(),
                 evnt.UserId,
                 evnt.WalletId,
                 evnt.Region,
                 evnt.Province,
                 evnt.City,
                 evnt.County,
-                evnt.Level.ToCommandPartnerLevel()
+                evnt.Level
                 ));
         }
 
@@ -211,10 +156,10 @@ namespace Shop.ProcessManagers
         {
             var tasks = new List<Task>();
             //创建用户的钱包信息
-            tasks.Add( _commandService.SendAsync(new CreateWalletCommand(Guid.NewGuid(),
+            tasks.Add( _commandService.SendAsync(new CreateWalletCommand(evnt.WalletId,
                 evnt.AggregateRootId)));
             //创建用户的购物车信息
-            tasks.Add(_commandService.SendAsync(new CreateCartCommand(Guid.NewGuid(),
+            tasks.Add(_commandService.SendAsync(new CreateCartCommand(evnt.CartId,
                 evnt.AggregateRootId)));
             //执行所以的任务    
             //Task.WhenAll(tasks).ConfigureAwait(false); //验证失败

@@ -13,7 +13,7 @@ namespace Shop.ProcessManagers
     [Component]
     public class BenevolenceTransferProcessManager : 
         IMessageHandler<BenevolenceTransferCreatedEvent>,
-        IMessageHandler<NewBenevolenceTransferEvent>  //钱包接受了新的现金记录  更新现金记录状态为成功
+        IMessageHandler<NewBenevolenceTransferAcceptedEvent>  //钱包接受了新的现金记录  更新现金记录状态为成功
     {
         private ICommandService _commandService;
 
@@ -27,7 +27,7 @@ namespace Shop.ProcessManagers
             return _commandService.SendAsync(new AcceptNewBenevolenceTransferCommand(evnt.WalletId, evnt.AggregateRootId));
         }
 
-        public Task<AsyncTaskResult> HandleAsync(NewBenevolenceTransferEvent evnt)
+        public Task<AsyncTaskResult> HandleAsync(NewBenevolenceTransferAcceptedEvent evnt)
         {
             return _commandService.SendAsync(
                 new SetBenevolenceTransferSuccessCommand(evnt.TransferId)

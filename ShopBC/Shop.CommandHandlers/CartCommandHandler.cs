@@ -20,13 +20,15 @@ namespace Shop.CommandHandlers
         public void Handle(ICommandContext context, AddCartGoodsCommand command)
         {
             context.Get<Cart>(command.AggregateRootId).AddGoods(
-                new Domain.Models.Carts.CartGoods.CartGoodsInfo(
+                new Domain.Models.Carts.CartGoodses.CartGoodsInfo(
                     command.StoreId,
                     command.GoodsId,
                     command.SpecificationId,
                     command.GoodsName,
+                    command.GoodsPic,
                     command.SpecificationName,
                     command.Price,
+                    command.OriginalPrice,
                     command.Quantity,
                     command.Stock));
         }

@@ -8,6 +8,11 @@ using Xia.Common.Extensions;
 using Shop.Domain.Models.Wallets.CashTransfers;
 using Shop.Domain.Models.Wallets.BankCards;
 using Shop.Domain.Models.Wallets.BenevolenceTransfers;
+using Shop.Domain.Models.Wallets.WithdrawApplys;
+using Shop.Domain.Events.Wallets.WithdrawApplys;
+using Shop.Common.Enums;
+using Shop.Domain.Models.Wallets.RechargeApplys;
+using Shop.Domain.Events.Wallets.RechargeApplys;
 
 namespace Shop.Domain.Models.Wallets
 {
@@ -25,6 +30,9 @@ namespace Shop.Domain.Models.Wallets
         private ISet<Guid> _cashTransfers;//现金账记录
         private ISet<Guid> _benevolenceTransfers;//善心账记录
         private IList<BankCard> _bankCards;//银行卡
+        private IList<WithdrawApply> _withdrawApplys;//提现记录
+        private IList<RechargeApply> _rechargeApplys;//线下充值记录
+
         private WalletStatisticInfo _walletStatisticInfo;//钱包统计信息
 
         public Wallet(Guid id,Guid userId):base(id)
@@ -81,6 +89,9 @@ namespace Shop.Domain.Models.Wallets
 
         #endregion
 
+        #region 处理流水信息
+
+        
         /// <summary>
         /// 接受新的现金记录   更新统计信息
         /// </summary>
@@ -92,6 +103,9 @@ namespace Shop.Domain.Models.Wallets
             var finallyValue = _cash;
             //业务逻辑判断
             CashTransferInfo cashTransferInfo = cashTransfer.GetInfo();
+            //统计信息
+            var walletStatisticInfo = _walletStatisticInfo;
+
             if(cashTransferInfo.Direction==WalletDirection.Out)
             {
                 //如果是出账 判断账号余额是否够
@@ -104,33 +118,28 @@ namespace Shop.Domain.Models.Wallets
             else
             {
                 //进账 判断收益
-                if (_walletStatisticInfo == null)
-                {
-                    ApplyEvent(new WalletStatisticInfoChangedEvent(new WalletStatisticInfo(
-                        0,
-                        0,
-                        0,
-                       0,
-                       0)));
-                }
-                else if(cashTransfer.GetTransferType()==CashTransferType.Incentive)
+                if(cashTransfer.GetTransferType() == CashTransferType.Incentive)
                 {
                     //善心激励
-                    ApplyEvent(new WalletStatisticInfoChangedEvent(new WalletStatisticInfo(
-                        cashTransferInfo.Amount,
-                        _walletStatisticInfo.Earnings+cashTransferInfo.Amount,
-                        _walletStatisticInfo.YesterdayIndex,
-                        _walletStatisticInfo.BenevolenceTotal,
-                        _walletStatisticInfo.TodayBenevolenceAdded
-                        )));
+                    if (_walletStatisticInfo.UpdatedOn.Date.Equals(DateTime.Now.Date))
+                    {
+                        //非第一个
+                        walletStatisticInfo.YesterdayEarnings += cashTransferInfo.Amount;
+                        walletStatisticInfo.Earnings += cashTransferInfo.Amount;
+                        walletStatisticInfo.UpdatedOn = DateTime.Now;
+                    }
+                    else
+                    {
+                        //今日第一个
+                        walletStatisticInfo.YesterdayEarnings = cashTransferInfo.Amount;
+                        walletStatisticInfo.Earnings += cashTransferInfo.Amount;
+                        walletStatisticInfo.UpdatedOn = DateTime.Now;
+                    }
                 }
-
                 finallyValue += cashTransferInfo.Amount;
             }
-            
-
             //新的记录接受后，发出新记录接受的事件
-            ApplyEvent(new NewCashTransferEvent(_userId,cashTransfer.Id, finallyValue));
+            ApplyEvent(new NewCashTransferAcceptedEvent(_userId,cashTransfer.Id, finallyValue,walletStatisticInfo));
         }
 
         /// <summary>
@@ -144,6 +153,9 @@ namespace Shop.Domain.Models.Wallets
             var finallyValue = _benevolence;
             //业务逻辑判断
             BenevolenceTransferInfo benevolenceTransferInfo = benevolenceTransfer.GetInfo();
+            //统计信息
+            var walletStatisticInfo = _walletStatisticInfo;
+
             if (benevolenceTransferInfo.Direction == WalletDirection.Out)
             {//如果是出账 判断账号余额是否够
                 if (_benevolence < benevolenceTransferInfo.Amount)
@@ -153,33 +165,28 @@ namespace Shop.Domain.Models.Wallets
                 finallyValue -= benevolenceTransferInfo.Amount;
             }
             else
-            {//如果是进账 更新统计信息
-                
-                if (_walletStatisticInfo == null)
+            {
+                //如果是进账 更新统计信息
+                if(_walletStatisticInfo.UpdatedOn.Date.Equals(DateTime.Now.Date))
                 {
-                    ApplyEvent(new WalletStatisticInfoChangedEvent(new WalletStatisticInfo(
-                        0,
-                        0,
-                        0,
-                       benevolenceTransferInfo.Amount,
-                       0)));
+                    //今日非第一个记录
+                    walletStatisticInfo.BenevolenceTotal += benevolenceTransferInfo.Amount;
+                    walletStatisticInfo.TodayBenevolenceAdded += benevolenceTransferInfo.Amount;
+                    walletStatisticInfo.UpdatedOn = DateTime.Now;
                 }
-                else
+               else
                 {
-                    ApplyEvent(new WalletStatisticInfoChangedEvent(new WalletStatisticInfo(
-                        _walletStatisticInfo.YesterdayEarnings,
-                        _walletStatisticInfo.Earnings,
-                        _walletStatisticInfo.YesterdayIndex,
-                        _walletStatisticInfo.BenevolenceTotal + benevolenceTransferInfo.Amount,
-                        _walletStatisticInfo.TodayBenevolenceAdded
-                        )));
+                    //今日第一个收入
+                    walletStatisticInfo.BenevolenceTotal += benevolenceTransferInfo.Amount;
+                    walletStatisticInfo.TodayBenevolenceAdded = benevolenceTransferInfo.Amount;
+                    walletStatisticInfo.UpdatedOn = DateTime.Now;
                 }
                 finallyValue += benevolenceTransferInfo.Amount;
             }
             
-            ApplyEvent(new NewBenevolenceTransferEvent(_userId, benevolenceTransfer.Id,finallyValue));
+            ApplyEvent(new NewBenevolenceTransferAcceptedEvent(_userId, benevolenceTransfer.Id,finallyValue,walletStatisticInfo));
         }
-
+        #endregion
         /// <summary>
         /// 激励善心 计算收益 并减扣善心
         /// </summary>
@@ -190,7 +197,7 @@ namespace Shop.Domain.Models.Wallets
             {
                 throw new Exception("善心指数异常");
             }
-            if(_benevolence>1)
+            if(_benevolence>=1)
             {
                 //只有善心值大于1时才参与激励
 
@@ -203,7 +210,77 @@ namespace Shop.Domain.Models.Wallets
                 ApplyEvent(new IncentiveUserBenevolenceEvent(_userId,benevolenceIndex,incentiveValue,benevolenceDeduct));
             }
         }
-       
+
+        #region 提现申请
+
+        
+        /// <summary>
+        /// 提交提现申请
+        /// </summary>
+        /// <param name="withdrawApplyId"></param>
+        /// <param name="info"></param>
+        public void ApplyWithdraw(Guid withdrawApplyId,WithdrawApplyInfo info)
+        {
+            info.CheckNotNull(nameof(info));
+            ApplyEvent(new WithdrawApplyCreatedEvent(withdrawApplyId,info,WithdrawApplyStatus.Placed));
+        }
+
+        /// <summary>
+        /// 审核提现状态
+        /// </summary>
+        /// <param name="withdrawApplyId"></param>
+        /// <param name="status"></param>
+        /// <param name="remark"></param>
+        public void ChangeWithdrawApplyStatus(Guid withdrawApplyId,WithdrawApplyStatus status,string remark)
+        {
+            if(status==WithdrawApplyStatus.Success)
+            {
+                
+                var withdrawApply = _withdrawApplys.SingleOrDefault(x => x.Id == withdrawApplyId);
+                if(withdrawApply==null)
+                {
+                    throw new Exception("不存在该提现申请.");
+                }
+                if(_cash< withdrawApply.Info.Amount)
+                {//判断钱包钱包余额是否够提现金额
+                    throw new Exception("当期余额不足，无法提现");
+                }
+                ApplyEvent(new WithdrawApplySuccessEvent(withdrawApply.Info.Amount));
+            }
+            ApplyEvent(new WithdrawApplyStatusChangedEvent(withdrawApplyId, status, remark));
+        }
+        #endregion
+
+        #region 线下充值
+        /// <summary>
+        /// 提交充值申请
+        /// </summary>
+        /// <param name="rechargeApplyId"></param>
+        /// <param name="info"></param>
+        public void ApplyRecharge(Guid rechargeApplyId, RechargeApplyInfo info)
+        {
+            info.CheckNotNull(nameof(info));
+            ApplyEvent(new RechargeApplyCreatedEvent(rechargeApplyId, info, RechargeApplyStatus.Placed));
+        }
+
+        public void ChangeRechargeApplyStatus(Guid rechargeApplyId, RechargeApplyStatus status, string remark)
+        {
+            if (status == RechargeApplyStatus.Success)
+            {
+
+                var rechargeApply = _rechargeApplys.SingleOrDefault(x => x.Id == rechargeApplyId);
+                if (rechargeApply == null)
+                {
+                    throw new Exception("不存在该充值申请.");
+                }
+               
+                ApplyEvent(new RechargeApplySuccessEvent(rechargeApply.Info.Amount));
+            }
+            ApplyEvent(new RechargeApplyStatusChangedEvent(rechargeApplyId, status, remark));
+        }
+
+
+        #endregion
 
         #region Handler
         private void Handle(WalletCreatedEvent evnt)
@@ -211,10 +288,42 @@ namespace Shop.Domain.Models.Wallets
             _cash = 0;
             _benevolence = 0;
             _bankCards = new List<BankCard>();
+            _withdrawApplys = new List<WithdrawApply>();
+            _rechargeApplys = new List<RechargeApply>();
             _cashTransfers = new HashSet<Guid>();
             _benevolenceTransfers = new HashSet<Guid>();
             _userId = evnt.UserId;
+            _walletStatisticInfo = new WalletStatisticInfo(0, 0, 0, 0, 0, DateTime.Now);
         }
+
+        //提现申请
+        private void Handle(WithdrawApplyCreatedEvent evnt)
+        {
+            _withdrawApplys.Add(new WithdrawApply(evnt.WithdrawApplyId,evnt.Info,evnt.Status));
+        }
+        private void Handle(WithdrawApplyStatusChangedEvent evnt)
+        {
+            _withdrawApplys.Single(x => x.Id == evnt.WithdrawApplyId).Status = evnt.Status;
+            _withdrawApplys.Single(x => x.Id == evnt.WithdrawApplyId).Info.Remark = evnt.Remark;
+        }
+        private void Handle(WithdrawApplySuccessEvent evnt) { }
+        private void Handle(IncentiveUserBenevolenceEvent evnt) { }
+        //充值申请
+        private void Handle(RechargeApplyCreatedEvent evnt)
+        {
+            _rechargeApplys.Add(new RechargeApply(evnt.RechargeApplyId, evnt.Info, evnt.Status));
+        }
+        private void Handle(RechargeApplyStatusChangedEvent evnt)
+        {
+            _rechargeApplys.Single(x => x.Id == evnt.RechargeApplyId).Status = evnt.Status;
+            _rechargeApplys.Single(x => x.Id == evnt.RechargeApplyId).Info.Remark = evnt.Remark;
+        }
+
+        private void Handle(RechargeApplySuccessEvent evnt) { }
+
+
+
+
 
         private void Handle(WalletAccessCodeUpdatedEvent evnt)
         {
@@ -233,19 +342,18 @@ namespace Shop.Domain.Models.Wallets
             _bankCards.Remove(_bankCards.Single(x => x.Id == evnt.BankCardId));
         }
 
-        private void Handle(NewCashTransferEvent evnt)
+        private void Handle(NewCashTransferAcceptedEvent evnt)
         {
             _cash = evnt.FinallyValue;
-        }
-        private void Handle(NewBenevolenceTransferEvent evnt)
-        {
-            _benevolence = evnt.FinallyValue;
-        }
-
-        private void Handle(WalletStatisticInfoChangedEvent evnt)
-        {
             _walletStatisticInfo = evnt.StatisticInfo;
         }
+        private void Handle(NewBenevolenceTransferAcceptedEvent evnt)
+        {
+            _benevolence = evnt.FinallyValue;
+            _walletStatisticInfo = evnt.StatisticInfo;
+        }
+
+       
         #endregion
     }
 }

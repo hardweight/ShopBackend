@@ -21,7 +21,7 @@ namespace Shop.CommandHandlers
                 command.Province,
                 command.City,
                 command.Province,
-                command.Level.ToPartnerLevel()));
+                command.Level));
         }
         public void Handle(ICommandContext context, ApplyBalanceCommand command)
         {

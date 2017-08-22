@@ -33,10 +33,12 @@ namespace Shop.ProcessorHost
 
             configuration.RegisterEQueueComponents();
 
+            //生产者设置
             var producerSetting = new ProducerSetting
             {
                 NameServerList = new List<IPEndPoint> { new IPEndPoint(SocketUtils.GetLocalIPV4(), ConfigSettings.NameServerPort) }
             };
+            //消费者设置
             var consumerSetting = new ConsumerSetting
             {
                 NameServerList = new List<IPEndPoint> { new IPEndPoint(SocketUtils.GetLocalIPV4(), ConfigSettings.NameServerPort) }
@@ -52,8 +54,8 @@ namespace Shop.ProcessorHost
             _eventConsumer = new DomainEventConsumer("ShopEventConsumerGroup", consumerSetting).Subscribe(Topics.ShopDomainEventTopic);
 
             _applicationMessageConsumer = new ApplicationMessageConsumer("ShopMessageConsumerGroup", consumerSetting)
-           .Subscribe(Topics.ShopApplicationMessageTopic)
-           .Subscribe(Topics.PaymentApplicationMessageTopic);
+           .Subscribe(Topics.ShopApplicationMessageTopic);
+           //.Subscribe(Topics.PaymentApplicationMessageTopic);
 
             _applicationMessagePublisher = new ApplicationMessagePublisher(producerSetting);
             

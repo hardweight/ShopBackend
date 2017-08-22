@@ -1,5 +1,6 @@
 ﻿using ENode.Domain;
 using Shop.Common;
+using Shop.Common.Enums;
 using Shop.Domain.Events.Partners;
 using System;
 

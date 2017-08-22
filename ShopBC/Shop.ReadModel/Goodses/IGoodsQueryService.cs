@@ -12,8 +12,24 @@ namespace Shop.ReadModel.Goodses
         GoodsDetails GetGoodsDetails(Guid goodsId);
         GoodsAlias GetGoodsAlias(Guid goodsId);
 
-        IList<GoodsAlias> GetPublishedGoodses();
-        IList<Specification> GetPublishedSpecifications(Guid goodsId);
-        IList<SpecificationName> GetSpecificationNames(IEnumerable<Guid> specifications);
+        IEnumerable<GoodsDetails> GetStoreGoodses(Guid storeId);
+
+        IEnumerable<GoodsAlias> GetPublishedGoodses();
+
+        IEnumerable<GoodsAlias> Search(string search);
+        IEnumerable<GoodsAlias> CategoryGoodses(Guid categoryId);
+
+        IEnumerable<GoodsAlias> GoodSellGoodses(int count);
+        IEnumerable<GoodsAlias> GoodRateGoodses(int count);
+        IEnumerable<GoodsAlias> NewGoodses(int count);
+
+        IEnumerable<GoodsDetails> Goodses();
+
+        IEnumerable<Comment> GetComments(int count);
+
+        IEnumerable<Specification> GetPublishedSpecifications(Guid goodsId);
+        IEnumerable<SpecificationName> GetSpecificationNames(IEnumerable<Guid> specifications);
+
+        Specification GetGoodsDefaultSpecification(Guid goodsId);
     }
 }

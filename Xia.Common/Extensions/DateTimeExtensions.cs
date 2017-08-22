@@ -56,7 +56,7 @@ namespace Xia.Common.Extensions
         /// </summary>
         /// <param name="dateTime"></param>
         /// <returns></returns>
-        public static string ToSerialNuber(this DateTime dateTime)
+        public static string ToSerialNumber(this DateTime dateTime)
         {
             return dateTime.ToUniqueString() + new Random().GetRandomNumberString(4);
         }

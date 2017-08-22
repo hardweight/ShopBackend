@@ -7,13 +7,13 @@ namespace Shop.Domain.Events.Stores.StoreOrders.GoodsServices
     public class ServiceExpiredEvent:DomainEvent<Guid>
     {
         public decimal Total { get; private set; }
-        public decimal SurrenderPersent { get; private set; }
+        public decimal Surrender { get; private set; }
 
         public ServiceExpiredEvent() { }
-        public ServiceExpiredEvent(decimal total,decimal surrenderPersent)
+        public ServiceExpiredEvent(decimal total,decimal surrender)
         {
             Total = total;
-            SurrenderPersent = surrenderPersent;
+            Surrender = surrender;
         }
     }
 }

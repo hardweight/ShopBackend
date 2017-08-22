@@ -1,5 +1,5 @@
 ﻿using ENode.Eventing;
-using Shop.Domain.Models.Wallets.CashTransfers;
+using Shop.Common.Enums;
 using System;
 
 namespace Shop.Domain.Events.Wallets.CashTransfers

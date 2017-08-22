@@ -3,6 +3,7 @@ using ENode.Commanding;
 using Shop.Commands.Grantees;
 using Shop.Domain.Models.Grantees;
 using System;
+using Xia.Common;
 
 namespace Shop.CommandHandlers
 {
@@ -17,7 +18,7 @@ namespace Shop.CommandHandlers
     {
         public void Handle(ICommandContext context, CreateGranteeCommand command)
         {
-            var grantee = new Grantee(Guid.NewGuid(), command.Publisher, new GranteeInfo(
+            var grantee = new Grantee(GuidUtil.NewSequentialId(), command.Publisher, new GranteeInfo(
                 command.Section,
                 command.Title,
                 command.Description,
