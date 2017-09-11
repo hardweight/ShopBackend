@@ -19,6 +19,6 @@ namespace Shop.Api.Models.Response.User
         public string Gender { get; set; }
         public string Region { get; set; }
         public string Role { get; set; }
-        public string IsLocked { get; set; }
+        public bool IsLocked { get; set; }
     }
 }

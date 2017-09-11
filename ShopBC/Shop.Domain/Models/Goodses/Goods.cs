@@ -1,4 +1,5 @@
 ﻿using ENode.Domain;
+using Shop.Common.Enums;
 using Shop.Domain.Events.Goodses;
 using Shop.Domain.Events.Goodses.Specifications;
 using Shop.Domain.Models.Comments;
@@ -7,6 +8,7 @@ using Shop.Domain.Models.PublishableExceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Xia.Common;
 using Xia.Common.Extensions;
 
 namespace Shop.Domain.Models.Goodses
@@ -25,7 +27,7 @@ namespace Shop.Domain.Models.Goodses
         private CommentStatisticInfo _commentStatisticInfo;//评价统计信息
         private IDictionary<Guid, IEnumerable<ReservationItem>> _reservations;//预定信息防止超卖
         private bool _isPublished;//是否上架
-
+        private GoodsStatus _status;//商品状态
         /// <summary>
         /// 构造函数---创建会议
         /// </summary>
@@ -68,16 +70,21 @@ namespace Shop.Domain.Models.Goodses
         public void AddSpecifications(IList<Specification> specifications)
         {
             specifications.CheckNotNull(nameof(specifications));
+            //判断是否有该商品的预定，有预定是不允许批量修改的
+            if (_reservations.Any())
+            {
+                throw new Exception("存在预定，不允许修改规格.");
+            }
             ApplyEvent(new SpecificationsAddedEvent(specifications));
         }
         /// <summary>
-        /// 启用单规格
+        /// 启用单规格 添加商品时自动启用
         /// </summary>
         /// <param name="specificationInfo"></param>
         /// <param name="stock"></param>
         public void AddSpecification(SpecificationInfo specificationInfo, int stock)
         {
-            ApplyEvent(new SpecificationAddedEvent(Guid.NewGuid(), specificationInfo, stock));
+            ApplyEvent(new SpecificationAddedEvent(GuidUtil.NewSequentialId(), specificationInfo, stock));
         }
         /// <summary>
         /// 更新单规格
@@ -105,12 +112,29 @@ namespace Shop.Domain.Models.Goodses
                 ApplyEvent(new SpecificationStockChangedEvent(specificationId, stock, stock - totalReservationQuantity));
             }
         }
+        /// <summary>
+        /// 更新规格，价格之类的
+        /// </summary>
+        /// <param name="specifications"></param>
+        public void UpdateSpecifications(IList<Specification> specifications)
+        {
+            //判断是否有该商品的预定，有预定是不允许批量修改的
+            //if (_reservations.Any())
+            //{
+            //    throw new Exception("存在预定，不允许修改规格.");
+            //}
+            ApplyEvent(new SpecificationsUpdatedEvent(specifications));
+        }
 
         /// <summary>
         /// 上架
         /// </summary>
         public void Publish()
         {
+            if (_isPublished)
+            {
+                throw new Exception("产品早已上架");
+            }
             ApplyEvent(new GoodsPublishedEvent());
         }
         /// <summary>
@@ -118,7 +142,20 @@ namespace Shop.Domain.Models.Goodses
         /// </summary>
         public void Unpublish()
         {
+            if(!_isPublished)
+            {
+                throw new Exception("产品早已下架");
+            }
             ApplyEvent(new GoodsUnpublishedEvent());
+        }
+
+        /// <summary>
+        /// 更改审核状态
+        /// </summary>
+        /// <param name="status"></param>
+        public void UpdateStatus(GoodsStatus status)
+        {
+            ApplyEvent(new GoodsStatusUpdatedEvent(status));
         }
 
         /// <summary>
@@ -189,6 +226,7 @@ namespace Shop.Domain.Models.Goodses
                 var availableStock = specification.Stock - GetTotalReservationQuantity(specification.Id);
                 if (availableStock < reservationItem.Quantity)
                 {
+                    //库存数量不足
                     throw new SpecificationInsufficientException(_id, reservationId);
                 }
                 specificationAvailableQuantities.Add(new SpecificationAvailableQuantity(specification.Id, availableStock - reservationItem.Quantity));
@@ -247,7 +285,8 @@ namespace Shop.Domain.Models.Goodses
             _goodsParams = new List<GoodsParam>();
             _specifications = new List<Specification>();
             _reservations = new Dictionary<Guid, IEnumerable<ReservationItem>>();
-            _isPublished = true;
+            _isPublished = false;
+            _status = GoodsStatus.UnVerify;
         }
         private void Handle(GoodsStoreUpdatedEvent evnt)
         {
@@ -257,10 +296,10 @@ namespace Shop.Domain.Models.Goodses
                 editableInfo.Name,
                 editableInfo.Description,
                 editableInfo.Pics,
-                _info.Price,
+                editableInfo.Price,
                 editableInfo.OriginalPrice,
+                _info.Benevolence,
                 editableInfo.Stock,
-                _info.Surrender,
                 _info.SellOut,
                 editableInfo.IsPayOnDelivery,
                 editableInfo.IsInvoice,
@@ -276,13 +315,17 @@ namespace Shop.Domain.Models.Goodses
                 editableInfo.Pics,
                 editableInfo.Price,
                 _info.OriginalPrice,
+                editableInfo.Benevolence,
                 _info.Stock,
-                _info.Surrender,
                 editableInfo.SellOut,
                 _info.IsPayOnDelivery,
                 _info.IsInvoice,
                 _info.Is7SalesReturn,
                 _info.Sort);
+        }
+        private void Handle(GoodsStatusUpdatedEvent evnt)
+        {
+            _status = evnt.Status;
         }
         private void Handle(GoodsPublishedEvent evnt)
         {
@@ -297,6 +340,10 @@ namespace Shop.Domain.Models.Goodses
             _goodsParams = evnt.GoodsParams;
         }
         private void Handle(SpecificationsAddedEvent evnt)
+        {
+            _specifications = evnt.Specifications;
+        }
+        private void Handle(SpecificationsUpdatedEvent evnt)
         {
             _specifications = evnt.Specifications;
         }
@@ -318,7 +365,7 @@ namespace Shop.Domain.Models.Goodses
         }
         private void Handle(SpecificationReservedEvent evnt)
         {
-            _reservations.Add(evnt.ReservationId, evnt.ReservationItems.ToList());
+            _reservations.Add(evnt.ReservationId, evnt.ReservationItems);
         }
         private void Handle(SpecificationReservationCommittedEvent evnt)
         {
@@ -353,6 +400,7 @@ namespace Shop.Domain.Models.Goodses
             }
             return totalReservationQuantity;
         }
+
         #endregion
     }
 }

@@ -8,6 +8,7 @@ namespace Shop.Api.Models.Response.Store
     {
         public StoreInfo StoreInfo { get; set; }
         public StatisticsInfo StatisticsInfo { get; set; }
+        public SubjectInfo SubjectInfo { get; set; }
         /// <summary>
         /// 新订单
         /// </summary>
@@ -23,6 +24,13 @@ namespace Shop.Api.Models.Response.Store
         public string Address { get; set; }
         public string Type { get; set; }
         public string Status { get; set; }
+    }
+
+    public class SubjectInfo
+    {
+        public string SubjectName { get; set; }
+        public string SubjectNumber { get; set; }
+        public string SubjectPic { get; set; }
     }
 
     public class StatisticsInfo

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="Shop.ProcessorHost.exe" version="1.0.0.5" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="Shop.ProcessorHost.exe" version="1.0.0.12" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <application />
   <entryPoint>
     <assemblyIdentity name="Shop.ProcessorHost" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
@@ -125,50 +125,50 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Shop.CommandHandlers.dll" size="31744">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Shop.CommandHandlers.dll" size="32768">
       <assemblyIdentity name="Shop.CommandHandlers" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>+LRdCfA0hYDKi6fZJgmaDEj6uUVaDIoYK/Xq7xcg0u4=</dsig:DigestValue>
+        <dsig:DigestValue>AHhnZfDtAjVqeraTN6UFVDqcxMdQl7EQ9Ytym5Y8Kbs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Shop.Commands.dll" size="57856">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Shop.Commands.dll" size="59904">
       <assemblyIdentity name="Shop.Commands" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>R4xVv8pOv27uEo1XUbglPRrlL6CM/95/0yozXY+Fh8M=</dsig:DigestValue>
+        <dsig:DigestValue>3L/n8I9ZmcnI6KYL/FGkNq7f9Ddm1FWRIVXvL+vfG8I=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Shop.Common.dll" size="18432">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Shop.Common.dll" size="19456">
       <assemblyIdentity name="Shop.Common" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>2OQZEwMk6D5+Tu5JtfqRiC/DECw65HUyy7ugOb83v68=</dsig:DigestValue>
+        <dsig:DigestValue>QTdcHbeGeHaXWSSaXfw/xq4J/j4CdortrMRyU0jIDX0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Shop.Domain.dll" size="112640">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Shop.Domain.dll" size="117248">
       <assemblyIdentity name="Shop.Domain" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>8aXw73k6LP1+xIqssClkuNWilvciA5e2jP7x6BtFrFQ=</dsig:DigestValue>
+        <dsig:DigestValue>0Fp6i785Zcbuojf9X1rObPAl1XTyZ42iWJ2aSIXZ/H8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -180,19 +180,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>/v89t61kfbKIm9A/zQGemYRXV3lW6GvBmol76mcB3iE=</dsig:DigestValue>
+        <dsig:DigestValue>T2mgq7D7p7r2kgtrBn0F1ZZqOTw6j20ERfmHTx0G30M=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Shop.ProcessManagers.dll" size="16896">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Shop.ProcessManagers.dll" size="17408">
       <assemblyIdentity name="Shop.ProcessManagers" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>r2yHLiC2twV1OGFL4Gr9Aipj20x+Ap58gt+TEtByTVM=</dsig:DigestValue>
+        <dsig:DigestValue>H79bES0bDSbXTzDcD26Lw5FomLKF8kTpY7BNAlSp1vU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -204,19 +204,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>jWtETesIfVeF+sAUVQ6lWtaC5IJgnNZKtXb7S48ddDk=</dsig:DigestValue>
+        <dsig:DigestValue>tWa5kHiCyDh3q7HzfqDTGm3CdEO72sP9vh7Ij+qqPF0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Shop.ReadModel.dll" size="284672">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Shop.ReadModel.dll" size="315392">
       <assemblyIdentity name="Shop.ReadModel" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>6tnezeScBQCEHK2+7FZcaTW30glmXJI5VH0OToz2tJs=</dsig:DigestValue>
+        <dsig:DigestValue>E4ptA+kpDZN+ALFk1wmkNYf5wip6aurXacMcDStDPEk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -228,29 +228,29 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>3pvQudtB0GwGtfmJem1LQaVkNAU4xoM6pp2YCfaeTcY=</dsig:DigestValue>
+        <dsig:DigestValue>aCeWAY5kmDKfl+xlDYFDsb6qshb7D6Cv5E6Z+b9dnYU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Xia.Common.dll" size="69120">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Xia.Common.dll" size="69632">
       <assemblyIdentity name="Xia.Common" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>mSbAIGt/k6yFLN94ere3cQeLAX9KwgE2X55wZxKKmmU=</dsig:DigestValue>
+        <dsig:DigestValue>9eREGP5Ipl0Ia9P12+7jOt9uofRBij8DkgvEnf3VUOc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="Shop.ProcessorHost.exe.config" size="799">
+  <file name="Shop.ProcessorHost.exe.config" size="1413">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>cO1BHdJA4Z17U7Yfj5SiJ7gvw0SoMhEtYqiRfP9YMuI=</dsig:DigestValue>
+      <dsig:DigestValue>uf6QR0jocYhVrrq+53kSUB0S2Bszpsrq7hR6Kf9BbZM=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

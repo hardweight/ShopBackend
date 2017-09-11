@@ -66,6 +66,7 @@ namespace Shop.ReadModel.Carts
                         OriginalPrice = evnt.Info.OriginalPrice,
                         Stock=evnt.Info.Stock,
                         Quantity=evnt.Info.Quantity,
+                        Benevolence = evnt.Info.Benevolence,
                         CreatedOn = evnt.Timestamp
                     }, ConfigSettings.CartGoodsesTable, transaction);
                 }

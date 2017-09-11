@@ -1,0 +1,18 @@
+2017-09-01 17:57:08,614 ERROR ECommon.Configurations.Configuration - Unhandled exception: Quartz.ObjectAlreadyExistsException: Unable to store Job: 'DEFAULT.ExpiredOrderJob', because one already exists with this identification.
+   在 Quartz.Simpl.RAMJobStore.StoreJob(IJobDetail newJob, Boolean replaceExisting) 位置 c:\Program Files (x86)\Jenkins\workspace\Quartz.NET\src\Quartz\Simpl\RAMJobStore.cs:行号 256
+   在 Quartz.Simpl.RAMJobStore.StoreJobAndTrigger(IJobDetail newJob, IOperableTrigger newTrigger) 位置 c:\Program Files (x86)\Jenkins\workspace\Quartz.NET\src\Quartz\Simpl\RAMJobStore.cs:行号 212
+   在 Quartz.Core.QuartzScheduler.ScheduleJob(IJobDetail jobDetail, ITrigger trigger) 位置 c:\Program Files (x86)\Jenkins\workspace\Quartz.NET\src\Quartz\Core\QuartzScheduler.cs:行号 718
+   在 Quartz.Impl.StdScheduler.ScheduleJob(IJobDetail jobDetail, ITrigger trigger) 位置 c:\Program Files (x86)\Jenkins\workspace\Quartz.NET\src\Quartz\Impl\StdScheduler.cs:行号 262
+   在 Shop.TimerTask.Jobs.WithdrawClearWeekAmount.WithdrawClearWeekAmountJobScheduler.Start() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\Jobs\WithdrawClearWeekAmount\WithdrawClearWeekAmountJobScheduler.cs:行号 35
+   在 Shop.TimerTask.Bootstrap.StartTimerTasks() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\Bootstrap.cs:行号 90
+   在 Shop.TimerTask.Bootstrap.Initialize() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\Bootstrap.cs:行号 35
+   在 Shop.TimerTask.Program.Main(String[] args) 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\Program.cs:行号 20
+2017-09-01 18:42:59,882 ERROR ECommon.Configurations.Configuration - Unhandled exception: Quartz.ObjectAlreadyExistsException: Unable to store Trigger: 'DEFAULT.ExpiredOrderJobTrigger', because one already exists with this identification.
+   在 Quartz.Simpl.RAMJobStore.StoreTrigger(IOperableTrigger newTrigger, Boolean replaceExisting) 位置 c:\Program Files (x86)\Jenkins\workspace\Quartz.NET\src\Quartz\Simpl\RAMJobStore.cs:行号 426
+   在 Quartz.Simpl.RAMJobStore.StoreJobAndTrigger(IJobDetail newJob, IOperableTrigger newTrigger) 位置 c:\Program Files (x86)\Jenkins\workspace\Quartz.NET\src\Quartz\Simpl\RAMJobStore.cs:行号 213
+   在 Quartz.Core.QuartzScheduler.ScheduleJob(IJobDetail jobDetail, ITrigger trigger) 位置 c:\Program Files (x86)\Jenkins\workspace\Quartz.NET\src\Quartz\Core\QuartzScheduler.cs:行号 718
+   在 Quartz.Impl.StdScheduler.ScheduleJob(IJobDetail jobDetail, ITrigger trigger) 位置 c:\Program Files (x86)\Jenkins\workspace\Quartz.NET\src\Quartz\Impl\StdScheduler.cs:行号 262
+   在 Shop.TimerTask.Jobs.WithdrawClearWeekAmount.WithdrawClearWeekAmountJobScheduler.Start() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\Jobs\WithdrawClearWeekAmount\WithdrawClearWeekAmountJobScheduler.cs:行号 35
+   在 Shop.TimerTask.Bootstrap.StartTimerTasks() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\Bootstrap.cs:行号 90
+   在 Shop.TimerTask.Bootstrap.Initialize() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\Bootstrap.cs:行号 35
+   在 Shop.TimerTask.Program.Main(String[] args) 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\Program.cs:行号 20

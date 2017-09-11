@@ -48,7 +48,7 @@ namespace Shop.Domain.Models.Users
         }
 
         #region 基本信息修改
-        public void Edit(string nickName,string gender)
+        public void Edit(string nickName,string gender,UserRole role)
         {
             nickName.CheckNotNullOrEmpty(nameof(nickName));
             if (nickName.Length > 20)
@@ -59,7 +59,12 @@ namespace Shop.Domain.Models.Users
             {
                 throw new Exception("只接受参数值：男/女/保密");
             }
-            ApplyEvent(new UserEditedEvent(nickName,gender));
+            ApplyEvent(new UserEditedEvent(nickName,gender,role));
+            //如果是修改为传递大使
+            if(role==UserRole.Ambassador)
+            {
+                PayToAmbassador();
+            }
         }
         /// <summary>
         /// 更新昵称
@@ -169,6 +174,15 @@ namespace Shop.Domain.Models.Users
 
         #endregion
 
+        public void SetMyParent(User parent)
+        {
+            if (parent != null && _id == parent.Id)
+            {
+                throw new ArgumentException("用户的推荐人不能是自己");
+            }
+            ApplyEvent(new MyParentSetedEvent(parent.Id));
+        }
+
         #region 获取信息
         public Guid GetWalletId()
         {
@@ -250,8 +264,8 @@ namespace Shop.Domain.Models.Users
         /// 接受自己新的消费额 我的订单完成时
         /// </summary>
         /// <param name="amount">订单额</param>
-        /// <param name="surrenderPersent">商品的让利比例</param>
-        public void AcceptMyNewSpending(decimal amount,decimal surrender)
+        /// <param name="benevolence">获取的善心</param>
+        public void AcceptMyNewSpending(decimal amount,decimal benevolence)
         {
             if (amount <= 0) return;
             ApplyEvent(new UserNewSpendingEvent(amount));
@@ -268,8 +282,8 @@ namespace Shop.Domain.Models.Users
             {
                 throw new Exception("善心价值配置异常");
             }
-            //消费获得的善心量 消费额* 返利倍数
-            var benevolenceAmount = (amount * surrender) / ConfigSettings.BenevolenceValue;
+            //消费获得的善心量 
+            var benevolenceAmount = benevolence;
             ApplyEvent(new UserSpendingTransformToBenevolenceEvent(_walletId, benevolenceAmount));
             
 
@@ -284,7 +298,7 @@ namespace Shop.Domain.Models.Users
         /// <summary>
         /// 接受被推荐人的善心分成
         /// </summary>
-        /// <param name="amount">被推荐人获得的善心量</param>
+        /// <param name="amount">购物者获得的善心量</param>
         /// <param name="level">层级</param>
         public void AcceptChildBenevolence(decimal amount,int level)
         {
@@ -302,7 +316,7 @@ namespace Shop.Domain.Models.Users
                     if(_parentId!=Guid.Empty)
                     {
                         //继续递归
-                        ApplyEvent(new MyParentCanGetBenevolenceEvent(_parentId, myamount, level+1));
+                        ApplyEvent(new MyParentCanGetBenevolenceEvent(_parentId,amount, level+1));
                     }
                 }
                 if(level==2)//二度
@@ -317,11 +331,11 @@ namespace Shop.Domain.Models.Users
         }
 
         /// <summary>
-        /// 接受新的店铺销售额（商品服务结束时，非用户下单时）
+        /// 我的店铺新销售，结算我的推荐者的收益
         /// </summary>
         /// <param name="sale"></param>
         /// <param name="surrenderPersent"></param>
-        public void AcceptNewSale(decimal sale)
+        public void AcceptMyStoreNewSale(decimal sale)
         {
             if(ConfigSettings.BenevolenceValue<=0)
             {
@@ -332,8 +346,13 @@ namespace Shop.Domain.Models.Users
             if(_parentId!=Guid.Empty)
             {
                 var parentBenevolenceGetAmount = Math.Round((sale * ConfigSettings.RecommandStoreGetPercent / ConfigSettings.BenevolenceValue), 4);
-                ApplyEvent(new UserGetChildStoreSaleBenevolenceEvent(_walletId, parentBenevolenceGetAmount));
+                ApplyEvent(new UserGetChildStoreSaleBenevolenceEvent(_parentId, parentBenevolenceGetAmount));
             }
+        }
+
+        public void AcceptChildStoreSaleBenevolence(decimal amount)
+        {
+            ApplyEvent(new AcceptedChildStoreSaleBenevolenceEvent(_walletId, amount));
         }
         #endregion
 
@@ -425,6 +444,10 @@ namespace Shop.Domain.Models.Users
             _cartId = evnt.CartId;
             _ambassadorExpireTime = DateTime.Now;
         }
+        private void Handle(MyParentSetedEvent evnt)
+        {
+            _parentId = evnt.ParentId;
+        }
         private void Handle(UserGetChildBenevolenceEvent evnt) { }
         private void Handle(MyParentCanGetBenevolenceEvent evnt) { }
 
@@ -433,6 +456,7 @@ namespace Shop.Domain.Models.Users
 
         private void Handle(UserRoleToPartnerEvent evnt) { }
         private void Handle(RegionPartnerApplyedEvent evnt) { }
+        private void Handle(AcceptedChildStoreSaleBenevolenceEvent evnt) { }
 
         private void Handle(UserNickNameUpdatedEvent evnt)
         {
@@ -443,6 +467,7 @@ namespace Shop.Domain.Models.Users
         {
             _info.NickName = evnt.NickName;
             _info.Gender = evnt.Gender;
+            _role = evnt.Role;
         }
 
         private void Handle(UserGenderUpdatedEvent evnt)

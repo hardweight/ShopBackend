@@ -1,6 +1,5 @@
 ﻿using Shop.Common.Enums;
 using System;
-using System.ComponentModel;
 
 namespace Shop.ReadModel.Users.Dtos
 {
@@ -21,6 +20,8 @@ namespace Shop.ReadModel.Users.Dtos
         public string Region { get; set; }
         public bool IsLocked { get; set; }
         public bool IsFreeze { get; set; }
+
+        public DateTime CreatedOn { get; set; }
 
         public UserRole Role { get; set; }
     }

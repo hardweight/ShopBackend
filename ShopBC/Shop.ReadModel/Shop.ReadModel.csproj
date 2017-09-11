@@ -71,6 +71,11 @@
     <Compile Include="Carts\Dtos\CartGoods.cs" />
     <Compile Include="Carts\ICartQueryService.cs" />
     <Compile Include="Goodses\Dtos\Comment.cs" />
+    <Compile Include="Goodses\Dtos\GoodsParam.cs" />
+    <Compile Include="OrderGoodses\Dtos\OrderGoodsAlis.cs" />
+    <Compile Include="OrderGoodses\Dtos\OrderGoods.cs" />
+    <Compile Include="OrderGoodses\IOrderGoodsQueryService.cs" />
+    <Compile Include="OrderGoodses\OrderGoodsQueryService.cs" />
     <Compile Include="Orders\Dtos\OrderAlis.cs" />
     <Compile Include="Orders\Dtos\Order.cs" />
     <Compile Include="Orders\Dtos\OrderLine.cs" />
@@ -120,6 +125,7 @@
     <Compile Include="Stores\StoreQueryService.cs" />
     <Compile Include="Sections\SectionViewModelGenerator.cs" />
     <Compile Include="Stores\StoreViewModelGenerator.cs" />
+    <Compile Include="Users\Dtos\UserAlis.cs" />
     <Compile Include="Wallets\CashTransferViewModelGenerator.cs" />
     <Compile Include="Users\Dtos\ExpressAddresses\ExpressAddress.cs" />
     <Compile Include="Users\Dtos\User.cs" />
@@ -163,7 +169,6 @@
   <ItemGroup>
     <Folder Include="Comments\Dtos\" />
     <Folder Include="Grantees\Dtos\" />
-    <Folder Include="OrderGoodses\Dtos\" />
     <Folder Include="Partners\Dtos\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

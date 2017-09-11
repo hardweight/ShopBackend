@@ -11,7 +11,7 @@ namespace Shop.Common
         /// <summary>
         /// 订单预定自动过期时间 30分钟
         /// </summary>
-        public static TimeSpan ReservationAutoExpiration = TimeSpan.FromMinutes(5);
+        public static TimeSpan ReservationAutoExpiration = TimeSpan.FromMinutes(30);
 
         /// <summary>
         /// 包裹退款退货自动同意时间
@@ -26,6 +26,8 @@ namespace Shop.Common
         /// 订单商品服务自动过期时间 10天
         /// </summary>
         public static TimeSpan OrderGoodsServiceAutoExpiration = TimeSpan.FromDays(10);
+
+        public static decimal IncentiveFeePersent = 0.1M;//每次善心激励收取10%手续费
         /// <summary>
         /// ENode 数据库链接字符串
         /// </summary>
@@ -53,7 +55,8 @@ namespace Shop.Common
         /// </summary>
         public static decimal BenevolenceValue { get; set; }
         
-
+        public static decimal OneDayWithdrawLimit { get; set; }
+        public static decimal OneWeekWithdrawLimit { get; set; }
         /// <summary>
         /// 拿推荐商家销售商品额的百分比1%
         /// </summary>
@@ -129,6 +132,9 @@ namespace Shop.Common
             ToAmbassadorChargeAmount = 10000;
 
             BenevolenceValue = 100;
+
+            OneDayWithdrawLimit = 20000M;
+            OneWeekWithdrawLimit = 100000M;
 
             RecommandStoreGetPercent = 0.01M;//1%
 

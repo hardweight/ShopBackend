@@ -64,7 +64,9 @@
     <Compile Include="Events\Carts\CartCreatedEvent.cs" />
     <Compile Include="Events\Carts\CartGoodsQuantityChangedEvent.cs" />
     <Compile Include="Events\Carts\CartRemovedGoodsEvent.cs" />
+    <Compile Include="Events\Goodses\GoodsStatusUpdatedEvent.cs" />
     <Compile Include="Events\Goodses\GoodsUpdatedEvent.cs" />
+    <Compile Include="Events\Goodses\Specifications\SpecificationsAddedEvent.cs" />
     <Compile Include="Events\Orders\OrderClosedEvent.cs" />
     <Compile Include="Events\Orders\OrderEvent.cs" />
     <Compile Include="Events\Orders\OrderExpiredEvent.cs" />
@@ -131,6 +133,8 @@
     <Compile Include="Events\Stores\StoreUnLockedEvent.cs" />
     <Compile Include="Events\Stores\StoreCustomerUpdatedEvent.cs" />
     <Compile Include="Events\Stores\SubjectInfoUpdatedEvent.cs" />
+    <Compile Include="Events\Users\AcceptedChildStoreSaleBenevolenceEvent.cs" />
+    <Compile Include="Events\Users\MyParentSetedEvent.cs" />
     <Compile Include="Events\Users\UserEditedEvent.cs" />
     <Compile Include="Events\Users\UserGenderUpdatedEvent.cs" />
     <Compile Include="Events\Users\UserNickNameUpdatedEvent.cs" />
@@ -163,8 +167,9 @@
     <Compile Include="Events\Wallets\WalletAccessCodeUpdatedEvent.cs" />
     <Compile Include="Events\Wallets\WalletEvent.cs" />
     <Compile Include="Events\Wallets\WithdrawApplys\WithdrawApplyCreatedEvent.cs" />
-    <Compile Include="Events\Wallets\WithdrawApplys\WithdrawApplyStatusChangedEvent.cs" />
+    <Compile Include="Events\Wallets\WithdrawApplys\WithdrawApplyRejectedEvent.cs" />
     <Compile Include="Events\Wallets\WithdrawApplys\WithdrawApplySuccessEvent.cs" />
+    <Compile Include="Events\Wallets\WithdrawStatisticInfoChangedEvent.cs" />
     <Compile Include="Models\Announcements\Announcement.cs" />
     <Compile Include="Models\Carts\Cart.cs" />
     <Compile Include="Models\Carts\CartGoodses\CartGoods.cs" />
@@ -260,6 +265,7 @@
     <Compile Include="Models\Wallets\WalletStatisticInfo.cs" />
     <Compile Include="Models\Wallets\WithdrawApplys\WithdrawApply.cs" />
     <Compile Include="Models\Wallets\WithdrawApplys\WithdrawApplyInfo.cs" />
+    <Compile Include="Models\Wallets\WithdrawStatisticInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IUserMobileIndexRepository.cs" />
     <Compile Include="Services\RegisterUserMobileService.cs" />

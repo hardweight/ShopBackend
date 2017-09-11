@@ -61,6 +61,8 @@ namespace Shop.Domain.Models.Stores
         {
             subjectInfo.CheckNotNull(nameof(subjectInfo));
             ApplyEvent(new SubjectInfoUpdatedEvent(subjectInfo));
+            //更新主体信息接着更新店铺状态为待审核
+            UpdateStatus(StoreStatus.Apply);
         }
 
         /// <summary>
@@ -107,7 +109,6 @@ namespace Shop.Domain.Models.Stores
                 storeStatisticInfo.TotalOrder += 1;
                 storeStatisticInfo.UpdatedOn = DateTime.Now;
             }
-
             ApplyEvent(new StoreStatisticInfoChangedEvent(storeStatisticInfo));
         }
 

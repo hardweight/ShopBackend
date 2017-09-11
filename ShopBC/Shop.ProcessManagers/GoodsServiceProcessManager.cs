@@ -11,9 +11,9 @@ namespace Shop.ProcessManagers
 {
 
     [Component]
-    public class GoodsServiceProcessManager :
-        IMessageHandler<ServiceFinishedEvent>,//商品服务结束 (OrderGoods)
-        IMessageHandler<ServiceExpiredEvent>//商品服务过期 (OrderGoods)
+    public class GoodsServiceProcessManager 
+        //IMessageHandler<ServiceFinishedEvent>,//商品服务结束 (OrderGoods)
+        //IMessageHandler<ServiceExpiredEvent>//商品服务过期 (OrderGoods)
        
     {
         private ICommandService _commandService;
@@ -28,43 +28,47 @@ namespace Shop.ProcessManagers
         /// </summary>
         /// <param name="evnt"></param>
         /// <returns></returns>
-        public Task<AsyncTaskResult> HandleAsync(ServiceFinishedEvent evnt)
-        {
-            var tasks = new List<Task>();
-            //结算用户奖励
-            tasks.Add(_commandService.SendAsync(new AcceptMyNewSpendingCommand(
-                evnt.Total,
-                evnt.Surrender
-                )));
-            //结算商家奖励也是给用户结算
-            tasks.Add(_commandService.SendAsync(new AcceptNewSaleCommand(
-                evnt.Total
-                )));
+        //public Task<AsyncTaskResult> HandleAsync(ServiceFinishedEvent evnt)
+        //{
+        //    var tasks = new List<Task>();
+        //    //结算用户奖励
+        //    tasks.Add(_commandService.SendAsync(new AcceptMyNewSpendingCommand(
+        //        evnt.WalletId,
+        //        evnt.Total,
+        //        evnt.Benevolence
+        //        )));
+        //    //我的店铺推荐者获得收益
+        //    tasks.Add(_commandService.SendAsync(new AcceptNewSaleCommand(
+        //        evnt.StoreOwnerWalletId,
+        //        evnt.Total
+        //        )));
 
-            Task.WaitAll(tasks.ToArray());
-            //Task.WhenAll(tasks).ConfigureAwait(false);
-            return Task.FromResult(AsyncTaskResult.Success);
-        }
+        //    Task.WaitAll(tasks.ToArray());
+        //    //Task.WhenAll(tasks).ConfigureAwait(false);
+        //    return Task.FromResult(AsyncTaskResult.Success);
+        //}
 
         /// <summary>
         /// 商品服务到期
         /// </summary>
         /// <param name="evnt"></param>
         /// <returns></returns>
-        public Task<AsyncTaskResult> HandleAsync(ServiceExpiredEvent evnt)
-        {
-            var tasks = new List<Task>();
-            //结算用户奖励
-            tasks.Add(_commandService.SendAsync(new AcceptMyNewSpendingCommand(
-                evnt.Total,
-                evnt.Surrender
-                )));
-            //结算商家奖励也是给用户结算
-            tasks.Add(_commandService.SendAsync(new AcceptNewSaleCommand(
-                evnt.Total
-                )));
+        //public Task<AsyncTaskResult> HandleAsync(ServiceExpiredEvent evnt)
+        //{
+        //    var tasks = new List<Task>();
+        //    //用户者的购物奖励
+        //    tasks.Add(_commandService.SendAsync(new AcceptMyNewSpendingCommand(
+        //        evnt.WalletId,
+        //        evnt.Total,
+        //        evnt.Benevolence
+        //        )));
+        //    //我的店铺推荐者获得收益
+        //    tasks.Add(_commandService.SendAsync(new AcceptNewSaleCommand(
+        //        evnt.StoreOwnerWalletId,
+        //        evnt.Total
+        //        )));
 
-            return Task.FromResult(AsyncTaskResult.Success);
-        }
+        //    return Task.FromResult(AsyncTaskResult.Success);
+        //}
     }
 }

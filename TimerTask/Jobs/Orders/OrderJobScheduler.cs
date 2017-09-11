@@ -15,7 +15,7 @@ namespace Shop.TimerTask.Jobs.Orders
             Debug.WriteLine("付款过期订单任务启动");
 
             IJobDetail job = JobBuilder.Create<ExpiredOrderJob>()
-                                  .WithIdentity("job1")
+                                  .WithIdentity("ExpiredOrderJob")
                                   .Build();
 
             ITrigger trigger = TriggerBuilder.Create()
@@ -25,9 +25,9 @@ namespace Shop.TimerTask.Jobs.Orders
                                                 .OnEveryDay()
                                               )
                                              .ForJob(job)
-                                             .WithIdentity("trigger1")
+                                             .WithIdentity("ExpiredOrderJobTrigger")
                                              .StartNow()
-                                             .WithCronSchedule("0 0/1 * * * ?")//每一分钟执行一次
+                                             .WithCronSchedule("0 0/5 * * * ?")//每5分钟执行一次
                                              .Build();
 
             ISchedulerFactory sf = new StdSchedulerFactory();

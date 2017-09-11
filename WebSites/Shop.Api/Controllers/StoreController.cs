@@ -21,11 +21,12 @@ using Shop.ReadModel.StoreOrders;
 using Shop.Common.Enums;
 using Shop.Api.Models.Response.StoreOrders;
 using Xia.Common;
+using Shop.Api.Models.Response.Goodses;
 
 namespace Shop.Api.Controllers
 {
     [ApiAuthorizeFilter]
-    [EnableCors(origins: "http://app.wftx666.com,http://localhost:51776,http://localhost:8080", headers: "*", methods: "*", SupportsCredentials = true)]//接口跨越访问配置
+    [EnableCors(origins: "*", headers: "*", methods: "*", SupportsCredentials = true)]//接口跨越访问配置
     public class StoreController:BaseApiController
     {
         private ICommandService _commandService;//C端
@@ -43,6 +44,135 @@ namespace Shop.Api.Controllers
             _storeQueryService = storeQueryService;
             _storeOrderQueryService = storeOrderQueryService;
             _goodsQueryService = goodsQueryService;
+        }
+        /// <summary>
+        /// 店铺信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Store/Info")]
+        public BaseApiResponse Info()
+        {
+            TryInitUserModel();
+
+            var storeInfo = _storeQueryService.InfoByUserId(_user.Id);
+            if (storeInfo == null)
+            {
+                return new BaseApiResponse();
+            }
+            //获取未发货订单
+            var placedStoreOrderes = _storeOrderQueryService.StoreStoreOrderDetails(storeInfo.Id, StoreOrderStatus.Placed);
+            if (storeInfo != null)
+            {
+                return new StoreInfoResponse
+                {
+                    StoreInfo = new StoreInfo
+                    {
+                        Id = storeInfo.Id,
+                        AccessCode = storeInfo.AccessCode,
+                        Name = storeInfo.Name,
+                        Description = storeInfo.Description,
+                        Region = storeInfo.Region,
+                        Address = storeInfo.Address,
+                        Type = storeInfo.Type.ToDescription(),
+                        Status = storeInfo.Status.ToDescription()
+                    },
+                    SubjectInfo = new SubjectInfo
+                    {
+                        SubjectName = storeInfo.SubjectName,
+                        SubjectNumber = storeInfo.SubjectNumber,
+                        SubjectPic = storeInfo.SubjectPic
+                    },
+                    StatisticsInfo = new StatisticsInfo
+                    {
+                        TodaySale = storeInfo.TodaySale,
+                        TodayOrder = storeInfo.TodayOrder,
+                        TotalSale = storeInfo.TotalSale,
+                        TotalOrder = storeInfo.TotalOrder
+                    },
+                    StoreOrders = placedStoreOrderes.Select(x => new StoreOrder
+                    {
+                        Id = x.Id,
+                        StoreId = x.StoreId,
+                        Region = x.Region,
+                        Number = x.Number,
+                        Remark = x.Remark,
+                        ExpressAddress = x.ExpressAddress,
+                        ExpressRegion = x.ExpressRegion,
+                        ExpressMobile = x.ExpressMobile,
+                        ExpressName = x.ExpressName,
+                        ExpressZip = x.ExpressZip,
+                        CreatedOn = x.CreatedOn,
+                        Total = x.Total,
+                        StoreTotal = x.StoreTotal,
+                        Status = x.Status.ToDescription(),
+                        StoreOrderGoodses = x.StoreOrderGoodses.Select(z => new StoreOrderGoods
+                        {
+                            Id = z.Id,
+                            GoodsId = z.GoodsId,
+                            SpecificationId = z.SpecificationId,
+                            SpecificationName = z.SpecificationName,
+                            GoodsName = z.GoodsName,
+                            GoodsPic = z.GoodsPic,
+                            Quantity = z.Quantity,
+                            Price = z.Price,
+                            OriginalPrice = z.OriginalPrice,
+                            Total = z.Total,
+                            StoreTotal = z.StoreTotal,
+                        }).ToList()
+                    }).ToList()
+                };
+            }
+            else
+            {
+                return new BaseApiResponse { Code = 400, Message = "没有店铺" };
+            }
+
+        }
+
+        /// <summary>
+        /// 店铺信息首页
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("Store/HomeInfo")]
+        public BaseApiResponse HomeInfo(HomeInfoRequest request)
+        {
+            var storeInfo = _storeQueryService.Info(request.Id);
+            if (storeInfo == null)
+            {
+                return new BaseApiResponse();
+            }
+            var goodses = _goodsQueryService.GetStoreGoodses(request.Id).OrderByDescending(x=>x.Rate).Take(10);
+            if (storeInfo != null)
+            {
+                return new HomeInfoResponse
+                {
+                    StoreInfo = new StoreInfo
+                    {
+                        Id = storeInfo.Id,
+                        AccessCode = storeInfo.AccessCode,
+                        Name = storeInfo.Name,
+                        Description = storeInfo.Description,
+                        Region = storeInfo.Region,
+                        Address = storeInfo.Address,
+                        Type = storeInfo.Type.ToDescription(),
+                        Status = storeInfo.Status.ToDescription()
+                    },
+                    Goodses = goodses.Select(x => new Goods
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        Price = x.Price
+                    }).ToList()
+                };
+            }
+            else
+            {
+                return new BaseApiResponse { Code = 400, Message = "没找到店铺" };
+            }
+
         }
 
         #region 登录 创建
@@ -94,85 +224,66 @@ namespace Shop.Api.Controllers
             }
             return new BaseApiResponse();
         }
+        
+
+        #endregion
+
+        #region 店铺设置
         /// <summary>
-        /// 店铺信息
+        /// 编辑基本信息
         /// </summary>
+        /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("Store/Info")]
-        public BaseApiResponse Info()
+        [AllowAnonymous]
+        [Route("Store/Edit")]
+        public async Task<BaseApiResponse> EditStore(EditRequest request)
         {
-            TryInitUserModel();
+            request.CheckNotNull(nameof(request));
 
-            var storeInfo = _storeQueryService.InfoByUserId(_user.Id);
-            if (storeInfo == null)
+            var command = new CustomerUpdateStoreCommand(
+                request.Name,
+                request.Description,
+                request.Address)
             {
-                return new BaseApiResponse();
-            }
-            //获取未发货订单
-            var storeOrderes = _storeOrderQueryService.StoreStoreOrderDetails(storeInfo.Id, StoreOrderStatus.Placed);
-            if (storeInfo != null)
-            {
-                return new StoreInfoResponse
-                {
-                    StoreInfo = new StoreInfo
-                    {
-                        Id = storeInfo.Id,
-                        AccessCode = storeInfo.AccessCode,
-                        Name = storeInfo.Name,
-                        Description = storeInfo.Description,
-                        Region = storeInfo.Region,
-                        Address = storeInfo.Address,
-                        Type = storeInfo.Type.ToDescription(),
-                        Status = storeInfo.Status.ToDescription()
-                    },
-                    StatisticsInfo = new StatisticsInfo
-                    {
-                        TodaySale = storeInfo.TodaySale,
-                        TodayOrder = storeInfo.TodayOrder,
-                        TotalSale = storeInfo.TotalSale,
-                        TotalOrder = storeInfo.TotalOrder
-                    },
-                    StoreOrders = storeOrderes.Select(x => new StoreOrder
-                    {
-                        Id = x.Id,
-                        StoreId = x.StoreId,
-                        Region = x.Region,
-                        Number = x.Number,
-                        Remark = x.Remark,
-                        ExpressAddress = x.ExpressAddress,
-                        ExpressRegion = x.ExpressRegion,
-                        ExpressMobile = x.ExpressMobile,
-                        ExpressName = x.ExpressName,
-                        ExpressZip = x.ExpressZip,
-                        CreatedOn = x.CreatedOn,
-                        Total = x.Total,
-                        StoreTotal = x.StoreTotal,
-                        Status = x.Status.ToDescription(),
-                        StoreOrderGoodses = x.StoreOrderGoodses.Select(z => new StoreOrderGoods
-                        {
-                            Id = z.Id,
-                            GoodsId = z.GoodsId,
-                            SpecificationId = z.SpecificationId,
-                            SpecificationName = z.SpecificationName,
-                            GoodsName = z.GoodsName,
-                            GoodsPic = z.GoodsPic,
-                            Quantity = z.Quantity,
-                            Price = z.Price,
-                            OriginalPrice = z.OriginalPrice,
-                            Total = z.Total,
-                            StoreTotal = z.StoreTotal,
-                        }).ToList()
-                    }).ToList()
-                };
-            }
-            else
-            {
-                return new BaseApiResponse { Code = 400, Message = "没有店铺" };
-            }
+                AggregateRootId = request.Id
+            };
 
+            var result = await ExecuteCommandAsync(command);
+            if (!result.IsSuccess())
+            {
+                return new BaseApiResponse { Code = 400, Message = "命令没有执行成功：{0}".FormatWith(result.GetErrorMessage()) };
+            }
+            return new BaseApiResponse();
         }
 
+        /// <summary>
+        /// 编辑主体信息
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("Store/EditSubject")]
+        public async Task<BaseApiResponse> EditSubject(EditSubjectRequest request)
+        {
+            request.CheckNotNull(nameof(request));
+
+            var command = new UpdateSubjectCommand(
+                request.SubjectName,
+                request.SubjectNumber,
+                request.SubjectPic)
+            {
+                AggregateRootId = request.Id
+            };
+
+            var result = await ExecuteCommandAsync(command);
+            if (!result.IsSuccess())
+            {
+                return new BaseApiResponse { Code = 400, Message = "命令没有执行成功：{0}".FormatWith(result.GetErrorMessage()) };
+            }
+            return new BaseApiResponse();
+        }
         #endregion
 
         #region 总后台管理
@@ -199,13 +310,25 @@ namespace Shop.Api.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("StoreAdmin/ListPage")]
-        public ListPageResponse ListPage()
+        public ListPageResponse ListPage(ListPageRequest request)
         {
-            var stores = _storeQueryService.StoreList();
+            request.CheckNotNull(nameof(request));
 
+            var pageSize = 20;
+            var stores = _storeQueryService.StoreList().Where(x=>x.Type==request.Type && x.Status==request.Status);
+            var total = stores.Count();
+            if (!request.Name.IsNullOrEmpty())
+            {
+                stores = stores.Where(x => x.Name.Contains(request.Name)).OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
+                total = stores.Count();
+            }
+            else
+            {
+                stores = stores.OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
+            }
             return new ListPageResponse
             {
-                Total = stores.Count(),
+                Total = total,
                 Stores = stores.Select(x => new Store
                 {
                     Id = x.Id,
@@ -223,27 +346,29 @@ namespace Shop.Api.Controllers
                     SubjectName=x.SubjectName,
                     SubjectNumber=x.SubjectNumber,
                     SubjectPic=x.SubjectPic,
+                    Type=x.Type.ToString(),
                     Status = x.Status.ToString()
                 }).ToList()
             };
         }
 
         /// <summary>
-        /// 修改店铺信息
+        /// 修改店铺信息 后台修改 可以修改店铺类型
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [Route("StoreAdmin/Edit")]
-        public async Task<BaseApiResponse> Edit(EditRequest request)
+        public async Task<BaseApiResponse> Edit(AdminEditRequest request)
         {
             request.CheckNotNull(nameof(request));
 
-            var command = new CustomerUpdateStoreCommand(
+            var command = new UpdateStoreCommand(
                 request.Name,
                 request.Description,
-                request.Address)
+                request.Address,
+                request.Type)
             {
                 AggregateRootId = request.Id
             };
@@ -283,15 +408,10 @@ namespace Shop.Api.Controllers
         }
         #endregion
 
-
-        
-
-       
-
         #region 私有方法
         private Task<AsyncTaskResult<CommandResult>> ExecuteCommandAsync(ICommand command, int millisecondsDelay = 50000)
         {
-            return _commandService.ExecuteAsync(command, CommandReturnType.CommandExecuted).TimeoutAfter(millisecondsDelay);
+            return _commandService.ExecuteAsync(command, CommandReturnType.EventHandled).TimeoutAfter(millisecondsDelay);
         }
         #endregion
 

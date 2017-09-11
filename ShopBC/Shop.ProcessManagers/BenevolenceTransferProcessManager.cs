@@ -24,7 +24,11 @@ namespace Shop.ProcessManagers
 
         public Task<AsyncTaskResult> HandleAsync(BenevolenceTransferCreatedEvent evnt)
         {
-            return _commandService.SendAsync(new AcceptNewBenevolenceTransferCommand(evnt.WalletId, evnt.AggregateRootId));
+            if (evnt.Status == Common.Enums.BenevolenceTransferStatus.Placed)
+            {
+                return _commandService.SendAsync(new AcceptNewBenevolenceTransferCommand(evnt.WalletId, evnt.AggregateRootId));
+            }
+            return Task.FromResult(AsyncTaskResult.Success);
         }
 
         public Task<AsyncTaskResult> HandleAsync(NewBenevolenceTransferAcceptedEvent evnt)

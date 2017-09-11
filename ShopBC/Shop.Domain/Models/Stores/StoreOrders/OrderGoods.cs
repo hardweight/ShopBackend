@@ -19,10 +19,13 @@ namespace Shop.Domain.Models.Stores
         private ServiceExpressInfo _serviceExpressInfo;// 用户退货发货
         private ServiceFinishExpressInfo _serviceFinishExpressInfo;//商家维修完成发货信息
         private OrderGoodsStatus _status;// 商品服务状态
+        private DateTime _serviceExpirationDate;//售后服务自动过期日期
 
         public OrderGoods(Guid id,Guid orderId,OrderGoodsInfo info):base(id)
         {
-            ApplyEvent(new OrderGoodsCreatedEvent(orderId,info,DateTime.UtcNow.Add(ConfigSettings.OrderGoodsServiceAutoExpiration)));
+            ApplyEvent(new OrderGoodsCreatedEvent(orderId,
+                info,
+                DateTime.Now.Add(ConfigSettings.OrderGoodsServiceAutoExpiration)));
         }
 
         /// <summary>
@@ -91,16 +94,16 @@ namespace Shop.Domain.Models.Stores
         /// <param name="serviceNumber"></param>
         public void ServiceFinish(string serviceNumber)
         {
-            ApplyEvent(new ServiceFinishedEvent(_info.Total,_info.Surrender));
+            ApplyEvent(new ServiceFinishedEvent(_info.WalletId, _info.StoreOwnerWalletId, _info.Total,_info.Benevolence));
         }
         /// <summary>
-        /// 设置过期
+        /// 设置过期 订单服务自动过期
         /// </summary>
         public void MarkAsExpire()
         {
             if (_status ==OrderGoodsStatus.Normal)
             {
-                ApplyEvent(new ServiceExpiredEvent(_info.Total,_info.Surrender));
+                ApplyEvent(new ServiceExpiredEvent(_info.WalletId,_info.StoreOwnerWalletId,_info.Total,_info.Benevolence));
             }
         }
 
@@ -110,6 +113,7 @@ namespace Shop.Domain.Models.Stores
             _orderId = evnt.OrderId;
             _info = evnt.Info;
             _status = OrderGoodsStatus.Normal;
+            _serviceExpirationDate = evnt.ServiceExpirationDate;
         }
         private void Handle(ServiceApplyedEvent evnt)
         {

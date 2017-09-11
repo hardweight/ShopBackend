@@ -14,9 +14,8 @@ namespace Shop.Commands.Users
 
 
         public AcceptChildBenevolenceCommand() { }
-        public AcceptChildBenevolenceCommand(Guid parentId,decimal amount,int level)
+        public AcceptChildBenevolenceCommand(Guid parentId,decimal amount,int level):base(parentId)
         {
-            ParentId = parentId;
             Amount = amount;
             Level = level;
         }

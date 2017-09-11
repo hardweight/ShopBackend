@@ -11,6 +11,7 @@ namespace Shop.ReadModel.Goodses.Dtos
         public string Thumb { get; set; }
         public decimal Price { get; set; }
         public decimal OriginalPrice { get; set; }
+        public decimal Benevolence { get; set; }
         public string Number { get; set; }
         public string BarCode { get; set; }
         public int Stock { get; set; }

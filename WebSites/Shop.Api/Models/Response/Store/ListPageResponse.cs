@@ -32,6 +32,7 @@ namespace Shop.Api.Models.Response.Store
         public string SubjectNumber { get; set; }
         public string SubjectPic { get; set; }
 
+        public string Type { get; set; }
         public string Status { get; set; }
     }
 }

@@ -54,6 +54,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\aliyun-net-sdk-dysmsapi.dll</HintPath>
     </Reference>
+    <Reference Include="Aliyun.OSS, Version=2.5.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Aliyun.OSS.SDK.2.5.1\lib\Aliyun.OSS.dll</HintPath>
+    </Reference>
     <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
@@ -86,6 +89,9 @@
     </Reference>
     <Reference Include="EQueue, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EQueue.2.3.3\lib\net45\EQueue.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJson, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LitJson.0.7.0\lib\LitJson.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
@@ -192,6 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\BenevolenceIndexController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -204,6 +211,8 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
+    <Compile Include="Controllers\AppController.cs" />
+    <Compile Include="Controllers\UploaderController.cs" />
     <Compile Include="Controllers\WalletController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Extensions\AsyncTaskResultExtensions.cs" />
@@ -220,9 +229,22 @@
     <Compile Include="Helper\AuthCookieConfig.cs" />
     <Compile Include="Helper\CacheKeySupplier.cs" />
     <Compile Include="Helper\CommonConfig.cs" />
+    <Compile Include="default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Request\Admins\LoginRequest.cs" />
+    <Compile Include="Models\Request\Announcements\EditAnnouncementRequest.cs" />
+    <Compile Include="Models\Request\Announcements\AddAnnouncementRequest.cs" />
     <Compile Include="Models\Request\Carts\AddCartGoodsRequest.cs" />
     <Compile Include="Models\Request\Carts\RemoveCartGoodsRequest.cs" />
     <Compile Include="Models\Request\Categorys\ListPageRequest.cs" />
+    <Compile Include="Models\Request\Goodses\ListPageRequest.cs" />
+    <Compile Include="Models\Request\Goodses\UpdateGoodsSpecificationsRequest.cs" />
+    <Compile Include="Models\Request\Goodses\GetParamsRequest.cs" />
     <Compile Include="Models\Request\Goodses\UpdateGoodsRequest.cs" />
     <Compile Include="Models\Request\Goodses\AddGoodsSpecificationsRequest.cs" />
     <Compile Include="Models\Request\Goodses\GoodsInfoRequest.cs" />
@@ -247,8 +269,12 @@
     <Compile Include="Models\Request\StoreOrders\StoreOrdersRequest.cs" />
     <Compile Include="Models\Request\StoreOrders\UserOrdersRequest.cs" />
     <Compile Include="Models\Request\Store\ApplyStoreRequest.cs" />
+    <Compile Include="Models\Request\Store\AdminEditRequest.cs" />
+    <Compile Include="Models\Request\Store\EditSubjectRequest.cs" />
     <Compile Include="Models\Request\Store\EditRequest.cs" />
     <Compile Include="Models\Request\Store\EditStatusRequest.cs" />
+    <Compile Include="Models\Request\Store\HomeInfoRequest.cs" />
+    <Compile Include="Models\Request\Store\ListPageRequest.cs" />
     <Compile Include="Models\Request\Store\SetAccessCodeRequest.cs" />
     <Compile Include="Models\Request\User\AddExpressAddressRequest.cs" />
     <Compile Include="Models\Request\BaseApiRequest.cs" />
@@ -257,6 +283,7 @@
     <Compile Include="Models\Request\User\CheckPhoneAvailableRequest.cs" />
     <Compile Include="Models\Request\User\DeleteExpressAddressRequest.cs" />
     <Compile Include="Models\Request\User\EditRequest.cs" />
+    <Compile Include="Models\Request\User\ListPageRequest.cs" />
     <Compile Include="Models\Request\User\LoginRequest.cs" />
     <Compile Include="Models\Request\User\MsgLoginRequest.cs" />
     <Compile Include="Models\Request\User\RegisterRequest.cs" />
@@ -264,6 +291,7 @@
     <Compile Include="Models\Request\User\SendCodeRequest.cs" />
     <Compile Include="Models\Request\User\SendMsgCodeRequest.cs" />
     <Compile Include="Models\Request\User\SetGenderRequest.cs" />
+    <Compile Include="Models\Request\User\SetMyParentRequest.cs" />
     <Compile Include="Models\Request\User\SetNickNameRequest.cs" />
     <Compile Include="Models\Request\User\SetPortraitRequest.cs" />
     <Compile Include="Models\Request\User\SetRegionRequest.cs" />
@@ -278,34 +306,47 @@
     <Compile Include="Models\Request\Wallet\ApplyRechargeRequest.cs" />
     <Compile Include="Models\Request\Wallet\ApplyWithdrawRequest.cs" />
     <Compile Include="Models\Request\Wallet\CashPayRequest.cs" />
+    <Compile Include="Models\Request\Wallet\BenevolenceTransfersRequest.cs" />
+    <Compile Include="Models\Request\Wallet\CashTransfersRequest.cs" />
     <Compile Include="Models\Request\Wallet\ChangeRechargeApplyStatusRequest.cs" />
     <Compile Include="Models\Request\Wallet\ChangeWithdrawApplyStatusRequest.cs" />
     <Compile Include="Models\Request\Wallet\DeleteBankCardRequest.cs" />
     <Compile Include="Models\Request\Wallet\IncentiveBenevolenceRequest.cs" />
+    <Compile Include="Models\Request\Wallet\ListPageRequest.cs" />
+    <Compile Include="Models\Request\Wallet\RechargeApplysListPageRequest.cs" />
     <Compile Include="Models\Request\Wallet\RechargeRequest.cs" />
     <Compile Include="Models\Request\Wallet\SetAccessCodeRequest.cs" />
+    <Compile Include="Models\Request\Wallet\WithdrawApplysListPageRequest.cs" />
     <Compile Include="Models\Response\Admins\LoginResponse.cs" />
     <Compile Include="Models\Response\Announcements\LatestAnnouncementResponse.cs" />
     <Compile Include="Models\Response\Announcements\ListResponse.cs" />
+    <Compile Include="Models\Response\Apps\AppVersion.cs" />
+    <Compile Include="Models\Response\Apps\AppVersionResponse.cs" />
     <Compile Include="Models\Response\BaseApiResponse.cs" />
     <Compile Include="Models\Response\BenevolenceIndex\InfoResponse.cs" />
     <Compile Include="Models\Response\Carts\CartInfoResponse.cs" />
     <Compile Include="Models\Response\Categorys\ListPageResponse.cs" />
     <Compile Include="Models\Response\Goodses\AddGoodsResponse.cs" />
+    <Compile Include="Models\Response\Goodses\GetSpecificationsResponse.cs" />
+    <Compile Include="Models\Response\Goodses\GetParamsResponse.cs" />
     <Compile Include="Models\Response\Goodses\GoodsesResponse.cs" />
     <Compile Include="Models\Response\Goodses\GoodsInfoResponse.cs" />
     <Compile Include="Models\Response\Goodses\GoodsListResponse.cs" />
     <Compile Include="Models\Response\Goodses\HomePageGoodsesResponse.cs" />
     <Compile Include="Models\Response\Orders\AddOrderResponse.cs" />
+    <Compile Include="Models\Response\Payments\WeChatPayResponse.cs" />
     <Compile Include="Models\Response\PubCategorys\ListPageResponse.cs" />
     <Compile Include="Models\Response\PubCategorys\PubCategoryTreeResponse.cs" />
     <Compile Include="Models\Response\Categorys\CategoryTreeResponse.cs" />
     <Compile Include="Models\Response\Goodses\AllGoodsResponse.cs" />
+    <Compile Include="Models\Response\Statisticses\DashBoardResponse.cs" />
     <Compile Include="Models\Response\StoreOrders\InfoResponse.cs" />
     <Compile Include="Models\Response\StoreOrders\UserOrdersResponse.cs" />
+    <Compile Include="Models\Response\Store\HomeInfoResponse.cs" />
     <Compile Include="Models\Response\Store\ListPageResponse.cs" />
     <Compile Include="Models\Response\Store\StoreInfoResponse.cs" />
     <Compile Include="Models\Response\Store\TotalTodaySaleResponse.cs" />
+    <Compile Include="Models\Response\Uploader\SingleFileUploadResponse.cs" />
     <Compile Include="Models\Response\User\AddUserGiftResponse.cs" />
     <Compile Include="Models\Response\User\CheckPhoneAvailableResponse.cs" />
     <Compile Include="Models\Response\User\ExpressAddressesResponse.cs" />
@@ -314,8 +355,10 @@
     <Compile Include="Models\Response\User\ListPageResponse.cs" />
     <Compile Include="Models\Response\User\LoginResponse.cs" />
     <Compile Include="Models\Response\User\MeInfoResponse.cs" />
+    <Compile Include="Models\Response\User\MyInvotesResponse.cs" />
     <Compile Include="Models\Response\User\RegisterResponse.cs" />
     <Compile Include="Models\Response\User\SendMsgCodeResponse.cs" />
+    <Compile Include="Models\Response\User\ShopLoginResponse.cs" />
     <Compile Include="Models\Response\User\UserInfoResponse.cs" />
     <Compile Include="Models\Response\User\VerifyCodeResponse.cs" />
     <Compile Include="Models\Response\Wallet\GetBenevolenceTransfersResponse.cs" />
@@ -328,8 +371,24 @@
     <Compile Include="Models\Response\Wallet\WithdrawApplyLogsResponse.cs" />
     <Compile Include="Models\Response\Wallet\RechargeApplysListPageResponse.cs" />
     <Compile Include="Models\Response\Wallet\WithdrawApplysListPageResponse.cs" />
+    <Compile Include="Pages\JsApiPayPage.aspx.cs">
+      <DependentUpon>JsApiPayPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\JsApiPayPage.aspx.designer.cs">
+      <DependentUpon>JsApiPayPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ResultNotifyPage.aspx.cs">
+      <DependentUpon>ResultNotifyPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\ResultNotifyPage.aspx.designer.cs">
+      <DependentUpon>ResultNotifyPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Utils\DateTimeExtensions.cs" />
     <Compile Include="Utils\ExpressScheduleUtil.cs" />
+    <Compile Include="Utils\Oss\OssConfig.cs" />
+    <Compile Include="Utils\Oss\OssUploader.cs" />
     <Compile Include="Utils\SMSender.cs" />
     <Compile Include="ViewModels\Carts\CartViewModel.cs" />
     <Compile Include="ViewModels\Store\StoreViewModel.cs" />
@@ -344,17 +403,30 @@
     <Compile Include="TopicProviders\CommandTopicProvider.cs" />
     <Compile Include="ViewModels\Wallet\BankCardViewModel.cs" />
     <Compile Include="ViewModels\Wallet\WalletViewModel.cs" />
+    <Compile Include="WxPayAPI\ApiPay.cs" />
+    <Compile Include="WxPayAPI\JsApiPay.cs" />
+    <Compile Include="WxPayAPI\lib\Config.cs" />
+    <Compile Include="WxPayAPI\lib\Data.cs" />
+    <Compile Include="WxPayAPI\lib\Exception.cs" />
+    <Compile Include="WxPayAPI\lib\HttpService.cs" />
+    <Compile Include="WxPayAPI\lib\Log.cs" />
+    <Compile Include="WxPayAPI\lib\Notify.cs" />
+    <Compile Include="WxPayAPI\lib\WxPayApi.cs" />
+    <Compile Include="WxPayAPI\ResultNotify.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Json\appVersion.json" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="index.html" />
+    <Content Include="default.aspx" />
     <Content Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Pages\JsApiPayPage.aspx" />
+    <Content Include="Pages\ResultNotifyPage.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -370,6 +442,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -403,7 +476,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Json\data.json" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

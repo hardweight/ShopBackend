@@ -28,7 +28,12 @@ namespace Shop.ProcessManagers
         /// <returns></returns>
         public Task<AsyncTaskResult> HandleAsync(CashTransferCreatedEvent evnt)
         {
-            return _commandService.SendAsync(new AcceptNewCashTransferCommand(evnt.WalletId, evnt.AggregateRootId));
+            //只有提交状态才交给钱包继续处理
+            if(evnt.Status==Common.Enums.CashTransferStatus.Placed)
+            {
+                return _commandService.SendAsync(new AcceptNewCashTransferCommand(evnt.WalletId, evnt.AggregateRootId));
+            }
+           return Task.FromResult(AsyncTaskResult.Success);
         }
         /// <summary>
         /// 钱包接受记录值，更新记录状态为成功

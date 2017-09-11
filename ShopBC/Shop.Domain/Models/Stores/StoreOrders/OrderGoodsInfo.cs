@@ -20,7 +20,7 @@ namespace Shop.Domain.Models.Stores
         public decimal Total { get; private set; }
         public decimal StoreTotal { get; private set; }
         public DateTime ExpirationDate { get; private set; }
-        public decimal Surrender { get; private set; }
+        public decimal Benevolence { get; private set; }
 
         public OrderGoodsInfo(
             Guid goodsId,
@@ -36,7 +36,7 @@ namespace Shop.Domain.Models.Stores
             decimal total,
             decimal storeTotal,
             DateTime expirationDate,
-            decimal surrender)
+            decimal benevolence)
         {
             GoodsId = goodsId;
             SpecificationId = specificationId;
@@ -46,12 +46,12 @@ namespace Shop.Domain.Models.Stores
             GoodsPic = goodsPic;
             SpecificationName = specificationName;
             Price = price;
-            OriginalPrice = OriginalPrice;
+            OriginalPrice = originalPrice;
             Quantity = quantity;
             Total = total;
             StoreTotal = storeTotal;
             ExpirationDate = expirationDate;
-            Surrender = surrender;
+            Benevolence = benevolence;
         }
     }
 }

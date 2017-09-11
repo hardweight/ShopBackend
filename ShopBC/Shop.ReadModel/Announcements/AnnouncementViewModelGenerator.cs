@@ -5,6 +5,7 @@ using ENode.Infrastructure;
 using Shop.Common;
 using Shop.Domain.Events.Announcements;
 using System.Threading.Tasks;
+using System;
 
 namespace Shop.ReadModel.Announcements
 {
@@ -13,7 +14,8 @@ namespace Shop.ReadModel.Announcements
     /// </summary>
     [Component]
     public class AnnouncementViewModelGenerator : BaseGenerator,
-        IMessageHandler<AnnouncementCreatedEvent>
+        IMessageHandler<AnnouncementCreatedEvent>,
+        IMessageHandler<AnnouncementUpdatedEvent>
     {
         public Task<AsyncTaskResult> HandleAsync(AnnouncementCreatedEvent evnt)
         {
@@ -30,6 +32,22 @@ namespace Shop.ReadModel.Announcements
                 }, ConfigSettings.AnnouncementTable);
             });
         }
-        
+
+        public Task<AsyncTaskResult> HandleAsync(AnnouncementUpdatedEvent evnt)
+        {
+            return TryUpdateRecordAsync(connection =>
+            {
+                return connection.UpdateAsync(new
+                {
+                    Title = evnt.Title,
+                    Body = evnt.Body,
+                    Version = evnt.Version
+                }, new
+                {
+                    Id = evnt.AggregateRootId,
+                    //Version = evnt.Version - 1
+                }, ConfigSettings.AnnouncementTable);
+            });
+        }
     }
 }

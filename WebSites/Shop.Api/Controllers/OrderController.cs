@@ -22,13 +22,14 @@ using Xia.Common.Utils;
 
 namespace Shop.Api.Controllers
 {
+    /// <summary>
+    /// 预订单 提交等待后流程就结束了，剩下的是商家订单流程
+    /// </summary>
     [ApiAuthorizeFilter]
-    [EnableCors(origins: "http://app.wftx666.com,http://localhost:51776,http://localhost:8080", headers: "*", methods: "*", SupportsCredentials = true)]//接口跨越访问配置
+    [EnableCors(origins: "*", headers: "*", methods: "*", SupportsCredentials = true)]//接口跨越访问配置
     public class OrderController:BaseApiController
     {
-        //private static readonly TimeSpan DraftOrderWaitTimeout = TimeSpan.FromSeconds(5);
-        //private static readonly TimeSpan DraftOrderPollInterval = TimeSpan.FromMilliseconds(750);
-        private static readonly TimeSpan PricedOrderWaitTimeout = TimeSpan.FromSeconds(5);
+        private static readonly TimeSpan PricedOrderWaitTimeout = TimeSpan.FromSeconds(10);
         private static readonly TimeSpan PricedOrderPollInterval = TimeSpan.FromMilliseconds(750);
 
         private ICommandService _commandService;//C端
@@ -75,7 +76,7 @@ namespace Shop.Api.Controllers
                     x.Price,
                     x.OriginalPrice,
                     x.Quantity,
-                    0.15M
+                    x.Benevolence
                     )).ToList());
             if (!command.Specifications.Any())
             {
@@ -90,7 +91,7 @@ namespace Shop.Api.Controllers
             var order = WaitUntilReservationCompleted(command.AggregateRootId).Result;
             if (order == null)
             {
-                return new BaseApiResponse { Code = 400, Message = "未知的订单" };
+                return new BaseApiResponse { Code = 400, Message = "预定失败，您已有该商品的预定，可直接支付" };
             }
 
             //预定成功，处理付款信息，要求用户付款
@@ -201,7 +202,7 @@ namespace Shop.Api.Controllers
 
         private Task<AsyncTaskResult<CommandResult>> ExecuteCommandAsync(ICommand command, int millisecondsDelay = 50000)
         {
-            return _commandService.ExecuteAsync(command, CommandReturnType.CommandExecuted).TimeoutAfter(millisecondsDelay);
+            return _commandService.ExecuteAsync(command, CommandReturnType.EventHandled).TimeoutAfter(millisecondsDelay);
         }
         #endregion
     }

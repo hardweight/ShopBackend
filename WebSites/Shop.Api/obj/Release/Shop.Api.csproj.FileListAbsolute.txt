@@ -119,10 +119,9 @@ C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\obj\Release\Sho
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\obj\Release\Shop.Api.pdb
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Common.Logging.Core.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Common.Logging.dll
-C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Quartz.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Common.Logging.pdb
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Common.Logging.xml
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Common.Logging.Core.pdb
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Common.Logging.Core.xml
-C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Quartz.pdb
-C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Quartz.xml
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\LitJson.dll
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Aliyun.OSS.dll

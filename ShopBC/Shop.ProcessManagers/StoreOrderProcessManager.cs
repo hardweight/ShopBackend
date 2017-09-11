@@ -5,6 +5,7 @@ using ENode.Infrastructure;
 using Shop.Commands.Partners;
 using Shop.Commands.Stores;
 using Shop.Commands.Stores.StoreOrders.OrderGoodses;
+using Shop.Commands.Users;
 using Shop.Commands.Wallets.CashTransfers;
 using Shop.Domain.Events.Stores.StoreOrders;
 using System;
@@ -57,7 +58,7 @@ namespace Shop.ProcessManagers
                             orderGoods.Quantity,
                             orderGoods.Total,
                             orderGoods.StoreTotal,
-                            orderGoods.Surrender)
+                            orderGoods.Benevolence)
                         {
                             WalletId=orderGoods.WalletId,
                             StoreOwnerWalletId=orderGoods.StoreOwnerWalletId
@@ -105,8 +106,10 @@ namespace Shop.ProcessManagers
         /// <returns></returns>
         public Task<AsyncTaskResult> HandleAsync(StoreOrderConfirmExpressedEvent evnt)
         {
+            var tasks = new List<Task>();
+
             //发送给商家所有人付款的指令
-            return _commandService.SendAsync(new CreateCashTransferCommand(
+            tasks.Add( _commandService.SendAsync(new CreateCashTransferCommand(
                 GuidUtil.NewSequentialId(),
                 evnt.StoreOwnerWalletId,
                 DateTime.Now.ToSerialNumber(),
@@ -116,7 +119,25 @@ namespace Shop.ProcessManagers
                 0,
                 Common.Enums.WalletDirection.In,
                 "店铺销售商品"
-                ));
+                )));
+
+            foreach(var orderGoods in evnt.OrderGoodses)
+            {
+                //用户者的购物奖励
+                tasks.Add(_commandService.SendAsync(new AcceptMyNewSpendingCommand(
+                    evnt.WalletId,
+                    orderGoods.Total,
+                    orderGoods.Benevolence*orderGoods.Quantity
+                    )));
+                //店铺所有人接受店铺新的销售额
+                tasks.Add(_commandService.SendAsync(new AcceptMyStoreNewSaleCommand(
+                    evnt.StoreOwnerWalletId,
+                    orderGoods.Total
+                    )));
+            }
+
+            Task.WaitAll(tasks.ToArray());
+            return Task.FromResult(AsyncTaskResult.Success);
         }
     }
 }

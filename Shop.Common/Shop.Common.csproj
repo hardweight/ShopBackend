@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="ConfigSettings.cs" />
     <Compile Include="Enums\CategoryEnums.cs" />
+    <Compile Include="Enums\CommonEnums.cs" />
+    <Compile Include="Enums\GoodsEnums.cs" />
     <Compile Include="Enums\GranteeEnums.cs" />
     <Compile Include="Enums\OrderEnums.cs" />
     <Compile Include="Enums\OrderGoodsEnums.cs" />

@@ -9,13 +9,13 @@ namespace Shop.Domain.Events.Users
     [Serializable]
     public class UserGetChildStoreSaleBenevolenceEvent : DomainEvent<Guid>
     {
-        public Guid WalletId { get; private set; }
+        public Guid ParentId { get; private set; }
         public decimal Amount { get; private set; }
 
         public UserGetChildStoreSaleBenevolenceEvent() { }
-        public UserGetChildStoreSaleBenevolenceEvent(Guid walletId,decimal amount)
+        public UserGetChildStoreSaleBenevolenceEvent(Guid parentId,decimal amount)
         {
-            WalletId = walletId;
+            ParentId = parentId;
             Amount = amount;
         }
     }

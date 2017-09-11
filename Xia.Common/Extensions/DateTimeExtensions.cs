@@ -60,5 +60,49 @@ namespace Xia.Common.Extensions
         {
             return dateTime.ToUniqueString() + new Random().GetRandomNumberString(4);
         }
+
+        /// <summary>
+        /// 返回 间隔时间
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public static string GetTimeSpan(this DateTime dateTime)
+        {
+            string strTime = "";
+            DateTime date1 = DateTime.Now;
+            DateTime date2 = dateTime;
+            TimeSpan dt = date1 - date2;
+
+            // 相差天数
+            int days = dt.Days;
+            // 时间点相差小时数
+            int hours = dt.Hours;
+            // 相差总小时数
+            double Minutes = dt.Minutes;
+            // 相差总秒数
+            int second = dt.Seconds;
+
+            if (days == 0 && hours == 0 && Minutes == 0 && second == 0)
+            {
+                strTime = "刚刚";
+            }
+            else if (days == 0 && hours == 0 && Minutes == 0)
+            {
+                strTime = "约" + second + "秒前";
+            }
+            else if (days == 0 && hours == 0)
+            {
+                strTime = "约" + Minutes + "分钟前";
+            }
+            else if (days == 0)
+            {
+                strTime = "约" + hours + "小时前";
+            }
+            else
+            {
+                strTime = dateTime.ToString("yyyy-MM-dd");
+            }
+            return strTime;
+        }
     }
 }

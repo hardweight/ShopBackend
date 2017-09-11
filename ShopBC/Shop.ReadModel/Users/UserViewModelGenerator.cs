@@ -19,6 +19,7 @@ namespace Shop.ReadModel.Users
     [Component]
     public class UserViewModelGenerator: BaseGenerator,
         IMessageHandler<UserCreatedEvent>,
+        IMessageHandler<MyParentSetedEvent>,
         IMessageHandler<UserEditedEvent>,
         IMessageHandler<UserNickNameUpdatedEvent>,
         IMessageHandler<UserPasswordUpdatedEvent>,
@@ -59,7 +60,8 @@ namespace Shop.ReadModel.Users
                 return connection.InsertAsync(new
                 {
                     Id = evnt.AggregateRootId,
-                    WalletId=evnt.WalletId,
+                    ParentId=evnt.ParentId,
+                    WalletId =evnt.WalletId,
                     CartId=evnt.CartId,
                     Mobile = info.Mobile,
                     NickName = info.NickName,
@@ -549,6 +551,24 @@ namespace Shop.ReadModel.Users
                 {
                     NickName = evnt.NickName,
                     Gender=evnt.Gender,
+                    Role=(int)evnt.Role,
+                    Version = evnt.Version,
+                    EventSequence = evnt.Sequence
+                }, new
+                {
+                    Id = evnt.AggregateRootId,
+                    //Version = evnt.Version - 1
+                }, ConfigSettings.UserTable);
+            });
+        }
+
+        public Task<AsyncTaskResult> HandleAsync(MyParentSetedEvent evnt)
+        {
+            return TryUpdateRecordAsync(connection =>
+            {
+                return connection.UpdateAsync(new
+                {
+                    ParentId = evnt.ParentId,
                     Version = evnt.Version,
                     EventSequence = evnt.Sequence
                 }, new

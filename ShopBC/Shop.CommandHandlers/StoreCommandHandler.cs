@@ -12,6 +12,9 @@ namespace Shop.CommandHandlers
         ICommandHandler<CustomerUpdateStoreCommand>,
         ICommandHandler<UpdateStoreCommand>,
         ICommandHandler<UpdateStoreStautsCommand>,
+
+        ICommandHandler<UpdateSubjectCommand>,
+
         ICommandHandler<AcceptNewStoreOrderCommand>,
         ICommandHandler<SetAccessCodeCommand>
     {
@@ -63,6 +66,14 @@ namespace Shop.CommandHandlers
         public void Handle(ICommandContext context, UpdateStoreStautsCommand command)
         {
             context.Get<Store>(command.AggregateRootId).UpdateStatus(command.Status);
+        }
+
+        public void Handle(ICommandContext context, UpdateSubjectCommand command)
+        {
+            context.Get<Store>(command.AggregateRootId).UpdateSubjectInfo(new SubjectInfo(
+                command.SubjectName,
+                command.SubjectNumber,
+                command.SubjectPic));
         }
     }
 }

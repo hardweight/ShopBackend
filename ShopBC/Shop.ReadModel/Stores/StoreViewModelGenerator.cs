@@ -150,7 +150,7 @@ namespace Shop.ReadModel.Stores
                     TodaySale = evnt.StatisticInfo.TodaySale,
                     TotalSale = evnt.StatisticInfo.TotalSale,
                     TodayOrder=evnt.StatisticInfo.TodayOrder,
-                    TotalOrder=evnt.StatisticInfo.TodayOrder,
+                    TotalOrder=evnt.StatisticInfo.TotalOrder,
                     OnSaleGoodsCount = evnt.StatisticInfo.OnSaleGoodsCount,
                     UpdatedOn=evnt.StatisticInfo.UpdatedOn,
 

@@ -16,5 +16,6 @@ namespace Shop.Api.Models.Response.Goodses
         public string Name { get; set; }
         public decimal Price { get; set; }
         public decimal OriginalPrice { get; set; }
+        public decimal Benevolence { get; set; }
     }
 }

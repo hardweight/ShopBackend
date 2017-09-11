@@ -15,12 +15,14 @@ using Shop.Domain.Events.Wallets.RechargeApplys;
 using Shop.Messages.Messages.Wallets;
 using Shop.Commands.Wallets.BenevolenceTransfers;
 using Xia.Common;
+using Shop.Common;
 
 namespace Shop.ProcessManagers
 {
     [Component]
     public class WalletProcessManager :
         IMessageHandler<WithdrawApplySuccessEvent>,
+        IMessageHandler<WithdrawApplyRejectedEvent>,
         IMessageHandler<RechargeApplySuccessEvent>,
         IMessageHandler<IncentiveUserBenevolenceMessage>//激励善心
     {
@@ -45,7 +47,7 @@ namespace Shop.ProcessManagers
                     evnt.AggregateRootId,
                     DateTime.Now.ToSerialNumber(),
                     CashTransferType.Withdraw,
-                    CashTransferStatus.Placed,
+                    CashTransferStatus.Success,
                     evnt.Amount,
                     0,
                     WalletDirection.Out,
@@ -84,8 +86,8 @@ namespace Shop.ProcessManagers
                     number,
                     CashTransferType.Incentive,
                     CashTransferStatus.Placed,
-                    message.IncentiveValue,
-                    0,
+                    message.IncentiveValue*(1-ConfigSettings.IncentiveFeePersent),//激励善心收取10%手续费
+                    message.IncentiveValue*ConfigSettings.IncentiveFeePersent,
                     WalletDirection.In,
                     "善心激励")));
             //善心记录
@@ -102,6 +104,25 @@ namespace Shop.ProcessManagers
             //执行所以的任务  
             Task.WaitAll(tasks.ToArray());
             return Task.FromResult(AsyncTaskResult.Success);
+        }
+        /// <summary>
+        /// 提现申请拒绝
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public Task<AsyncTaskResult> HandleAsync(WithdrawApplyRejectedEvent evnt)
+        {
+            return _commandService.SendAsync(
+                new CreateCashTransferCommand(
+                    GuidUtil.NewSequentialId(),
+                    evnt.AggregateRootId,
+                    DateTime.Now.ToSerialNumber(),
+                    CashTransferType.Refund,
+                    CashTransferStatus.Placed,
+                    evnt.Amount,
+                    0,
+                    WalletDirection.In,
+                    "提现申请拒绝退款"));
         }
     }
 }

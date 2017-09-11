@@ -41,6 +41,7 @@ namespace Shop.ReadModel.Carts
             a.OriginalPrice,
             a.Quantity,
             a.Stock,
+            a.Benevolence,
             b.Name as StoreName
             from {0} a inner join {1} b on a.StoreId=b.Id 
             where a.CartId='{2}'", ConfigSettings.CartGoodsesTable, ConfigSettings.StoreTable,cartId);

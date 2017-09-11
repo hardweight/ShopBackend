@@ -1,0 +1,50 @@
+2017-09-02 08:55:02,570 ERROR ECommon.Configurations.Configuration - Unhandled exception: Quartz.ObjectAlreadyExistsException: Unable to store Trigger: 'DEFAULT.ExpiredOrderJobTrigger', because one already exists with this identification.
+   在 Quartz.Simpl.RAMJobStore.StoreTrigger(IOperableTrigger newTrigger, Boolean replaceExisting) 位置 c:\Program Files (x86)\Jenkins\workspace\Quartz.NET\src\Quartz\Simpl\RAMJobStore.cs:行号 426
+   在 Quartz.Simpl.RAMJobStore.StoreJobAndTrigger(IJobDetail newJob, IOperableTrigger newTrigger) 位置 c:\Program Files (x86)\Jenkins\workspace\Quartz.NET\src\Quartz\Simpl\RAMJobStore.cs:行号 213
+   在 Quartz.Core.QuartzScheduler.ScheduleJob(IJobDetail jobDetail, ITrigger trigger) 位置 c:\Program Files (x86)\Jenkins\workspace\Quartz.NET\src\Quartz\Core\QuartzScheduler.cs:行号 718
+   在 Quartz.Impl.StdScheduler.ScheduleJob(IJobDetail jobDetail, ITrigger trigger) 位置 c:\Program Files (x86)\Jenkins\workspace\Quartz.NET\src\Quartz\Impl\StdScheduler.cs:行号 262
+   在 Shop.TimerTask.Jobs.WithdrawClearWeekAmount.WithdrawClearWeekAmountJobScheduler.Start() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\Jobs\WithdrawClearWeekAmount\WithdrawClearWeekAmountJobScheduler.cs:行号 35
+   在 Shop.TimerTask.Bootstrap.StartTimerTasks() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\Bootstrap.cs:行号 90
+   在 Shop.TimerTask.Bootstrap.Initialize() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\Bootstrap.cs:行号 35
+   在 Shop.TimerTask.Program.Main(String[] args) 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\TimerTask\Program.cs:行号 20
+2017-09-02 08:57:48,582  INFO ECommon.Socketing.ServerSocket - Socket server is starting, listening on TCP endpoint: 192.168.1.143:9003.
+2017-09-02 08:57:48,646  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.143:11100, local endpoint:192.168.1.143:2110
+2017-09-02 08:57:49,174  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.143:11101, local endpoint:192.168.1.143:2111
+2017-09-02 08:57:49,175  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.143:11103, local endpoint:192.168.1.143:2112
+2017-09-02 10:23:10,273  INFO ECommon.Socketing.ServerSocket - Socket server is starting, listening on TCP endpoint: 192.168.1.143:9003.
+2017-09-02 10:23:10,336  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.143:11100, local endpoint:192.168.1.143:6067
+2017-09-02 10:23:10,804  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.143:11101, local endpoint:192.168.1.143:6070
+2017-09-02 10:23:10,804  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.143:11103, local endpoint:192.168.1.143:6071
+2017-09-02 10:27:25,212  INFO ECommon.Socketing.ServerSocket - Socket server is starting, listening on TCP endpoint: 192.168.1.143:9003.
+2017-09-02 10:27:25,274  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.143:11100, local endpoint:192.168.1.143:6531
+2017-09-02 10:27:25,665  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.143:11101, local endpoint:192.168.1.143:6534
+2017-09-02 10:27:25,665  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.143:11103, local endpoint:192.168.1.143:6535
+2017-09-02 10:29:59,674  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.143:11101 socketError:Success, reason:Socket normal close., ex:
+2017-09-02 10:29:59,674  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.143:11103 socketError:Success, reason:Socket normal close., ex:
+2017-09-02 10:30:05,562  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.143:11101, local endpoint:192.168.1.143:6766
+2017-09-02 10:30:05,562  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.143:11103, local endpoint:192.168.1.143:6767
+2017-09-02 10:30:33,302  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.143:11101 socketError:Success, reason:Socket normal close., ex:
+2017-09-02 10:30:33,302  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.143:11103 socketError:Success, reason:Socket normal close., ex:
+2017-09-02 10:31:18,994 ERROR ECommon.Scheduling.ScheduleService - Task has exception, name: RefreshBrokerAndTopicRouteInfo, due: 1000, period: 5000
+ECommon.Remoting.Exceptions.RemotingTimeoutException: Wait response from server[192.168.1.143:11100] timeout, request:[Code:10003, Type:1, Sequence:57], timeoutMillis:5000ms
+   在 ECommon.Remoting.SocketRemotingClient.InvokeSync(RemotingRequest request, Int32 timeoutMillis) 位置 D:\MyProjects\ecommon\src\ECommon\Remoting\SocketRemotingClient.cs:行号 118
+   在 EQueue.Clients.ClientService.GetClusterBrokerList() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 195
+   在 EQueue.Clients.ClientService.RefreshClusterBrokers() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 228
+   在 EQueue.Clients.ClientService.<Start>b__17_0() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 96
+   在 ECommon.Scheduling.ScheduleService.TaskCallback(Object obj) 位置 D:\MyProjects\ecommon\src\ECommon\Scheduling\ScheduleService.cs:行号 55
+2017-09-02 10:31:28,382  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.143:11101, local endpoint:192.168.1.143:6886
+2017-09-02 10:31:28,383  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.143:11103, local endpoint:192.168.1.143:6887
+2017-09-02 10:32:06,019  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.143:11101 socketError:Success, reason:Socket normal close, ex:
+2017-09-02 10:32:09,226  INFO ECommon.Remoting.SocketRemotingClient - Try to reconnect to server, address: 192.168.1.143:11101
+2017-09-02 10:32:09,226  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.143:11101, local endpoint:192.168.1.143:6886
+2017-09-02 10:32:44,613  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.143:11101 socketError:Success, reason:Socket normal close, ex:
+2017-09-02 10:32:44,707  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.143:11103 socketError:Success, reason:Socket normal close., ex:
+2017-09-02 10:32:50,266  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.143:11101, local endpoint:192.168.1.143:7018
+2017-09-02 10:32:50,266  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.143:11103, local endpoint:192.168.1.143:7019
+2017-09-02 10:33:21,746  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.143:11101 socketError:Success, reason:Socket normal close, ex:
+2017-09-02 10:33:22,762  INFO ECommon.Remoting.SocketRemotingClient - Try to reconnect to server, address: 192.168.1.143:11101
+2017-09-02 10:33:22,762  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.143:11101, local endpoint:192.168.1.143:7018
+2017-09-02 10:41:03,875  INFO ECommon.Socketing.ServerSocket - Socket server is starting, listening on TCP endpoint: 192.168.1.143:9003.
+2017-09-02 10:41:04,791  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.143:11100, local endpoint:192.168.1.143:7802
+2017-09-02 10:41:06,626  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.143:11101, local endpoint:192.168.1.143:7809
+2017-09-02 10:41:06,628  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.143:11103, local endpoint:192.168.1.143:7810

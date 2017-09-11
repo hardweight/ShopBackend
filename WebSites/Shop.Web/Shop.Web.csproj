@@ -158,30 +158,6 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BuyBC\Buy.Commands\Buy.Commands.csproj">
-      <Project>{78f4946b-a83d-46a8-aa68-4a4d54eb125d}</Project>
-      <Name>Buy.Commands</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\BuyBC\Buy.Domain\Buy.Domain.csproj">
-      <Project>{fd430cbc-7f90-4572-92d6-1b10d01dd589}</Project>
-      <Name>Buy.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\BuyBC\Buy.ReadModel\Buy.ReadModel.csproj">
-      <Project>{e6a9c974-d5dd-4c0d-a41f-f1ebf3383ef6}</Project>
-      <Name>Buy.ReadModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\PaymentsBC\Payments.Commands\Payments.Commands.csproj">
-      <Project>{5c467565-1012-425f-aa1c-27f11369dd38}</Project>
-      <Name>Payments.Commands</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\PaymentsBC\Payments.Domain\Payments.Domain.csproj">
-      <Project>{3d8e6b7a-02ef-4f75-a4ce-272a143951f3}</Project>
-      <Name>Payments.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\PaymentsBC\Payments.ReadModel\Payments.ReadModel.csproj">
-      <Project>{a9670092-62f7-46f4-80b7-923a7de18c82}</Project>
-      <Name>Payments.ReadModel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Shop.Common\Shop.Common.csproj">
       <Project>{890eac5d-4afc-4ad5-b8ae-246e73d111ad}</Project>
       <Name>Shop.Common</Name>

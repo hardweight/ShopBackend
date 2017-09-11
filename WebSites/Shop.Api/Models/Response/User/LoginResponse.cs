@@ -11,6 +11,7 @@ namespace Shop.Api.Models.Response.User
     public class UserInfo
     {
         public Guid Id { get; set; }
+        public Guid ParentId { get; set; }
         public string NickName { get; set; }
         public string Portrait { get; set; }
         public string Gender { get; set; }

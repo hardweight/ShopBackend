@@ -8,15 +8,21 @@ namespace Shop.Domain.Events.Wallets.WithdrawApplys
     public class WithdrawApplyCreatedEvent:DomainEvent<Guid>
     {
         public Guid WithdrawApplyId { get; private set; }
+        public decimal FinalCash { get; private set; }
+        public decimal FinalLockedCash { get; private set; }
         public WithdrawApplyInfo Info { get; private set; }
-        public WithdrawApplyStatus Status { get; private set; }
 
         public WithdrawApplyCreatedEvent() { }
-        public WithdrawApplyCreatedEvent(Guid withdrawApplyId,WithdrawApplyInfo info,WithdrawApplyStatus status)
+        public WithdrawApplyCreatedEvent(
+            Guid withdrawApplyId,
+            decimal finalCash,
+            decimal finalLockedCash,
+            WithdrawApplyInfo info)
         {
             WithdrawApplyId = withdrawApplyId;
+            FinalCash = finalCash;
+            FinalLockedCash = finalLockedCash;
             Info = info;
-            Status = status;
         }
     }
 }

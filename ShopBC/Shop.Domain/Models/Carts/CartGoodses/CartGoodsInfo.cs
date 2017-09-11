@@ -14,6 +14,7 @@ namespace Shop.Domain.Models.Carts.CartGoodses
         public decimal OriginalPrice { get; private set; }
         public int Quantity { get;  set; }
         public int Stock { get;private set; }
+        public decimal Benevolence { get; private set; }
 
         public CartGoodsInfo(
             Guid storeId,
@@ -25,7 +26,8 @@ namespace Shop.Domain.Models.Carts.CartGoodses
             decimal price,
             decimal originalPrice,
             int quantity,
-            int stock)
+            int stock,
+            decimal benevolence)
         {
             StoreId = storeId;
             GoodsId = goodsId;
@@ -37,6 +39,7 @@ namespace Shop.Domain.Models.Carts.CartGoodses
             OriginalPrice = originalPrice;
             Quantity = quantity;
             Stock = stock;
+            Benevolence = benevolence;
         }
     }
 }

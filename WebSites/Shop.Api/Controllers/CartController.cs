@@ -16,7 +16,7 @@ using Xia.Common.Extensions;
 namespace Shop.Api.Controllers
 {
     [ApiAuthorizeFilter]
-    [EnableCors(origins: "http://app.wftx666.com,http://localhost:51776,http://localhost:8080", headers: "*", methods: "*", SupportsCredentials = true)]//接口跨越访问配置
+    [EnableCors(origins: "*", headers: "*", methods: "*", SupportsCredentials = true)]//接口跨越访问配置
     public class CartController:BaseApiController
     {
         private ICommandService _commandService;//C端
@@ -55,7 +55,8 @@ namespace Shop.Api.Controllers
                     Stock = gs.Stock,
                     Price = gs.Price,
                     OriginalPrice=gs.OriginalPrice,
-                    Quantity = gs.Quantity
+                    Quantity = gs.Quantity,
+                    Benevolence = gs.Benevolence
                 })
             });
 
@@ -78,6 +79,7 @@ namespace Shop.Api.Controllers
                         OriginalPrice=cg.OriginalPrice,
                         Quantity = cg.Quantity,
                         Stock = cg.Stock,
+                        Benevolence = cg.Benevolence,
                         Checked=false
                     }).ToList()
                 }).ToList()
@@ -107,7 +109,8 @@ namespace Shop.Api.Controllers
                 request.Price,
                 request.OriginalPrice,
                 request.Quantity,
-                request.Stock)
+                request.Stock,
+                request.Benevolence)
             {
                 AggregateRootId = _user.CartId
             };
@@ -148,7 +151,7 @@ namespace Shop.Api.Controllers
         #region 私有方法
         private Task<AsyncTaskResult<CommandResult>> ExecuteCommandAsync(ICommand command, int millisecondsDelay = 50000)
         {
-            return _commandService.ExecuteAsync(command, CommandReturnType.CommandExecuted).TimeoutAfter(millisecondsDelay);
+            return _commandService.ExecuteAsync(command, CommandReturnType.EventHandled).TimeoutAfter(millisecondsDelay);
         }
         #endregion
     }

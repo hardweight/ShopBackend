@@ -29,6 +29,7 @@ C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\log4net.con
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Shop.Api.dll.config
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Shop.Api.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Shop.Api.pdb
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Aliyun.OSS.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Antlr3.Runtime.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Autofac.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Autofac.Integration.Mvc.dll
@@ -41,6 +42,7 @@ C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Dapper.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\ECommon.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\ENode.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\EQueue.dll
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\LitJson.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\log4net.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Microsoft.AI.Agent.Intercept.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Microsoft.AI.DependencyCollector.dll

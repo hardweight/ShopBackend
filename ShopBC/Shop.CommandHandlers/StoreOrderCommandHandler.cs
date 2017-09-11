@@ -78,7 +78,7 @@ namespace Shop.CommandHandlers
                         x.Total,
                         x.StoreTotal,
                         DateTime.Now,
-                        x.Surrender)
+                        x.Benevolence)
                     ).ToList()
                 );
             //添加到上下文

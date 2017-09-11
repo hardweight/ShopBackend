@@ -9,6 +9,7 @@ using Shop.Domain.Events.Wallets.WithdrawApplys;
 using System.Threading.Tasks;
 using System;
 using Shop.Domain.Events.Wallets.RechargeApplys;
+using Shop.Common.Enums;
 
 namespace Shop.ReadModel.Wallets
 {
@@ -29,10 +30,14 @@ namespace Shop.ReadModel.Wallets
         IMessageHandler<BankCardUpdatedEvent>,
 
         IMessageHandler<WithdrawApplyCreatedEvent>,
-        IMessageHandler<WithdrawApplyStatusChangedEvent>,
+        IMessageHandler<WithdrawApplySuccessEvent>,
+        IMessageHandler<WithdrawApplyRejectedEvent>,
 
         IMessageHandler<RechargeApplyCreatedEvent>,
-        IMessageHandler<RechargeApplyStatusChangedEvent>
+        IMessageHandler<RechargeApplyStatusChangedEvent>,
+
+        IMessageHandler<WithdrawStatisticInfoChangedEvent>
+        
     {
         public Task<AsyncTaskResult> HandleAsync(WalletCreatedEvent evnt)
         {
@@ -44,6 +49,7 @@ namespace Shop.ReadModel.Wallets
                     UserId = evnt.UserId,
                     AccessCode="",//交易密码默认为空，需用户后期自己设置
                     Cash = 0,
+                    LockedCash=0,
                     Benevolence =0,
                     YesterdayEarnings=0,
                     Earnings=0,
@@ -52,6 +58,12 @@ namespace Shop.ReadModel.Wallets
                     TodayBenevolenceAdded=0,
                     CreatedOn = evnt.Timestamp,
                     UpdatedOn=evnt.Timestamp,
+
+                    TodayWithdrawAmount =0,
+                    WeekWithdrawAmount = 0,
+                    WithdrawTotalAmount = 0,
+                    LastWithdrawTime = evnt.Timestamp,
+
                     Version = evnt.Version,
                     EventSequence=evnt.Sequence
                 }, ConfigSettings.WalletTable);
@@ -231,6 +243,8 @@ namespace Shop.ReadModel.Wallets
             {
                 var effectedRows = await connection.UpdateAsync(new
                 {
+                    Cash=evnt.FinalCash,
+                    LockedCash=evnt.FinalLockedCash,
                     Version = evnt.Version,
                     EventSequence = evnt.Sequence
                 }, new
@@ -250,18 +264,18 @@ namespace Shop.ReadModel.Wallets
                         BankOwner = evnt.Info.BankOwner,
                         Remark=evnt.Info.Remark,
                         CreatedOn = evnt.Timestamp,
-                        Status=(int)evnt.Status
+                        Status=(int)WithdrawApplyStatus.Placed
                     }, ConfigSettings.WithdrawApplysTable, transaction);
                 }
             });
         }
-
-        public Task<AsyncTaskResult> HandleAsync(WithdrawApplyStatusChangedEvent evnt)
+        public Task<AsyncTaskResult> HandleAsync(WithdrawApplySuccessEvent evnt)
         {
             return TryTransactionAsync(async (connection, transaction) =>
             {
                 var effectedRows = await connection.UpdateAsync(new
                 {
+                    LockedCash = evnt.FinalLockedCash,
                     Version = evnt.Version,
                     EventSequence = evnt.Sequence
                 }, new
@@ -274,7 +288,35 @@ namespace Shop.ReadModel.Wallets
                 {
                     await connection.UpdateAsync(new
                     {
-                        Status = (int)evnt.Status,
+                        Status = (int)WithdrawApplyStatus.Success
+                    }, new
+                    {
+                        WalletId = evnt.AggregateRootId,
+                        Id = evnt.WithdrawApplyId
+                    }, ConfigSettings.WithdrawApplysTable, transaction);
+                }
+            });
+        }
+        public Task<AsyncTaskResult> HandleAsync(WithdrawApplyRejectedEvent evnt)
+        {
+            return TryTransactionAsync(async (connection, transaction) =>
+            {
+                var effectedRows = await connection.UpdateAsync(new
+                {
+                    LockedCash = evnt.FinalLockedCash,
+                    Version = evnt.Version,
+                    EventSequence = evnt.Sequence
+                }, new
+                {
+                    Id = evnt.AggregateRootId,
+                    //Version = evnt.Version - 1
+                }, ConfigSettings.WalletTable, transaction);
+
+                if (effectedRows == 1)
+                {
+                    await connection.UpdateAsync(new
+                    {
+                        Status = (int)WithdrawApplyStatus.Rejected,
                         Remark = evnt.Remark,
                     }, new
                     {
@@ -345,5 +387,28 @@ namespace Shop.ReadModel.Wallets
                 }
             });
         }
+
+        public Task<AsyncTaskResult> HandleAsync(WithdrawStatisticInfoChangedEvent evnt)
+        {
+            return TryUpdateRecordAsync(connection =>
+            {
+                return connection.UpdateAsync(new
+                {
+                    TodayWithdrawAmount = evnt.Info.TodayWithdrawAmount,
+                    WeekWithdrawAmount = evnt.Info.WeekWithdrawAmount,
+                    WithdrawTotalAmount = evnt.Info.WithdrawTotalAmount,
+                    LastWithdrawTime = evnt.Info.LastWithdrawTime,
+
+                    Version = evnt.Version,
+                    EventSequence = evnt.Sequence
+                }, new
+                {
+                    Id = evnt.AggregateRootId,
+                    //Version = evnt.Version - 1
+                }, ConfigSettings.WalletTable);
+            });
+        }
+
+        
     }
 }

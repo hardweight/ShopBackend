@@ -1,0 +1,2 @@
+2017-08-30 19:06:54,199  INFO ENode.EQueue.SendQueueMessageService - EQueue message async send success, sendResult: [SendStatus:Success,MessageStoreResult:[MessageId:c0a8018f5d2b0000d546020000000000, Code:2, Topic:ShopDomainEventTopic, QueueId:2, QueueOffset:32, Tag:, CreatedTime:2017/8/30 19:06:54, StoredTime:2017/8/30 19:06:54],ErrorMessage:], routingKey: 385a712f-f126-4116-8391-015e28199082
+2017-08-30 19:06:54,236  INFO ENode.Eventing.Impl.DefaultEventService - Complete command, aggregateId: 385a712f-f126-4116-8391-015e28199082

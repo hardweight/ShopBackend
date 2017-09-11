@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shop.Common.Enums;
+using System;
 
 namespace Shop.Api.Models.Request.User
 {
@@ -7,5 +8,6 @@ namespace Shop.Api.Models.Request.User
         public Guid Id { get; set; }
         public string NickName { get; set; }
         public string Gender { get; set; }
+        public UserRole Role { get; set; }
     }
 }

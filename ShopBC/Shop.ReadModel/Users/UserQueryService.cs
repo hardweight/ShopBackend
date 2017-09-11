@@ -77,6 +77,13 @@ namespace Shop.ReadModel.Users
             }
         }
 
+        public IEnumerable<UserAlis> UserChildrens(Guid userId)
+        {
+            using (var connection = GetConnection())
+            {
+                return connection.QueryList<UserAlis>(new { ParentId=userId}, ConfigSettings.UserTable);
+            }
+        }
 
         #region 管理
         public IEnumerable<User> UserList()

@@ -15,7 +15,7 @@ namespace Shop.Domain.Models.Stores
     public class StoreOrder:AggregateRoot<Guid>
     {
         private Guid _userId;//下单人
-        private Guid _walletId;//付款的钱包信息，用户付款完成后要更新该值，方便以后退款
+        private Guid _walletId;//付款的钱包信息
         private Guid _storeOwnerWalletId;//店主钱包ID
         private StoreOrderInfo _info;//订单信息
         private ExpressAddressInfo _expressAddressInfo;//收货地址
@@ -62,7 +62,10 @@ namespace Shop.Domain.Models.Stores
             {
                 throw new Exception("不正确的包裹状态");
             }
-            ApplyEvent(new StoreOrderConfirmExpressedEvent(_storeOwnerWalletId,_orderGoodses.Sum(x=>x.StoreTotal)));
+            ApplyEvent(new StoreOrderConfirmExpressedEvent(
+                _walletId,
+                _storeOwnerWalletId,
+                _orderGoodses.Sum(x=>x.StoreTotal),_orderGoodses));
         }
 
         /// <summary>

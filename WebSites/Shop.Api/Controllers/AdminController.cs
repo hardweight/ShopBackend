@@ -1,6 +1,7 @@
 ﻿using ECommon.IO;
 using ENode.Commanding;
 using Shop.Api.Helper;
+using Shop.Api.Models.Request.Admins;
 using Shop.Api.Models.Response;
 using Shop.Api.Models.Response.Admins;
 using System;
@@ -12,8 +13,7 @@ using Xia.Common.Extensions;
 
 namespace Shop.Api.Controllers
 {
-    [ApiAuthorizeFilter]
-    [EnableCors(origins: "http://app.wftx666.com,http://localhost:51776,http://localhost:8080", headers: "*", methods: "*", SupportsCredentials = true)]//接口跨越访问配置
+    [EnableCors(origins: "*", headers: "*", methods: "*", SupportsCredentials = true)]//接口跨越访问配置
     public class AdminController:BaseApiController
     {
         private ICommandService _commandService;//C端
@@ -30,9 +30,14 @@ namespace Shop.Api.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("Admin/Login")]
-        public BaseApiResponse Login()
+        public BaseApiResponse Login(LoginRequest request)
         {
-            
+            request.CheckNotNull(nameof(request));
+
+            if(request.Name!="admin" || request.Password!="wftx123456~")
+            {
+                return new BaseApiResponse { Code = 400, Message = "登录不被允许" };
+            }
             return new LoginResponse
             {
                 User=new User
@@ -49,7 +54,7 @@ namespace Shop.Api.Controllers
         #region 私有方法
         private Task<AsyncTaskResult<CommandResult>> ExecuteCommandAsync(ICommand command, int millisecondsDelay = 50000)
         {
-            return _commandService.ExecuteAsync(command, CommandReturnType.CommandExecuted).TimeoutAfter(millisecondsDelay);
+            return _commandService.ExecuteAsync(command, CommandReturnType.EventHandled).TimeoutAfter(millisecondsDelay);
         }
         #endregion
     }

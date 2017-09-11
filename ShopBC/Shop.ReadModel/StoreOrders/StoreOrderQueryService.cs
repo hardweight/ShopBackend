@@ -48,6 +48,7 @@ namespace Shop.ReadModel.StoreOrders
         {
             using (var connection = GetConnection())
             {
+
                 var storeorders= connection.QueryList<StoreOrderDetails>(new { UserId = userId }, ConfigSettings.StoreOrderTable);
                 foreach(var storeorder in storeorders)
                 {
@@ -56,6 +57,20 @@ namespace Shop.ReadModel.StoreOrders
                 return storeorders;
             }
         }
+        public IEnumerable<StoreOrderDetails> UserStoreOrderDetails(Guid userId,StoreOrderStatus status)
+        {
+            using (var connection = GetConnection())
+            {
+
+                var storeorders = connection.QueryList<StoreOrderDetails>(new { UserId = userId,Status=(int)status }, ConfigSettings.StoreOrderTable);
+                foreach (var storeorder in storeorders)
+                {
+                    storeorder.StoreOrderGoodses = connection.QueryList<StoreOrderGoods>(new { OrderId = storeorder.Id }, ConfigSettings.OrderGoodsTable).ToList();
+                }
+                return storeorders;
+            }
+        }
+
         public IEnumerable<StoreOrderDetails> StoreStoreOrderDetails(Guid storeId)
         {
             using (var connection = GetConnection())

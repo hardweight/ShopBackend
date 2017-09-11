@@ -48,18 +48,32 @@ namespace Buy.ProcessManagers
         public  Task<AsyncTaskResult> HandleAsync(OrderPlacedEvent evnt)
         {
             var tasks = new List<Task>();
-            foreach (var goodsLine in evnt.OrderTotal.Lines)
+            //通过商品ID 分组
+            var goodsGroup = evnt.OrderTotal.Lines.GroupBy(x => x.SpecificationQuantity.Specification.GoodsId);
+            foreach(var goods in goodsGroup)
             {
                 //一个商品可以有多个规格的预定
-                tasks.Add( _commandService.SendAsync(new MakeSpecificationReservationCommand(
-                    goodsLine.SpecificationQuantity.Specification.GoodsId,
+                tasks.Add(_commandService.SendAsync(new MakeSpecificationReservationCommand(
+                    goods.Key,
                      evnt.AggregateRootId,//订单ID
-                     //查找当前商品的所有规格
-                    evnt.OrderTotal.Lines.Where(x=>x.SpecificationQuantity.Specification.GoodsId==goodsLine.SpecificationQuantity.Specification.GoodsId).Select(x => new SpecificationReservationItemInfo (
-                        x.SpecificationQuantity.Specification.SpecificationId,
-                        x.SpecificationQuantity.Quantity )).ToList()//所有规格和数量
+                                          //查找当前商品的所有规格
+                    goods.Select(x => new SpecificationReservationItemInfo(
+                            x.SpecificationQuantity.Specification.SpecificationId,
+                            x.SpecificationQuantity.Quantity)).ToList()//所有规格和数量
                 )));
             }
+            //foreach (var goodsLine in evnt.OrderTotal.Lines)
+            //{
+            //    //一个商品可以有多个规格的预定
+            //    tasks.Add( _commandService.SendAsync(new MakeSpecificationReservationCommand(
+            //        goodsLine.SpecificationQuantity.Specification.GoodsId,
+            //         evnt.AggregateRootId,//订单ID
+            //         //查找当前商品的所有规格
+            //        evnt.OrderTotal.Lines.Where(x=>x.SpecificationQuantity.Specification.GoodsId==goodsLine.SpecificationQuantity.Specification.GoodsId).Select(x => new SpecificationReservationItemInfo (
+            //            x.SpecificationQuantity.Specification.SpecificationId,
+            //            x.SpecificationQuantity.Quantity )).ToList()//所有规格和数量
+            //    )));
+            //}
             //执行所以的任务  
             Task.WaitAll(tasks.ToArray());
             return Task.FromResult(AsyncTaskResult.Success);
@@ -102,18 +116,36 @@ namespace Buy.ProcessManagers
         public Task<AsyncTaskResult> HandleAsync(OrderPaymentConfirmedEvent evnt)
         {
             var tasks = new List<Task>();
-            foreach(var goodsLine in evnt.OrderTotal.Lines)
-            { 
+            //通过商品ID 分组
+            var goodsGroup = evnt.OrderTotal.Lines.GroupBy(x => x.SpecificationQuantity.Specification.GoodsId);
+            foreach (var goods in goodsGroup)
+            {
                 //每个商品都发送确认预定信息
                 if (evnt.OrderStatus == OrderStatus.PaymentSuccess)
                 {
-                    tasks.Add( _commandService.SendAsync(new CommitSpecificationReservationCommand(goodsLine.SpecificationQuantity.Specification.GoodsId, evnt.AggregateRootId)));
+                    tasks.Add(_commandService.SendAsync(new CommitSpecificationReservationCommand(
+                        goods.Key, 
+                        evnt.AggregateRootId)));
                 }
                 else if (evnt.OrderStatus == OrderStatus.PaymentRejected)
                 {
-                    tasks.Add( _commandService.SendAsync(new CancelSpecificationReservationCommand(goodsLine.SpecificationQuantity.Specification.GoodsId, evnt.AggregateRootId)));
+                    tasks.Add(_commandService.SendAsync(new CancelSpecificationReservationCommand(
+                        goods.Key,
+                        evnt.AggregateRootId)));
                 }
             }
+            //foreach (var goodsLine in evnt.OrderTotal.Lines)
+            //{ 
+            //    //每个商品都发送确认预定信息
+            //    if (evnt.OrderStatus == OrderStatus.PaymentSuccess)
+            //    {
+            //        tasks.Add( _commandService.SendAsync(new CommitSpecificationReservationCommand(goodsLine.SpecificationQuantity.Specification.GoodsId, evnt.AggregateRootId)));
+            //    }
+            //    else if (evnt.OrderStatus == OrderStatus.PaymentRejected)
+            //    {
+            //        tasks.Add( _commandService.SendAsync(new CancelSpecificationReservationCommand(goodsLine.SpecificationQuantity.Specification.GoodsId, evnt.AggregateRootId)));
+            //    }
+            //}
             Task.WaitAll(tasks.ToArray());
             //Task.WhenAll(tasks).ConfigureAwait(false);
             return Task.FromResult(AsyncTaskResult.Success);
@@ -177,7 +209,7 @@ namespace Buy.ProcessManagers
                         x.SpecificationQuantity.Quantity,
                         x.LineTotal,
                         x.StoreLineTotal,
-                        x.SpecificationQuantity.Specification.Surrender
+                        x.SpecificationQuantity.Specification.Benevolence
                     )).ToList())));
             }
             Task.WaitAll(tasks.ToArray());

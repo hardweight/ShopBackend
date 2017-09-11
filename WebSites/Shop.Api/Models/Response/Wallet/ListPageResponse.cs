@@ -16,6 +16,7 @@ namespace Shop.Api.Models.Response.Wallet
     {
         public Guid Id { get; set; }
         public string AccessCode { get; set; }
+        public string OwnerMobile { get; set; }
         public decimal Cash { get; set; }
         public decimal Benevolence { get; set; }
         public decimal YesterdayEarnings { get; set; }

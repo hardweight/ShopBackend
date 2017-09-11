@@ -3,7 +3,9 @@ using ECommon.Configurations;
 using ECommon.Logging;
 using ENode.Configurations;
 using Shop.Common;
+using Shop.TimerTask.Jobs.OrderGoodses;
 using Shop.TimerTask.Jobs.Orders;
+using Shop.TimerTask.Jobs.WithdrawClearWeekAmount;
 using System;
 using System.Reflection;
 using ECommonConfiguration = ECommon.Configurations.Configuration;
@@ -21,11 +23,11 @@ namespace Shop.TimerTask
         public static void Initialize()
         {
             InitializeECommon();
-            //启动定时任务
-            OrderJobScheduler.Start();
             try
             {
                 InitializeENode();
+                //启动定时任务
+                StartTimerTasks();
             }
             catch (Exception ex)
             {
@@ -70,7 +72,7 @@ namespace Shop.TimerTask
         /// </summary>
         private static void InitializeECommon()
         {
-            _ecommonConfiguration = Configuration
+            _ecommonConfiguration = ECommonConfiguration
                 .Create()
                 .UseAutofac()
                 .RegisterCommonComponents()
@@ -80,6 +82,13 @@ namespace Shop.TimerTask
 
             _logger = ObjectContainer.Resolve<ILoggerFactory>().Create(typeof(Bootstrap).FullName);
             _logger.Info("ECommon 初始化成功.");
+        }
+
+        private static void StartTimerTasks()
+        {
+            OrderJobScheduler.Start();//预订单30分钟付款到期
+            WithdrawClearWeekAmountJobScheduler.Start();//每周日晚上清空本周提现金额
+            //OrderGoodsJobScheduler.Start();//商品服务自动过期服务
         }
         /// <summary>
         /// 初始化ENode
@@ -104,10 +113,8 @@ namespace Shop.TimerTask
                 .RegisterENodeComponents()//注册ENode的所有默认实现组件以及给定程序集中的所有标记了Component特性的组件到容器
                 .RegisterBusinessComponents(assemblies)
                 .UseEQueue()
-                .InitializeBusinessAssemblies(assemblies)
-                .StartEQueue();
-
-            //RegisterApiControllers();
+                .InitializeBusinessAssemblies(assemblies);
+            //应该将组件注入到AOC容器
             _logger.Info("ENode initialized.");
         }
     }

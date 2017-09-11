@@ -33,7 +33,8 @@ namespace Shop.CommandHandlers
         ICommandHandler<CreateRechargeApplyCommand>,
         ICommandHandler<ChangeRechargeStatusCommand>,
 
-        ICommandHandler<IncentiveBenevolenceCommand>
+        ICommandHandler<IncentiveBenevolenceCommand>,
+        ICommandHandler<ClearWeekWithdrawAmountCommand>
     {
         public void Handle(ICommandContext context, CreateWalletCommand command)
         {
@@ -117,6 +118,11 @@ namespace Shop.CommandHandlers
         public void Handle(ICommandContext context, IncentiveBenevolenceCommand command)
         {
             context.Get<Wallet>(command.AggregateRootId).IncentiveBenevolence(command.BenevolenceIndex);
+        }
+
+        public void Handle(ICommandContext context, ClearWeekWithdrawAmountCommand command)
+        {
+            context.Get<Wallet>(command.AggregateRootId).ClearWeekWithdrawAmount();
         }
     }
 }

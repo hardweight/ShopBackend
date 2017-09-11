@@ -23,6 +23,7 @@ namespace Shop.Common.Enums
         SectionPartner = 4
     }
 
+    
     public enum UserLock
     {
         /// <summary>

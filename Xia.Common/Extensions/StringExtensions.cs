@@ -98,6 +98,17 @@ namespace Xia.Common.Extensions
         }
 
         /// <summary>
+        /// 返回指定样式的图片
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="styleName"></param>
+        /// <returns></returns>
+        public static string ToOssStyleUrl(this string value,string styleName)
+        {
+            return value + "?x-oss-process=style/" + styleName;
+        }
+
+        /// <summary>
         /// 在指定字符串中匹配最后一个数字字符串
         /// </summary>
         public static string MatchLastNumber(this string value)

@@ -31,6 +31,9 @@ namespace Shop.Common.Enums
     }
     public enum CashTransferType
     {
+        [Description("全部")]
+        All = -1,
+
         [Description("充值")]
         Charge = 0,
         [Description("提现")]
@@ -43,14 +46,10 @@ namespace Shop.Common.Enums
         Shopping = 4,
         [Description("系统操作")]
         SystemOp=5,
-        /// <summary>
-        /// 退款
-        /// </summary>
         [Description("退款")]
         Refund=6,
-
         [Description("店铺售货")]
-        StoreSell=7
+        StoreSell=7,
     }
     public enum CashTransferStatus
     {
@@ -65,6 +64,9 @@ namespace Shop.Common.Enums
 
     public enum BenevolenceTransferType
     {
+        [Description("全部")]
+        All=-1,
+
         [Description("购物奖励")]
         ShoppingAward = 0,
         [Description("商家奖励")]

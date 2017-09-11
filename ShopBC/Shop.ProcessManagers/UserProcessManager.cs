@@ -30,7 +30,9 @@ namespace Shop.ProcessManagers
 
         IMessageHandler<UserRoleToPartnerEvent>,//设置用户为联盟
         IMessageHandler<ParentPartnerShouldAcceptNewSaleEvent>,
-        IMessageHandler<UserGiftPayedEvent>
+        IMessageHandler<UserGiftPayedEvent>,
+
+        IMessageHandler<AcceptedChildStoreSaleBenevolenceEvent>
        
     {
         private ICommandService _commandService;
@@ -53,7 +55,7 @@ namespace Shop.ProcessManagers
                     evnt.WalletId,
                     number,
                     BenevolenceTransferType.ShoppingAward,
-                    BenevolenceTransferStatus.Success,
+                    BenevolenceTransferStatus.Placed,
                     evnt.Amount,
                     0,
                     WalletDirection.In,
@@ -69,7 +71,7 @@ namespace Shop.ProcessManagers
                     evnt.WalletId,
                     number,
                     BenevolenceTransferType.StoreAward,
-                    BenevolenceTransferStatus.Success,
+                    BenevolenceTransferStatus.Placed,
                     evnt.Amount,
                     0,
                     WalletDirection.In,
@@ -82,7 +84,8 @@ namespace Shop.ProcessManagers
         /// <returns></returns>
         public Task<AsyncTaskResult> HandleAsync(MyParentCanGetBenevolenceEvent evnt)
         {
-            return _commandService.SendAsync(new AcceptChildBenevolenceCommand(evnt.ParentId,evnt.Amount,evnt.Level));
+            return _commandService.SendAsync(
+                new AcceptChildBenevolenceCommand(evnt.ParentId,evnt.Amount,evnt.Level));
         }
         /// <summary>
         /// 获取 子的善心分成
@@ -97,7 +100,7 @@ namespace Shop.ProcessManagers
                     evnt.WalletId,
                     number,
                     BenevolenceTransferType.RecommendUserAward,
-                    BenevolenceTransferStatus.Success,
+                    BenevolenceTransferStatus.Placed,
                     evnt.Amount,
                     0,
                     WalletDirection.In,
@@ -110,17 +113,7 @@ namespace Shop.ProcessManagers
         /// <returns></returns>
         public Task<AsyncTaskResult> HandleAsync(UserGetChildStoreSaleBenevolenceEvent evnt)
         {
-            var number = DateTime.Now.ToSerialNumber();
-            return _commandService.SendAsync(new CreateBenevolenceTransferCommand(
-                    GuidUtil.NewSequentialId(),
-                    evnt.WalletId,
-                    number,
-                    BenevolenceTransferType.RecommendStoreAward,
-                    BenevolenceTransferStatus.Success,
-                    evnt.Amount,
-                    0,
-                    WalletDirection.In,
-                    "推荐商家售货激励"));
+            return _commandService.SendAsync(new GetChildStoreSaleBenevolenceCommand(evnt.ParentId,evnt.Amount));
         }
 
         public Task<AsyncTaskResult> HandleAsync(UserRoleToPartnerEvent evnt)
@@ -179,6 +172,22 @@ namespace Shop.ProcessManagers
                 {
                     AggregateRootId=evnt.AggregateRootId
                 });
+        }
+
+        public Task<AsyncTaskResult> HandleAsync(AcceptedChildStoreSaleBenevolenceEvent evnt)
+        {
+            var number = DateTime.Now.ToSerialNumber();
+
+            return _commandService.SendAsync(new CreateBenevolenceTransferCommand(
+                    GuidUtil.NewSequentialId(),
+                    evnt.WalletId,
+                    number,
+                    BenevolenceTransferType.RecommendStoreAward,
+                    BenevolenceTransferStatus.Placed,
+                    evnt.Amount,
+                    0,
+                    WalletDirection.In,
+                    "推荐商家售货激励"));
         }
     }
 }

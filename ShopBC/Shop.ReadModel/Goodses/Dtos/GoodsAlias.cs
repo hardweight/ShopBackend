@@ -9,6 +9,7 @@ namespace Shop.ReadModel.Goodses.Dtos
         public string Name { get; set; }
         public decimal Price { get; set; }
         public decimal OriginalPrice { get; set; }
+        public decimal Benevolence { get; set; }
         public int SellOut { get; set; }
         public int Rate { get; set; }
         public DateTime CreatedOn { get; set; }

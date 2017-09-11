@@ -30,7 +30,8 @@ namespace Shop.CommandHandlers
                     command.Price,
                     command.OriginalPrice,
                     command.Quantity,
-                    command.Stock));
+                    command.Stock,
+                    command.Benevolence));
         }
 
         public void Handle(ICommandContext context, RemoveCartGoodsCommand command)

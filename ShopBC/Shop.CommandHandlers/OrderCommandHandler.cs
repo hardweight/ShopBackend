@@ -44,7 +44,7 @@ namespace Shop.CommandHandlers
                     x.SpecificationName,
                     x.Price,
                     x.OriginalPrice,
-                    x.SurrenderPersent), x.Quantity)),
+                    x.Benevolence), x.Quantity)),
                 _pricingService));
         }
         public void Handle(ICommandContext context, ConfirmOneReservationCommand command)

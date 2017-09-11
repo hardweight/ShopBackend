@@ -8,6 +8,7 @@ using Shop.Domain.Models.Goodses;
 using System.Linq;
 using System;
 using Xia.Common;
+using Shop.Common;
 
 namespace Shop.CommandHandlers
 {
@@ -16,6 +17,7 @@ namespace Shop.CommandHandlers
         ICommandHandler<CreateGoodsCommand>,
         ICommandHandler<StoreUpdateGoodsCommand>,
         ICommandHandler<UpdateGoodsCommand>,
+        ICommandHandler<UpdateStatusCommand>,
 
         ICommandHandler<PublishGoodsCommand>,
         ICommandHandler<UnpublishGoodsCommand>,
@@ -23,7 +25,7 @@ namespace Shop.CommandHandlers
         ICommandHandler<AddSpecificationCommand>,
         ICommandHandler<AddSpecificationsCommand>,
         ICommandHandler<UpdateSpecificationCommand>,
-
+        ICommandHandler<UpdateSpecificationsCommand>,
         ICommandHandler<UpdateParamsCommand>,
 
         ICommandHandler<MakeSpecificationReservationCommand>,
@@ -48,10 +50,10 @@ namespace Shop.CommandHandlers
                 command.Name,
                 command.Description,
                 command.Pics,
-                command.OriginalPrice*1.2M,//平台售价，默认是产品供应商的1.2倍,
+                command.OriginalPrice,//平台售价,
                 command.OriginalPrice,
+                command.OriginalPrice / ConfigSettings.BenevolenceValue,//善心
                 command.Stock,
-                1,//默认单倍返善心
                 0,//已销售量
                 command.IsPayOnDelivery,
                 command.IsInvoice,
@@ -68,6 +70,7 @@ namespace Shop.CommandHandlers
                 command.Name,
                 command.Description,
                 command.Pics,
+                command.Price,
                 command.OriginalPrice,
                 command.Stock,
                 command.IsPayOnDelivery,
@@ -83,7 +86,9 @@ namespace Shop.CommandHandlers
                 command.Description,
                 command.Pics,
                 command.Price,
-                command.SellOut));
+                command.Benevolence,
+                command.SellOut,
+                command.Status));
         }
         public void Handle(ICommandContext context, PublishGoodsCommand command)
         {
@@ -102,6 +107,7 @@ namespace Shop.CommandHandlers
                     command.Thumb,
                     command.Price,
                     command.OriginalPrice,
+                    command.Benevolence,
                     command.Number,
                     command.BarCode
                 ),
@@ -118,6 +124,7 @@ namespace Shop.CommandHandlers
                     command.Thumb,
                     command.Price,
                     command.OriginalPrice,
+                    command.Benevolence,
                     command.Number,
                     command.BarCode),command.Stock);
         }
@@ -148,13 +155,14 @@ namespace Shop.CommandHandlers
         public void Handle(ICommandContext context, AddSpecificationsCommand command)
         {
             context.Get<Goods>(command.AggregateRootId).AddSpecifications(command.Specifications.Select(x =>new Domain.Models.Goodses.Specifications.Specification(
-                GuidUtil.NewSequentialId(), 
+                x.Id, 
                 new Domain.Models.Goodses.Specifications.SpecificationInfo(
                     x.Name,
                     x.Value,
                     x.Thumb,
                     x.Price,
                     x.OriginalPrice,
+                    x.Benevolence,
                     x.Number,
                     x.BarCode
                 ),
@@ -166,6 +174,29 @@ namespace Shop.CommandHandlers
             context.Get<Goods>(command.AggregateRootId).UpdateParams(command.GoodsParams.Select(x => new GoodsParam(
                 x.Name,
                 x.Value)).ToList());
+        }
+
+        public void Handle(ICommandContext context, UpdateSpecificationsCommand command)
+        {
+            context.Get<Goods>(command.AggregateRootId).UpdateSpecifications(
+                command.Specifications.Select(x => new Domain.Models.Goodses.Specifications.Specification(
+                x.Id,
+                new Domain.Models.Goodses.Specifications.SpecificationInfo(
+                   x.Name,
+                   x.Value,
+                   x.Thumb,
+                   x.Price,
+                   x.OriginalPrice,
+                   x.Benevolence,
+                   x.Number,
+                   x.BarCode),
+                x.Stock
+                )).ToList());
+        }
+
+        public void Handle(ICommandContext context, UpdateStatusCommand command)
+        {
+            context.Get<Goods>(command.AggregateRootId).UpdateStatus(command.Status);
         }
     }
 }

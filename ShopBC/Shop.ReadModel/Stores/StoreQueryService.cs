@@ -32,6 +32,8 @@ namespace Shop.ReadModel.Stores
             }
         }
 
+        
+
         /// <summary>
         /// 今日所有商家销售额
         /// </summary>

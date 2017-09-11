@@ -6,12 +6,12 @@ using System.Collections.Generic;
 namespace Shop.Domain.Events.Goodses.Specifications
 {
     [Serializable]
-    public class SpecificationsAddedEvent : DomainEvent<Guid>
+    public class SpecificationsUpdatedEvent : DomainEvent<Guid>
     {
         public IList<Specification> Specifications { get; private set; }
 
-        public SpecificationsAddedEvent() { }
-        public SpecificationsAddedEvent(IList<Specification> specifications)
+        public SpecificationsUpdatedEvent() { }
+        public SpecificationsUpdatedEvent(IList<Specification> specifications)
         {
             Specifications = specifications;
         }

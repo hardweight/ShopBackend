@@ -14,7 +14,10 @@ namespace Shop.Domain.Events.Users
         public int Level { get; private set; }
 
         public UserGetChildBenevolenceEvent() { }
-        public UserGetChildBenevolenceEvent(Guid walletId,decimal amount,int level)
+        public UserGetChildBenevolenceEvent(
+            Guid walletId,
+            decimal amount,
+            int level)
         {
             WalletId = walletId;
             Amount = amount;

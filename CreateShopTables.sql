@@ -1,5 +1,6 @@
 CREATE TABLE [dbo].[Users] (
     [Id]            UNIQUEIDENTIFIER NOT NULL,
+    [ParentId]            UNIQUEIDENTIFIER NOT NULL,
     [WalletId]            UNIQUEIDENTIFIER NOT NULL,
     [CartId]            UNIQUEIDENTIFIER NOT NULL,
     [Mobile]    NVARCHAR (15)     NOT NULL,
@@ -79,6 +80,7 @@ CREATE TABLE [dbo].[CartGoodses] (
     [OriginalPrice]               DECIMAL (18, 2)  NOT NULL,
     [Stock]               INT  NOT NULL,
     [Quantity]               INT  NOT NULL,
+	[Benevolence]	DECIMAL (18, 4)  NOT NULL,
     [CreatedOn]       DATETIME         NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC,[CartId] ASC,[StoreId] ASC,[GoodsId] ASC,[SpecificationId] ASC)
 )
@@ -129,7 +131,7 @@ CREATE TABLE [dbo].[Goodses] (
     [Description]    NVARCHAR (MAX)   NOT NULL,
     [Price]               DECIMAL (18, 2)  NOT NULL,
     [OriginalPrice]               DECIMAL (18, 2)  NOT NULL,
-    [Surrender]               DECIMAL (18, 2)  NOT NULL,
+    [Benevolence]               DECIMAL (18, 2)  NOT NULL,
     [Stock]      INT              NOT NULL,
     [SellOut]      INT              NOT NULL,
     [IsPayOnDelivery]   BIT              NOT NULL,
@@ -144,6 +146,7 @@ CREATE TABLE [dbo].[Goodses] (
 	[ExpressRate]               DECIMAL (18, 2)  NOT NULL,
 	[DescribeRate]               DECIMAL (18, 2)  NOT NULL,
     [IsPublished]   BIT              NOT NULL,
+    [Status]   INT              NOT NULL,
     [Version]       BIGINT           NOT NULL,
     [EventSequence] INT              NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
@@ -299,6 +302,10 @@ CREATE TABLE [dbo].[StoreOrders] (
     [CreatedOn]    DATETIME   NOT NULL,
 	[Total]		DECIMAL(18,2)	NOT NULL,
 	[StoreTotal]		DECIMAL(18,2)	NOT NULL,
+
+	[Reason] NVARCHAR (200)    NULL,
+	[RefoundAmount]		DECIMAL(18,2)	 NULL,
+
     [Status] INT              NOT NULL,
     [Version]       BIGINT           NOT NULL,
     [EventSequence] INT              NOT NULL,
@@ -323,8 +330,9 @@ CREATE TABLE [dbo].[OrderGoodses] (
 	[OriginalPrice]	DECIMAL(18,2)		NOT NULL,
 	[Total]	DECIMAL(18,2)		NOT NULL,
 	[StoreTotal]	DECIMAL(18,2)		NOT NULL,
-	[Surrender]	DECIMAL(18,2)		NOT NULL,
+	[Benevolence]	DECIMAL(18,4)		NOT NULL,
     [CreatedOn]    DATETIME   NOT NULL,
+    [ServiceExpirationDate]    DATETIME   NOT NULL,
 	[Status]		INT	NOT NULL,
     [Version]       BIGINT           NOT NULL,
     [EventSequence] INT              NOT NULL,
@@ -370,6 +378,7 @@ CREATE TABLE [dbo].[Wallets] (
     [UserId]            UNIQUEIDENTIFIER NOT NULL,
 	[AccessCode]	NVARCHAR(200)	NOT NULL,
 	[Cash]	DECIMAL(18,2)	NOT NULL,
+	[LockedCash]	DECIMAL(18,2)	NOT NULL,
 	[Benevolence]	DECIMAL(18,4)	NOT NULL,
 	[YesterdayEarnings]	DECIMAL(18,2)	NOT NULL,
 	[Earnings]	DECIMAL(18,2)	NOT NULL,
@@ -378,6 +387,12 @@ CREATE TABLE [dbo].[Wallets] (
 	[TodayBenevolenceAdded]	DECIMAL(18,4)	NOT NULL,
     [CreatedOn]    DATETIME   NOT NULL,
     [UpdatedOn]    DATETIME   NOT NULL,
+
+	[TodayWithdrawAmount]	DECIMAL(18,2)	NOT NULL,
+	[WeekWithdrawAmount]	DECIMAL(18,2)	NOT NULL,
+	[WithdrawTotalAmount]	DECIMAL(18,2)	NOT NULL,
+	[LastWithdrawTime]    DATETIME   NOT NULL,
+
     [Version]       BIGINT           NOT NULL,
     [EventSequence] INT              NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC,[UserId] ASC)
@@ -466,6 +481,7 @@ CREATE TABLE [dbo].[Specifications] (
     [Thumb]       NVARCHAR (250)    NULL,
     [Price]               DECIMAL (18, 2)  NOT NULL,
     [OriginalPrice]               DECIMAL (18, 2)  NOT NULL,
+    [Benevolence]               DECIMAL (18, 4)  NOT NULL,
     [Stock]      INT              NOT NULL,
 	[Number]              NVARCHAR (70)     NULL,
 	[BarCode]              NVARCHAR (70)     NULL,

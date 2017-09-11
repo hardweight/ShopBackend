@@ -16,7 +16,6 @@ namespace Shop.ReadModel.Carts.Dtos
         public decimal OriginalPrice { get;  set; }
         public int Quantity { get; set; }
         public int Stock { get;  set; }
-
-
+        public decimal Benevolence { get; set; }
     }
 }

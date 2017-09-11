@@ -22,7 +22,8 @@ namespace Shop.CommandHandlers
         ICommandHandler<AgreeRefundCommand>,
         ICommandHandler<DisAgreeRefundCommand>,
         ICommandHandler<ServiceFinishCommand>,
-        ICommandHandler<ToDoorServiceFinishCommand>
+        ICommandHandler<ToDoorServiceFinishCommand>,
+        ICommandHandler<MarkAsExpireCommand>
     {
         private readonly ILockService _lockService;
 
@@ -55,7 +56,7 @@ namespace Shop.CommandHandlers
                         command.OrderGoods.Total,
                         command.OrderGoods.StoreTotal,
                         DateTime.Now.Add(ConfigSettings.OrderGoodsServiceAutoExpiration),
-                        command.OrderGoods.Surrender)
+                        command.OrderGoods.Benevolence)
                 );
             //添加到上下文
             context.Add(orderGoods);
@@ -117,6 +118,11 @@ namespace Shop.CommandHandlers
         public void Handle(ICommandContext context, ToDoorServiceFinishCommand command)
         {
             context.Get<OrderGoods>(command.AggregateRootId).ServiceFinish(command.ServiceNumber);
+        }
+
+        public void Handle(ICommandContext context, MarkAsExpireCommand command)
+        {
+            context.Get<OrderGoods>(command.AggregateRootId).MarkAsExpire();
         }
         #endregion
     }

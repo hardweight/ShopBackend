@@ -4,6 +4,8 @@ namespace Shop.Common.Enums
 {
     public enum StoreOrderStatus
     {
+        [Description("全部")]
+        All=-1,
         /// <summary>
         /// 已提交，待发货
         /// </summary>

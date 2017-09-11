@@ -15,6 +15,7 @@ namespace Shop.Commands.Carts
         public decimal OriginalPrice { get; private set; }
         public int Quantity { get; set; }
         public int Stock { get; private set; }
+        public decimal Benevolence { get; private set; }
 
         public AddCartGoodsCommand() { }
         public AddCartGoodsCommand(
@@ -27,7 +28,8 @@ namespace Shop.Commands.Carts
             decimal price,
             decimal originalPrice,
             int quantity,
-            int stock)
+            int stock,
+            decimal benevolence)
         {
             StoreId = storeId;
             GoodsId = goodsId;
@@ -39,6 +41,7 @@ namespace Shop.Commands.Carts
             OriginalPrice = originalPrice;
             Quantity = quantity;
             Stock = stock;
+            Benevolence = benevolence;
         }
     }
 }

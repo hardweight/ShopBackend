@@ -49,8 +49,9 @@ namespace Shop.ReadModel.OrderGoodses
                     OriginalPrice = info.OriginalPrice,
                     Total=info.Total,
                     StoreTotal=info.StoreTotal,
-                    Surrender=info.Surrender,
+                    Benevolence = info.Benevolence,
                     CreatedOn=evnt.Timestamp,
+                    ServiceExpirationDate=evnt.ServiceExpirationDate,
                     Status=(int)OrderGoodsStatus.Normal,
                     Version = evnt.Version,
                     EventSequence = evnt.Sequence

@@ -3,6 +3,7 @@ using ECommon.Dapper;
 using ECommon.IO;
 using ENode.Infrastructure;
 using Shop.Common;
+using Shop.Common.Enums;
 using Shop.Domain.Events.Goodses;
 using Shop.Domain.Events.Goodses.Specifications;
 using System;
@@ -22,6 +23,7 @@ namespace Shop.ReadModel.Goodses
         IMessageHandler<GoodsUpdatedEvent>,
         IMessageHandler<GoodsPublishedEvent>,
         IMessageHandler<GoodsUnpublishedEvent>,
+        IMessageHandler<GoodsStatusUpdatedEvent>,
 
         IMessageHandler<GoodsParamsUpdatedEvent>,
         IMessageHandler<CommentStatisticInfoChangedEvent>,
@@ -31,6 +33,7 @@ namespace Shop.ReadModel.Goodses
         IMessageHandler<SpecificationReservationCancelledEvent>,
         
         IMessageHandler<SpecificationsAddedEvent>,
+        IMessageHandler<SpecificationsUpdatedEvent>,
         IMessageHandler<SpecificationAddedEvent>,
         IMessageHandler<SpecificationUpdatedEvent>,
         IMessageHandler<SpecificationStockChangedEvent>
@@ -52,7 +55,7 @@ namespace Shop.ReadModel.Goodses
                     Price = info.Price,
                     OriginalPrice = info.OriginalPrice,
 
-                    Surrender = info.Surrender,
+                    Benevolence = info.Benevolence,
 
                     Stock = info.Stock,
                     SellOut = info.SellOut,
@@ -67,7 +70,8 @@ namespace Shop.ReadModel.Goodses
                     PriceRate = 5,
                     ExpressRate = 5,
                     DescribeRate = 5,
-                    IsPublished = 1,
+                    IsPublished = 0,
+                    Status=(int)GoodsStatus.UnVerify,
                     Version = evnt.Version,
                     EventSequence = evnt.Sequence
                 }, ConfigSettings.GoodsTable,transaction);
@@ -103,6 +107,7 @@ namespace Shop.ReadModel.Goodses
                     Name = info.Name,
                     Description = info.Description,
                     Pics=info.Pics.ExpandAndToString("|"),
+                    Price=info.Price,
                     OriginalPrice = info.OriginalPrice,
                     Sort = info.Sort,
                     Stock = info.Stock,
@@ -148,7 +153,9 @@ namespace Shop.ReadModel.Goodses
                     Description = info.Description,
                     Pics = info.Pics.ExpandAndToString("|"),
                     Price = info.Price,
+                    Benevolence = info.Benevolence,
                     SellOut=info.SellOut,
+                    Status=(int)info.Status,
                     Version = evnt.Version,
                     EventSequence = evnt.Sequence
                 }, new
@@ -312,7 +319,7 @@ namespace Shop.ReadModel.Goodses
                             AvailableQuantity = specificationAvailableQuantity.AvailableQuantity
                         }, new
                         {
-                            ConferenceId = evnt.AggregateRootId,
+                            GoodsId = evnt.AggregateRootId,
                             Id = specificationAvailableQuantity.SpecificationId
                         }, ConfigSettings.SpecificationTable, transaction));
                     }
@@ -393,6 +400,7 @@ namespace Shop.ReadModel.Goodses
                             Value = specification.Info.Value,
                             Price=specification.Info.Price,
                             OriginalPrice=specification.Info.OriginalPrice,
+                            Benevolence = specification.Info.Benevolence,
                             Stock=specification.Stock,
                             Number = specification.Info.Number,
                             Thumb=specification.Info.Thumb,
@@ -428,6 +436,7 @@ namespace Shop.ReadModel.Goodses
                         Thumb=evnt.SpecificationInfo.Thumb,
                         Price=evnt.SpecificationInfo.Price,
                         OriginalPrice=evnt.SpecificationInfo.OriginalPrice,
+                        Benevolence=evnt.SpecificationInfo.Benevolence,
                         Number = evnt.SpecificationInfo.Number,
                         BarCode=evnt.SpecificationInfo.BarCode,
                         Stock = evnt.Stock,
@@ -459,6 +468,7 @@ namespace Shop.ReadModel.Goodses
                         Value=evnt.SpecificationInfo.Value,
                         Price = evnt.SpecificationInfo.Price,
                         OriginalPrice=evnt.SpecificationInfo.OriginalPrice,
+                        Benevolence=evnt.SpecificationInfo.Benevolence,
                         Number=evnt.SpecificationInfo.Number,
                         Thumb=evnt.SpecificationInfo.Thumb,
                         BarCode=evnt.SpecificationInfo.BarCode
@@ -517,6 +527,65 @@ namespace Shop.ReadModel.Goodses
                     Id = evnt.AggregateRootId,
                     //Version = evnt.Version - 1
                 }, ConfigSettings.GoodsTable);
+            });
+        }
+
+        public Task<AsyncTaskResult> HandleAsync(GoodsStatusUpdatedEvent evnt)
+        {
+            return TryUpdateRecordAsync(connection =>
+            {
+                return connection.UpdateAsync(new
+                {
+                    Status = (int)evnt.Status,
+                    Version = evnt.Version,
+                    EventSequence = evnt.Sequence
+                }, new
+                {
+                    Id = evnt.AggregateRootId,
+                    //Version = evnt.Version - 1
+                }, ConfigSettings.GoodsTable);
+            });
+        }
+
+        public Task<AsyncTaskResult> HandleAsync(SpecificationsUpdatedEvent evnt)
+        {
+            return TryTransactionAsync(async (connection, transaction) =>
+            {
+                var effectedRows = await connection.UpdateAsync(new
+                {
+                    Version = evnt.Version,
+                    EventSequence = evnt.Sequence
+                }, new
+                {
+                    Id = evnt.AggregateRootId,
+                    //Version = evnt.Version - 1
+                }, ConfigSettings.GoodsTable, transaction);
+
+                if (effectedRows == 1)
+                {
+                    var tasks = new List<Task>();
+                    //更新规格
+                    foreach (var specification in evnt.Specifications)
+                    {
+                        tasks.Add(connection.UpdateAsync(new
+                        {
+                            Name = specification.Info.Name,
+                            Value = specification.Info.Value,
+                            Price = specification.Info.Price,
+                            OriginalPrice = specification.Info.OriginalPrice,
+                            Benevolence=specification.Info.Benevolence,
+                            Stock = specification.Stock,
+                            Number = specification.Info.Number,
+                            Thumb = specification.Info.Thumb,
+                            BarCode = specification.Info.BarCode,
+                            AvailableQuantity = specification.Stock
+                        },new {
+                            Id=specification.Id,
+                            GoodsId=evnt.AggregateRootId
+                        }, ConfigSettings.SpecificationTable, transaction));
+                    }
+                    Task.WaitAll(tasks.ToArray());
+                }
             });
         }
     }

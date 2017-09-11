@@ -26,6 +26,9 @@ namespace Shop.ReadModel.Stores.Dtos
         public string SubjectPic { get; set; }
 
 
+        public DateTime CreatedOn { get; set; }
+
+
         public StoreStatus Status { get; set; }
         public StoreType Type { get; set; }
 

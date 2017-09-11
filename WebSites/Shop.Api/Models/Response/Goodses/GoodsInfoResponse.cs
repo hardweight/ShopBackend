@@ -19,6 +19,7 @@ namespace Shop.Api.Models.Response.Goodses
         public string Thumb { get; set; }
         public decimal Price { get; set; }
         public decimal OriginalPrice { get; set; }
+        public decimal Benevolence { get; set; }
         public int Stock { get; set; }
         public int AvailableQuantity { get; set; }
         public string Number { get; set; }
@@ -37,6 +38,7 @@ namespace Shop.Api.Models.Response.Goodses
 
     public class GoodsParam
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Value { get; set; }
     }

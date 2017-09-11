@@ -16,6 +16,8 @@ namespace Shop.ReadModel.Users
         IEnumerable<ExpressAddress> GetExpressAddresses(Guid userId);
         IEnumerable<UserGift> UserGifts(Guid userId);
 
+        IEnumerable<UserAlis> UserChildrens(Guid userId);
+
         #region 管理
         IEnumerable<User> UserList();
 

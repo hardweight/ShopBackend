@@ -30,9 +30,6 @@ C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Shop.Web.dl
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Shop.Web.pdb
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Autofac.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Autofac.Integration.Mvc.dll
-C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Buy.Commands.dll
-C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Buy.Domain.dll
-C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Buy.ReadModel.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Dapper.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\ECommon.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\ENode.dll
@@ -41,9 +38,6 @@ C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\log4net.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Newtonsoft.Json.dll
-C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Payments.Commands.dll
-C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Payments.Domain.dll
-C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Payments.ReadModel.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Shop.Commands.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Shop.Common.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Shop.Domain.dll
@@ -59,13 +53,6 @@ C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Shop.Common
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Shop.Commands.pdb
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Shop.Domain.pdb
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Shop.ReadModel.pdb
-C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Buy.Commands.pdb
-C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Buy.Domain.pdb
-C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Buy.ReadModel.pdb
-C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Buy.ReadModel.dll.config
-C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Payments.Commands.pdb
-C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Payments.Domain.pdb
-C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Payments.ReadModel.pdb
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Autofac.xml
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Autofac.Integration.Mvc.xml
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Web\bin\Dapper.xml

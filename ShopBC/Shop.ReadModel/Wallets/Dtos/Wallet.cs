@@ -7,6 +7,8 @@ namespace Shop.ReadModel.Wallets.Dtos
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public string AccessCode { get; set; }
+
+        public string OwnerMobile { get; set; }
         public decimal Cash { get; set; }
         public decimal Benevolence { get; set; }
         public decimal YesterdayEarnings { get; set; }
@@ -14,5 +16,9 @@ namespace Shop.ReadModel.Wallets.Dtos
         public decimal YesterdayIndex { get; set; }
         public decimal BenevolenceTotal { get; set; }
         public decimal TodayBenevolenceAdded { get; set; }
+
+        public decimal LockedCash { get; set; }
+        public decimal TodayWithdrawAmount { get; set; }
+        public decimal WeekWithdrawAmount { get; set; }
     }
 }

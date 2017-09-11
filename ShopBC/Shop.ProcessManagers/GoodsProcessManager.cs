@@ -1,28 +1,20 @@
 ﻿using ECommon.Components;
-using ENode.Infrastructure;
-using Shop.Domain.Events.Wallets.WithdrawApplys;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ECommon.IO;
 using ENode.Commanding;
-using Shop.Commands.Wallets.CashTransfers;
-using Xia.Common.Extensions;
-using Shop.Common.Enums;
-using Shop.Domain.Events.Wallets.RechargeApplys;
-using Shop.Messages.Messages.Wallets;
-using Shop.Commands.Wallets.BenevolenceTransfers;
-using Xia.Common;
-using Shop.Domain.Events.Goodses;
+using ENode.Infrastructure;
 using Shop.Commands.Goodses;
+using Shop.Domain.Events.Goodses;
+using System.Threading.Tasks;
+using System;
+using Shop.Domain.Events.Goodses.Specifications;
+using Shop.Common.Enums;
 
 namespace Shop.ProcessManagers
 {
     [Component]
     public class GoodsProcessManager :
-        IMessageHandler<GoodsStoreUpdatedEvent>
+        IMessageHandler<GoodsStoreUpdatedEvent>,
+        IMessageHandler<SpecificationsAddedEvent>
     {
         private ICommandService _commandService;
 
@@ -40,9 +32,17 @@ namespace Shop.ProcessManagers
         public Task<AsyncTaskResult> HandleAsync(GoodsStoreUpdatedEvent evnt)
         {
             return _commandService.SendAsync(
-                new UnpublishGoodsCommand() {
-                AggregateRootId=evnt.AggregateRootId});
+                new UpdateStatusCommand(evnt.AggregateRootId,GoodsStatus.UnVerify));
         }
-        
+        /// <summary>
+        /// 编辑规格下架商品
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public Task<AsyncTaskResult> HandleAsync(SpecificationsAddedEvent evnt)
+        {
+            return _commandService.SendAsync(
+                new UpdateStatusCommand(evnt.AggregateRootId, GoodsStatus.UnVerify));
+        }
     }
 }

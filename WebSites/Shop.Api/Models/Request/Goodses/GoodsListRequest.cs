@@ -9,5 +9,6 @@ namespace Shop.Api.Models.Request.Goodses
         public string Type { get; set; }
 
         public string Sort { get; set; }
+        public int Page { get; set; }
     }
 }

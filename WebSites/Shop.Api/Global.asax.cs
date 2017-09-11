@@ -29,7 +29,6 @@ namespace Shop.Api
 
             InitializeECommon();
             InitializeENode();
-
         }
 
         /// <summary>

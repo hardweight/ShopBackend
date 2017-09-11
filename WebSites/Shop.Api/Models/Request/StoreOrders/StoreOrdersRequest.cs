@@ -7,5 +7,6 @@ namespace Shop.Api.Models.Request.StoreOrders
     {
         public Guid Id { get; set; }
         public StoreOrderStatus Status { get; set; }
+        public int Page { get; set; }
     }
 }

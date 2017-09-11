@@ -11,6 +11,7 @@ namespace Shop.Api.Models.Request.Goodses
         public string Name { get; set; }
         public string Description { get;  set; }
         public IList<string> Pics { get;  set; }
+        public decimal Price { get; set; }
         public decimal OriginalPrice { get;  set; }
         public int Stock { get;  set; }
 

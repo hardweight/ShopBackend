@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Xia.Common.Extensions;
+using Xia.Common.Secutiry;
 
 namespace Shop.Api.Controllers
 {
@@ -33,7 +34,7 @@ namespace Shop.Api.Controllers
                     if (perCookie.Name.Equals(AuthCookieConfig.AUTH_COOKIE_NAME))
                     {
                         //从cookie 中解密出用户ID
-                        //userId = DesHelper.Encrypt(perCookie.Value, AuthCookieConfig.AUTH_COOKIE_KEY);
+                        //userId = DesHelper.Decrypt(perCookie.Value, AuthCookieConfig.AUTH_COOKIE_KEY);
                         userId = perCookie.Value;
                         break;
                     }

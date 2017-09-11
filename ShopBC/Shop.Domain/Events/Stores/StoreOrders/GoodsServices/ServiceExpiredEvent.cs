@@ -6,14 +6,21 @@ namespace Shop.Domain.Events.Stores.StoreOrders.GoodsServices
     [Serializable]
     public class ServiceExpiredEvent:DomainEvent<Guid>
     {
+        public Guid WalletId { get; private set; }
+        public Guid StoreOwnerWalletId { get;private set; }
         public decimal Total { get; private set; }
-        public decimal Surrender { get; private set; }
+        public decimal Benevolence { get; private set; }
 
         public ServiceExpiredEvent() { }
-        public ServiceExpiredEvent(decimal total,decimal surrender)
+        public ServiceExpiredEvent(Guid walletId,
+            Guid storeOwnerWalletId,
+            decimal total,
+            decimal benevolence)
         {
+            WalletId = walletId;
+            StoreOwnerWalletId = storeOwnerWalletId;
             Total = total;
-            Surrender = surrender;
+            Benevolence = benevolence;
         }
     }
 }

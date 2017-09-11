@@ -63,7 +63,8 @@ namespace Shop.Domain.Models.Orders
             }
 
             //判断是否所有商品都反馈了预定信息
-            if(_specificationReservationStatus.Count==_total.Lines.Length)
+            var goodsLines = _total.Lines.GroupBy(x => x.SpecificationQuantity.Specification.GoodsId);
+            if(_specificationReservationStatus.Count== goodsLines.Count())
             {
                 ConfirmReservation(!_specificationReservationStatus.Any(k => k.Value == false));
             }
@@ -102,13 +103,14 @@ namespace Shop.Domain.Models.Orders
                 _specificationConfirmStatus.Add(goodsId);
             }
             //所有商品已经确认完毕
-            if(_specificationConfirmStatus.Count==_total.Lines.Length)
-            { 
+            var goodsLines = _total.Lines.GroupBy(x => x.SpecificationQuantity.Specification.GoodsId);
+            if (_specificationConfirmStatus.Count == goodsLines.Count())
+            {
                 if (_status != OrderStatus.PaymentSuccess)
                 {
                     throw new InvalidOperationException("不正确的订单状态:" + _status);
                 }
-                ApplyEvent(new OrderSuccessedEvent(_userId,_total, _expressAddressInfo));
+                ApplyEvent(new OrderSuccessedEvent(_userId, _total, _expressAddressInfo));
             }
         }
         /// <summary>
@@ -137,10 +139,6 @@ namespace Shop.Domain.Models.Orders
             //所有商品已经确认完毕
             if (_specificationConfirmStatus.Count == _total.Lines.Length)
             {
-                if (_status != OrderStatus.ReservationSuccess && _status != OrderStatus.PaymentRejected)
-                {
-                    throw new InvalidOperationException("不正确的订单状态:" + _status);
-                }
                 ApplyEvent(new OrderClosedEvent());
             }
         }

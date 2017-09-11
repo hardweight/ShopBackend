@@ -4,6 +4,9 @@ using Shop.Api.Extensions;
 using Shop.Api.Helper;
 using Shop.Api.Models.Request.Payment;
 using Shop.Api.Models.Response;
+using Shop.Api.Models.Response.Payments;
+using Shop.Api.WxPayAPI;
+using Shop.Api.WxPayAPI.lib;
 using Shop.Commands.Payments;
 using Shop.ReadModel.Payments;
 using Shop.ReadModel.Payments.Dtos;
@@ -21,7 +24,7 @@ namespace Shop.Api.Controllers
     /// 第三方支付
     /// </summary>
     [ApiAuthorizeFilter]
-    [EnableCors(origins: "http://app.wftx666.com,http://localhost:51776,http://localhost:8080", headers: "*", methods: "*", SupportsCredentials = true)]//接口跨越访问配置
+    [EnableCors(origins: "*", headers: "*", methods: "*", SupportsCredentials = true)]//接口跨越访问配置
     public class PaymentController: BaseApiController
     {
         private const int WaitTimeoutInSeconds = 5;
@@ -97,7 +100,25 @@ namespace Shop.Api.Controllers
         {
             request.CheckNotNull(nameof(request));
 
-            return new BaseApiResponse();
+            //向微信提交订单获取prepayid
+            var apiPay = new ApiPay(request.Amount);
+            
+            WxPayData data = new WxPayData();
+            data.SetValue("appid", WxPayConfig.APPID);
+            data.SetValue("partnerid", WxPayConfig.MCHID);
+            data.SetValue("prepayid", apiPay.GeneratePrepayId());
+            data.SetValue("package", "Sign=WXPay");
+            data.SetValue("noncestr", WxPayApi.GenerateNonceStr());
+            data.SetValue("timestamp",WxPayApi.GenerateTimeStamp());
+            data.SetValue("sign", data.MakeSign());//签名
+
+            return new WeChatPayResponse {
+                partnerid=data.GetValue("partnerid").ToString(),
+                prepayid=data.GetValue("prepayid").ToString(),
+                noncestr=data.GetValue("noncestr").ToString(),
+                timestamp=data.GetValue("timestamp").ToString(),
+                sign=data.GetValue("sign").ToString()
+            };
         }
 
         /// <summary>
@@ -106,7 +127,7 @@ namespace Shop.Api.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("Payment/WeChatPay")]
+        [Route("Payment/AliPay")]
         public BaseApiResponse AliPay(PaymentRequest request)
         {
             request.CheckNotNull(nameof(request));
@@ -142,7 +163,7 @@ namespace Shop.Api.Controllers
 
         private Task<AsyncTaskResult<CommandResult>> ExecuteCommandAsync(ICommand command, int millisecondsDelay = 50000)
         {
-            return _commandService.ExecuteAsync(command, CommandReturnType.CommandExecuted).TimeoutAfter(millisecondsDelay);
+            return _commandService.ExecuteAsync(command, CommandReturnType.EventHandled).TimeoutAfter(millisecondsDelay);
         }
         #endregion
     }

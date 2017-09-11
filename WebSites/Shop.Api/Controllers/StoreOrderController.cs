@@ -22,11 +22,15 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using Xia.Common;
 using Xia.Common.Extensions;
+using System.Collections.Generic;
 
 namespace Shop.Api.Controllers
 {
+    /// <summary>
+    /// 商家订单-包裹服务
+    /// </summary>
     [ApiAuthorizeFilter]
-    [EnableCors(origins: "http://app.wftx666.com,http://localhost:51776,http://localhost:8080", headers: "*", methods: "*", SupportsCredentials = true)]//接口跨越访问配置
+    [EnableCors(origins: "*", headers: "*", methods: "*", SupportsCredentials = true)]//接口跨越访问配置
     public class StoreOrderController:BaseApiController
     {
 
@@ -103,6 +107,8 @@ namespace Shop.Api.Controllers
 
             return expressSchedule;
         }
+
+
         /// <summary>
         /// 用户的订单
         /// </summary>
@@ -112,8 +118,17 @@ namespace Shop.Api.Controllers
         public BaseApiResponse UserOrders(UserOrdersRequest request)
         {
             TryInitUserModel();
-            //获取指定状态的订单
-            var storeOrders = _storeOrderQueryService.UserStoreOrderDetails(_user.Id).OrderByDescending(x=>x.CreatedOn);
+            int pageRecordCount = 10;
+            //获取指定状态的订单 分页数据
+            IEnumerable<ReadModel.StoreOrders.Dtos.StoreOrderDetails> storeOrders = null;
+            if (request.Status==StoreOrderStatus.All)
+            {
+                storeOrders = _storeOrderQueryService.UserStoreOrderDetails(_user.Id).OrderByDescending(x => x.CreatedOn).Skip(pageRecordCount * request.Page).Take(pageRecordCount);
+            }
+            else
+            {
+                storeOrders = _storeOrderQueryService.UserStoreOrderDetails(_user.Id,request.Status).OrderByDescending(x=>x.CreatedOn).Skip(pageRecordCount*request.Page).Take(pageRecordCount);
+            }
 
             return new UserOrdersResponse
             {
@@ -157,8 +172,17 @@ namespace Shop.Api.Controllers
         public BaseApiResponse StoreOrders(StoreOrdersRequest request)
         {
             TryInitUserModel();
+            int pageRecordCount = 10;
             //获取指定状态的订单
-            var storeOrders = _storeOrderQueryService.StoreStoreOrderDetails(request.Id).OrderByDescending(x => x.CreatedOn);
+            IEnumerable<ReadModel.StoreOrders.Dtos.StoreOrderDetails> storeOrders = null;
+            if (request.Status == StoreOrderStatus.All)
+            {
+                storeOrders = _storeOrderQueryService.StoreStoreOrderDetails(request.Id).OrderByDescending(x => x.CreatedOn).Skip(pageRecordCount * request.Page).Take(pageRecordCount);
+            }
+            else
+            {
+                storeOrders = _storeOrderQueryService.StoreStoreOrderDetails(request.Id,request.Status).OrderByDescending(x => x.CreatedOn).Skip(pageRecordCount*request.Page).Take(pageRecordCount);
+            }
 
             return new UserOrdersResponse
             {
@@ -355,7 +379,7 @@ namespace Shop.Api.Controllers
 
         private Task<AsyncTaskResult<CommandResult>> ExecuteCommandAsync(ICommand command, int millisecondsDelay = 50000)
         {
-            return _commandService.ExecuteAsync(command, CommandReturnType.CommandExecuted).TimeoutAfter(millisecondsDelay);
+            return _commandService.ExecuteAsync(command, CommandReturnType.EventHandled).TimeoutAfter(millisecondsDelay);
         }
         #endregion
     }

@@ -11,6 +11,7 @@ namespace Shop.Commands.Goodses.Specifications
         public string Thumb { get; private set; }
         public decimal Price { get; private set; }
         public decimal OriginalPrice { get; private set; }
+        public decimal Benevolence { get; private set; }
         public string Number { get; private set; }
         public string BarCode { get; private set; }
         public int Stock { get; private set; }
@@ -23,6 +24,7 @@ namespace Shop.Commands.Goodses.Specifications
             string thumb,
             decimal price,
             decimal originalPrice,
+            decimal benevolence,
             string number,
             string barCode,
             int stock):base(goodsId)
@@ -33,6 +35,7 @@ namespace Shop.Commands.Goodses.Specifications
             Thumb = thumb;
             Price = price;
             OriginalPrice = originalPrice;
+            Benevolence = benevolence;
             Number = number;
             BarCode = barCode;
             Stock = stock;

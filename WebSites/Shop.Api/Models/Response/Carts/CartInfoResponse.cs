@@ -28,6 +28,7 @@ namespace Shop.Api.Models.Response.Carts
         public decimal OriginalPrice { get; set; }
         public int Quantity { get; set; }
         public int Stock { get; set; }
+        public decimal Benevolence { get; set; }
         public bool Checked { get; set; }
     }
 }

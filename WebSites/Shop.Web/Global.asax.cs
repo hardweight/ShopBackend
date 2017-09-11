@@ -58,12 +58,7 @@ namespace Shop.Web
                 Assembly.Load("Shop.Domain"),
                 Assembly.Load("Shop.ReadModel"),
 
-                Assembly.Load("Buy.Commands"),
-                Assembly.Load("Buy.Domain"),
-                Assembly.Load("Buy.ReadModel"),
-
-                Assembly.Load("Payments.Commands"),
-                Assembly.Load("Payments.ReadModel"),
+                
                 Assembly.GetExecutingAssembly()
             };
 

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dapper;
+using Shop.Common.Enums;
 
 namespace Shop.ReadModel.Wallets
 {
@@ -34,32 +35,13 @@ namespace Shop.ReadModel.Wallets
         /// <returns></returns>
         public decimal TotalBenevolence()
         {
-            //var sql = string.Format(@"select sum(Benevolence) as totalBenevolence from {0}", ConfigSettings.WalletTable);
-
-            //using (var connection = GetConnection())
-            //{
-            //    return connection.Query<decimal>(sql).FirstOrDefault();
-            //}
             using (var connection = GetConnection())
             {
                 var stores = connection.QueryList<Wallet>(new { }, ConfigSettings.WalletTable);
                 return stores.Sum(x => x.Benevolence);
             }
         }
-
-
-        /// <summary>
-        /// 钱包信息
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        //public Wallet InfoByUserId(Guid userId)
-        //{
-        //    using (var connection = GetConnection())
-        //    {
-        //        return connection.QueryList<Wallet>(new { UserId = userId }, ConfigSettings.WalletTable).SingleOrDefault();
-        //    }
-        //}
+        
 
         /// <summary>
         /// 获取用户现金记录
@@ -70,7 +52,15 @@ namespace Shop.ReadModel.Wallets
         {
             using (var connection = GetConnection())
             {
-                return connection.QueryList<CashTransfer>(new { WalletId = walletId }, ConfigSettings.CashTransferTable).ToList();
+                return connection.QueryList<CashTransfer>(new { WalletId = walletId }, ConfigSettings.CashTransferTable);
+            }
+        }
+
+        public IEnumerable<CashTransfer> GetCashTransfers(Guid walletId,CashTransferType type)
+        {
+            using (var connection = GetConnection())
+            {
+                return connection.QueryList<CashTransfer>(new { WalletId = walletId,Type=(int)type }, ConfigSettings.CashTransferTable);
             }
         }
         /// <summary>
@@ -85,12 +75,49 @@ namespace Shop.ReadModel.Wallets
                 return connection.QueryList<BenevolenceTransfer>(new { WalletId = walletId }, ConfigSettings.BenevolenceTransferTable);
             }
         }
-
-        public IEnumerable<Wallet> ListPage()
+        public IEnumerable<BenevolenceTransfer> GetBenevolenceTransfers(Guid walletId, BenevolenceTransferType type)
         {
             using (var connection = GetConnection())
             {
-                return connection.QueryList<Wallet>(new {  }, ConfigSettings.WalletTable);
+                return connection.QueryList<BenevolenceTransfer>(new { WalletId = walletId, Type = (int)type }, ConfigSettings.BenevolenceTransferTable);
+            }
+        }
+
+
+
+        public IEnumerable<Wallet> ListPage()
+        {
+            var sql = string.Format(@"select a.Id,
+            a.UserId,
+            a.AccessCode,
+            a.Cash,
+            a.LockedCash,
+            a.Benevolence,
+            a.YesterdayEarnings,
+            a.YesterdayIndex,
+            a.Earnings,
+            a.BenevolenceTotal,
+            a.TodayBenevolenceAdded,
+            a.TodayWithdrawAmount,
+            a.WeekWithdrawAmount,
+            b.Mobile as OwnerMobile 
+            from {0} as a inner join {1} as b on a.UserId=b.Id", ConfigSettings.WalletTable, ConfigSettings.UserTable);
+
+            using (var connection = GetConnection())
+            {
+                return connection.Query<Wallet>(sql);
+            }
+            //using (var connection = GetConnection())
+            //{
+            //    return connection.QueryList<Wallet>(new {  }, ConfigSettings.WalletTable);
+            //}
+        }
+
+        public IEnumerable<Wallet> AllWallets()
+        {
+            using (var connection = GetConnection())
+            {
+                return connection.QueryList<Wallet>(new { }, ConfigSettings.WalletTable);
             }
         }
 

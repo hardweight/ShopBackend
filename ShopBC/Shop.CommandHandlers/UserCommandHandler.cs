@@ -9,6 +9,7 @@ using Shop.Commands.Users.ExpressAddresses;
 using Shop.Domain.Models.Users;
 using Shop.Domain.Models.Users.ExpressAddresses;
 using Shop.Domain.Models.Users.UserGifts;
+using Shop.Domain.Models.Wallets;
 
 namespace Shop.CommandHandlers
 {
@@ -18,6 +19,7 @@ namespace Shop.CommandHandlers
     [Component]
     public class UserCommandHandler:
         ICommandHandler<CreateUserCommand>,
+        ICommandHandler<SetMyParentCommand>,
         ICommandHandler<EditUserCommand>,
         ICommandHandler<UpdateNickNameCommand>,
         ICommandHandler<UpdatePasswordCommand>,
@@ -41,7 +43,8 @@ namespace Shop.CommandHandlers
         ICommandHandler<SetToPartnerCommand>,
         ICommandHandler<PayToAmbassadorCommand>,
 
-        ICommandHandler<AcceptNewSaleCommand>//接受店铺销售额的1%奖励
+        ICommandHandler<AcceptMyStoreNewSaleCommand>,
+        ICommandHandler<GetChildStoreSaleBenevolenceCommand>
         
     {
         private readonly ILockService _lockService;
@@ -83,6 +86,16 @@ namespace Shop.CommandHandlers
                 //将领域对象添加到上下文中
                 context.Add(user);
             });
+        }
+
+        public void Handle(ICommandContext context, SetMyParentCommand command)
+        {
+            User parent = null;
+            if (command.ParentId != Guid.Empty)
+            {
+                parent = context.Get<User>(command.ParentId);
+            }
+            context.Get<User>(command.AggregateRootId).SetMyParent(parent);
         }
 
         public void Handle(ICommandContext context, UpdateNickNameCommand command)
@@ -154,8 +167,10 @@ namespace Shop.CommandHandlers
 
         public void Handle(ICommandContext context, AcceptMyNewSpendingCommand command)
         {
-            context.Get<User>(command.AggregateRootId).AcceptMyNewSpending(command.Amount,
-                command.Surrender);
+            var userId= context.Get<Wallet>(command.WalletId).GetOwnerId();
+            context.Get<User>(userId).AcceptMyNewSpending(
+                command.Amount,
+                command.Benevolence);
         }
 
         public void Handle(ICommandContext context, AcceptChildBenevolenceCommand command)
@@ -204,13 +219,21 @@ namespace Shop.CommandHandlers
 
         public void Handle(ICommandContext context, EditUserCommand command)
         {
-            context.Get<User>(command.AggregateRootId).Edit(command.NickName, command.Gender);
+            context.Get<User>(command.AggregateRootId).Edit(command.NickName, command.Gender,command.Role);
         }
 
-        public void Handle(ICommandContext context, AcceptNewSaleCommand command)
+        public void Handle(ICommandContext context, AcceptMyStoreNewSaleCommand command)
         {
-            context.Get<User>(command.AggregateRootId).AcceptNewSale(command.Amount);
+            var userId = context.Get<Wallet>(command.StoreOwnerWalletId).GetOwnerId();
+            context.Get<User>(userId).AcceptMyStoreNewSale(command.Amount);
         }
+
+        public void Handle(ICommandContext context, GetChildStoreSaleBenevolenceCommand command)
+        {
+            context.Get<User>(command.AggregateRootId).AcceptChildStoreSaleBenevolence(command.Amount);
+        }
+
+
 
         #endregion
     }

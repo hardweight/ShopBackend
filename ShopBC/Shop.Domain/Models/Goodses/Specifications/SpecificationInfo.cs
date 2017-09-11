@@ -12,38 +12,30 @@ namespace Shop.Domain.Models.Goodses.Specifications
         /// 规格名称 颜色,尺码
         /// </summary>
         public string Name { get; private set; }
-        /// <summary>
-        /// 规格值 红色,M
-        /// </summary>
         public string Value { get; private set; }
-        /// <summary>
-        /// 缩略图
-        /// </summary>
         public string Thumb { get; private set; }
-        /// <summary>
-        /// 价格
-        /// </summary>
         public decimal Price { get; private set; }
-        /// <summary>
-        /// 原价
-        /// </summary>
         public decimal OriginalPrice { get; private set; }
-        /// <summary>
-        /// 编码
-        /// </summary>
+        public decimal Benevolence { get; private set; }
         public string Number { get; private set; }
-        /// <summary>
-        /// 条码
-        /// </summary>
         public string BarCode { get; private set; }
 
-        public SpecificationInfo(string name,string value, string thumb, decimal price,decimal originalPrice,string number,string barCode)
+        public SpecificationInfo(
+            string name,
+            string value, 
+            string thumb,
+            decimal price,
+            decimal originalPrice,
+            decimal benevolence,
+            string number,
+            string barCode)
         {
             Name = name;
             Value = value;
             Thumb = thumb;
             Price = price;
             OriginalPrice = originalPrice;
+            Benevolence = benevolence;
             Number = number;
             BarCode = barCode;
         }

@@ -13,6 +13,7 @@ using Shop.Domain.Events.Wallets.WithdrawApplys;
 using Shop.Common.Enums;
 using Shop.Domain.Models.Wallets.RechargeApplys;
 using Shop.Domain.Events.Wallets.RechargeApplys;
+using Shop.Common;
 
 namespace Shop.Domain.Models.Wallets
 {
@@ -23,6 +24,8 @@ namespace Shop.Domain.Models.Wallets
     {
         private Guid _userId;//所有人
         private decimal _cash;//现金 量
+        private decimal _lockedCash;//锁定的现金量，提现使用
+
         private decimal _benevolence;//善心 量
 
         private string _accessCode;//访问密码 可以理解为交易密码
@@ -34,6 +37,7 @@ namespace Shop.Domain.Models.Wallets
         private IList<RechargeApply> _rechargeApplys;//线下充值记录
 
         private WalletStatisticInfo _walletStatisticInfo;//钱包统计信息
+        private WithdrawStatisticInfo _withdrawStatisticInfo;//提现统计信息
 
         public Wallet(Guid id,Guid userId):base(id)
         {
@@ -51,6 +55,11 @@ namespace Shop.Domain.Models.Wallets
                 throw new Exception("支付密码为6为纯数字");
             }
             ApplyEvent(new WalletAccessCodeUpdatedEvent(accessCode));
+        }
+
+        public Guid GetOwnerId()
+        {
+            return _userId;
         }
 
         #region 银行卡
@@ -222,7 +231,54 @@ namespace Shop.Domain.Models.Wallets
         public void ApplyWithdraw(Guid withdrawApplyId,WithdrawApplyInfo info)
         {
             info.CheckNotNull(nameof(info));
-            ApplyEvent(new WithdrawApplyCreatedEvent(withdrawApplyId,info,WithdrawApplyStatus.Placed));
+            
+            var withdrawStatisticInfo = _withdrawStatisticInfo;
+            
+            if(_withdrawStatisticInfo.LastWithdrawTime.Date.Equals(DateTime.Now.Date))
+            {
+                //今日提现
+                withdrawStatisticInfo.TodayWithdrawAmount += info.Amount;
+            }
+            else
+            {
+                withdrawStatisticInfo.TodayWithdrawAmount = info.Amount;
+            }
+            withdrawStatisticInfo.WithdrawTotalAmount += info.Amount;
+            withdrawStatisticInfo.LastWithdrawTime = DateTime.Now;
+
+            //业务逻辑判断
+            if (withdrawStatisticInfo.TodayWithdrawAmount > ConfigSettings.OneDayWithdrawLimit)
+            {
+                throw new Exception("今日提现超出限额");
+            }
+            if (withdrawStatisticInfo.WeekWithdrawAmount > ConfigSettings.OneWeekWithdrawLimit)
+            {
+                throw new Exception("本周提现超出限额");
+            }
+            ApplyEvent(new WithdrawStatisticInfoChangedEvent(withdrawStatisticInfo));
+
+            //判断提现金额
+            if (_cash < info.Amount)
+            {
+                throw new Exception("余额不足无法提现");
+            }
+            var finalCash = _cash;
+            finalCash -= info.Amount;
+            var finalLockedCash = _lockedCash;
+            finalLockedCash += info.Amount;
+
+            ApplyEvent(new WithdrawApplyCreatedEvent(withdrawApplyId,finalCash,finalLockedCash,info));
+        }
+
+        /// <summary>
+        /// 清空用户本周提现金额
+        /// </summary>
+        public void ClearWeekWithdrawAmount()
+        {
+            var withdrawStatisticInfo = _withdrawStatisticInfo;
+            withdrawStatisticInfo.WeekWithdrawAmount = 0;
+
+            ApplyEvent(new WithdrawStatisticInfoChangedEvent(withdrawStatisticInfo));
         }
 
         /// <summary>
@@ -233,21 +289,31 @@ namespace Shop.Domain.Models.Wallets
         /// <param name="remark"></param>
         public void ChangeWithdrawApplyStatus(Guid withdrawApplyId,WithdrawApplyStatus status,string remark)
         {
-            if(status==WithdrawApplyStatus.Success)
+            var withdrawApply = _withdrawApplys.SingleOrDefault(x => x.Id == withdrawApplyId);
+            if (withdrawApply == null)
             {
-                
-                var withdrawApply = _withdrawApplys.SingleOrDefault(x => x.Id == withdrawApplyId);
-                if(withdrawApply==null)
-                {
-                    throw new Exception("不存在该提现申请.");
-                }
-                if(_cash< withdrawApply.Info.Amount)
-                {//判断钱包钱包余额是否够提现金额
-                    throw new Exception("当期余额不足，无法提现");
-                }
-                ApplyEvent(new WithdrawApplySuccessEvent(withdrawApply.Info.Amount));
+                throw new Exception("不存在该提现申请.");
             }
-            ApplyEvent(new WithdrawApplyStatusChangedEvent(withdrawApplyId, status, remark));
+
+            if (status==WithdrawApplyStatus.Success)
+            {
+                if(_lockedCash<withdrawApply.Info.Amount)
+                {
+                    throw new Exception("错误的锁定金额");
+                }
+                var finalLockedCash = _lockedCash;
+                finalLockedCash -= withdrawApply.Info.Amount;
+
+                ApplyEvent(new WithdrawApplySuccessEvent(withdrawApplyId,withdrawApply.Info.Amount, finalLockedCash));
+            }
+            if(status==WithdrawApplyStatus.Rejected)
+            {
+                //拒绝提现申请
+                var finalLockedCash = _lockedCash;
+                finalLockedCash -= withdrawApply.Info.Amount;
+                ApplyEvent(new WithdrawApplyRejectedEvent(withdrawApplyId,withdrawApply.Info.Amount, finalLockedCash, remark));
+            }
+            
         }
         #endregion
 
@@ -286,6 +352,7 @@ namespace Shop.Domain.Models.Wallets
         private void Handle(WalletCreatedEvent evnt)
         {
             _cash = 0;
+            _lockedCash = 0;
             _benevolence = 0;
             _bankCards = new List<BankCard>();
             _withdrawApplys = new List<WithdrawApply>();
@@ -294,19 +361,26 @@ namespace Shop.Domain.Models.Wallets
             _benevolenceTransfers = new HashSet<Guid>();
             _userId = evnt.UserId;
             _walletStatisticInfo = new WalletStatisticInfo(0, 0, 0, 0, 0, DateTime.Now);
+            _withdrawStatisticInfo = new WithdrawStatisticInfo(0, 0, 0, DateTime.Now);
         }
 
         //提现申请
         private void Handle(WithdrawApplyCreatedEvent evnt)
         {
-            _withdrawApplys.Add(new WithdrawApply(evnt.WithdrawApplyId,evnt.Info,evnt.Status));
+            _withdrawApplys.Add(new WithdrawApply(evnt.WithdrawApplyId,evnt.Info,WithdrawApplyStatus.Placed));
+            _cash = evnt.FinalCash;
+            _lockedCash = evnt.FinalLockedCash;
         }
-        private void Handle(WithdrawApplyStatusChangedEvent evnt)
+        private void Handle(WithdrawApplyRejectedEvent evnt)
         {
-            _withdrawApplys.Single(x => x.Id == evnt.WithdrawApplyId).Status = evnt.Status;
             _withdrawApplys.Single(x => x.Id == evnt.WithdrawApplyId).Info.Remark = evnt.Remark;
+            _lockedCash = evnt.FinalLockedCash;
+            
         }
-        private void Handle(WithdrawApplySuccessEvent evnt) { }
+        private void Handle(WithdrawApplySuccessEvent evnt)
+        {
+            _lockedCash = evnt.FinalLockedCash;
+        }
         private void Handle(IncentiveUserBenevolenceEvent evnt) { }
         //充值申请
         private void Handle(RechargeApplyCreatedEvent evnt)
@@ -321,7 +395,10 @@ namespace Shop.Domain.Models.Wallets
 
         private void Handle(RechargeApplySuccessEvent evnt) { }
 
-
+        private void Handle(WithdrawStatisticInfoChangedEvent evnt)
+        {
+            _withdrawStatisticInfo = evnt.Info;
+        }
 
 
 

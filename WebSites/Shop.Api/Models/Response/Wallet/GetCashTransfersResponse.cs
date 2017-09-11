@@ -14,6 +14,7 @@ namespace Shop.Api.Models.Response.Wallet
     {
         public string Number { get; set; }
         public decimal Amount { get; set; }
+        public decimal Fee { get; set; }
         public string Type { get; set; }
         public string CreatedOn { get; set; }
         public string Direction { get; set; }

@@ -1,4 +1,5 @@
-﻿using Shop.ReadModel.Wallets.Dtos;
+﻿using Shop.Common.Enums;
+using Shop.ReadModel.Wallets.Dtos;
 using System;
 using System.Collections.Generic;
 
@@ -11,6 +12,7 @@ namespace Shop.ReadModel.Wallets
         decimal TotalBenevolence();
 
         IEnumerable<Wallet> ListPage();
+        IEnumerable<Wallet> AllWallets();
 
 
         IEnumerable<WithdrawApply> WithdrawApplyLogs(Guid walletId);
@@ -21,7 +23,12 @@ namespace Shop.ReadModel.Wallets
 
 
         IEnumerable<BankCard> GetBankCards(Guid walletId);
+
         IEnumerable<CashTransfer> GetCashTransfers(Guid walletId);
+        IEnumerable<CashTransfer> GetCashTransfers(Guid walletId, CashTransferType type);
+
         IEnumerable<BenevolenceTransfer> GetBenevolenceTransfers(Guid walletId);
+        IEnumerable<BenevolenceTransfer> GetBenevolenceTransfers(Guid walletId, BenevolenceTransferType type);
+
     }
 }

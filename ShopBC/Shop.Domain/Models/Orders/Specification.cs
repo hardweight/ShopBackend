@@ -16,7 +16,7 @@ namespace Shop.Domain.Models.Orders
         public string SpecificationName { get; private set; }
         public decimal Price { get; private set; }
         public decimal OriginalPrice { get; private set; }
-        public decimal Surrender { get; private set; }
+        public decimal Benevolence { get; private set; }
 
         public Specification() { }
         public Specification(
@@ -28,7 +28,7 @@ namespace Shop.Domain.Models.Orders
             string specificationName,
             decimal price,
             decimal originalPrice,
-            decimal surrender)
+            decimal benevolence)
         {
             SpecificationId = specificationId;
             GoodsId = goodsId;
@@ -38,7 +38,7 @@ namespace Shop.Domain.Models.Orders
             SpecificationName = specificationName;
             Price = price;
             OriginalPrice = originalPrice;
-            Surrender = surrender;
+            Benevolence = benevolence;
         }
     }
 }

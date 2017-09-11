@@ -13,6 +13,8 @@ namespace Shop.ReadModel.StoreOrders
         IEnumerable<StoreOrder> UserStoreOrders(Guid userId);
 
         IEnumerable<StoreOrderDetails> UserStoreOrderDetails(Guid userId);
+        IEnumerable<StoreOrderDetails> UserStoreOrderDetails(Guid userId, StoreOrderStatus status);
+
         IEnumerable<StoreOrderDetails> StoreStoreOrderDetails(Guid storeId);
         IEnumerable<StoreOrderDetails> StoreStoreOrderDetails(Guid storeId,StoreOrderStatus status);
     }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dapper;
+using Shop.Common.Enums;
 
 namespace Shop.ReadModel.Goodses
 {
@@ -34,7 +35,7 @@ namespace Shop.ReadModel.Goodses
         {
             using (var connection = GetConnection())
             {
-                return connection.QueryList<GoodsAlias>(new { IsPublished = 1 }, ConfigSettings.GoodsTable);
+                return connection.QueryList<GoodsAlias>(new { IsPublished = 1,Status=GoodsStatus.Verifyed }, ConfigSettings.GoodsTable);
             }
         }
 
@@ -45,8 +46,8 @@ namespace Shop.ReadModel.Goodses
         /// <returns></returns>
         public IEnumerable<GoodsAlias> GoodSellGoodses(int count)
         {
-            var sql = string.Format(@"select Id,Pics,Name,Price from {0} 
-                where  IsPublished=1 
+            var sql = string.Format(@"select Id,Pics,Name,Price,Benevolence from {0} 
+                where  IsPublished=1  and Status=1
                 order by SellOut desc", ConfigSettings.GoodsTable);
             using (var connection = GetConnection())
             {
@@ -60,8 +61,8 @@ namespace Shop.ReadModel.Goodses
         /// <returns></returns>
         public IEnumerable<GoodsAlias> NewGoodses(int count)
         {
-            var sql = string.Format(@"select Id,Pics,Name,Price from {0} 
-                where  IsPublished=1 
+            var sql = string.Format(@"select Id,Pics,Name,Price,Benevolence from {0} 
+                where  IsPublished=1 and Status=1
                 order by CreatedOn desc", ConfigSettings.GoodsTable);
             using (var connection = GetConnection())
             {
@@ -76,8 +77,8 @@ namespace Shop.ReadModel.Goodses
         /// <returns></returns>
         public IEnumerable<GoodsAlias> GoodRateGoodses(int count)
         {
-            var sql = string.Format(@"select Id,Pics,Name,Price from {0} 
-                where  IsPublished=1 
+            var sql = string.Format(@"select Id,Pics,Name,Price,Benevolence from {0} 
+                where  IsPublished=1 and Status=1
                 order by Rate desc", ConfigSettings.GoodsTable);
             using (var connection = GetConnection())
             {
@@ -91,8 +92,8 @@ namespace Shop.ReadModel.Goodses
         /// <returns></returns>
         public IEnumerable<GoodsAlias> Search(string search)
         {
-            var sql = string.Format(@"select Id,Pics,Name,Price from {0} 
-                where Name like '%{1}%' and IsPublished=1",ConfigSettings.GoodsTable,search);
+            var sql = string.Format(@"select Id,Pics,Name,Price,Benevolence from {0} 
+                where Name like '%{1}%' and IsPublished=1 and Status=1", ConfigSettings.GoodsTable,search);
             using (var connection = GetConnection())
             {
                 return connection.Query<GoodsAlias>(sql);
@@ -106,8 +107,8 @@ namespace Shop.ReadModel.Goodses
         /// <returns></returns>
         public IEnumerable<GoodsAlias> CategoryGoodses(Guid categoryId)
         {
-            var sql = string.Format(@"select a.Id,a.Pics,a.Name,a.Price from {0} a inner join {1} b on a.Id=b.GoodsId
-                where b.CategoryId='{2}' and a.IsPublished=1", ConfigSettings.GoodsTable, ConfigSettings.GoodsPubCategorysTable, categoryId);
+            var sql = string.Format(@"select a.Id,a.Pics,a.Name,a.Price,a.Benevolence from {0} a inner join {1} b on a.Id=b.GoodsId
+                where b.CategoryId='{2}' and a.IsPublished=1 and Status=1", ConfigSettings.GoodsTable, ConfigSettings.GoodsPubCategorysTable, categoryId);
             using (var connection = GetConnection())
             {
                 return connection.Query<GoodsAlias>(sql);
@@ -142,7 +143,7 @@ namespace Shop.ReadModel.Goodses
         {
             using (var connection = GetConnection())
             {
-                return connection.QueryList<Specification>(new {SpecificationName="默认规格", GoodsId = goodsId }, ConfigSettings.SpecificationTable).SingleOrDefault();
+                return connection.QueryList<Specification>(new {GoodsId = goodsId,Name="默认规格",Value= "默认规格" }, ConfigSettings.SpecificationTable).SingleOrDefault();
             }
         }
 
@@ -166,6 +167,13 @@ namespace Shop.ReadModel.Goodses
             }
         }
 
+        public IEnumerable<GoodsParam> GetGoodsParams(Guid goodsId)
+        {
+            using (var connection = GetConnection())
+            {
+                return connection.QueryList<GoodsParam>(new { GoodsId = goodsId }, ConfigSettings.GoodsParamTable);
+            }
+        }
 
         public IEnumerable<Specification> GetPublishedSpecifications(Guid goodsId)
         {

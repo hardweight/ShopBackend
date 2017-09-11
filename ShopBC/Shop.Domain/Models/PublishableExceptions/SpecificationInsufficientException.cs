@@ -14,7 +14,7 @@ namespace Shop.Domain.Models.PublishableExceptions
         public Guid ReservationId { get; private set; }
 
         /// <summary>
-        /// 商品规格不足 异常
+        /// 商品规格可用数量不足 异常
         /// </summary>
         /// <param name="goodsId"></param>
         /// <param name="reservationId"></param>

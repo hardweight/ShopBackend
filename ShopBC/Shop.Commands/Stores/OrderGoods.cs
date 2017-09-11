@@ -22,7 +22,7 @@ namespace Shop.Commands.Stores
         public decimal OrigianlPrice { get; private set; }
         public decimal Total { get; private set; }
         public decimal StoreTotal { get; private set; }
-        public decimal Surrender { get; private set; }
+        public decimal Benevolence { get; private set; }
 
         public OrderGoods
             (Guid goodsId,
@@ -35,7 +35,7 @@ namespace Shop.Commands.Stores
             int quantity,
             decimal total,
             decimal storeTotal,
-            decimal surrender)
+            decimal benevolence)
         {
             GoodsId = goodsId;
             SpecificationId = specificationId;
@@ -47,7 +47,7 @@ namespace Shop.Commands.Stores
             Quantity = quantity;
             Total = total;
             StoreTotal = storeTotal;
-            Surrender = surrender;
+            Benevolence = benevolence;
         }
     }
 }

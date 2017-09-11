@@ -10,12 +10,14 @@ using Shop.Api.ViewModels.User;
 using Shop.Commands.Users;
 using Shop.Commands.Users.ExpressAddresses;
 using Shop.Commands.Users.UserGifts;
+using Shop.Common.Enums;
 using Shop.ReadModel.Carts;
-using Shop.ReadModel.Orders;
 using Shop.ReadModel.Stores;
 using Shop.ReadModel.Users;
 using Shop.ReadModel.Wallets;
 using System;
+using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -32,7 +34,7 @@ namespace Shop.Api.Controllers
     /// 用户接口
     /// </summary>
     [ApiAuthorizeFilter]
-    [EnableCors(origins: "http://app.wftx666.com,http://localhost:51776,http://localhost:8080", headers: "*", methods: "*",SupportsCredentials =true)]//接口跨越访问配置
+    [EnableCors(origins: "*", headers: "*", methods: "*", SupportsCredentials = true)]//接口跨越访问配置
     public class UserController : BaseApiController
     {
         private ICommandService _commandService;//C端
@@ -40,7 +42,6 @@ namespace Shop.Api.Controllers
         private UserQueryService _userQueryService;//用户Q端
         private WalletQueryService _walletQueryService;//钱包Q端
         private CartQueryService _cartQueryService;//购物车Q端
-        private OrderQueryService _orderQueryService;//订单Q端
         private StoreQueryService _storeQueryService;//商家
         
         /// <summary>
@@ -52,14 +53,12 @@ namespace Shop.Api.Controllers
             UserQueryService userQueryService,
             WalletQueryService walletQueryService, 
             CartQueryService cartQueryService,
-            OrderQueryService orderQueryService,
             StoreQueryService storeQueryService)
         {
             _commandService = commandService;
             _userQueryService = userQueryService;
             _walletQueryService = walletQueryService;
             _cartQueryService = cartQueryService;
-            _orderQueryService = orderQueryService;
             _storeQueryService = storeQueryService;
         }
         
@@ -91,7 +90,8 @@ namespace Shop.Api.Controllers
             _apiSession.SetMsgCode(mobile, code);
 
             return new SendMsgCodeResponse() {
-                Token= mobile
+                Token = mobile,
+                MsgCode = code
             };
         }
         /// <summary>
@@ -185,7 +185,7 @@ namespace Shop.Api.Controllers
                 Mobile = request.Mobile,
                 NickName ="用户"+ StringGenerator.Generate(4),//创建随机昵称
                 Password=request.Password,
-                Portrait="default.jpg",
+                Portrait= "http://wftx-goods-img-details.oss-cn-shanghai.aliyuncs.com/default-userpic/userpic.png",
                 Region="北京",
                 Gender="保密"
             };
@@ -261,8 +261,9 @@ namespace Shop.Api.Controllers
                 UserInfo = new UserInfo
                 {
                     Id = userinfo.Id,
+                    ParentId=userinfo.ParentId,
                     NickName = userinfo.NickName,
-                    Portrait = userinfo.Portrait,
+                    Portrait = userinfo.Portrait.ToOssStyleUrl(OssImageStyles.UserPortrait.ToDescription()),
                     Mobile = userinfo.Mobile,
                     Gender = userinfo.Gender,
                     Region = userinfo.Region,
@@ -345,6 +346,7 @@ namespace Shop.Api.Controllers
                 UserInfo = new UserInfo
                 {
                     Id = userinfo.Id,
+                    ParentId=userinfo.ParentId,
                     NickName = userinfo.NickName,
                     Portrait = userinfo.Portrait,
                     Mobile = userinfo.Mobile,
@@ -406,6 +408,42 @@ namespace Shop.Api.Controllers
                 }
             };
         }
+
+        /// <summary>
+        /// 设置我的推荐人
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("User/SetMyParent")]
+        public async Task<BaseApiResponse> SetMyParent(SetMyParentRequest request)
+        {
+            request.CheckNotNull(nameof(request));
+
+            TryInitUserModel();
+            if (!request.Mobile.IsMobileNumber())
+            {
+                return new BaseApiResponse { Code = 400, Message = "请输入正确的手机号" };
+            }
+            var parent = _userQueryService.FindUser(request.Mobile);
+            if(parent==null)
+            {
+                return new BaseApiResponse { Code = 400, Message = "没找到该推荐人" };
+            }
+
+            var command = new SetMyParentCommand(parent.Id)
+            {
+                AggregateRootId = _user.Id
+            };
+
+            var result = await ExecuteCommandAsync(command);
+            if (!result.IsSuccess())
+            {
+                return new BaseApiResponse { Code = 400, Message = "命令没有执行成功：{0}".FormatWith(result.GetErrorMessage()) };
+            }
+            return new BaseApiResponse();
+        }
+
         #endregion
 
         #region 收货地址
@@ -496,7 +534,71 @@ namespace Shop.Api.Controllers
         }
         #endregion
 
-        #region 基本信息
+        /// <summary>
+        /// 用户登录。返回用户基本信息
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("User/ShopLogin")]
+        [AllowAnonymous]
+        public BaseApiResponse ShopLogin(LoginRequest request)
+        {
+            request.CheckNotNull(nameof(request));
+            if (!request.Mobile.IsMobileNumber())
+            {//是否手机号
+                return new BaseApiResponse { Code = 400, Message = "手机号格式不正确" };
+            }
+            var userinfo = _userQueryService.FindUser(request.Mobile);
+            //验证用户
+            if (userinfo == null)
+            {
+                return new BaseApiResponse { Code = 400, Message = "没找到该账号" };
+            }
+            //验证密码
+            if (!PasswordHash.ValidatePassword(request.Password, userinfo.Password))
+            {
+                return new BaseApiResponse { Code = 400, Message = "登录密码错误" };
+            }
+
+
+            //店铺信息
+            var storeinfo = _storeQueryService.InfoByUserId(userinfo.Id);
+            if (storeinfo == null)
+            {
+                return new BaseApiResponse { Code = 400, Message = "您没有店铺" };
+            }
+            _apiSession.SetAuthCookie(HttpContext.Current.Response, userinfo.Id.ToString());
+            _apiSession.SetUserInfo(userinfo.Id.ToString(), userinfo.ToUserModel());
+            return new ShopLoginResponse
+            {
+                UserInfo = new UserInfo
+                {
+                    Id = userinfo.Id,
+                    NickName = userinfo.NickName,
+                    Portrait = userinfo.Portrait.ToOssStyleUrl(OssImageStyles.UserPortrait.ToDescription()),
+                    Mobile = userinfo.Mobile,
+                    Gender = userinfo.Gender,
+                    Region = userinfo.Region,
+                    Role = userinfo.Role.ToDescription(),
+                    StoreId = storeinfo.Id.ToString(),
+                    CartId = userinfo.CartId.ToString(),
+                    Token = userinfo.Id.ToString()
+                },
+                StoreInfo = new StoreInfo
+                {
+                    Id = storeinfo.Id,
+                    Name = storeinfo.Name,
+                    Description = storeinfo.Description,
+                    Region = storeinfo.Region,
+                    Address = storeinfo.Address,
+                    TodayOrder = storeinfo.TodayOrder,
+                    TodaySale = storeinfo.TodaySale,
+                    TotalOrder = storeinfo.TotalOrder,
+                    TotalSale = storeinfo.TotalSale
+                }
+            };
+        }
 
 
         /// <summary>
@@ -545,9 +647,10 @@ namespace Shop.Api.Controllers
                 UserInfo = new UserInfo
                 {
                     Id = userinfo.Id,
+                    ParentId=userinfo.ParentId,
                     NickName= userinfo.NickName,
                     Gender= userinfo.Gender,
-                    Portrait= userinfo.Portrait,
+                    Portrait= userinfo.Portrait.ToOssStyleUrl(OssImageStyles.UserPortrait.ToDescription()),
                     Region= userinfo.Region,
                     Mobile= userinfo.Mobile,
                     Role= userinfo.Role.ToDescription(),
@@ -568,9 +671,53 @@ namespace Shop.Api.Controllers
             };
         }
 
-        
+        /// <summary>
+        /// 我的直推
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("User/MyInvotes")]
+        public BaseApiResponse MyInvotes()
+        {
+            TryInitUserModel();
 
-       
+            //递归获取分类包含子类
+            Func<ReadModel.Users.Dtos.UserAlis, object> getNodeData = null;
+            int level = 0;
+            getNodeData = user => {
+                dynamic node = new ExpandoObject();
+                node.Id = user.Id;
+                node.NickName = user.NickName;
+                node.Mobile = user.Mobile;
+                node.CreatedOn = user.CreatedOn.GetTimeSpan();
+                node.Portrait = user.Portrait;
+                node.Role = user.Role.ToDescription();
+                node.Invotes = new List<dynamic>();
+                
+                var invotes = _userQueryService.UserChildrens(user.Id).OrderByDescending(x => x.CreatedOn);
+                foreach (var invote in invotes)
+                {
+                    if (level <= 1)//只递归两层
+                    {
+                        node.Invotes.Add(getNodeData(invote));
+                    }
+                }
+                level++;
+                return node;
+            };
+
+            var myInvotes = _userQueryService.UserChildrens(_user.Id).OrderByDescending(x => x.CreatedOn);
+            List<object> nodes = myInvotes.Select(getNodeData).ToList();
+
+            return new MyInvotesResponse
+            {
+                MyInvotes = nodes
+            };
+
+        }
+
+
+        #region 基本信息
 
         /// <summary>
         /// 通过手机验证码设置新密码 需要登录才能访问
@@ -578,11 +725,10 @@ namespace Shop.Api.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
+        [AllowAnonymous]
         [Route("User/ResetPassword")]
         public async Task<BaseApiResponse> ResetPassword(ResetPasswordRequest request)
         {
-            TryInitUserModel();
-            
             if (request.Password.Length > 20)
             {
                 return new BaseApiResponse { Code = 400, Message = "密码长度不能大于20字符" };
@@ -592,17 +738,19 @@ namespace Shop.Api.Controllers
                 return new BaseApiResponse { Code = 400, Message = "密码不能包含空格." };
             }
             var passwordHash = PasswordHash.CreateHash(request.Password);
-            var command = new UpdatePasswordCommand(passwordHash) { AggregateRootId = _user.Id };
+
+            var userinfo = _userQueryService.FindUser(request.Mobile);
+            if (userinfo == null)
+            {
+                return new BaseApiResponse { Code = 400, Message = "未找到该用户" };
+            }
+
+            var command = new UpdatePasswordCommand(passwordHash) { AggregateRootId = userinfo.Id };
             var result = await ExecuteCommandAsync(command);
             if (!result.IsSuccess())
             {
                 return new BaseApiResponse { Code = 400, Message = "命令没有执行成功：{0}".FormatWith(result.GetErrorMessage()) };
             }
-
-            //更新缓存
-            _user.Password = passwordHash;
-            _apiSession.UpdateUserInfo(_user.Id.ToString(), _user);
-
             return new BaseApiResponse();
         }
 
@@ -866,70 +1014,33 @@ namespace Shop.Api.Controllers
 
 
         #region 后台管理接口
-        /// <summary>
-        /// 用户登录。返回用户基本信息
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("User/ShopLogin")]
-        [AllowAnonymous]
-        public BaseApiResponse ShopLogin(LoginRequest request)
-        {
-            request.CheckNotNull(nameof(request));
-            if (!request.Mobile.IsMobileNumber())
-            {//是否手机号
-                return new BaseApiResponse { Code = 400, Message = "手机号格式不正确" };
-            }
-            var userinfo = _userQueryService.FindUser(request.Mobile);
-            //验证用户
-            if (userinfo == null)
-            {
-                return new BaseApiResponse { Code = 400, Message = "没找到该账号" };
-            }
-            //验证密码
-            if (!PasswordHash.ValidatePassword(request.Password, userinfo.Password))
-            {
-                return new BaseApiResponse { Code = 400, Message = "登录密码错误" };
-            }
-
-            
-            //店铺信息
-            var storeinfo = _storeQueryService.InfoByUserId(userinfo.Id);
-            if (storeinfo == null)
-            {
-                return new BaseApiResponse { Code = 400, Message = "您没有店铺" };
-            }
-
-            return new LoginResponse
-            {
-                UserInfo = new UserInfo
-                {
-                    Id = userinfo.Id,
-                    NickName = userinfo.NickName,
-                    Portrait = userinfo.Portrait,
-                    Mobile = userinfo.Mobile,
-                    Gender = userinfo.Gender,
-                    Region = userinfo.Region,
-                    Role = userinfo.Role.ToDescription(),
-                    StoreId = storeinfo.Id.ToString(),
-                    CartId = userinfo.CartId.ToString(),
-                    Token = userinfo.Id.ToString()
-                }
-            };
-        }
+        
 
 
         [HttpPost]
         [AllowAnonymous]
         [Route("UserAdmin/ListPage")]
-        public ListPageResponse ListPage()
+        public ListPageResponse ListPage(ListPageRequest request)
         {
-            var users = _userQueryService.UserList();
+            request.CheckNotNull(nameof(request));
+
+            var pageSize = 20;
+            var users = _userQueryService.UserList().Where(x=>x.Role==request.Role);
+            var total = users.Count();
+
+            if (!request.Mobile.IsNullOrEmpty())
+            {
+                users= users.Where(x=>x.Mobile.Contains(request.Mobile)).OrderByDescending(x=>x.CreatedOn).Skip(pageSize*(request.Page-1)).Take(pageSize);
+                total = users.Count();
+            }
+            else
+            {
+                users = users.OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
+            }
 
             return new ListPageResponse
             {
-                Total = users.Count(),
+                Total = total,
                 Users = users.Select(x => new User
                 {
                     Id = x.Id,
@@ -937,8 +1048,8 @@ namespace Shop.Api.Controllers
                     Mobile = x.Mobile,
                     Gender = x.Gender,
                     Region = x.Region,
-                    Role=x.Role.ToDescription(),
-                    IsLocked=x.IsLocked.ToString()
+                    Role=x.Role.ToString(),
+                    IsLocked=x.IsLocked
                 }).ToList()
             };
         }
@@ -965,7 +1076,8 @@ namespace Shop.Api.Controllers
             var command = new EditUserCommand(
                 request.Id,
                 request.NickName,
-                request.Gender);
+                request.Gender,
+                request.Role);
             var result = await ExecuteCommandAsync(command);
             if (!result.IsSuccess())
             {
@@ -1022,7 +1134,7 @@ namespace Shop.Api.Controllers
         #region 私有方法
         private Task<AsyncTaskResult<CommandResult>> ExecuteCommandAsync(ICommand command, int millisecondsDelay = 50000)
         {
-            return _commandService.ExecuteAsync(command, CommandReturnType.CommandExecuted).TimeoutAfter(millisecondsDelay);
+            return _commandService.ExecuteAsync(command, CommandReturnType.EventHandled).TimeoutAfter(millisecondsDelay);
         }
         #endregion
     }

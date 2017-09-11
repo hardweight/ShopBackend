@@ -31,7 +31,7 @@ namespace Shop.Api.Helper
                     if (perCookie.Name.Equals(AuthCookieConfig.AUTH_COOKIE_NAME))
                     {
                         //从cookie 中解密出用户ID
-                        //userId = DesHelper.Encrypt(perCookie.Value, AuthCookieConfig.AUTH_COOKIE_KEY);
+                        //userId = DesHelper.Decrypt(perCookie.Value, AuthCookieConfig.AUTH_COOKIE_KEY);
                         userId = perCookie.Value;
                         break;
                     }

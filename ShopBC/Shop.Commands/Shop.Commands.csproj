@@ -63,7 +63,9 @@
     <Compile Include="Carts\AddCartGoodsCommand.cs" />
     <Compile Include="Carts\CreateCartCommand.cs" />
     <Compile Include="Carts\RemoveCartGoodsCommand.cs" />
+    <Compile Include="Goodses\Specifications\UpdateSpecificationsCommand.cs" />
     <Compile Include="Goodses\UpdateGoodsCommand.cs" />
+    <Compile Include="Goodses\UpdateStatusCommand.cs" />
     <Compile Include="Orders\CloseOrderCommand.cs" />
     <Compile Include="Orders\ConfirmOneReservationCommand.cs" />
     <Compile Include="Orders\ConfirmPaymentCommand.cs" />
@@ -106,6 +108,8 @@
     <Compile Include="Partners\ApplyBalanceCommand.cs" />
     <Compile Include="Partners\CreatePartnerCommand.cs" />
     <Compile Include="Stores\AcceptNewStoreOrderCommand.cs" />
+    <Compile Include="Stores\StoreOrders\OrderGoodses\MarkAsExpireCommand.cs" />
+    <Compile Include="Stores\UpdateSubjectCommand.cs" />
     <Compile Include="Stores\UpdateStoreCommand.cs" />
     <Compile Include="Stores\Sections\ChangeSectionNameCommand.cs" />
     <Compile Include="Stores\CreateStoreCommand.cs" />
@@ -134,11 +138,13 @@
     <Compile Include="Stores\UpdateStoreStatusCommand.cs" />
     <Compile Include="Stores\CustomerUpdateStoreCommand.cs" />
     <Compile Include="Users\AcceptChildBenevolenceCommand.cs" />
-    <Compile Include="Users\AcceptNewSaleCommand.cs" />
+    <Compile Include="Users\AcceptMyStoreNewSaleCommand.cs" />
     <Compile Include="Users\AcceptMyNewSpendingCommand.cs" />
     <Compile Include="Users\ApplyToRegionPartnerCommand.cs" />
     <Compile Include="Users\EditUserCommand.cs" />
+    <Compile Include="Users\GetChildStoreSaleBenevolenceCommand.cs" />
     <Compile Include="Users\PayToAmbassadorCommand.cs" />
+    <Compile Include="Users\SetMyParentCommand.cs" />
     <Compile Include="Users\SetUserGiftPayedCommand.cs" />
     <Compile Include="Users\UserGifts\AddUserGiftCommand.cs" />
     <Compile Include="Wallets\BankCards\AddBankCardCommand.cs" />
@@ -147,6 +153,7 @@
     <Compile Include="Wallets\BankCards\UpdateBankCardCommand.cs" />
     <Compile Include="Wallets\BenevolenceTransfers\SetBenevolenceTransferSuccessCommand.cs" />
     <Compile Include="Wallets\CashTransfers\SetCashTransferSuccessCommand.cs" />
+    <Compile Include="Wallets\ClearWeekWithdrawAmountCommand.cs" />
     <Compile Include="Wallets\CreateWalletCommand.cs" />
     <Compile Include="Wallets\AcceptNewBenevolenceTransferCommand.cs" />
     <Compile Include="Wallets\BenevolenceTransfers\CreateBenevolenceTransferCommand.cs" />

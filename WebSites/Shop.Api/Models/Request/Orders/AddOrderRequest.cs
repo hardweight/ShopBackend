@@ -22,7 +22,7 @@ namespace Shop.Api.Models.Request.Orders
         public decimal Price { get;  set; }
         public decimal OriginalPrice { get;  set; }
         public int Quantity { get;  set; }
-        public decimal SurrenderPersent { get;  set; }
+        public decimal Benevolence { get;  set; }
     }
     public class ExpressAddressInfo
     {

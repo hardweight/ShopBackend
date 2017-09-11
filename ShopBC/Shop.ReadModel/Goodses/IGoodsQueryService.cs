@@ -27,6 +27,8 @@ namespace Shop.ReadModel.Goodses
 
         IEnumerable<Comment> GetComments(int count);
 
+        IEnumerable<GoodsParam> GetGoodsParams(Guid goodsId);
+
         IEnumerable<Specification> GetPublishedSpecifications(Guid goodsId);
         IEnumerable<SpecificationName> GetSpecificationNames(IEnumerable<Guid> specifications);
 
