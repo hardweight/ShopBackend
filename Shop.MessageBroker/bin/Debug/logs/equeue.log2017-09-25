@@ -1,0 +1,41 @@
+2017-09-25 11:01:34,625  INFO EQueue.Broker.BrokerController - Broker starting...
+2017-09-25 11:01:34,851  INFO EQueue.Broker.Storage.Chunk - Ongoing chunk (MessageChunk-#0) initialized, _dataPosition: 761456
+2017-09-25 11:01:36,071  INFO EQueue.Broker.Storage.Chunk - Ongoing chunk (QueueChunk-ShopApplicationMessageTopic@0-#0) initialized, _dataPosition: 72
+2017-09-25 11:01:36,080  INFO EQueue.Broker.Storage.Chunk - Ongoing chunk (QueueChunk-ShopApplicationMessageTopic@1-#0) initialized, _dataPosition: 108
+2017-09-25 11:01:36,087  INFO EQueue.Broker.Storage.Chunk - Ongoing chunk (QueueChunk-ShopApplicationMessageTopic@2-#0) initialized, _dataPosition: 108
+2017-09-25 11:01:36,093  INFO EQueue.Broker.Storage.Chunk - Ongoing chunk (QueueChunk-ShopApplicationMessageTopic@3-#0) initialized, _dataPosition: 108
+2017-09-25 11:01:36,100  INFO EQueue.Broker.Storage.Chunk - Ongoing chunk (QueueChunk-ShopCommandTopic@0-#0) initialized, _dataPosition: 528
+2017-09-25 11:01:36,107  INFO EQueue.Broker.Storage.Chunk - Ongoing chunk (QueueChunk-ShopCommandTopic@1-#0) initialized, _dataPosition: 1512
+2017-09-25 11:01:36,114  INFO EQueue.Broker.Storage.Chunk - Ongoing chunk (QueueChunk-ShopCommandTopic@2-#0) initialized, _dataPosition: 2040
+2017-09-25 11:01:36,121  INFO EQueue.Broker.Storage.Chunk - Ongoing chunk (QueueChunk-ShopCommandTopic@3-#0) initialized, _dataPosition: 1428
+2017-09-25 11:01:36,128  INFO EQueue.Broker.Storage.Chunk - Ongoing chunk (QueueChunk-ShopDomainEventTopic@0-#0) initialized, _dataPosition: 528
+2017-09-25 11:01:36,135  INFO EQueue.Broker.Storage.Chunk - Ongoing chunk (QueueChunk-ShopDomainEventTopic@1-#0) initialized, _dataPosition: 1476
+2017-09-25 11:01:36,143  INFO EQueue.Broker.Storage.Chunk - Ongoing chunk (QueueChunk-ShopDomainEventTopic@2-#0) initialized, _dataPosition: 2040
+2017-09-25 11:01:36,160  INFO EQueue.Broker.Storage.Chunk - Ongoing chunk (QueueChunk-ShopDomainEventTopic@3-#0) initialized, _dataPosition: 1296
+2017-09-25 11:01:36,167  INFO EQueue.Broker.Storage.Chunk - Ongoing chunk (QueueChunk-ShopExceptionTopic@0-#0) initialized, _dataPosition: 0
+2017-09-25 11:01:36,174  INFO EQueue.Broker.Storage.Chunk - Ongoing chunk (QueueChunk-ShopExceptionTopic@1-#0) initialized, _dataPosition: 0
+2017-09-25 11:01:36,181  INFO EQueue.Broker.Storage.Chunk - Ongoing chunk (QueueChunk-ShopExceptionTopic@2-#0) initialized, _dataPosition: 0
+2017-09-25 11:01:36,188  INFO EQueue.Broker.Storage.Chunk - Ongoing chunk (QueueChunk-ShopExceptionTopic@3-#0) initialized, _dataPosition: 0
+2017-09-25 11:01:37,420  INFO EQueue.Broker.BrokerController - Broker started, timeSpent:2796ms, producer:[192.168.1.6:11101], consumer:[192.168.1.6:11102], admin:[192.168.1.6:11103]
+2017-09-25 11:01:51,534  INFO EQueue.Broker.BrokerController - Producer connection accepted, connectionId: 192.168.1.6:3407
+2017-09-25 11:01:51,544  INFO EQueue.Broker.BrokerController - Producer connection accepted, connectionId: 192.168.1.6:3410
+2017-09-25 11:01:51,572  INFO EQueue.Broker.BrokerController - Consumer connection accepted, connectionId: 192.168.1.6:3413
+2017-09-25 11:01:51,828  INFO EQueue.Broker.BrokerController - Consumer connection accepted, connectionId: 192.168.1.6:3416
+2017-09-25 11:01:51,837  INFO EQueue.Broker.BrokerController - Consumer connection accepted, connectionId: 192.168.1.6:3419
+2017-09-25 11:01:51,847  INFO EQueue.Broker.BrokerController - Producer connection accepted, connectionId: 192.168.1.6:3422
+2017-09-25 11:01:51,855  INFO EQueue.Broker.BrokerController - Producer connection accepted, connectionId: 192.168.1.6:3425
+2017-09-25 11:01:51,869  INFO EQueue.Broker.BrokerController - Consumer connection accepted, connectionId: 192.168.1.6:3428
+2017-09-25 11:01:52,513  INFO EQueue.Broker.Client.ProducerManager - Producer registered, producerId: 192.168.1.6@default@12144@2, connectionId: 192.168.1.6:3407
+2017-09-25 11:01:52,515  INFO EQueue.Broker.Client.ProducerManager - Producer registered, producerId: 192.168.1.6@default@12144@1, connectionId: 192.168.1.6:3410
+2017-09-25 11:01:52,643  INFO EQueue.Broker.Client.ConsumerGroup - Consumer registered to group, groupName: ShopExceptionConsumerGroup, consumerId: 192.168.1.6@default@12144@8, connectionId: 192.168.1.6:3413, subscriptionTopics: ShopExceptionTopic, consumingQueues: 
+2017-09-25 11:01:52,846  INFO EQueue.Broker.Client.ConsumerGroup - Consumer registered to group, groupName: ShopCommandConsumerGroup, consumerId: 192.168.1.6@default@12144@3, connectionId: 192.168.1.6:3419, subscriptionTopics: ShopCommandTopic, consumingQueues: 
+2017-09-25 11:01:52,846  INFO EQueue.Broker.Client.ConsumerGroup - Consumer registered to group, groupName: ShopEventConsumerGroup, consumerId: 192.168.1.6@default@12144@4, connectionId: 192.168.1.6:3416, subscriptionTopics: ShopDomainEventTopic, consumingQueues: 
+2017-09-25 11:01:52,855  INFO EQueue.Broker.Client.ProducerManager - Producer registered, producerId: 192.168.1.6@default@12144@6, connectionId: 192.168.1.6:3422
+2017-09-25 11:01:52,887  INFO EQueue.Broker.Client.ConsumerGroup - Consumer registered to group, groupName: ShopMessageConsumerGroup, consumerId: 192.168.1.6@default@12144@5, connectionId: 192.168.1.6:3428, subscriptionTopics: ShopApplicationMessageTopic, consumingQueues: 
+2017-09-25 11:01:52,888  INFO EQueue.Broker.Client.ProducerManager - Producer registered, producerId: 192.168.1.6@default@12144@7, connectionId: 192.168.1.6:3425
+2017-09-25 11:01:53,893  INFO EQueue.Broker.Client.ConsumerGroup - Consumer consumingQueues changed. groupName: ShopEventConsumerGroup, consumerId: 192.168.1.6@default@12144@4, connectionId: 192.168.1.6:3416, old: , new: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=3, ClientCachedMessageCount=0]|[BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=2, ClientCachedMessageCount=0]|[BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=1, ClientCachedMessageCount=0]|[BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=0, ClientCachedMessageCount=0]
+2017-09-25 11:01:53,912  INFO EQueue.Broker.Client.ConsumerGroup - Consumer consumingQueues changed. groupName: ShopCommandConsumerGroup, consumerId: 192.168.1.6@default@12144@3, connectionId: 192.168.1.6:3419, old: , new: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=0, ClientCachedMessageCount=0]|[BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=1, ClientCachedMessageCount=0]|[BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=2, ClientCachedMessageCount=0]|[BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=3, ClientCachedMessageCount=0]
+2017-09-25 11:01:54,639  INFO EQueue.Broker.Client.ConsumerGroup - Consumer consumingQueues changed. groupName: ShopExceptionConsumerGroup, consumerId: 192.168.1.6@default@12144@8, connectionId: 192.168.1.6:3413, old: , new: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=0, ClientCachedMessageCount=0]|[BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=1, ClientCachedMessageCount=0]|[BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=2, ClientCachedMessageCount=0]|[BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=3, ClientCachedMessageCount=0]
+2017-09-25 11:01:54,935  INFO EQueue.Broker.Client.ConsumerGroup - Consumer consumingQueues changed. groupName: ShopMessageConsumerGroup, consumerId: 192.168.1.6@default@12144@5, connectionId: 192.168.1.6:3428, old: , new: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=1, ClientCachedMessageCount=0]|[BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=0, ClientCachedMessageCount=0]|[BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=3, ClientCachedMessageCount=0]|[BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=2, ClientCachedMessageCount=0]
+2017-09-25 11:05:38,555  INFO EQueue.Broker.BrokerController - Producer connection accepted, connectionId: 192.168.1.6:3553
+2017-09-25 11:05:39,880  INFO EQueue.Broker.Client.ProducerManager - Producer registered, producerId: 192.168.1.6@default@2824@1, connectionId: 192.168.1.6:3553

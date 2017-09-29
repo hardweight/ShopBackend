@@ -47,7 +47,10 @@ namespace Shop.Domain.Models.Goodses
             info.CheckNotNull(nameof(info));
             ApplyEvent(new GoodsStoreUpdatedEvent(categoryIds,info));
         }
-
+        /// <summary>
+        /// 更新基本信息-管理编辑
+        /// </summary>
+        /// <param name="info"></param>
         public void AdminUpdate(GoodsEditableInfo info)
         {
             info.CheckNotNull(nameof(info));
@@ -127,6 +130,18 @@ namespace Shop.Domain.Models.Goodses
         }
 
         /// <summary>
+        /// 删除自己
+        /// </summary>
+        public void Delete()
+        {
+            if (_reservations.Any())
+            {
+                throw new Exception("商品存在预定，无法删除");
+            }
+            ApplyEvent(new GoodsDeletedEvent());
+        }
+
+        /// <summary>
         /// 上架
         /// </summary>
         public void Publish()
@@ -169,7 +184,8 @@ namespace Shop.Domain.Models.Goodses
             var commentInfo = comment.GetCommentInfo();
             var rateInfo = comment.GetRateInfo();
             if (_commentStatisticInfo == null)
-            {//第一次评论
+            {
+                //第一次评论
                 ApplyEvent(new CommentStatisticInfoChangedEvent(new CommentStatisticInfo(
                    rateInfo.Rate,
                     rateInfo.PriceRate,
@@ -179,7 +195,8 @@ namespace Shop.Domain.Models.Goodses
                     1)));
             }
             else
-            {//求平均重新评估Rate值
+            {
+                //求平均重新评估Rate值
                 ApplyEvent(new CommentStatisticInfoChangedEvent(new CommentStatisticInfo(
                     _commentStatisticInfo.Rate.Ave(rateInfo.Rate),
                     _commentStatisticInfo.PriceRate.Ave(rateInfo.PriceRate),
@@ -323,6 +340,15 @@ namespace Shop.Domain.Models.Goodses
                 _info.Is7SalesReturn,
                 _info.Sort);
         }
+        private void Handle(GoodsDeletedEvent evnt)
+        {
+            _categoryIds = null;
+            _reservations = null;
+            _info = null;
+            _commentIds = null;
+            _goodsParams = null;
+            _specifications = null;
+        }
         private void Handle(GoodsStatusUpdatedEvent evnt)
         {
             _status = evnt.Status;
@@ -379,6 +405,7 @@ namespace Shop.Domain.Models.Goodses
         {
             _reservations.Remove(evnt.ReservationId);
         }
+        
         #endregion
 
         #region 私有方法

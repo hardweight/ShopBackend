@@ -21,3 +21,5 @@ C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageBroker\bin\Release\Ne
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageBroker\obj\Release\Shop.MessageBroker.exe
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageBroker\obj\Release\Shop.MessageBroker.pdb
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageBroker\obj\Release\Shop.MessageBroker.csprojResolveAssemblyReference.cache
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageBroker\bin\Release\Xia.Common.dll
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageBroker\bin\Release\Xia.Common.pdb

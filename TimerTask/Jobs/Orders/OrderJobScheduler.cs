@@ -12,8 +12,6 @@ namespace Shop.TimerTask.Jobs.Orders
 
         public static void Start()
         {
-            Debug.WriteLine("付款过期订单任务启动");
-
             IJobDetail job = JobBuilder.Create<ExpiredOrderJob>()
                                   .WithIdentity("ExpiredOrderJob")
                                   .Build();

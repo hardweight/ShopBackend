@@ -44,7 +44,8 @@ namespace Shop.CommandHandlers
         ICommandHandler<PayToAmbassadorCommand>,
 
         ICommandHandler<AcceptMyStoreNewSaleCommand>,
-        ICommandHandler<GetChildStoreSaleBenevolenceCommand>
+        ICommandHandler<GetChildStoreSaleBenevolenceCommand>,
+        ICommandHandler<GetChildStoreSaleCashCommand>
         
     {
         private readonly ILockService _lockService;
@@ -231,6 +232,10 @@ namespace Shop.CommandHandlers
         public void Handle(ICommandContext context, GetChildStoreSaleBenevolenceCommand command)
         {
             context.Get<User>(command.AggregateRootId).AcceptChildStoreSaleBenevolence(command.Amount);
+        }
+        public void Handle(ICommandContext context, GetChildStoreSaleCashCommand command)
+        {
+            context.Get<User>(command.AggregateRootId).AcceptChildStoreSaleCash(command.Amount);
         }
 
 

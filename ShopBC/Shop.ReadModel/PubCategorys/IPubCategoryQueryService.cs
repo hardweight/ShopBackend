@@ -9,6 +9,8 @@ namespace Shop.ReadModel.PubCategorys
     /// </summary>
     public interface IPubCategoryQueryService
     {
+        PubCategory Find(Guid id);
+
         IEnumerable<PubCategory> RootCategorys();
 
         IEnumerable<PubCategory> GetChildren(Guid id);

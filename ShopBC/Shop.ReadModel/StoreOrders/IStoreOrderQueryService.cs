@@ -8,6 +8,9 @@ namespace Shop.ReadModel.StoreOrders
     public interface IStoreOrderQueryService
     {
         StoreOrderDetails FindOrder(Guid orderId);
+        StoreOrder Find(Guid id);
+
+        IEnumerable<StoreOrderWithInfo> StoreOrderList();
 
         IEnumerable<StoreOrder> StoreStoreOrders(Guid storeId);
         IEnumerable<StoreOrder> UserStoreOrders(Guid userId);

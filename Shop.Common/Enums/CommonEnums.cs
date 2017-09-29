@@ -7,7 +7,9 @@ namespace Shop.Common.Enums
         [Description("userpic")]
         UserPortrait,
         [Description("goods-main-image")]
-        GoodsMainPic
+        GoodsMainPic,
+        [Description("goods-details-image")]
+        GoodsDetailPic
     }
 
 }

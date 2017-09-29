@@ -15,7 +15,8 @@ namespace Shop.ReadModel.Announcements
     [Component]
     public class AnnouncementViewModelGenerator : BaseGenerator,
         IMessageHandler<AnnouncementCreatedEvent>,
-        IMessageHandler<AnnouncementUpdatedEvent>
+        IMessageHandler<AnnouncementUpdatedEvent>,
+        IMessageHandler<AnnouncementDeletedEvent>
     {
         public Task<AsyncTaskResult> HandleAsync(AnnouncementCreatedEvent evnt)
         {
@@ -47,6 +48,18 @@ namespace Shop.ReadModel.Announcements
                     Id = evnt.AggregateRootId,
                     //Version = evnt.Version - 1
                 }, ConfigSettings.AnnouncementTable);
+            });
+        }
+
+        public Task<AsyncTaskResult> HandleAsync(AnnouncementDeletedEvent evnt)
+        {
+            return TryTransactionAsync(async (connection, transaction) =>
+            {
+                var effectedRows = await connection.DeleteAsync(new
+                {
+                    Id = evnt.AggregateRootId,
+                    //Version = evnt.Version - 1
+                }, ConfigSettings.AnnouncementTable, transaction);
             });
         }
     }

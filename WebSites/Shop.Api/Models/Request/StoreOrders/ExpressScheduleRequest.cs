@@ -2,6 +2,7 @@
 {
     public class ExpressScheduleRequest
     {
+        public string ExpressName { get; set; }
         public string ExpressNumber { get; set; }
     }
 }

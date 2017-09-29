@@ -14,5 +14,6 @@ namespace Shop.Api.Models.Response.Admins
 
         public string Password { get; set; }
         public string Portrait { get; set; }
+        public string Role { get; set; }
     }
 }

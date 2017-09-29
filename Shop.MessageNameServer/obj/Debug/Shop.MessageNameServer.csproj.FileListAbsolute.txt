@@ -32,6 +32,7 @@ C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\bin\Debug\
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\bin\Debug\log4net.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\bin\Debug\Newtonsoft.Json.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\bin\Debug\Shop.Common.dll
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\bin\Debug\Xia.Common.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\bin\Debug\Shop.Common.pdb
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\bin\Debug\Autofac.xml
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\bin\Debug\Dapper.xml
@@ -41,6 +42,7 @@ C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\bin\Debug\
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\bin\Debug\EQueue.xml
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\bin\Debug\log4net.xml
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\bin\Debug\Newtonsoft.Json.xml
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\bin\Debug\Xia.Common.pdb
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\obj\Debug\Shop.MessageNameServer.csprojResolveAssemblyReference.cache
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\obj\Debug\Shop.MessageNameServer.exe
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\obj\Debug\Shop.MessageNameServer.pdb

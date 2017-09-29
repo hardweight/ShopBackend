@@ -93,6 +93,7 @@ CREATE TABLE [dbo].[Categorys] (
     [Thumb]              NVARCHAR (200)     NULL,
     [Url]              NVARCHAR (200)     NULL,
     [Type]              INT   NOT NULL,
+	[IsShow]   BIT              NOT NULL,
     [Sort]      INT              NOT NULL,
     [CreatedOn]       DATETIME         NOT NULL,
 	[Version]       BIGINT           NOT NULL,
@@ -105,6 +106,7 @@ CREATE TABLE [dbo].[PubCategorys] (
     [ParentId]      UNIQUEIDENTIFIER NOT NULL,
     [Name]              NVARCHAR (100)    NOT NULL,
     [Thumb]              NVARCHAR (200)     NULL,
+	[IsShow]   BIT              NOT NULL,
     [Sort]      INT              NOT NULL,
     [CreatedOn]       DATETIME         NOT NULL,
 	[Version]       BIGINT           NOT NULL,
@@ -147,6 +149,7 @@ CREATE TABLE [dbo].[Goodses] (
 	[DescribeRate]               DECIMAL (18, 2)  NOT NULL,
     [IsPublished]   BIT              NOT NULL,
     [Status]   INT              NOT NULL,
+	[RefusedReason]		NVARCHAR (200)   NULL,
     [Version]       BIGINT           NOT NULL,
     [EventSequence] INT              NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
@@ -165,7 +168,11 @@ CREATE TABLE [dbo].[GoodsComments] (
 	[UserId]		UNIQUEIDENTIFIER NOT NULL,
     [Body]    NVARCHAR (400)   NOT NULL,
 	[CreatedOn]       DATETIME         NOT NULL,
-    [Rate]               DECIMAL (18, 2)  NOT NULL,
+    [Rate]               FLOAT  NOT NULL,
+    [PriceRate]               FLOAT  NOT NULL,
+    [DescribeRate]               FLOAT  NOT NULL,
+    [QualityRate]               FLOAT  NOT NULL,
+    [ExpressRate]               FLOAT  NOT NULL,
     [Thumbs]      NVARCHAR(MAX)              NOT NULL,
     [Version]       BIGINT           NOT NULL,
     [EventSequence] INT              NOT NULL,
@@ -296,6 +303,7 @@ CREATE TABLE [dbo].[StoreOrders] (
 	[ExpressZip]    NVARCHAR (200)  NOT  NULL,
 
 	[DeliverExpressName]    NVARCHAR (200)    NULL,
+	[DeliverExpressCode]    NVARCHAR (200)    NULL,
 	[DeliverExpressNumber]    NVARCHAR (200)    NULL,
 
 

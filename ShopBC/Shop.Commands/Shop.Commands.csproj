@@ -59,10 +59,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Announcements\CreateAnnouncementCommand.cs" />
+    <Compile Include="Announcements\DeleteAnnouncementCommand.cs" />
     <Compile Include="Announcements\UpdateAnnouncementCommand.cs" />
     <Compile Include="Carts\AddCartGoodsCommand.cs" />
     <Compile Include="Carts\CreateCartCommand.cs" />
     <Compile Include="Carts\RemoveCartGoodsCommand.cs" />
+    <Compile Include="Categorys\DeleteCategoryCommand.cs" />
+    <Compile Include="Goodses\DeleteGoodsCommand.cs" />
     <Compile Include="Goodses\Specifications\UpdateSpecificationsCommand.cs" />
     <Compile Include="Goodses\UpdateGoodsCommand.cs" />
     <Compile Include="Goodses\UpdateStatusCommand.cs" />
@@ -79,6 +82,7 @@
     <Compile Include="Payments\CreatePaymentCommand.cs" />
     <Compile Include="Payments\PaymentLine.cs" />
     <Compile Include="PubCategorys\CreatePubCategoryCommand.cs" />
+    <Compile Include="PubCategorys\DeletePubCategoryCommand.cs" />
     <Compile Include="PubCategorys\UpdatePubCategoryCommand.cs" />
     <Compile Include="Categorys\UpdateCategoryCommand.cs" />
     <Compile Include="Categorys\CreateCategoryCommand.cs" />
@@ -108,6 +112,7 @@
     <Compile Include="Partners\ApplyBalanceCommand.cs" />
     <Compile Include="Partners\CreatePartnerCommand.cs" />
     <Compile Include="Stores\AcceptNewStoreOrderCommand.cs" />
+    <Compile Include="Stores\StoreOrders\DeleteStoreOrderCommand.cs" />
     <Compile Include="Stores\StoreOrders\OrderGoodses\MarkAsExpireCommand.cs" />
     <Compile Include="Stores\UpdateSubjectCommand.cs" />
     <Compile Include="Stores\UpdateStoreCommand.cs" />
@@ -142,6 +147,7 @@
     <Compile Include="Users\AcceptMyNewSpendingCommand.cs" />
     <Compile Include="Users\ApplyToRegionPartnerCommand.cs" />
     <Compile Include="Users\EditUserCommand.cs" />
+    <Compile Include="Users\GetChildStoreSaleCashCommand.cs" />
     <Compile Include="Users\GetChildStoreSaleBenevolenceCommand.cs" />
     <Compile Include="Users\PayToAmbassadorCommand.cs" />
     <Compile Include="Users\SetMyParentCommand.cs" />

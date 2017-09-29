@@ -5,12 +5,14 @@ namespace Shop.Api.Models.Response.StoreOrders
 {
     public class UserOrdersResponse:BaseApiResponse
     {
+        public int Total { get; set; }
         public IList<StoreOrder> StoreOrders { get; set; }
     }
 
     public class StoreOrder
     {
         public Guid Id { get; set; }
+        public Guid UserId { get; set; }
         public Guid StoreId { get; set; }
         public string Region { get; set; }
         public string Number { get; set; }
@@ -24,6 +26,11 @@ namespace Shop.Api.Models.Response.StoreOrders
         public decimal Total { get; set; }
         public decimal StoreTotal { get; set; }
         public string Status { get; set; }
+
+        public string DeliverExpressName { get; set; }
+        public string DeliverExpressCode { get; set; }
+        public string DeliverExpressNumber { get; set; }
+
         public IList<StoreOrderGoods> StoreOrderGoodses { get; set; } 
     }
 

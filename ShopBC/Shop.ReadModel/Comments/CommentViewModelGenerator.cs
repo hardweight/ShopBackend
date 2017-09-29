@@ -28,6 +28,10 @@ namespace Shop.ReadModel.Comments
                     Body = evnt.Info.Body,
                     CreatedOn = evnt.Timestamp,
                     Rate = evnt.RateInfo.Rate,
+                    PriceRate = evnt.RateInfo.PriceRate,
+                    DescribeRate = evnt.RateInfo.DescribeRate,
+                    QualityRate = evnt.RateInfo.QualityRate,
+                    ExpressRate = evnt.RateInfo.ExpressRate,
                     Thumbs=evnt.Info.Thumbs.ExpandAndToString("|"),
                     Version = evnt.Version,
                     EventSequence=evnt.Sequence

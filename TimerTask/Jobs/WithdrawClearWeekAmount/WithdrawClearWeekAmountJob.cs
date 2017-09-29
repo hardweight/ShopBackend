@@ -31,7 +31,6 @@ namespace Shop.TimerTask.Jobs.WithdrawClearWeekAmount
         /// <param name="context"></param>
         public  void Execute(IJobExecutionContext context)
         {
-            Debug.WriteLine("任务执行了");
             Process();
         }
 

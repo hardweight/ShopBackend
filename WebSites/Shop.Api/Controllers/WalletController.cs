@@ -82,6 +82,29 @@ namespace Shop.Api.Controllers
         }
 
         /// <summary>
+        /// 获取用户的最近5天的激励信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Wallet/IncentiveLogs")]
+        public BaseApiResponse IncentiveLogs()
+        {
+            TryInitUserModel();
+            var incentiveInfos = _walletQueryService.GetIncentiveInfos(_user.WalletId ,5);
+            return new IncentiveLogsResponse
+            {
+                IncentiveLogs = incentiveInfos.Select(x => new IncentiveInfo
+                {
+                    BenevolenceAmount = x.BenevolenceAmount,
+                    Amount = x.Amount,
+                    CreatedOn = x.CreatedOn.GetTimeSpan(),
+                    Fee = x.Fee,
+                    Remark = x.Remark
+                }).ToList()
+            };
+        }
+
+        /// <summary>
         /// 重置 支付密码
         /// </summary>
         /// <param name="request"></param>
@@ -119,21 +142,24 @@ namespace Shop.Api.Controllers
             request.CheckNotNull(nameof(request));
 
             TryInitUserModel();
-            int pageRecordCount = 10;
+            //获取数据
+            int pageSize = 10;
 
-            IEnumerable<ReadModel.Wallets.Dtos.CashTransfer> cashTransfers = null;
+            var cashTransfers = _walletQueryService.GetCashTransfers(_wallet.Id);
+            var total = cashTransfers.Count();
+
             //通过以上方法 已经获取_wallet实例了
-            if (request.Type==CashTransferType.All)
+            if (request.Type!=CashTransferType.All)
             {
-                cashTransfers = _walletQueryService.GetCashTransfers(_wallet.Id).OrderByDescending(x => x.CreatedOn).Skip(pageRecordCount * request.Page).Take(pageRecordCount);
+                cashTransfers = cashTransfers.Where(x => x.Type == request.Type);
             }
-            else
-            {
-                cashTransfers = _walletQueryService.GetCashTransfers(_wallet.Id, request.Type).OrderByDescending(x => x.CreatedOn).Skip(pageRecordCount * request.Page).Take(pageRecordCount);
-            }
+            total = cashTransfers.Count();
+            //分页
+            cashTransfers = cashTransfers.OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page-1)).Take(pageSize);
 
             return new GetCashTransfersResponse
             {
+                Total=total,
                 CashTransfers = cashTransfers.Select(x => new CashTransfer
                 {
                     Number = x.Number,
@@ -158,19 +184,22 @@ namespace Shop.Api.Controllers
             request.CheckNotNull(nameof(request));
 
             TryInitUserModel();
-            int pageRecordCount = 10;
-            IEnumerable<ReadModel.Wallets.Dtos.BenevolenceTransfer> benevolenceTransfers = null;
-            if(request.Type==BenevolenceTransferType.All)
+            //获取数据
+            int pageSize = 10;
+            var benevolenceTransfers = _walletQueryService.GetBenevolenceTransfers(_wallet.Id);
+            var total = benevolenceTransfers.Count();
+            //筛选数据
+            if(request.Type!=BenevolenceTransferType.All)
             {
-                benevolenceTransfers = _walletQueryService.GetBenevolenceTransfers(_wallet.Id).OrderByDescending(x => x.CreatedOn).Skip(pageRecordCount * request.Page).Take(pageRecordCount);
+                benevolenceTransfers = benevolenceTransfers.Where(x=>x.Type==request.Type);
             }
-            else
-            {
-                benevolenceTransfers = _walletQueryService.GetBenevolenceTransfers(_wallet.Id, request.Type).OrderByDescending(x => x.CreatedOn).Skip(pageRecordCount * request.Page).Take(pageRecordCount);
-            }
+            total = benevolenceTransfers.Count();
+            //分页
+            benevolenceTransfers = benevolenceTransfers.OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page-1)).Take(pageSize);
 
             return new GetBenevolenceTransfersResponse
             {
+                Total=total,
                 BenevolenceTransfers = benevolenceTransfers.Select(x => new BenevolenceTransfer
                 {
                     Number = x.Number,
@@ -188,7 +217,7 @@ namespace Shop.Api.Controllers
         #region 支付
 
         /// <summary>
-        /// 余额支付 这里的支付金额基本上《=钱包账号余额 
+        /// 余额支付，全额付款的清空
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
@@ -200,23 +229,72 @@ namespace Shop.Api.Controllers
             TryInitUserModel();
 
             var walletinfo = _walletQueryService.Info(_user.WalletId);
-            //验证支付密码
-            if (!walletinfo.AccessCode.Equals(request.AccessCode))
+            if(!request.IsNotVerifyAccessCode)
             {
-                return new BaseApiResponse { Code = 400, Message = "支付密码错误" };
+                //验证支付密码
+                if (!walletinfo.AccessCode.Equals(request.AccessCode))
+                {
+                    return new BaseApiResponse { Code = 400, Message = "支付密码错误" };
+                }
+            }
+            string number = DateTime.Now.ToSerialNumber();
+            var cashTransferType = CashTransferType.Shopping;
+            if(request.Type== "Transfer")
+            {
+                cashTransferType = CashTransferType.Transfer;
+            }
+            if (request.Type == "Recharge")
+            {
+                cashTransferType = CashTransferType.Charge;
+            }
+            
+            var command = new CreateCashTransferCommand(
+                GuidUtil.NewSequentialId(),
+                walletinfo.Id,
+                number,//流水号
+                cashTransferType,
+                CashTransferStatus.Placed,//这里只是提交，只有钱包接受改记录后，才更新为成功
+                request.Amount,
+                0,
+                WalletDirection.Out,
+                request.Remark);
+
+            var result = await ExecuteCommandAsync(command);
+            if (!result.IsSuccess())
+            {
+                return new BaseApiResponse { Code = 400, Message = "命令没有执行成功：{0}".FormatWith(result.GetErrorMessage()) };
+            }
+            return new BaseApiResponse();
+        }
+
+        /// <summary>
+        /// 接受转账
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Wallet/AcceptTransfer")]
+        public async Task<BaseApiResponse> AcceptTransfer(AcceptTransferRequest request)
+        {
+            request.CheckNotNull(nameof(request));
+
+            var wallet = _walletQueryService.InfoByUserId(request.UserId);
+            if(wallet==null)
+            {
+                return new BaseApiResponse { Code = 400, Message = "没有该收款人"};
             }
 
             string number = DateTime.Now.ToSerialNumber();
             var command = new CreateCashTransferCommand(
                 GuidUtil.NewSequentialId(),
-                walletinfo.Id,
+                wallet.Id,
                 number,//流水号
-                CashTransferType.Shopping,
+                CashTransferType.Transfer,
                 CashTransferStatus.Placed,//这里只是提交，只有钱包接受改记录后，才更新为成功
                 request.Amount,
                 0,
-                WalletDirection.Out,
-                "订单号"+request.OrderNumber);
+                WalletDirection.In,
+                request.Remark);
 
             var result = await ExecuteCommandAsync(command);
             if (!result.IsSuccess())
@@ -538,16 +616,14 @@ namespace Shop.Api.Controllers
             var wallets = _walletQueryService.ListPage();
             var pageSize = 20;
             var total = wallets.Count();
-
+            //筛选
             if (!request.Mobile.IsNullOrEmpty())
             {
-                wallets = wallets.Where(x => x.OwnerMobile.Contains(request.Mobile)).Skip(pageSize * (request.Page - 1)).Take(pageSize);
-                total = wallets.Count();
+                wallets = wallets.Where(x => x.OwnerMobile.Contains(request.Mobile));
             }
-            else
-            {
-                wallets = wallets.Skip(pageSize * (request.Page - 1)).Take(pageSize);
-            }
+            total = wallets.Count();
+            //分页
+            wallets = wallets.Skip(pageSize * (request.Page - 1)).Take(pageSize);
 
             return new ListPageResponse
             {
@@ -639,17 +715,21 @@ namespace Shop.Api.Controllers
             request.CheckNotNull(nameof(request));
 
             var pageSize = 20;
-            var withdrawApplylogs = _walletQueryService.WithdrawApplyLogs().Where(x=>x.Status==request.Status);
+            var withdrawApplylogs = _walletQueryService.WithdrawApplyLogs();
             var total = withdrawApplylogs.Count();
+            //筛选
+            if (request.Status != WithdrawApplyStatus.All)
+            {
+                withdrawApplylogs = withdrawApplylogs.Where(x => x.Status == request.Status);
+            }
             if (!request.Name.IsNullOrEmpty())
             {
-                withdrawApplylogs = withdrawApplylogs.Where(x => x.BankOwner.Contains(request.Name)).OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
+                withdrawApplylogs = withdrawApplylogs.Where(x => x.BankOwner.Contains(request.Name));
                 total = withdrawApplylogs.Count();
             }
-            else
-            {
-                withdrawApplylogs = withdrawApplylogs.OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
-            }
+            total = withdrawApplylogs.Count();
+            //分页
+            withdrawApplylogs = withdrawApplylogs.OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
 
             return new WithdrawApplysListPageResponse
             {
@@ -738,17 +818,21 @@ namespace Shop.Api.Controllers
             request.CheckNotNull(nameof(request));
 
             var pageSize = 20;
-            var rechargeApplylogs = _walletQueryService.RechargeApplyLogs().Where(x=>x.Status==request.Status);
+            var rechargeApplylogs = _walletQueryService.RechargeApplyLogs();
             var total = rechargeApplylogs.Count();
+            //筛选
+            if (request.Status != RechargeApplyStatus.All)
+            {
+                rechargeApplylogs = rechargeApplylogs.Where(x => x.Status == request.Status);
+            }
             if (!request.Name.IsNullOrEmpty())
             {
-                rechargeApplylogs = rechargeApplylogs.Where(x => x.BankOwner.Contains(request.Name)).OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
-                total = rechargeApplylogs.Count();
+                rechargeApplylogs = rechargeApplylogs.Where(x => x.BankOwner.Contains(request.Name));
             }
-            else
-            {
-                rechargeApplylogs = rechargeApplylogs.OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
-            }
+            total = rechargeApplylogs.Count();
+            //分页
+            rechargeApplylogs = rechargeApplylogs.OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
+
             return new RechargeApplysListPageResponse
             {
                 Total = total,

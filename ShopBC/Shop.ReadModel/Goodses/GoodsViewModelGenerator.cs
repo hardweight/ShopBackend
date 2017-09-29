@@ -36,7 +36,9 @@ namespace Shop.ReadModel.Goodses
         IMessageHandler<SpecificationsUpdatedEvent>,
         IMessageHandler<SpecificationAddedEvent>,
         IMessageHandler<SpecificationUpdatedEvent>,
-        IMessageHandler<SpecificationStockChangedEvent>
+        IMessageHandler<SpecificationStockChangedEvent>,
+
+        IMessageHandler<GoodsDeletedEvent>
         
 
     {
@@ -72,6 +74,7 @@ namespace Shop.ReadModel.Goodses
                     DescribeRate = 5,
                     IsPublished = 0,
                     Status=(int)GoodsStatus.UnVerify,
+                    RefusedReason="",
                     Version = evnt.Version,
                     EventSequence = evnt.Sequence
                 }, ConfigSettings.GoodsTable,transaction);
@@ -156,6 +159,7 @@ namespace Shop.ReadModel.Goodses
                     Benevolence = info.Benevolence,
                     SellOut=info.SellOut,
                     Status=(int)info.Status,
+                    RefusedReason = info.RefusedReason,
                     Version = evnt.Version,
                     EventSequence = evnt.Sequence
                 }, new
@@ -584,6 +588,45 @@ namespace Shop.ReadModel.Goodses
                             GoodsId=evnt.AggregateRootId
                         }, ConfigSettings.SpecificationTable, transaction));
                     }
+                    Task.WaitAll(tasks.ToArray());
+                }
+            });
+        }
+
+        public Task<AsyncTaskResult> HandleAsync(GoodsDeletedEvent evnt)
+        {
+            return TryTransactionAsync(async (connection, transaction) =>
+            {
+                var effectedRows = await connection.DeleteAsync(new
+                {
+                    Id = evnt.AggregateRootId,
+                    //Version = evnt.Version - 1
+                }, ConfigSettings.GoodsTable, transaction);
+
+                if (effectedRows == 1)
+                {
+                    var tasks = new List<Task>();
+                    //删除规格
+                    tasks.Add(connection.DeleteAsync(new
+                    {
+                        GoodsId = evnt.AggregateRootId
+                    }, ConfigSettings.SpecificationTable, transaction));
+                    //删除参数
+                    tasks.Add(connection.DeleteAsync(new
+                    {
+                        GoodsId = evnt.AggregateRootId
+                    }, ConfigSettings.GoodsParamTable, transaction));
+                    //删除所属分类
+                    tasks.Add(connection.DeleteAsync(new
+                    {
+                        GoodsId = evnt.AggregateRootId
+                    }, ConfigSettings.GoodsPubCategorysTable, transaction));
+                    //删除评价
+                    tasks.Add(connection.DeleteAsync(new
+                    {
+                        GoodsId = evnt.AggregateRootId
+                    }, ConfigSettings.GoodsCommentsTable, transaction));
+
                     Task.WaitAll(tasks.ToArray());
                 }
             });

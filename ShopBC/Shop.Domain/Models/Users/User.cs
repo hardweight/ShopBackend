@@ -345,14 +345,21 @@ namespace Shop.Domain.Models.Users
             //计算我的推荐者的收益 商家销售额
             if(_parentId!=Guid.Empty)
             {
-                var parentBenevolenceGetAmount = Math.Round((sale * ConfigSettings.RecommandStoreGetPercent / ConfigSettings.BenevolenceValue), 4);
-                ApplyEvent(new UserGetChildStoreSaleBenevolenceEvent(_parentId, parentBenevolenceGetAmount));
+                //var parentBenevolenceGetAmount = Math.Round((sale * ConfigSettings.RecommandStoreGetPercent / ConfigSettings.BenevolenceValue), 4);
+                //ApplyEvent(new UserGetChildStoreSaleBenevolenceEvent(_parentId, parentBenevolenceGetAmount));
+                //现在拿现金奖励
+                var parentCashGetAmount = Math.Round((sale * ConfigSettings.RecommandStoreGetPercent ), 4);
+                ApplyEvent(new UserGetChildStoreSaleCashEvent(_parentId, parentCashGetAmount));
             }
         }
 
         public void AcceptChildStoreSaleBenevolence(decimal amount)
         {
             ApplyEvent(new AcceptedChildStoreSaleBenevolenceEvent(_walletId, amount));
+        }
+        public void AcceptChildStoreSaleCash(decimal amount)
+        {
+            ApplyEvent(new AcceptedChildStoreSaleCashEvent(_walletId, amount));
         }
         #endregion
 
@@ -453,10 +460,12 @@ namespace Shop.Domain.Models.Users
 
         private void Handle(UserGetSaleBenevolenceEvent evnt) { }
         private void Handle(UserGetChildStoreSaleBenevolenceEvent evnt) { }
+        private void Handle(UserGetChildStoreSaleCashEvent evnt) { }
 
         private void Handle(UserRoleToPartnerEvent evnt) { }
         private void Handle(RegionPartnerApplyedEvent evnt) { }
         private void Handle(AcceptedChildStoreSaleBenevolenceEvent evnt) { }
+        private void Handle(AcceptedChildStoreSaleCashEvent evnt) { }
 
         private void Handle(UserNickNameUpdatedEvent evnt)
         {

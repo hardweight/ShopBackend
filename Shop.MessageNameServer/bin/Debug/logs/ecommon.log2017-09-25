@@ -1,0 +1,21 @@
+2017-09-25 11:01:26,157  INFO ECommon.Socketing.ServerSocket - Socket server is starting, listening on TCP endpoint: 192.168.1.6:11100.
+2017-09-25 11:01:36,489  INFO ECommon.Socketing.ServerSocket - Socket accepted, remote endpoint:192.168.1.6:3399
+2017-09-25 11:01:50,567  INFO ECommon.Socketing.ServerSocket - Socket accepted, remote endpoint:192.168.1.6:3406
+2017-09-25 11:01:51,487  INFO ECommon.Socketing.ServerSocket - Socket accepted, remote endpoint:192.168.1.6:3409
+2017-09-25 11:01:51,538  INFO ECommon.Socketing.ServerSocket - Socket accepted, remote endpoint:192.168.1.6:3412
+2017-09-25 11:01:51,594  INFO ECommon.Socketing.ServerSocket - Socket accepted, remote endpoint:192.168.1.6:3415
+2017-09-25 11:01:51,833  INFO ECommon.Socketing.ServerSocket - Socket accepted, remote endpoint:192.168.1.6:3418
+2017-09-25 11:01:51,842  INFO ECommon.Socketing.ServerSocket - Socket accepted, remote endpoint:192.168.1.6:3421
+2017-09-25 11:01:51,849  INFO ECommon.Socketing.ServerSocket - Socket accepted, remote endpoint:192.168.1.6:3424
+2017-09-25 11:01:51,860  INFO ECommon.Socketing.ServerSocket - Socket accepted, remote endpoint:192.168.1.6:3427
+2017-09-25 11:05:37,961  INFO ECommon.Socketing.ServerSocket - Socket accepted, remote endpoint:192.168.1.6:3552
+2017-09-25 11:37:24,318  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.6:3418 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-25 11:37:24,319  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.6:3409 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-25 11:37:24,326  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.6:3415 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-25 11:37:24,327  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.6:3412 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-25 11:37:24,327  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.6:3427 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-25 11:37:24,328  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.6:3424 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-25 11:37:24,328  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.6:3399 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-25 11:37:24,334  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.6:3552 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-25 11:37:24,347  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.6:3406 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-25 11:37:24,347  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.6:3421 socketError:ConnectionReset, reason:Socket receive error, ex:

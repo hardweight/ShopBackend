@@ -95,10 +95,10 @@
       <publishTime>06/27/2016 14:50:24</publishTime>
     </File>
     <File Include="bin/Shop.App.dll">
-      <publishTime>09/08/2017 15:50:13</publishTime>
+      <publishTime>09/13/2017 17:00:47</publishTime>
     </File>
     <File Include="bin/Shop.App.pdb">
-      <publishTime>09/08/2017 15:50:13</publishTime>
+      <publishTime>09/13/2017 17:00:47</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>01/28/2015 04:04:30</publishTime>
@@ -155,7 +155,7 @@
       <publishTime>09/02/2017 11:27:21</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>09/10/2017 13:57:26</publishTime>
+      <publishTime>09/13/2017 15:53:54</publishTime>
     </File>
     <File Include="Views/web.config">
       <publishTime>09/02/2017 11:27:11</publishTime>

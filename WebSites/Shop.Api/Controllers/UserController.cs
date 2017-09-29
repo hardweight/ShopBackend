@@ -682,9 +682,8 @@ namespace Shop.Api.Controllers
             TryInitUserModel();
 
             //递归获取分类包含子类
-            Func<ReadModel.Users.Dtos.UserAlis, object> getNodeData = null;
-            int level = 0;
-            getNodeData = user => {
+            Func<ReadModel.Users.Dtos.UserAlis,int, object> getNodeData = null;
+            getNodeData = (user,level) => {
                 dynamic node = new ExpandoObject();
                 node.Id = user.Id;
                 node.NickName = user.NickName;
@@ -693,21 +692,20 @@ namespace Shop.Api.Controllers
                 node.Portrait = user.Portrait;
                 node.Role = user.Role.ToDescription();
                 node.Invotes = new List<dynamic>();
-                
-                var invotes = _userQueryService.UserChildrens(user.Id).OrderByDescending(x => x.CreatedOn);
-                foreach (var invote in invotes)
+                if (level <= 1)
                 {
-                    if (level <= 1)//只递归两层
+                    level++;
+                    var invotes = _userQueryService.UserChildrens(user.Id).OrderByDescending(x => x.CreatedOn);
+                    foreach (var invote in invotes)
                     {
-                        node.Invotes.Add(getNodeData(invote));
+                        node.Invotes.Add(getNodeData(invote, level));
                     }
                 }
-                level++;
                 return node;
             };
 
             var myInvotes = _userQueryService.UserChildrens(_user.Id).OrderByDescending(x => x.CreatedOn);
-            List<object> nodes = myInvotes.Select(getNodeData).ToList();
+            List<object> nodes = myInvotes.Select(x=>getNodeData(x,0)).ToList();
 
             return new MyInvotesResponse
             {
@@ -1025,18 +1023,22 @@ namespace Shop.Api.Controllers
             request.CheckNotNull(nameof(request));
 
             var pageSize = 20;
-            var users = _userQueryService.UserList().Where(x=>x.Role==request.Role);
+            var users = _userQueryService.UserList();
             var total = users.Count();
 
+            //筛选
+            if (request.Role != UserRole.All)
+            {
+                users = users.Where(x => x.Role == request.Role);
+            }
             if (!request.Mobile.IsNullOrEmpty())
             {
-                users= users.Where(x=>x.Mobile.Contains(request.Mobile)).OrderByDescending(x=>x.CreatedOn).Skip(pageSize*(request.Page-1)).Take(pageSize);
-                total = users.Count();
+                users= users.Where(x=>x.Mobile.Contains(request.Mobile));
             }
-            else
-            {
-                users = users.OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
-            }
+            total = users.Count();
+
+            //分页
+            users = users.OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
 
             return new ListPageResponse
             {

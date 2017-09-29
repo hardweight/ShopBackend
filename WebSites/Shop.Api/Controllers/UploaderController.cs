@@ -1,12 +1,14 @@
 ﻿using Shop.Api.Models.Response;
 using Shop.Api.Models.Response.Uploader;
 using Shop.Api.Utils.Oss;
+using Shop.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using Xia.Common.Extensions;
 
 namespace Shop.Api.Controllers
 {
@@ -40,7 +42,7 @@ namespace Shop.Api.Controllers
             {
                 return new BaseApiResponse { Code = 400, Message = "没有文件" };
             }
-            return new SingleFileUploadResponse { Url= ossHost + "/"+ossFileName };
+            return new SingleFileUploadResponse { Url= ossHost + "/"+ossFileName.ToOssStyleUrl(OssImageStyles.GoodsDetailPic.ToDescription()) };
         }
     }
 }

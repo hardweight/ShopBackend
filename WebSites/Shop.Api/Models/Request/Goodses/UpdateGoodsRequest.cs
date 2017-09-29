@@ -14,6 +14,7 @@ namespace Shop.Api.Models.Request.Goodses
         public decimal Benevolence { get; set; }
         public int SellOut { get;  set; }
         public GoodsStatus Status { get; set; }
+        public string RefusedReason { get; set; }
 
         public IList<EditSpecificationInfo> Specifications { get; set; }
     }

@@ -48,5 +48,6 @@ C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.App\bin\zh-Hans\Sys
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.App\bin\zh-Hans\System.Web.Webpages.Razor.resources.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.App\bin\zh-Hans\System.Web.Helpers.resources.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.App\bin\zh-Hans\System.Web.Mvc.resources.dll
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.App\obj\Debug\Shop.App.csprojResolveAssemblyReference.cache
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.App\obj\Debug\Shop.App.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.App\obj\Debug\Shop.App.pdb

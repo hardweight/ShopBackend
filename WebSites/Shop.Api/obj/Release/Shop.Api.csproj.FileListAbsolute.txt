@@ -125,3 +125,4 @@ C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Common.Logg
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Common.Logging.Core.xml
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\LitJson.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Aliyun.OSS.dll
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\WebSites\Shop.Api\bin\Alipay.dll

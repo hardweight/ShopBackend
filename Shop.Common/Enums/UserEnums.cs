@@ -7,6 +7,8 @@ namespace Shop.Common.Enums
     /// </summary>
     public enum UserRole
     {
+        [Description("全部")]
+        All=-1,
         [Description("善心使者")]
         Consumer = 0,
 

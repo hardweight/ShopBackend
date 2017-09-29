@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shop.Common.Enums;
+using System;
 
 namespace Shop.ReadModel.Carts.Dtos
 {
@@ -17,5 +18,7 @@ namespace Shop.ReadModel.Carts.Dtos
         public int Quantity { get; set; }
         public int Stock { get;  set; }
         public decimal Benevolence { get; set; }
+        public bool IsGoodsPublished { get; set; }
+        public GoodsStatus GoodsStatus { get; set; }
     }
 }

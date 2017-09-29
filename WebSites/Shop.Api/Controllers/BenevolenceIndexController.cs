@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Xia.Common.Extensions;
+using System.Linq;
+using Shop.Common.Enums;
 
 namespace Shop.Api.Controllers
 {
@@ -53,13 +55,15 @@ namespace Shop.Api.Controllers
             //}
 
             //指定范围的随机数
-            var randomArray =new decimal[] { 0.0023M, 0.00232M, 0.00234M, 0.00236M,0.00233M,0.00237M,
-                0.0024M, 0.00241M, 0.00245M, 0.00242M,0.00243M,0.00247M,0.00248M,0.00249M,
-                0.00256M, 0.00257M,0.00252M,0.00255M,0.00251M,0.00254M,
-                0.0026M, 0.00261M, 0.00264M,0.00265M,0.00266M,0.00267M,0.00268M,0.00269M,
-                0.0027M,0.00273M,0.00274M,0.00275M,0.00279M,
-                0.0028M };
-            currentBIndex = new Random().NextItem(randomArray);
+            
+            //从缓存获取善心指数
+            var benevolenceIndex = _apiSession.GetBenevolenceIndex();
+            if (benevolenceIndex == null)
+            {
+                benevolenceIndex = RandomArray.BenevolenceIndex().ToString();
+                _apiSession.SetBenevolenceIndex(benevolenceIndex);
+            }
+            currentBIndex = Convert.ToDecimal(benevolenceIndex);
 
             return new InfoResponse
             {
@@ -68,6 +72,33 @@ namespace Shop.Api.Controllers
                 ConsumerCount = 3453,
                 PasserCount = 35346,
                 AmbassadorCount = 44343
+            };
+        }
+
+        /// <summary>
+        /// 善心排行榜
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("BenevolenceIndex/BenevolenceRank")]
+        public BaseApiResponse BenevolenceRank()
+        {
+            var walletAlis = _walletQueryService.BenevolenceRank(10);
+
+            return new BenevolenceRankResponse
+            {
+                WalletAlises = walletAlis.Select(x => new WalletAlis
+                {
+                    Id = x.Id,
+                    UserId = x.UserId,
+                    NickName = x.NickName,
+                    Mobile = x.Mobile,
+                    Portrait=x.Portrait.ToOssStyleUrl(OssImageStyles.UserPortrait.ToDescription()),
+                    Cash = x.Cash,
+                    Benevolence = x.Benevolence,
+                    Earnings = x.Earnings
+                }).ToList()
             };
         }
 

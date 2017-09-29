@@ -11,6 +11,7 @@ namespace Shop.ReadModel.Users
         
         User FindUser(Guid userId);
         User FindUser(string mobile);
+
         bool CheckMobileIsAvliable(string mobile);
 
         IEnumerable<ExpressAddress> GetExpressAddresses(Guid userId);

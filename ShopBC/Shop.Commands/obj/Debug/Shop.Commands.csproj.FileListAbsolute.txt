@@ -52,6 +52,7 @@ C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\bin\Debug\EQ
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\bin\Debug\log4net.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\bin\Debug\Newtonsoft.Json.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\bin\Debug\Shop.Common.dll
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\bin\Debug\Xia.Common.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\bin\Debug\Shop.Common.pdb
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\bin\Debug\Autofac.xml
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\bin\Debug\Dapper.xml
@@ -63,6 +64,7 @@ C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\bin\Debug\EQ
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\bin\Debug\EQueue.xml
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\bin\Debug\log4net.xml
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\bin\Debug\Newtonsoft.Json.xml
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\bin\Debug\Xia.Common.pdb
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\obj\Debug\Shop.Commands.csprojResolveAssemblyReference.cache
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\obj\Debug\Shop.Commands.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\obj\Debug\Shop.Commands.pdb

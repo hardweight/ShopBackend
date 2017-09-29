@@ -15,6 +15,14 @@ namespace Shop.ReadModel.PubCategorys
     [Component]
     public class PubCategoryQueryService : BaseQueryService,IPubCategoryQueryService
     {
+        public PubCategory Find(Guid id)
+        {
+            using (var connection = GetConnection())
+            {
+                return connection.QueryList<PubCategory>(new { Id = id }, ConfigSettings.PubCategoryTable).SingleOrDefault();
+            }
+        }
+
         /// <summary>
         /// 获取跟分类
         /// </summary>

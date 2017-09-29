@@ -9,7 +9,9 @@ namespace Shop.CommandHandlers
     [Component]
     public class PubCategoryCommandHandler :
         ICommandHandler<CreatePubCategoryCommand>,
-        ICommandHandler<UpdatePubCategoryCommand>
+        ICommandHandler<UpdatePubCategoryCommand>,
+
+        ICommandHandler<DeletePubCategoryCommand>
     {
         public void Handle(ICommandContext context, CreatePubCategoryCommand command)
         {
@@ -23,6 +25,7 @@ namespace Shop.CommandHandlers
                 parent, 
                 command.Name,
                 command.Thumb,
+                command.IsShow,
                 command.Sort);
             
             //将领域对象添加到上下文中
@@ -34,7 +37,13 @@ namespace Shop.CommandHandlers
             context.Get<PubCategory>(command.AggregateRootId).UpdateCategory(
                 command.Name,
                 command.Thumb,
+                command.IsShow,
                 command.Sort);
+        }
+
+        public void Handle(ICommandContext context, DeletePubCategoryCommand command)
+        {
+            context.Get<PubCategory>(command.AggregateRootId).Delete();
         }
     }
 }

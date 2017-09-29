@@ -22,7 +22,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>7</ApplicationRevision>
+    <ApplicationRevision>17</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -113,6 +113,8 @@
     <Compile Include="Jobs\OrderGoodses\OrderGoodsJobScheduler.cs" />
     <Compile Include="Jobs\Orders\ExpiredOrderJob.cs" />
     <Compile Include="Jobs\Orders\OrderJobScheduler.cs" />
+    <Compile Include="Jobs\Wallets\IncentiveJob.cs" />
+    <Compile Include="Jobs\Wallets\IncentiveJobScheduler.cs" />
     <Compile Include="Jobs\WithdrawClearWeekAmount\WithdrawClearWeekAmountJob.cs" />
     <Compile Include="Jobs\WithdrawClearWeekAmount\WithdrawClearWeekAmountJobScheduler.cs" />
     <Compile Include="Program.cs" />

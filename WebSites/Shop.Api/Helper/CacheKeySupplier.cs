@@ -43,5 +43,23 @@
             const string Key = "USERMODEL_";
             return Key + userId;
         }
+
+        public static string HomeNewGoodsesCacheKey()
+        {
+            return "HOMENEWGOOSES";
+        }
+        public static string HomeRateGoodsesCacheKey()
+        {
+            return "HOMERATEGOOSES";
+        }
+        public static string HomeSelloutGoodsesCacheKey()
+        {
+            return "HOMESELLOUTGOOSES";
+        }
+
+        public static string BenevolenceIndexCacheKey()
+        {
+            return "BENEVOLENCEINDEX";
+        }
     }
 }

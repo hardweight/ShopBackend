@@ -17,19 +17,24 @@ namespace Shop.Domain.Models.Categorys
         private string _thumb;
         private int _sort;
         private Guid _parentId;
+        private bool _isShow;
 
-        public Category(Guid id,Category parent,string name,string url,string thumb,CategoryType type,int sort):base(id)
+        public Category(Guid id,Category parent,string name,string url,string thumb,CategoryType type,bool isShow,int sort):base(id)
         {
             name.CheckNotNullOrEmpty(nameof(name));
             url.CheckNotNullOrEmpty(nameof(url));
-            ApplyEvent(new CategoryCreatedEvent(parent == null ? Guid.Empty : parent.Id,name, url,thumb,type,sort));
+            ApplyEvent(new CategoryCreatedEvent(parent == null ? Guid.Empty : parent.Id,name, url,thumb,type,isShow,sort));
         }
 
-        public void UpdateCategory(string name,string url,string thumb,CategoryType type,int sort)
+        public void UpdateCategory(string name,string url,string thumb,CategoryType type,bool isShow,int sort)
         {
-            ApplyEvent(new CategoryUpdatedEvent(name,url,thumb,type,sort));
+            ApplyEvent(new CategoryUpdatedEvent(name,url,thumb,type,isShow,sort));
         }
 
+        public void Delete()
+        {
+            ApplyEvent(new CategoryDeletedEvent());
+        }
 
         #region Handle
 
@@ -41,7 +46,14 @@ namespace Shop.Domain.Models.Categorys
             _url = evnt.Url;
             _thumb = evnt.Thumb;
             _type = evnt.Type;
+            _isShow = evnt.IsShow;
             _sort = evnt.Sort;
+        }
+        private void Handle(CategoryDeletedEvent evnt)
+        {
+            _name = null;
+            _url = null;
+            _thumb = null;
         }
         private void Handle(CategoryUpdatedEvent evnt)
         {
@@ -49,6 +61,7 @@ namespace Shop.Domain.Models.Categorys
             _url = evnt.Url;
             _thumb = evnt.Thumb;
             _type = evnt.Type;
+            _isShow = evnt.IsShow;
             _sort = evnt.Sort;
         }
         #endregion

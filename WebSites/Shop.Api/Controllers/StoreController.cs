@@ -1,27 +1,22 @@
-﻿using ENode.Commanding;
+﻿using ECommon.IO;
+using ENode.Commanding;
+using Shop.Api.Extensions;
 using Shop.Api.Helper;
 using Shop.Api.Models.Request.Store;
 using Shop.Api.Models.Response;
+using Shop.Api.Models.Response.Goodses;
+using Shop.Api.Models.Response.Store;
+using Shop.Commands.Stores;
+using Shop.Common.Enums;
 using Shop.ReadModel.Goodses;
+using Shop.ReadModel.StoreOrders;
 using Shop.ReadModel.Stores;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Http.Cors;
-using Xia.Common.Extensions;
-using Shop.Commands.Stores;
-using ECommon.IO;
-using Shop.Api.Extensions;
 using System.Web.Http;
-using Shop.Api.Models.Response.Store;
-using Shop.Commands.Goodses;
-using Shop.ReadModel.StoreOrders;
-using Shop.Common.Enums;
-using Shop.Api.Models.Response.StoreOrders;
+using System.Web.Http.Cors;
 using Xia.Common;
-using Shop.Api.Models.Response.Goodses;
+using Xia.Common.Extensions;
 
 namespace Shop.Api.Controllers
 {
@@ -90,7 +85,7 @@ namespace Shop.Api.Controllers
                         TotalSale = storeInfo.TotalSale,
                         TotalOrder = storeInfo.TotalOrder
                     },
-                    StoreOrders = placedStoreOrderes.Select(x => new StoreOrder
+                    StoreOrders = placedStoreOrderes.Select(x => new Models.Response.StoreOrders.StoreOrder
                     {
                         Id = x.Id,
                         StoreId = x.StoreId,
@@ -106,7 +101,7 @@ namespace Shop.Api.Controllers
                         Total = x.Total,
                         StoreTotal = x.StoreTotal,
                         Status = x.Status.ToDescription(),
-                        StoreOrderGoodses = x.StoreOrderGoodses.Select(z => new StoreOrderGoods
+                        StoreOrderGoodses = x.StoreOrderGoodses.Select(z => new Models.Response.StoreOrders.StoreOrderGoods
                         {
                             Id = z.Id,
                             GoodsId = z.GoodsId,
@@ -144,7 +139,7 @@ namespace Shop.Api.Controllers
             {
                 return new BaseApiResponse();
             }
-            var goodses = _goodsQueryService.GetStoreGoodses(request.Id).OrderByDescending(x=>x.Rate).Take(10);
+            var goodses = _goodsQueryService.GetStoreGoodses(request.Id).OrderByDescending(x=>x.Rate).Take(60);
             if (storeInfo != null)
             {
                 return new HomeInfoResponse
@@ -160,11 +155,21 @@ namespace Shop.Api.Controllers
                         Type = storeInfo.Type.ToDescription(),
                         Status = storeInfo.Status.ToDescription()
                     },
+                    SubjectInfo=new SubjectInfo
+                    {
+                        SubjectName=storeInfo.SubjectName,
+                        SubjectNumber=storeInfo.SubjectNumber,
+                        SubjectPic=storeInfo.SubjectPic
+                    },
                     Goodses = goodses.Select(x => new Goods
                     {
                         Id = x.Id,
+                        Pics= x.Pics.Split("|", true).Select(img => img.ToOssStyleUrl(OssImageStyles.GoodsMainPic.ToDescription())).ToList(),
                         Name = x.Name,
-                        Price = x.Price
+                        Price = x.Price,
+                        OriginalPrice=x.OriginalPrice,
+                        Benevolence =x.Benevolence,
+                        SellOut=x.SellOut
                     }).ToList()
                 };
             }
@@ -315,17 +320,26 @@ namespace Shop.Api.Controllers
             request.CheckNotNull(nameof(request));
 
             var pageSize = 20;
-            var stores = _storeQueryService.StoreList().Where(x=>x.Type==request.Type && x.Status==request.Status);
+            var stores = _storeQueryService.StoreList();
             var total = stores.Count();
+            //筛选
+            if (request.Type != StoreType.All)
+            {
+                stores = stores.Where(x => x.Type == request.Type);
+            }
+            if (request.Status != StoreStatus.All)
+            {
+                stores = stores.Where(x => x.Status == request.Status);
+            }
             if (!request.Name.IsNullOrEmpty())
             {
-                stores = stores.Where(x => x.Name.Contains(request.Name)).OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
-                total = stores.Count();
+                stores = stores.Where(x => x.Name.Contains(request.Name));
             }
-            else
-            {
-                stores = stores.OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
-            }
+            total = stores.Count();
+
+            //分页
+            stores = stores.OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
+            
             return new ListPageResponse
             {
                 Total = total,

@@ -18,6 +18,7 @@ namespace Shop.CommandHandlers
         ICommandHandler<StoreUpdateGoodsCommand>,
         ICommandHandler<UpdateGoodsCommand>,
         ICommandHandler<UpdateStatusCommand>,
+        ICommandHandler<DeleteGoodsCommand>,
 
         ICommandHandler<PublishGoodsCommand>,
         ICommandHandler<UnpublishGoodsCommand>,
@@ -50,9 +51,9 @@ namespace Shop.CommandHandlers
                 command.Name,
                 command.Description,
                 command.Pics,
-                command.OriginalPrice,//平台售价,
+                command.Price,//建议售价,
                 command.OriginalPrice,
-                command.OriginalPrice / ConfigSettings.BenevolenceValue,//善心
+                command.Price / ConfigSettings.BenevolenceValue,//善心
                 command.Stock,
                 0,//已销售量
                 command.IsPayOnDelivery,
@@ -88,7 +89,8 @@ namespace Shop.CommandHandlers
                 command.Price,
                 command.Benevolence,
                 command.SellOut,
-                command.Status));
+                command.Status,
+                command.RefusedReason));
         }
         public void Handle(ICommandContext context, PublishGoodsCommand command)
         {
@@ -197,6 +199,11 @@ namespace Shop.CommandHandlers
         public void Handle(ICommandContext context, UpdateStatusCommand command)
         {
             context.Get<Goods>(command.AggregateRootId).UpdateStatus(command.Status);
+        }
+
+        public void Handle(ICommandContext context, DeleteGoodsCommand command)
+        {
+            context.Get<Goods>(command.AggregateRootId).Delete();
         }
     }
 }

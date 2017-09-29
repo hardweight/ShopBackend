@@ -1,5 +1,7 @@
-﻿using ECommon.IO;
+﻿
+using ECommon.IO;
 using ENode.Commanding;
+using Shop.Api.AliPayAPI;
 using Shop.Api.Extensions;
 using Shop.Api.Helper;
 using Shop.Api.Models.Request.Payment;
@@ -13,6 +15,7 @@ using Shop.ReadModel.Payments.Dtos;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Xia.Common.Extensions;
@@ -101,7 +104,7 @@ namespace Shop.Api.Controllers
             request.CheckNotNull(nameof(request));
 
             //向微信提交订单获取prepayid
-            var apiPay = new ApiPay(request.Amount);
+            var apiPay = new ApiPay(Convert.ToInt32(request.Amount));
             
             WxPayData data = new WxPayData();
             data.SetValue("appid", WxPayConfig.APPID);
@@ -132,7 +135,11 @@ namespace Shop.Api.Controllers
         {
             request.CheckNotNull(nameof(request));
 
-            return new BaseApiResponse();
+            var orderInfo = AliPayApi.GetAlipayOrderInfo(request.Amount,DateTime.Now.ToSerialNumber());
+
+            return new BaseApiResponse {
+                Message= orderInfo
+            };
         }
 
 

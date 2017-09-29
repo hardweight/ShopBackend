@@ -11,17 +11,19 @@ namespace Shop.Domain.Events.Categorys
         public string Url { get; private set; }
         public string Thumb { get; private set; }
         public CategoryType Type { get; private set; }
+        public bool IsShow { get; set; }
         public int Sort { get; private set; }
 
 
         public CategoryCreatedEvent() { }
-        public CategoryCreatedEvent(Guid parentId,string name,string url,string thumb,CategoryType type,int sort)
+        public CategoryCreatedEvent(Guid parentId,string name,string url,string thumb,CategoryType type,bool isShow,int sort)
         {
             ParentId = parentId;
             Name = name;
             Url = url;
             Thumb = thumb;
             Type = type;
+            IsShow = isShow;
             Sort = sort;
         }
     }

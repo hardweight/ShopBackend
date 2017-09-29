@@ -28,7 +28,9 @@ namespace Shop.ReadModel.Goodses.Dtos
         public Single ExpressRate { get;  set; }
         public int RateCount { get;  set; }
 
+        public int SellOut { get; set; }
         public bool IsPublished { get; set; }
         public GoodsStatus Status { get; set; }
+        public string RefusedReason { get; set; }
     }
 }

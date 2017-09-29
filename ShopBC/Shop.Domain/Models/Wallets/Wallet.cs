@@ -134,16 +134,14 @@ namespace Shop.Domain.Models.Wallets
                     {
                         //非第一个
                         walletStatisticInfo.YesterdayEarnings += cashTransferInfo.Amount;
-                        walletStatisticInfo.Earnings += cashTransferInfo.Amount;
-                        walletStatisticInfo.UpdatedOn = DateTime.Now;
                     }
                     else
                     {
                         //今日第一个
                         walletStatisticInfo.YesterdayEarnings = cashTransferInfo.Amount;
-                        walletStatisticInfo.Earnings += cashTransferInfo.Amount;
-                        walletStatisticInfo.UpdatedOn = DateTime.Now;
                     }
+                    walletStatisticInfo.Earnings += cashTransferInfo.Amount;
+                    walletStatisticInfo.UpdatedOn = DateTime.Now;
                 }
                 finallyValue += cashTransferInfo.Amount;
             }

@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Alipay, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Alipay.2.0.0\lib\net35\Alipay.dll</HintPath>
+    </Reference>
     <Reference Include="aliyun-net-sdk-core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\aliyun-net-sdk-core.dll</HintPath>
@@ -197,6 +200,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AliPayAPI\AliPayApi.cs" />
+    <Compile Include="AliPayAPI\Config.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\BenevolenceIndexController.cs" />
@@ -237,11 +242,16 @@
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\Request\Admins\LoginRequest.cs" />
+    <Compile Include="Models\Request\Announcements\DeleteRequest.cs" />
     <Compile Include="Models\Request\Announcements\EditAnnouncementRequest.cs" />
     <Compile Include="Models\Request\Announcements\AddAnnouncementRequest.cs" />
+    <Compile Include="Models\Request\Announcements\ListPageRequest.cs" />
     <Compile Include="Models\Request\Carts\AddCartGoodsRequest.cs" />
     <Compile Include="Models\Request\Carts\RemoveCartGoodsRequest.cs" />
+    <Compile Include="Models\Request\Categorys\DeleteRequest.cs" />
     <Compile Include="Models\Request\Categorys\ListPageRequest.cs" />
+    <Compile Include="Models\Request\Goodses\CommentRequest.cs" />
+    <Compile Include="Models\Request\Goodses\DeleteRequest.cs" />
     <Compile Include="Models\Request\Goodses\ListPageRequest.cs" />
     <Compile Include="Models\Request\Goodses\UpdateGoodsSpecificationsRequest.cs" />
     <Compile Include="Models\Request\Goodses\GetParamsRequest.cs" />
@@ -255,6 +265,7 @@
     <Compile Include="Models\Request\Orders\ConfirmPaymentRequest.cs" />
     <Compile Include="Models\Request\Payment\ProcessorPaymentRequest.cs" />
     <Compile Include="Models\Request\PubCategorys\AddPubCategoryRequest.cs" />
+    <Compile Include="Models\Request\PubCategorys\DeleteRequest.cs" />
     <Compile Include="Models\Request\PubCategorys\ListPageRequest.cs" />
     <Compile Include="Models\Request\PubCategorys\UpdatePubCategoryRequest.cs" />
     <Compile Include="Models\Request\Categorys\AddCategoryRequest.cs" />
@@ -262,8 +273,10 @@
     <Compile Include="Models\Request\Payment\PaymentRequest.cs" />
     <Compile Include="Models\Request\Goodses\AddGoodsRequest.cs" />
     <Compile Include="Models\Request\StoreOrders\ApplyRefundRequest.cs" />
+    <Compile Include="Models\Request\StoreOrders\DeleteRequest.cs" />
     <Compile Include="Models\Request\StoreOrders\ExpressScheduleRequest.cs" />
     <Compile Include="Models\Request\StoreOrders\InfoRequest.cs" />
+    <Compile Include="Models\Request\StoreOrders\ListPageRequest.cs" />
     <Compile Include="Models\Request\StoreOrders\StoreOrderOpRequest.cs" />
     <Compile Include="Models\Request\StoreOrders\DeliverRequest.cs" />
     <Compile Include="Models\Request\StoreOrders\StoreOrdersRequest.cs" />
@@ -300,6 +313,7 @@
     <Compile Include="Models\Request\User\UserStateRequest.cs" />
     <Compile Include="Models\Request\User\VerifyCodeRequest.cs" />
     <Compile Include="Models\Request\User\VerifyMsgCodeRequest.cs" />
+    <Compile Include="Models\Request\Wallet\AcceptTransferRequest.cs" />
     <Compile Include="Models\Request\Wallet\AddBankCardRequest.cs" />
     <Compile Include="Models\Request\Wallet\AddBenevolenceTransferRequest.cs" />
     <Compile Include="Models\Request\Wallet\AddCashTransferRequest.cs" />
@@ -322,7 +336,11 @@
     <Compile Include="Models\Response\Announcements\ListResponse.cs" />
     <Compile Include="Models\Response\Apps\AppVersion.cs" />
     <Compile Include="Models\Response\Apps\AppVersionResponse.cs" />
+    <Compile Include="Models\Response\Apps\HomeBanner.cs" />
+    <Compile Include="Models\Response\Apps\HomeBanners.cs" />
+    <Compile Include="Models\Response\Apps\HomeBannerResponse.cs" />
     <Compile Include="Models\Response\BaseApiResponse.cs" />
+    <Compile Include="Models\Response\BenevolenceIndex\BenevolenceRankResponse.cs" />
     <Compile Include="Models\Response\BenevolenceIndex\InfoResponse.cs" />
     <Compile Include="Models\Response\Carts\CartInfoResponse.cs" />
     <Compile Include="Models\Response\Categorys\ListPageResponse.cs" />
@@ -341,6 +359,7 @@
     <Compile Include="Models\Response\Goodses\AllGoodsResponse.cs" />
     <Compile Include="Models\Response\Statisticses\DashBoardResponse.cs" />
     <Compile Include="Models\Response\StoreOrders\InfoResponse.cs" />
+    <Compile Include="Models\Response\StoreOrders\ListPageResponse.cs" />
     <Compile Include="Models\Response\StoreOrders\UserOrdersResponse.cs" />
     <Compile Include="Models\Response\Store\HomeInfoResponse.cs" />
     <Compile Include="Models\Response\Store\ListPageResponse.cs" />
@@ -363,6 +382,7 @@
     <Compile Include="Models\Response\User\VerifyCodeResponse.cs" />
     <Compile Include="Models\Response\Wallet\GetBenevolenceTransfersResponse.cs" />
     <Compile Include="Models\Response\Wallet\GetCashTransfersResponse.cs" />
+    <Compile Include="Models\Response\Wallet\IncentiveLogsResponse.cs" />
     <Compile Include="Models\Response\Wallet\ListPageResponse.cs" />
     <Compile Include="Models\Response\Wallet\TotalBenevolenceResponse.cs" />
     <Compile Include="Models\Response\Wallet\WalletInfoResponse.cs" />
@@ -476,7 +496,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Json\data.json" />
+    <Content Include="Json\homeBanners.json" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
   </ItemGroup>

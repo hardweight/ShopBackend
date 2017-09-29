@@ -2,7 +2,7 @@
 {
     public class PaymentRequest
     {
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
         public string OrderNumber { get; set; }
     }
 }

@@ -58,12 +58,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\Announcements\AnnouncementDeletedEvent.cs" />
     <Compile Include="Events\Announcements\AnnouncementUpdatedEvent.cs" />
     <Compile Include="Events\Announcements\AnnouncementCreatedEvent.cs" />
     <Compile Include="Events\Carts\CartAddedGoodsEvent.cs" />
     <Compile Include="Events\Carts\CartCreatedEvent.cs" />
     <Compile Include="Events\Carts\CartGoodsQuantityChangedEvent.cs" />
     <Compile Include="Events\Carts\CartRemovedGoodsEvent.cs" />
+    <Compile Include="Events\Categorys\CategoryDeletedEvent.cs" />
+    <Compile Include="Events\Goodses\GoodsDeletedEvent.cs" />
     <Compile Include="Events\Goodses\GoodsStatusUpdatedEvent.cs" />
     <Compile Include="Events\Goodses\GoodsUpdatedEvent.cs" />
     <Compile Include="Events\Goodses\Specifications\SpecificationsAddedEvent.cs" />
@@ -77,6 +80,7 @@
     <Compile Include="Events\Payments\PaymentCompletedEvent.cs" />
     <Compile Include="Events\Payments\PaymentInitiatedEvent.cs" />
     <Compile Include="Events\Payments\PaymentRejectedEvent.cs" />
+    <Compile Include="Events\PubCategorys\PubCategoryDeletedEvent.cs" />
     <Compile Include="Events\PubCategorys\PubCategoryCreatedEvent.cs" />
     <Compile Include="Events\PubCategorys\PubCategoryUpdatedEvent.cs" />
     <Compile Include="Events\Categorys\CategoryCreatedEvent.cs" />
@@ -106,6 +110,7 @@
     <Compile Include="Events\Grantees\GranteeVerifyedEvent.cs" />
     <Compile Include="Events\Partners\ParentPartnerShouldAcceptNewSaleEvent.cs" />
     <Compile Include="Events\Stores\StoreAccessCodeUpdatedEvent.cs" />
+    <Compile Include="Events\Stores\StoreOrders\StoreOrderDeletedEvent.cs" />
     <Compile Include="Events\Stores\StoreUpdatedEvent.cs" />
     <Compile Include="Events\Stores\StoreOrders\AgreeRefundedEvent.cs" />
     <Compile Include="Events\Stores\StoreOrders\AgreeReturnEvent.cs" />
@@ -133,10 +138,12 @@
     <Compile Include="Events\Stores\StoreUnLockedEvent.cs" />
     <Compile Include="Events\Stores\StoreCustomerUpdatedEvent.cs" />
     <Compile Include="Events\Stores\SubjectInfoUpdatedEvent.cs" />
+    <Compile Include="Events\Users\AcceptedChildStoreSaleCashEvent.cs" />
     <Compile Include="Events\Users\AcceptedChildStoreSaleBenevolenceEvent.cs" />
     <Compile Include="Events\Users\MyParentSetedEvent.cs" />
     <Compile Include="Events\Users\UserEditedEvent.cs" />
     <Compile Include="Events\Users\UserGenderUpdatedEvent.cs" />
+    <Compile Include="Events\Users\UserGetChildStoreSaleCashEvent.cs" />
     <Compile Include="Events\Users\UserNickNameUpdatedEvent.cs" />
     <Compile Include="Events\Users\UserPasswordUpdatedEvent.cs" />
     <Compile Include="Events\Users\UserPortraitUpdatedEvent.cs" />

@@ -13,7 +13,8 @@ namespace Shop.Commands.Goodses
         public decimal Price { get; private set; }
         public decimal Benevolence { get; private set; }
         public int SellOut { get; private set; }
-        public GoodsStatus Status { get; set; }
+        public GoodsStatus Status { get;private set; }
+        public string RefusedReason { get;private set; }
 
 
         public UpdateGoodsCommand() { }
@@ -24,7 +25,8 @@ namespace Shop.Commands.Goodses
             decimal price,
             decimal benevolence,
             int sellOut,
-            GoodsStatus status)
+            GoodsStatus status,
+            string refusedReason)
         {
             Name = name;
             Description = description;
@@ -33,6 +35,7 @@ namespace Shop.Commands.Goodses
             Benevolence = benevolence;
             SellOut = sellOut;
             Status = status;
+            RefusedReason = refusedReason;
         }
     }
 }

@@ -15,23 +15,19 @@ namespace Shop.ReadModel.Categorys
     [Component]
     public class CategoryQueryService : BaseQueryService,ICategoryQueryService
     {
+        public Category Find(Guid id)
+        {
+            using (var connection = GetConnection())
+            {
+                return connection.QueryList<Category>(new { Id = id }, ConfigSettings.CategoryTable).SingleOrDefault();
+            }
+        }
         /// <summary>
         /// 获取跟分类
         /// </summary>
         /// <returns></returns>
         public IEnumerable<Category> RootCategorys()
         {
-            //var sql = string.Format(@"select Id
-            //,Name
-            //,Thumb
-            //,[Url]
-            //,(select * from {0} where {0}.ParentId={0}.Id) as Children 
-            //from {1} where ParentId={1}",  ConfigSettings.CategoryTable,Guid.Empty);
-
-            //using (var connection = GetConnection())
-            //{
-            //    return connection.Query<Category>(sql);
-            //}
             using (var connection = GetConnection())
             {
                 return connection.QueryList<Category>(new { ParentId = Guid.Empty}, ConfigSettings.CategoryTable).ToList();

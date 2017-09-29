@@ -15,6 +15,14 @@ namespace Shop.ReadModel.StoreOrders
     [Component]
     public class StoreOrderQueryService:BaseQueryService,IStoreOrderQueryService
     {
+        public StoreOrder Find(Guid id)
+        {
+            using (var connection = GetConnection())
+            {
+                return connection.QueryList<StoreOrder>(new { Id = id }, ConfigSettings.StoreOrderTable).FirstOrDefault();
+            }
+        }
+
         public StoreOrderDetails FindOrder(Guid orderId)
         {
             using (var connection = GetConnection())
@@ -27,6 +35,30 @@ namespace Shop.ReadModel.StoreOrders
                 }
                 return null;
             }
+        }
+
+        public IEnumerable<StoreOrderWithInfo> StoreOrderList()
+        {
+            var sql = string.Format(@"select 
+            b.*,
+            a.Mobile,
+            a.NickName,
+            c.Name 
+            from {0} as a inner join {1} as b on a.Id=b.UserId inner join {2} as c on b.StoreId=c.Id ",
+            ConfigSettings.UserTable,
+            ConfigSettings.StoreOrderTable,
+            ConfigSettings.StoreTable
+            );
+
+            using (var connection = GetConnection())
+            {
+                return connection.Query<StoreOrderWithInfo>(sql);
+            }
+
+            //using (var connection = GetConnection())
+            //{
+            //    return connection.QueryList<StoreOrder>(new {  }, ConfigSettings.StoreOrderTable);
+            //}
         }
 
         public IEnumerable<StoreOrder> StoreStoreOrders(Guid storeId)

@@ -13,11 +13,17 @@
     <File Include="ApplicationInsights.config">
       <publishTime>07/05/2017 14:56:36</publishTime>
     </File>
+    <File Include="bin/Alipay.dll">
+      <publishTime>08/05/2017 19:43:52</publishTime>
+    </File>
     <File Include="bin/aliyun-net-sdk-core.dll">
       <publishTime>07/03/2017 21:13:16</publishTime>
     </File>
     <File Include="bin/aliyun-net-sdk-dysmsapi.dll">
       <publishTime>07/03/2017 21:13:18</publishTime>
+    </File>
+    <File Include="bin/Aliyun.OSS.dll">
+      <publishTime>05/17/2017 19:26:46</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>02/22/2013 08:43:40</publishTime>
@@ -239,34 +245,34 @@
       <publishTime>06/27/2016 14:50:24</publishTime>
     </File>
     <File Include="bin/Shop.Api.dll">
-      <publishTime>08/31/2017 14:56:31</publishTime>
+      <publishTime>09/26/2017 16:06:04</publishTime>
     </File>
     <File Include="bin/Shop.Api.pdb">
-      <publishTime>08/31/2017 14:56:31</publishTime>
+      <publishTime>09/26/2017 16:06:04</publishTime>
     </File>
     <File Include="bin/Shop.Commands.dll">
-      <publishTime>08/29/2017 16:05:26</publishTime>
+      <publishTime>09/26/2017 16:05:48</publishTime>
     </File>
     <File Include="bin/Shop.Commands.pdb">
-      <publishTime>08/29/2017 16:05:26</publishTime>
+      <publishTime>09/26/2017 16:05:48</publishTime>
     </File>
     <File Include="bin/Shop.Common.dll">
-      <publishTime>08/29/2017 16:05:21</publishTime>
+      <publishTime>09/23/2017 10:49:41</publishTime>
     </File>
     <File Include="bin/Shop.Common.pdb">
-      <publishTime>08/29/2017 16:05:21</publishTime>
+      <publishTime>09/23/2017 10:49:41</publishTime>
     </File>
     <File Include="bin/Shop.Domain.dll">
-      <publishTime>08/29/2017 16:05:26</publishTime>
+      <publishTime>09/26/2017 16:05:48</publishTime>
     </File>
     <File Include="bin/Shop.Domain.pdb">
-      <publishTime>08/29/2017 16:05:26</publishTime>
+      <publishTime>09/26/2017 16:05:48</publishTime>
     </File>
     <File Include="bin/Shop.ReadModel.dll">
-      <publishTime>08/29/2017 16:05:31</publishTime>
+      <publishTime>09/26/2017 16:05:53</publishTime>
     </File>
     <File Include="bin/Shop.ReadModel.pdb">
-      <publishTime>08/29/2017 16:05:31</publishTime>
+      <publishTime>09/26/2017 16:05:53</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>01/28/2015 04:02:42</publishTime>
@@ -305,10 +311,10 @@
       <publishTime>09/10/2013 17:28:38</publishTime>
     </File>
     <File Include="bin/Xia.Common.dll">
-      <publishTime>08/25/2017 14:19:48</publishTime>
+      <publishTime>09/01/2017 18:12:36</publishTime>
     </File>
     <File Include="bin/Xia.Common.pdb">
-      <publishTime>08/25/2017 14:19:48</publishTime>
+      <publishTime>09/01/2017 18:12:36</publishTime>
     </File>
     <File Include="bin/zh-Hans/System.Net.Http.Formatting.resources.dll">
       <publishTime>01/28/2015 04:02:44</publishTime>
@@ -359,7 +365,7 @@
       <publishTime>10/27/2016 23:22:04</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>08/23/2017 18:53:01</publishTime>
+      <publishTime>09/18/2017 21:49:10</publishTime>
     </File>
     <File Include="Pages/JsApiPayPage.aspx">
       <publishTime>08/23/2017 19:10:06</publishTime>
@@ -383,7 +389,7 @@
       <publishTime>07/05/2017 14:56:18</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/31/2017 15:12:32</publishTime>
+      <publishTime>09/26/2017 16:06:07</publishTime>
     </File>
   </ItemGroup>
 </Project>

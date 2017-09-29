@@ -9,6 +9,8 @@ namespace Shop.ReadModel.Categorys
     /// </summary>
     public interface ICategoryQueryService
     {
+        Category Find(Guid id);
+
         IEnumerable<Category> RootCategorys();
 
         IEnumerable<Category> GetChildren(Guid id);

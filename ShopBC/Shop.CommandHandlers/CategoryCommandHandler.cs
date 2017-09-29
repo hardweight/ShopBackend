@@ -9,7 +9,8 @@ namespace Shop.CommandHandlers
     [Component]
     public class CategoryCommandHandler :
         ICommandHandler<CreateCategoryCommand>,
-        ICommandHandler<UpdateCategoryCommand>
+        ICommandHandler<UpdateCategoryCommand>,
+        ICommandHandler<DeleteCategoryCommand>
     {
         public void Handle(ICommandContext context, CreateCategoryCommand command)
         {
@@ -25,6 +26,7 @@ namespace Shop.CommandHandlers
                 command.Url,
                 command.Thumb,
                 command.Type,
+                command.IsShow,
                 command.Sort);
             
             //将领域对象添加到上下文中
@@ -38,7 +40,13 @@ namespace Shop.CommandHandlers
                 command.Url,
                 command.Thumb,
                 command.Type,
+                command.IsShow,
                 command.Sort);
+        }
+
+        public void Handle(ICommandContext context, DeleteCategoryCommand command)
+        {
+            context.Get<Category>(command.AggregateRootId).Delete();
         }
     }
 }

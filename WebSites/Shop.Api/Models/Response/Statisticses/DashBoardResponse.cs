@@ -9,7 +9,6 @@ namespace Shop.Api.Models.Response.Statisticses
     {
         public int UserCount { get; set; }
         public int NewRegCount { get; set; }
-
         public int AmbassadorCount { get; set; }
         public int NewAmbassadorCount { get; set; }
 
@@ -17,5 +16,12 @@ namespace Shop.Api.Models.Response.Statisticses
         public decimal LockedCashTotal { get; set; }
         public decimal BenevolenceTotal { get; set; }
         public decimal TodayBenevolenceAddedTotal { get; set; }
+        public decimal LastIncentiveAmount { get; set; }
+        public decimal TotalIncentiveAmount { get; set; }
+
+        public decimal TotalSale { get; set; }
+        public decimal TodaySale { get; set; }
+        public int StoreOrderCount { get; set; }
+        public int TodayStoreOrderCount { get; set; }
     }
 }

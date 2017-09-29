@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BenevolenceTransferProcessManager.cs" />
+    <Compile Include="CommentProcessManager.cs" />
     <Compile Include="OrderProcessManager.cs" />
     <Compile Include="CashTransferProcessManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

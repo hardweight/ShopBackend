@@ -9,11 +9,16 @@ namespace Shop.ReadModel.Wallets
     {
         Wallet Info(Guid Id);
 
+        Wallet InfoByUserId(Guid userId);
+
         decimal TotalBenevolence();
 
         IEnumerable<Wallet> ListPage();
         IEnumerable<Wallet> AllWallets();
 
+        IEnumerable<WalletAlis> BenevolenceRank(int count);
+
+        IEnumerable<IncentiveInfo> GetIncentiveInfos(Guid walletId, int count);
 
         IEnumerable<WithdrawApply> WithdrawApplyLogs(Guid walletId);
         IEnumerable<WithdrawApply> WithdrawApplyLogs();
@@ -28,7 +33,8 @@ namespace Shop.ReadModel.Wallets
         IEnumerable<CashTransfer> GetCashTransfers(Guid walletId, CashTransferType type);
 
         IEnumerable<BenevolenceTransfer> GetBenevolenceTransfers(Guid walletId);
+        IEnumerable<BenevolenceTransfer> GetBenevolenceTransfers();
         IEnumerable<BenevolenceTransfer> GetBenevolenceTransfers(Guid walletId, BenevolenceTransferType type);
-
+        IEnumerable<BenevolenceTransfer> GetBenevolenceTransfers(BenevolenceTransferType type);
     }
 }

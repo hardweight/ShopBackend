@@ -25,7 +25,7 @@ namespace Shop.ReadModel.Goodses
 
         IEnumerable<GoodsDetails> Goodses();
 
-        IEnumerable<Comment> GetComments(int count);
+        IEnumerable<Comment> GetComments(Guid goodsId,int count);
 
         IEnumerable<GoodsParam> GetGoodsParams(Guid goodsId);
 

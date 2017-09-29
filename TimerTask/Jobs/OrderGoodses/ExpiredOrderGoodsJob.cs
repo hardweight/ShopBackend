@@ -31,7 +31,6 @@ namespace Shop.TimerTask.Jobs.OrderGoodses
         /// <param name="context"></param>
         public  void Execute(IJobExecutionContext context)
         {
-            Debug.WriteLine("商品服务任务执行了");
             ProcessExpiredOrderGoodses();
         }
 

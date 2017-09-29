@@ -46,7 +46,7 @@ namespace Shop.Domain.Models.Stores
         /// <param name="expressInfo"></param>
         public void Deliver(ExpressInfo expressInfo)
         {
-            if(_status!=StoreOrderStatus.Placed)
+            if(_status!=StoreOrderStatus.Placed && _status!=StoreOrderStatus.Expressing)
             {
                 throw new Exception("不正确的包裹状态");
             }
@@ -112,6 +112,17 @@ namespace Shop.Domain.Models.Stores
             }
             ApplyEvent(new AgreeReturnEvent());
         }
+        /// <summary>
+        /// 删除自己
+        /// </summary>
+        public void Delete()
+        {
+            if (_status!=StoreOrderStatus.Closed)
+            {
+                throw new Exception("无法删除未完成的订单");
+            }
+            ApplyEvent(new StoreOrderDeletedEvent());
+        }
 
         /// <summary>
         /// 获取订单商品总额
@@ -131,6 +142,12 @@ namespace Shop.Domain.Models.Stores
             _expressAddressInfo = evnt.ExpressAddressInfo;
             _orderGoodses = evnt.OrderGoodses;
             _status = StoreOrderStatus.Placed;
+        }
+        private void Handle(StoreOrderDeletedEvent evnt)
+        {
+            _expressAddressInfo = null;
+            _orderGoodses = null;
+            _info = null;
         }
         private void Handle(StoreOrderExpressedEvent evnt)
         {

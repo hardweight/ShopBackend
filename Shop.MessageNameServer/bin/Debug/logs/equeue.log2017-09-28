@@ -1,0 +1,114 @@
+2017-09-28 13:56:36,552  INFO EQueue.NameServer.NameServerController - NameServer starting...
+2017-09-28 13:56:36,569  INFO EQueue.NameServer.NameServerController - NameServer started, timeSpent: 18ms, bindingAddress: 192.168.1.143:11100
+2017-09-28 13:56:46,304  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:9200
+2017-09-28 13:56:47,260  INFO EQueue.NameServer.ClusterManager - Registered new broker, brokerInfo: {"BrokerName":"ShopBroker","GroupName":"ShopGroupName","ClusterName":"DefaultCluster","BrokerRole":0,"ProducerAddress":"192.168.1.143:11101","ConsumerAddress":"192.168.1.143:11102","AdminAddress":"192.168.1.143:11103"}
+2017-09-28 13:57:00,369  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:9201
+2017-09-28 13:57:00,890  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:9204
+2017-09-28 13:57:00,898  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:9207
+2017-09-28 13:57:00,912  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:9210
+2017-09-28 13:57:00,945  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:9213
+2017-09-28 13:57:00,951  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:9216
+2017-09-28 13:57:00,958  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:9219
+2017-09-28 13:57:00,968  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:9222
+2017-09-28 13:57:34,761  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:9200
+2017-09-28 13:57:34,764  INFO EQueue.NameServer.ClusterManager - Removed broker, brokerInfo: {"BrokerName":"ShopBroker","GroupName":"ShopGroupName","ClusterName":"DefaultCluster","BrokerRole":0,"ProducerAddress":"192.168.1.143:11101","ConsumerAddress":"192.168.1.143:11102","AdminAddress":"192.168.1.143:11103"}
+2017-09-28 13:57:34,787  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:9204
+2017-09-28 14:17:38,045  INFO EQueue.NameServer.NameServerController - NameServer starting...
+2017-09-28 14:17:38,061  INFO EQueue.NameServer.NameServerController - NameServer started, timeSpent: 16ms, bindingAddress: 192.168.1.143:11100
+2017-09-28 14:17:47,513  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:9638
+2017-09-28 14:17:48,045  INFO EQueue.NameServer.ClusterManager - Registered new broker, brokerInfo: {"BrokerName":"ShopBroker","GroupName":"ShopGroupName","ClusterName":"DefaultCluster","BrokerRole":0,"ProducerAddress":"192.168.1.143:11101","ConsumerAddress":"192.168.1.143:11102","AdminAddress":"192.168.1.143:11103"}
+2017-09-28 14:18:02,028  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:9643
+2017-09-28 14:18:02,719  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:9646
+2017-09-28 14:18:02,726  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:9649
+2017-09-28 14:18:02,821  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:9652
+2017-09-28 14:18:02,903  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:9655
+2017-09-28 14:18:02,919  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:9658
+2017-09-28 14:18:02,937  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:9661
+2017-09-28 14:18:02,953  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:9664
+2017-09-28 14:20:02,074  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:9643
+2017-09-28 14:20:02,075  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:9646
+2017-09-28 14:20:02,075  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:9661
+2017-09-28 14:20:02,077  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:9655
+2017-09-28 14:20:02,077  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:9652
+2017-09-28 14:20:02,078  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:9658
+2017-09-28 14:20:02,078  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:9664
+2017-09-28 14:20:02,078  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:9649
+2017-09-28 14:20:02,094  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:9638
+2017-09-28 14:20:02,094  INFO EQueue.NameServer.ClusterManager - Removed broker, brokerInfo: {"BrokerName":"ShopBroker","GroupName":"ShopGroupName","ClusterName":"DefaultCluster","BrokerRole":0,"ProducerAddress":"192.168.1.143:11101","ConsumerAddress":"192.168.1.143:11102","AdminAddress":"192.168.1.143:11103"}
+2017-09-28 14:28:02,645  INFO EQueue.NameServer.NameServerController - NameServer starting...
+2017-09-28 14:28:02,691  INFO EQueue.NameServer.NameServerController - NameServer started, timeSpent: 46ms, bindingAddress: 192.168.1.143:11100
+2017-09-28 14:28:43,290  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:2198
+2017-09-28 14:28:44,204  INFO EQueue.NameServer.ClusterManager - Registered new broker, brokerInfo: {"BrokerName":"ShopBroker","GroupName":"ShopGroupName","ClusterName":"DefaultCluster","BrokerRole":0,"ProducerAddress":"192.168.1.143:11101","ConsumerAddress":"192.168.1.143:11102","AdminAddress":"192.168.1.143:11103"}
+2017-09-28 14:33:41,922  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:2269
+2017-09-28 14:33:42,462  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:2272
+2017-09-28 14:33:42,467  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:2275
+2017-09-28 14:33:42,480  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:2278
+2017-09-28 14:33:42,513  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:2281
+2017-09-28 14:33:42,519  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:2284
+2017-09-28 14:33:42,525  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:2287
+2017-09-28 14:33:42,531  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:2290
+2017-09-28 14:34:52,302  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:2347
+2017-09-28 16:22:04,575  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:2281
+2017-09-28 16:22:04,576  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:2272
+2017-09-28 16:22:04,576  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:2287
+2017-09-28 16:22:04,578  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:2269
+2017-09-28 16:22:04,579  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:2290
+2017-09-28 16:22:04,579  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:2284
+2017-09-28 16:22:04,579  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:2278
+2017-09-28 16:22:04,580  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:2275
+2017-09-28 16:22:04,885  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:2347
+2017-09-28 16:22:04,921  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:2198
+2017-09-28 16:22:04,922  INFO EQueue.NameServer.ClusterManager - Removed broker, brokerInfo: {"BrokerName":"ShopBroker","GroupName":"ShopGroupName","ClusterName":"DefaultCluster","BrokerRole":0,"ProducerAddress":"192.168.1.143:11101","ConsumerAddress":"192.168.1.143:11102","AdminAddress":"192.168.1.143:11103"}
+2017-09-28 16:52:55,144  INFO EQueue.NameServer.NameServerController - NameServer starting...
+2017-09-28 16:52:55,159  INFO EQueue.NameServer.NameServerController - NameServer started, timeSpent: 16ms, bindingAddress: 192.168.1.143:11100
+2017-09-28 16:53:05,342  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:15762
+2017-09-28 16:53:06,257  INFO EQueue.NameServer.ClusterManager - Registered new broker, brokerInfo: {"BrokerName":"ShopBroker","GroupName":"ShopGroupName","ClusterName":"DefaultCluster","BrokerRole":0,"ProducerAddress":"192.168.1.143:11101","ConsumerAddress":"192.168.1.143:11102","AdminAddress":"192.168.1.143:11103"}
+2017-09-28 16:53:19,296  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:15786
+2017-09-28 16:53:19,816  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:15789
+2017-09-28 16:53:19,821  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:15792
+2017-09-28 16:53:19,831  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:15795
+2017-09-28 16:53:19,862  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:15798
+2017-09-28 16:53:19,869  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:15801
+2017-09-28 16:53:19,910  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:15804
+2017-09-28 16:53:19,932  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:15807
+2017-09-28 16:54:19,712  INFO EQueue.NameServer.NameServerController - NameServer starting...
+2017-09-28 16:54:19,726  INFO EQueue.NameServer.NameServerController - NameServer started, timeSpent: 15ms, bindingAddress: 192.168.1.143:11100
+2017-09-28 16:55:00,287  INFO EQueue.NameServer.NameServerController - NameServer starting...
+2017-09-28 16:55:00,304  INFO EQueue.NameServer.NameServerController - NameServer started, timeSpent: 18ms, bindingAddress: 192.168.1.143:11100
+2017-09-28 16:55:13,629  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:15977
+2017-09-28 16:55:14,179  INFO EQueue.NameServer.ClusterManager - Registered new broker, brokerInfo: {"BrokerName":"ShopBroker","GroupName":"ShopGroupName","ClusterName":"DefaultCluster","BrokerRole":0,"ProducerAddress":"192.168.1.143:11101","ConsumerAddress":"192.168.1.143:11102","AdminAddress":"192.168.1.143:11103"}
+2017-09-28 16:55:27,711  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:15998
+2017-09-28 16:55:28,327  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:16003
+2017-09-28 16:55:28,333  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:16006
+2017-09-28 16:55:28,342  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:16009
+2017-09-28 16:55:28,398  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:16012
+2017-09-28 16:55:28,406  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:16015
+2017-09-28 16:55:28,418  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:16018
+2017-09-28 16:55:28,438  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:16021
+2017-09-28 16:55:43,636  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:16049
+2017-09-28 16:59:35,641  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:16049
+2017-09-28 16:59:35,656  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:15977
+2017-09-28 16:59:35,656  INFO EQueue.NameServer.ClusterManager - Removed broker, brokerInfo: {"BrokerName":"ShopBroker","GroupName":"ShopGroupName","ClusterName":"DefaultCluster","BrokerRole":0,"ProducerAddress":"192.168.1.143:11101","ConsumerAddress":"192.168.1.143:11102","AdminAddress":"192.168.1.143:11103"}
+2017-09-28 17:29:18,230  INFO EQueue.NameServer.NameServerController - NameServer starting...
+2017-09-28 17:29:18,243  INFO EQueue.NameServer.NameServerController - NameServer started, timeSpent: 14ms, bindingAddress: 192.168.1.143:11100
+2017-09-28 17:29:29,599  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:19092
+2017-09-28 17:29:30,427  INFO EQueue.NameServer.ClusterManager - Registered new broker, brokerInfo: {"BrokerName":"ShopBroker","GroupName":"ShopGroupName","ClusterName":"DefaultCluster","BrokerRole":0,"ProducerAddress":"192.168.1.143:11101","ConsumerAddress":"192.168.1.143:11102","AdminAddress":"192.168.1.143:11103"}
+2017-09-28 17:29:39,439  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:19108
+2017-09-28 17:29:40,064  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:19111
+2017-09-28 17:29:40,080  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:19114
+2017-09-28 17:29:40,080  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:19117
+2017-09-28 17:29:40,127  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:19120
+2017-09-28 17:29:40,142  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:19123
+2017-09-28 17:29:40,173  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:19126
+2017-09-28 17:29:40,205  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:19129
+2017-09-28 17:30:09,914  INFO EQueue.NameServer.NameServerController - Broker connection accepted, connectionId: 192.168.1.143:19189
+2017-09-28 17:58:07,565  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:19129
+2017-09-28 17:58:07,565  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:19126
+2017-09-28 17:58:07,565  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:19114
+2017-09-28 17:58:07,565  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:19111
+2017-09-28 17:58:07,565  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:19120
+2017-09-28 17:58:07,565  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:19117
+2017-09-28 17:58:07,565  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:19123
+2017-09-28 17:58:07,565  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:19108
+2017-09-28 17:58:07,581  INFO EQueue.NameServer.NameServerController - Broker connection closed, connectionId: 192.168.1.143:19092
+2017-09-28 17:58:07,581  INFO EQueue.NameServer.ClusterManager - Removed broker, brokerInfo: {"BrokerName":"ShopBroker","GroupName":"ShopGroupName","ClusterName":"DefaultCluster","BrokerRole":0,"ProducerAddress":"192.168.1.143:11101","ConsumerAddress":"192.168.1.143:11102","AdminAddress":"192.168.1.143:11103"}

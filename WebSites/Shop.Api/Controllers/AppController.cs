@@ -20,22 +20,51 @@ namespace Shop.Api.Controllers
         [Route("App/CheckVersion")]
         public BaseApiResponse CheckVersion()
         {
+            AppVersion appVersion = null;
+            var json = ReadJsonFile("appVersion.json");
+            appVersion = JsonMapper.ToObject<AppVersion>(json);
+            
+            return new AppVersionResponse
+            {
+                Version=appVersion.Version,
+                Content= appVersion.Content
+            };
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("App/HomeBanner")]
+        public BaseApiResponse HomeBanner()
+        {
+            HomeBanners homeBanners = null;
+            var json = ReadJsonFile("homeBanners.json");
+            homeBanners = JsonMapper.ToObject<HomeBanners>(json);
+
+            return new HomeBannerResponse
+            {
+                Banners = homeBanners.Banners.Select(x=>new HomeBanner {
+                    Img=x.Img,
+                    Link=x.Link
+                }).ToList()
+            };
+        }
+
+        private string ReadJsonFile(string fileName)
+        {
+            string json = string.Empty;
             //读取json文件
             var jsonFilePath = System.Web.Hosting.HostingEnvironment.MapPath("~/Json");
-            jsonFilePath += "/appVersion.json";
+            jsonFilePath += "/"+ fileName;
 
-            AppVersion appVersion = null;
             StreamReader streamReader = null;
             if (!File.Exists(jsonFilePath))
             {
-                return new BaseApiResponse { Code = 400, Message = "没有json文件" };
+                throw new Exception("没有找到json文件");
             }
-
             try
             {
                 streamReader = new StreamReader(jsonFilePath);
-                string json = streamReader.ReadToEnd();
-                appVersion = JsonMapper.ToObject<AppVersion>(json);
+                json = streamReader.ReadToEnd();
             }
             catch (Exception e)
             {
@@ -45,11 +74,8 @@ namespace Shop.Api.Controllers
             {
                 streamReader.Close();
             }
-            return new AppVersionResponse
-            {
-                Version=appVersion.Version,
-                Content= appVersion.Content
-            };
+
+            return json;
         }
     }
 }

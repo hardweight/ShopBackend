@@ -17,5 +17,6 @@ namespace Shop.Api.Models.Response.Goodses
         public decimal Price { get; set; }
         public decimal OriginalPrice { get; set; }
         public decimal Benevolence { get; set; }
+        public int SellOut { get; set; }
     }
 }

@@ -4,6 +4,8 @@ namespace Shop.Common.Enums
 {
     public enum WithdrawApplyStatus
     {
+        [Description("全部")]
+        All = -1,
         [Description("提交")]
         Placed,
         [Description("成功")]
@@ -14,6 +16,8 @@ namespace Shop.Common.Enums
 
     public enum RechargeApplyStatus
     {
+        [Description("全部")]
+        All = -1,
         [Description("提交")]
         Placed,
         [Description("成功")]
@@ -50,6 +54,8 @@ namespace Shop.Common.Enums
         Refund=6,
         [Description("店铺售货")]
         StoreSell=7,
+        [Description("推荐商家售货")]
+        RecommendStoreAward =8
     }
     public enum CashTransferStatus
     {

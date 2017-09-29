@@ -51,6 +51,6 @@ C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Repositories.Dapper\b
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Repositories.Dapper\bin\Debug\log4net.xml
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Repositories.Dapper\bin\Debug\Newtonsoft.Json.xml
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Repositories.Dapper\bin\Debug\Xia.Common.pdb
-C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Repositories.Dapper\obj\Debug\Shop.Repositories.Dapper.csprojResolveAssemblyReference.cache
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Repositories.Dapper\obj\Debug\Shop.Repositories.Dapper.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Repositories.Dapper\obj\Debug\Shop.Repositories.Dapper.pdb
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Repositories.Dapper\obj\Debug\Shop.Repositories.Dapper.csprojResolveAssemblyReference.cache

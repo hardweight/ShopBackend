@@ -31,6 +31,14 @@ namespace Shop.Domain.Models.Announcements
             ApplyEvent(new AnnouncementUpdatedEvent(title,body));
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        public void Delete()
+        {
+            ApplyEvent(new AnnouncementDeletedEvent());
+        }
+
 
         #region Handle
 
@@ -44,6 +52,11 @@ namespace Shop.Domain.Models.Announcements
         {
             _title = evnt.Title;
             _body = evnt.Body;
+        }
+        private void Handle(AnnouncementDeletedEvent evnt)
+        {
+            _title = null;
+            _body = null;
         }
         #endregion
     }

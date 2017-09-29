@@ -8,10 +8,12 @@ using Shop.Api.ViewModels.Store;
 using Shop.Api.ViewModels.User;
 using Shop.Api.ViewModels.Wallet;
 using Shop.ReadModel.Carts;
+using Shop.ReadModel.Goodses.Dtos;
 using Shop.ReadModel.Stores;
 using Shop.ReadModel.Users;
 using Shop.ReadModel.Wallets;
 using System;
+using System.Collections.Generic;
 using System.Web;
 using Xia.Common.Extensions;
 using Xia.Common.Secutiry;
@@ -49,7 +51,8 @@ namespace Shop.Api.Helper
             {
                 _cache = CacheFactory.Build("RunTimeCache", settings =>
                 {
-                    settings.WithSystemRuntimeCacheHandle("handleName");
+                    settings.WithSystemRuntimeCacheHandle("inProcessCache")
+                    .WithExpiration(ExpirationMode.Sliding, TimeSpan.FromSeconds(120));
                 });
             }
         }
@@ -138,6 +141,58 @@ namespace Shop.Api.Helper
         public void UpdateUserInfo(string userId, UserViewModel userInfo)
         {
             _cache.Update(CacheKeySupplier.UserModelCacheKey(userId), u => userInfo);
+        }
+        #endregion
+
+        #region 商品
+        public void SetHomeNewGoodses(IEnumerable<GoodsAlias> goodses)
+        {
+            goodses.CheckNotNull(nameof(goodses));
+
+            _cache.Add(CacheKeySupplier.HomeNewGoodsesCacheKey(), goodses);
+        }
+        public IEnumerable<GoodsAlias> GetHomeNewGoodses()
+        {
+            var goodses = _cache.Get(CacheKeySupplier.HomeNewGoodsesCacheKey()) as IEnumerable<GoodsAlias>;
+            return goodses;
+        }
+
+        public void SetHomeRateGoodses(IEnumerable<GoodsAlias> goodses)
+        {
+            goodses.CheckNotNull(nameof(goodses));
+
+            _cache.Add(CacheKeySupplier.HomeRateGoodsesCacheKey(), goodses);
+        }
+        public IEnumerable<GoodsAlias> GetHomeRateGoodses()
+        {
+            var goodses = _cache.Get(CacheKeySupplier.HomeRateGoodsesCacheKey()) as IEnumerable<GoodsAlias>;
+            return goodses;
+        }
+
+        public void SetHomeSelloutGoodses(IEnumerable<GoodsAlias> goodses)
+        {
+            goodses.CheckNotNull(nameof(goodses));
+
+            _cache.Add(CacheKeySupplier.HomeSelloutGoodsesCacheKey(), goodses);
+        }
+        public IEnumerable<GoodsAlias> GetHomeSelloutGoodses()
+        {
+            var goodses = _cache.Get(CacheKeySupplier.HomeSelloutGoodsesCacheKey()) as IEnumerable<GoodsAlias>;
+            return goodses;
+        }
+        #endregion
+
+        #region 善心指数
+        public void SetBenevolenceIndex(string benevolenceIndex)
+        {
+            benevolenceIndex.CheckNotNull(nameof(benevolenceIndex));
+
+            _cache.Add(CacheKeySupplier.BenevolenceIndexCacheKey(), benevolenceIndex);
+        }
+        public string GetBenevolenceIndex()
+        {
+            var benevolenceIndex = _cache.Get(CacheKeySupplier.BenevolenceIndexCacheKey()) as string;
+            return benevolenceIndex;
         }
         #endregion
 

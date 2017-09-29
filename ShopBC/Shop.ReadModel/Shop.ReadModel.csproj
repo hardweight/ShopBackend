@@ -112,6 +112,7 @@
     <Compile Include="Partners\IPartnerQueryService.cs" />
     <Compile Include="Sections\Dtos\SectionAndStatistic.cs" />
     <Compile Include="Sections\Dtos\SectionInfo.cs" />
+    <Compile Include="StoreOrders\Dtos\StoreOrderWithInfo.cs" />
     <Compile Include="StoreOrders\Dtos\StoreOrder.cs" />
     <Compile Include="StoreOrders\Dtos\StoreOrderDetails.cs" />
     <Compile Include="StoreOrders\IStoreOrderQueryService.cs" />
@@ -134,8 +135,10 @@
     <Compile Include="Wallets\Dtos\BankCard.cs" />
     <Compile Include="Wallets\Dtos\BenevolenceTransfer.cs" />
     <Compile Include="Wallets\Dtos\CashTransfer.cs" />
+    <Compile Include="Wallets\Dtos\IncentiveInfo.cs" />
     <Compile Include="Wallets\Dtos\Wallet.cs" />
     <Compile Include="Wallets\Dtos\RechargeApply.cs" />
+    <Compile Include="Wallets\Dtos\WalletAlis.cs" />
     <Compile Include="Wallets\Dtos\WithdrawApply.cs" />
     <Compile Include="Wallets\IWalletQueryService.cs" />
     <Compile Include="Users\IUserQueryService.cs" />

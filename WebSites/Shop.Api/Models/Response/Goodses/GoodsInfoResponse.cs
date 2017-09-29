@@ -6,6 +6,7 @@ namespace Shop.Api.Models.Response.Goodses
     public class GoodsInfoResponse:BaseApiResponse
     {
         public GoodsDetails GoodsDetails { get; set; }
+        public Store.StoreInfo StoreInfo { get; set; }
         public IList<Specification> Specifications { get; set; }
         public IList<GoodsParam> GoodsParams { get; set; }
         public IList<Comment> Comments { get; set; }
@@ -30,10 +31,10 @@ namespace Shop.Api.Models.Response.Goodses
     {
         public Guid Id { get; set; }
         public Single Rate { get; set; }
-        public string UserName { get; set; }
+        public string NickName { get; set; }
         public string Body { get; set; }
         public IList<string> Thumbs { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public string CreatedOn { get; set; }
     }
 
     public class GoodsParam

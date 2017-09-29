@@ -7,6 +7,7 @@ namespace Shop.Api.Models.Response.Wallet
 {
     public class GetBenevolenceTransfersResponse:BaseApiResponse
     {
+        public int Total { get; set; }
         public IList<BenevolenceTransfer> BenevolenceTransfers { get; set; }
     }
 

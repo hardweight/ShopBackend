@@ -12,7 +12,6 @@ namespace Shop.Commands.Comments
         
         public IList<string> Thumbs { get; private set; }
 
-        public Single Rate { get; private set; }
         public Single PriceRate { get; private set; }
         public Single DescribeRate { get; private set; }
         public Single QualityRate { get; private set; }
@@ -25,7 +24,6 @@ namespace Shop.Commands.Comments
             Guid authorId,
             string body,
             IList<string> thumbs,
-            Single rate,
             Single priceRate,
             Single describeRate,
             Single qualityRate,
@@ -35,7 +33,6 @@ namespace Shop.Commands.Comments
             AuthorId = authorId;
             Body = body;
             Thumbs = thumbs;
-            Rate = rate;
             PriceRate = priceRate;
             DescribeRate = describeRate;
             QualityRate = qualityRate;

@@ -1,0 +1,55 @@
+2017-09-26 09:24:12,084  INFO - ECommon 初始化成功.
+2017-09-26 09:24:16,315  INFO - ENode 初始化成功.
+2017-09-26 09:47:51,299  INFO - ECommon 初始化成功.
+2017-09-26 09:47:53,709  INFO - ENode 初始化成功.
+2017-09-26 10:39:10,831  INFO - ECommon 初始化成功.
+2017-09-26 10:39:14,100  INFO - ENode 初始化成功.
+2017-09-26 16:08:22,751  INFO - ECommon 初始化成功.
+2017-09-26 16:08:24,898  INFO - ENode 初始化成功.
+2017-09-26 14:37:32,607  INFO - ECommon 初始化成功.
+2017-09-26 14:38:04,324 ERROR - ENode 初始化失败.
+System.InvalidOperationException: 超时时间已到。超时时间已到，但是尚未从池中获取连接。出现这种情况可能是因为所有池连接均在使用，并且达到了最大池大小。
+   在 System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   在 System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   在 System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   在 System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   在 System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   在 System.Data.SqlClient.SqlConnection.Open()
+   在 Dapper.SqlMapper.<QueryImpl>d__125`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 Dapper.SqlMapper.Query[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Boolean buffered, Nullable`1 commandTimeout, Nullable`1 commandType)
+   在 ECommon.Dapper.SqlMapperExtensions.QueryList[T](IDbConnection connection, Object condition, String table, String columns, Boolean isOr, IDbTransaction transaction, Nullable`1 commandTimeout) 位置 D:\MyProjects\ecommon\src\ECommon\ThirdParty\Dapper\SqlMapperExtensions.cs:行号 244
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute8[T0,T1,T2,T3,T4,T5,T6,T7,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
+   在 ECommon.Dapper.SqlMapperExtensions.QueryList(IDbConnection connection, Object condition, String table, String columns, Boolean isOr, IDbTransaction transaction, Nullable`1 commandTimeout) 位置 D:\MyProjects\ecommon\src\ECommon\ThirdParty\Dapper\SqlMapperExtensions.cs:行号 215
+   在 ENode.Infrastructure.Impl.SQL.SqlServerLockService.AddLockKey(String lockKey) 位置 D:\MyProjects\enode\src\eNode\Infrastructure\Impl\SqlServerLockService.cs:行号 50
+   在 Shop.ProcessorHost.Bootstrap.InitializeENode() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.ProcessorHost\Bootstrap.cs:行号 118
+   在 Shop.ProcessorHost.Bootstrap.Initialize() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.ProcessorHost\Bootstrap.cs:行号 31
+2017-09-26 14:38:39,697  INFO - ECommon 初始化成功.
+2017-09-26 14:40:03,577  INFO - ECommon 初始化成功.
+2017-09-26 14:40:34,851 ERROR - ENode 初始化失败.
+System.InvalidOperationException: 超时时间已到。超时时间已到，但是尚未从池中获取连接。出现这种情况可能是因为所有池连接均在使用，并且达到了最大池大小。
+   在 System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   在 System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   在 System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   在 System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   在 System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   在 System.Data.SqlClient.SqlConnection.Open()
+   在 Dapper.SqlMapper.<QueryImpl>d__125`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 Dapper.SqlMapper.Query[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Boolean buffered, Nullable`1 commandTimeout, Nullable`1 commandType)
+   在 ECommon.Dapper.SqlMapperExtensions.QueryList[T](IDbConnection connection, Object condition, String table, String columns, Boolean isOr, IDbTransaction transaction, Nullable`1 commandTimeout) 位置 D:\MyProjects\ecommon\src\ECommon\ThirdParty\Dapper\SqlMapperExtensions.cs:行号 244
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute8[T0,T1,T2,T3,T4,T5,T6,T7,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
+   在 ECommon.Dapper.SqlMapperExtensions.QueryList(IDbConnection connection, Object condition, String table, String columns, Boolean isOr, IDbTransaction transaction, Nullable`1 commandTimeout) 位置 D:\MyProjects\ecommon\src\ECommon\ThirdParty\Dapper\SqlMapperExtensions.cs:行号 215
+   在 ENode.Infrastructure.Impl.SQL.SqlServerLockService.AddLockKey(String lockKey) 位置 D:\MyProjects\enode\src\eNode\Infrastructure\Impl\SqlServerLockService.cs:行号 50
+   在 Shop.ProcessorHost.Bootstrap.InitializeENode() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.ProcessorHost\Bootstrap.cs:行号 118
+   在 Shop.ProcessorHost.Bootstrap.Initialize() 位置 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.ProcessorHost\Bootstrap.cs:行号 31
+2017-09-26 15:01:43,954  INFO - ECommon 初始化成功.
+2017-09-26 15:01:45,342  INFO - ENode 初始化成功.
+2017-09-26 15:17:08,573  INFO - ECommon 初始化成功.
+2017-09-26 15:17:10,153  INFO - ENode 初始化成功.
+2017-09-26 16:04:41,179  INFO - ECommon 初始化成功.
+2017-09-26 16:04:42,790  INFO - ENode 初始化成功.
+2017-09-26 16:07:44,411  INFO - ECommon 初始化成功.
+2017-09-26 16:07:45,966  INFO - ENode 初始化成功.

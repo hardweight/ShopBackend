@@ -28,6 +28,13 @@ namespace Shop.ReadModel.Wallets
                 return connection.QueryList<Wallet>(new { Id = id }, ConfigSettings.WalletTable).SingleOrDefault();
             }
         }
+        public Wallet InfoByUserId(Guid userId)
+        {
+            using (var connection = GetConnection())
+            {
+                return connection.QueryList<Wallet>(new { UserId = userId }, ConfigSettings.WalletTable).SingleOrDefault();
+            }
+        }
 
         /// <summary>
         /// 待分配善心量
@@ -41,7 +48,59 @@ namespace Shop.ReadModel.Wallets
                 return stores.Sum(x => x.Benevolence);
             }
         }
-        
+
+        /// <summary>
+        /// 获取用户的激励信息
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public IEnumerable<IncentiveInfo> GetIncentiveInfos(Guid walletId, int count)
+        {
+            var sql = string.Format(@"select top {0}
+                a.CreatedOn,
+                a.Amount as BenevolenceAmount,
+                a.Remark,
+                b.Amount,
+                b.Fee 
+                from {1} as a inner join {2} as b on a.Number=b.Number 
+                where a.Type={3} and a.WalletId='{4}' and b.WalletId='{4}' 
+                order by a.CreatedOn desc" ,
+                count,
+                ConfigSettings.BenevolenceTransferTable,
+                ConfigSettings.CashTransferTable,
+                Convert.ToInt32(BenevolenceTransferType.Incentive),
+                walletId
+            );
+
+            using (var connection = GetConnection())
+            {
+                return connection.Query<IncentiveInfo>(sql);
+            }
+        }
+
+        public IEnumerable<WalletAlis> BenevolenceRank(int count)
+        {
+            var sql = string.Format(@"select top {0}
+                a.Id,
+                a.UserId,
+                a.Cash,
+                a.Benevolence,
+                a.Earnings,
+                b.NickName,
+                b.Portrait,
+                b.Mobile 
+                from {1} as a inner join {2} as b on a.Id=b.WalletId 
+                order by a.Benevolence desc",
+               count,
+               ConfigSettings.WalletTable,
+               ConfigSettings.UserTable
+           );
+
+            using (var connection = GetConnection())
+            {
+                return connection.Query<WalletAlis>(sql);
+            }
+        }
 
         /// <summary>
         /// 获取用户现金记录
@@ -75,6 +134,13 @@ namespace Shop.ReadModel.Wallets
                 return connection.QueryList<BenevolenceTransfer>(new { WalletId = walletId }, ConfigSettings.BenevolenceTransferTable);
             }
         }
+        public IEnumerable<BenevolenceTransfer> GetBenevolenceTransfers()
+        {
+            using (var connection = GetConnection())
+            {
+                return connection.QueryList<BenevolenceTransfer>(new {}, ConfigSettings.BenevolenceTransferTable);
+            }
+        }
         public IEnumerable<BenevolenceTransfer> GetBenevolenceTransfers(Guid walletId, BenevolenceTransferType type)
         {
             using (var connection = GetConnection())
@@ -82,7 +148,13 @@ namespace Shop.ReadModel.Wallets
                 return connection.QueryList<BenevolenceTransfer>(new { WalletId = walletId, Type = (int)type }, ConfigSettings.BenevolenceTransferTable);
             }
         }
-
+        public IEnumerable<BenevolenceTransfer> GetBenevolenceTransfers(BenevolenceTransferType type)
+        {
+            using (var connection = GetConnection())
+            {
+                return connection.QueryList<BenevolenceTransfer>(new {Type = (int)type }, ConfigSettings.BenevolenceTransferTable);
+            }
+        }
 
 
         public IEnumerable<Wallet> ListPage()

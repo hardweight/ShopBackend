@@ -18,6 +18,7 @@ namespace Shop.ReadModel.StoreOrders
     [Component]
     public class StoreOrderViewModelGenerator:BaseGenerator,
         IMessageHandler<StoreOrderCreatedEvent>,
+        IMessageHandler<StoreOrderDeletedEvent>,
         IMessageHandler<StoreOrderExpressedEvent>,
         IMessageHandler<StoreOrderConfirmExpressedEvent>,
         IMessageHandler<ApplyRefundedEvent>,
@@ -72,6 +73,7 @@ namespace Shop.ReadModel.StoreOrders
                 return connection.UpdateAsync(new
                 {
                     DeliverExpressName=evnt.ExpressInfo.ExpressName,
+                    DeliverExpressCode=evnt.ExpressInfo.ExpressCode,
                     DeliverExpressNumber=evnt.ExpressInfo.ExpressNumber,
                     Status = (int)StoreOrderStatus.Expressing,
                     Version = evnt.Version
@@ -164,6 +166,32 @@ namespace Shop.ReadModel.StoreOrders
                     Id = evnt.AggregateRootId,
                     //Version = evnt.Version - 1
                 }, ConfigSettings.StoreOrderTable);
+            });
+        }
+
+        public Task<AsyncTaskResult> HandleAsync(StoreOrderDeletedEvent evnt)
+        {
+            return TryTransactionAsync(async (connection, transaction) =>
+            {
+                //删除订单
+                var effectedRows = await connection.DeleteAsync(new
+                {
+                    Id = evnt.AggregateRootId,
+                    //Version = evnt.Version - 1
+                }, ConfigSettings.StoreOrderTable, transaction);
+
+                if (effectedRows == 1)
+                {
+                    var tasks = new List<Task>();
+                    //删除订单商品
+                    tasks.Add(connection.DeleteAsync(new
+                    {
+                        OrderId = evnt.AggregateRootId
+                    }, ConfigSettings.OrderGoodsTable, transaction));
+                    
+
+                    Task.WaitAll(tasks.ToArray());
+                }
             });
         }
     }

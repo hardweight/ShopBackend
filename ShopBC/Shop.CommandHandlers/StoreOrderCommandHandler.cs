@@ -15,6 +15,7 @@ namespace Shop.CommandHandlers
     [Component]
     public class StoreOrderCommandHandler:
         ICommandHandler<CreateStoreOrderCommand>,
+        ICommandHandler<DeleteStoreOrderCommand>,
         ICommandHandler<DeliverCommand>,
         ICommandHandler<ConfirmDeliverCommand>,
         ICommandHandler<ApplyRefundCommand>,
@@ -87,8 +88,10 @@ namespace Shop.CommandHandlers
 
         public void Handle(ICommandContext context, DeliverCommand command)
         {
-            context.Get<StoreOrder>(command.AggregateRootId).Deliver(new Domain.Models.Stores.StoreOrders.ExpressInfo(
+            context.Get<StoreOrder>(command.AggregateRootId).Deliver(
+                new Domain.Models.Stores.StoreOrders.ExpressInfo(
                 command.ExpressName,
+                command.ExpressCode,
                 command.ExpressNumber));
         }
 
@@ -117,6 +120,11 @@ namespace Shop.CommandHandlers
         public void Handle(ICommandContext context, ConfirmDeliverCommand command)
         {
             context.Get<StoreOrder>(command.AggregateRootId).ConfirmExpress();
+        }
+
+        public void Handle(ICommandContext context, DeleteStoreOrderCommand command)
+        {
+            context.Get<StoreOrder>(command.AggregateRootId).Delete();
         }
 
         #endregion

@@ -55,9 +55,11 @@ namespace Shop.Api.Controllers
                 node.Thumb = cat.Thumb;
                 node.Url = cat.Url;
                 node.Type = cat.Type.ToString();
+                node.IsShow = cat.IsShow;
+                node.Sort = cat.Sort;
                 node.Children = new List<dynamic>();
 
-                var childrens = _categoryQueryService.GetChildren(cat.Id).OrderByDescending(x=>x.Sort);
+                var childrens = _categoryQueryService.GetChildren(cat.Id).Where(x=>x.IsShow).OrderByDescending(x=>x.Sort);
                 foreach (var child in childrens)
                 {
                     node.Children.Add(getNodeData(child));
@@ -65,7 +67,7 @@ namespace Shop.Api.Controllers
                 return node;
             };
 
-            List<Dtos.Category> rootsCategory = _categoryQueryService.RootCategorys().OrderByDescending(x=>x.Sort).ToList();
+            List<Dtos.Category> rootsCategory = _categoryQueryService.RootCategorys().Where(x=>x.IsShow).OrderByDescending(x=>x.Sort).ToList();
             List<object> nodes = rootsCategory.Select(getNodeData).ToList();
 
             return new CategoryTreeResponse
@@ -95,6 +97,7 @@ namespace Shop.Api.Controllers
                 node.Thumb = cat.Thumb;
                 node.Url = cat.Url;
                 node.Type = cat.Type.ToString();
+                node.IsShow = cat.IsShow;
                 node.Sort = cat.Sort;
                 node.Children = new List<dynamic>();
 
@@ -138,6 +141,7 @@ namespace Shop.Api.Controllers
                     Url=x.Url,
                     Thumb = x.Thumb,
                     Type=x.Type.ToString(),
+                    IsShow=x.IsShow,
                     Sort = x.Sort
                 }).ToList()
             };
@@ -162,6 +166,7 @@ namespace Shop.Api.Controllers
                 request.Url,
                 request.Thumb,
                 request.Type,
+                request.IsShow,
                 request.Sort);
 
             var result = await ExecuteCommandAsync(command);
@@ -173,6 +178,38 @@ namespace Shop.Api.Controllers
 
         }
 
+        /// <summary>
+        /// 删除分类
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("CategoryAdmin/Delete")]
+        public async Task<BaseApiResponse> Delete(DeleteRequest request)
+        {
+            request.CheckNotNull(nameof(request));
+            //分类判断
+            var category = _categoryQueryService.Find(request.Id);
+            if(category==null)
+            {
+                return new BaseApiResponse { Code = 400, Message = "没找到该分类" };
+            }
+            //判断是否有子分类
+            var children = _categoryQueryService.GetChildren(request.Id);
+            if (children.Any())
+            {
+                return new BaseApiResponse { Code = 400, Message = "包含子分类，无法删除" };
+            }
+            //删除
+            var command = new DeleteCategoryCommand(request.Id);
+            var result = await ExecuteCommandAsync(command);
+            if (!result.IsSuccess())
+            {
+                return new BaseApiResponse { Code = 400, Message = "命令没有执行成功：{0}".FormatWith(result.GetErrorMessage()) };
+            }
+            return new BaseApiResponse();
+        }
         /// <summary>
         /// 编辑类别
         /// </summary>
@@ -188,6 +225,7 @@ namespace Shop.Api.Controllers
                 request.Url,
                 request.Thumb,
                 request.Type,
+                request.IsShow,
                 request.Sort)
             {
                 AggregateRootId = request.Id

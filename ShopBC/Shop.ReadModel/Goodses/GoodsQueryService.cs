@@ -46,7 +46,7 @@ namespace Shop.ReadModel.Goodses
         /// <returns></returns>
         public IEnumerable<GoodsAlias> GoodSellGoodses(int count)
         {
-            var sql = string.Format(@"select Id,Pics,Name,Price,Benevolence from {0} 
+            var sql = string.Format(@"select Id,Pics,Name,Price,Benevolence,SellOut from {0} 
                 where  IsPublished=1  and Status=1
                 order by SellOut desc", ConfigSettings.GoodsTable);
             using (var connection = GetConnection())
@@ -61,7 +61,7 @@ namespace Shop.ReadModel.Goodses
         /// <returns></returns>
         public IEnumerable<GoodsAlias> NewGoodses(int count)
         {
-            var sql = string.Format(@"select Id,Pics,Name,Price,Benevolence from {0} 
+            var sql = string.Format(@"select Id,Pics,Name,Price,Benevolence,SellOut from {0} 
                 where  IsPublished=1 and Status=1
                 order by CreatedOn desc", ConfigSettings.GoodsTable);
             using (var connection = GetConnection())
@@ -77,7 +77,7 @@ namespace Shop.ReadModel.Goodses
         /// <returns></returns>
         public IEnumerable<GoodsAlias> GoodRateGoodses(int count)
         {
-            var sql = string.Format(@"select Id,Pics,Name,Price,Benevolence from {0} 
+            var sql = string.Format(@"select Id,Pics,Name,Price,Benevolence,SellOut from {0} 
                 where  IsPublished=1 and Status=1
                 order by Rate desc", ConfigSettings.GoodsTable);
             using (var connection = GetConnection())
@@ -92,7 +92,7 @@ namespace Shop.ReadModel.Goodses
         /// <returns></returns>
         public IEnumerable<GoodsAlias> Search(string search)
         {
-            var sql = string.Format(@"select Id,Pics,Name,Price,Benevolence from {0} 
+            var sql = string.Format(@"select Id,Pics,Name,Price,Benevolence,SellOut from {0} 
                 where Name like '%{1}%' and IsPublished=1 and Status=1", ConfigSettings.GoodsTable,search);
             using (var connection = GetConnection())
             {
@@ -107,7 +107,7 @@ namespace Shop.ReadModel.Goodses
         /// <returns></returns>
         public IEnumerable<GoodsAlias> CategoryGoodses(Guid categoryId)
         {
-            var sql = string.Format(@"select a.Id,a.Pics,a.Name,a.Price,a.Benevolence from {0} a inner join {1} b on a.Id=b.GoodsId
+            var sql = string.Format(@"select a.Id,a.Pics,a.Name,a.Price,a.Benevolence,a.SellOut from {0} a inner join {1} b on a.Id=b.GoodsId
                 where b.CategoryId='{2}' and a.IsPublished=1 and Status=1", ConfigSettings.GoodsTable, ConfigSettings.GoodsPubCategorysTable, categoryId);
             using (var connection = GetConnection())
             {
@@ -120,7 +120,7 @@ namespace Shop.ReadModel.Goodses
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        public IEnumerable<Comment> GetComments(int count)
+        public IEnumerable<Comment> GetComments(Guid goodsId,int count)
         {
             var sql = string.Format(@"select top({2}) a.Id
             ,a.UserId
@@ -130,7 +130,8 @@ namespace Shop.ReadModel.Goodses
             ,a.Thumbs
             ,b.NickName as NickName 
             from {0} a inner join {1} b on a.UserId=b.Id 
-            order by a.CreatedOn desc", ConfigSettings.GoodsCommentsTable, ConfigSettings.UserTable,count);
+            where a.GoodsId='{3}' 
+            order by a.CreatedOn desc", ConfigSettings.GoodsCommentsTable, ConfigSettings.UserTable,count,goodsId);
 
             using (var connection = GetConnection())
             {

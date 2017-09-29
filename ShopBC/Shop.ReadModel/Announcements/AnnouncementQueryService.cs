@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Dapper;
 using ECommon.Dapper;
 using Shop.Common;
+using System.Linq;
+using System;
 
 namespace Shop.ReadModel.Announcements
 {
@@ -13,6 +15,14 @@ namespace Shop.ReadModel.Announcements
     [Component]
     public class AnnouncementQueryService : BaseQueryService, IAnnouncementQueryService
     {
+        public Announcement Find(Guid id)
+        {
+            using (var connection = GetConnection())
+            {
+                return connection.QueryList<Announcement>(new { Id = id }, ConfigSettings.AnnouncementTable).SingleOrDefault();
+            }
+        }
+
         public IEnumerable<Announcement> ListPage()
         {
             using (var connection = GetConnection())

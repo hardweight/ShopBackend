@@ -22,3 +22,5 @@ C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\obj\Release\
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\bin\Release\Shop.Common.dll
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\bin\Release\Shop.Common.pdb
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\obj\Release\Shop.Commands.csprojResolveAssemblyReference.cache
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\bin\Release\Xia.Common.dll
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\ShopBC\Shop.Commands\bin\Release\Xia.Common.pdb

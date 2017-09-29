@@ -21,3 +21,5 @@ C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\bin\Releas
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\obj\Release\Shop.MessageNameServer.exe
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\obj\Release\Shop.MessageNameServer.pdb
 C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\obj\Release\Shop.MessageNameServer.csprojResolveAssemblyReference.cache
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\bin\Release\Xia.Common.dll
+C:\Users\xiazhaowei\OneDrive\悟行文化\Shop\Shop.MessageNameServer\bin\Release\Xia.Common.pdb

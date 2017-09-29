@@ -43,12 +43,18 @@ namespace Shop.Api.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("Announcement/List")]
-        public BaseApiResponse List()
+        public BaseApiResponse List(ListPageRequest request)
         {
-            var announcements = _announcementQueryService.ListPage().OrderByDescending(x=>x.CreatedOn);
+            request.CheckNotNull(nameof(request));
+
+            var pageSize = 20;
+            var announcements = _announcementQueryService.ListPage();
+            var total = announcements.Count();
+
+            announcements = announcements.OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
             return new ListResponse
             {
-                Total = announcements.Count(),
+                Total = total,
                 Announcements = announcements.Select(x=>new Announcement {
                     Id=x.Id,
                     Title=x.Title,
@@ -137,6 +143,28 @@ namespace Shop.Api.Controllers
             }
             return new BaseApiResponse();
         }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("AnnouncementAdmin/Delete")]
+        public async Task<BaseApiResponse> Delete(DeleteRequest request)
+        {
+            request.CheckNotNull(nameof(request));
+            //判断
+            var announcement = _announcementQueryService.Find(request.Id);
+            if (announcement == null)
+            {
+                return new BaseApiResponse { Code = 400, Message = "没找到该公告" };
+            }
+            //删除
+            var command = new DeleteAnnouncementCommand(request.Id);
+            var result = await ExecuteCommandAsync(command);
+            if (!result.IsSuccess())
+            {
+                return new BaseApiResponse { Code = 400, Message = "命令没有执行成功：{0}".FormatWith(result.GetErrorMessage()) };
+            }
+            return new BaseApiResponse();
+        }
         /// <summary>
         /// 列表
         /// </summary>
@@ -144,12 +172,18 @@ namespace Shop.Api.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("AnnouncementAdmin/ListPage")]
-        public BaseApiResponse ListPage()
+        public BaseApiResponse ListPage(ListPageRequest request)
         {
+            request.CheckNotNull(nameof(request));
+
+            var pageSize = 20;
             var announcements = _announcementQueryService.ListPage();
+            var total = announcements.Count();
+
+            announcements = announcements.OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
             return new ListResponse
             {
-                Total=announcements.Count(),
+                Total = total,
                 Announcements = announcements.Select(x => new Announcement
                 {
                     Id = x.Id,

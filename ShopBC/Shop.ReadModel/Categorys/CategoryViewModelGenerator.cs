@@ -15,7 +15,8 @@ namespace Shop.ReadModel.Categorys
     [Component]
     public class CategoryViewModelGenerator:BaseGenerator,
         IMessageHandler<CategoryCreatedEvent>,
-        IMessageHandler<CategoryUpdatedEvent>
+        IMessageHandler<CategoryUpdatedEvent>,
+        IMessageHandler<CategoryDeletedEvent>
     {
         public Task<AsyncTaskResult> HandleAsync(CategoryCreatedEvent evnt)
         {
@@ -29,6 +30,7 @@ namespace Shop.ReadModel.Categorys
                     Thumb=evnt.Thumb,
                     Type=(int)evnt.Type,
                     Url = evnt.Url,
+                    IsShow=evnt.IsShow,
                     Sort=evnt.Sort,
                     CreatedOn = evnt.Timestamp,
                     Version = evnt.Version,
@@ -47,6 +49,7 @@ namespace Shop.ReadModel.Categorys
                     Url = evnt.Url,
                     Thumb=evnt.Thumb,
                     Type = (int)evnt.Type,
+                    IsShow=evnt.IsShow,
                     Sort =evnt.Sort,
                     Version = evnt.Version
                 }, new
@@ -54,6 +57,18 @@ namespace Shop.ReadModel.Categorys
                     Id = evnt.AggregateRootId,
                     //Version = evnt.Version - 1
                 }, ConfigSettings.CategoryTable);
+            });
+        }
+
+        public Task<AsyncTaskResult> HandleAsync(CategoryDeletedEvent evnt)
+        {
+            return TryTransactionAsync(async (connection, transaction) =>
+            {
+                var effectedRows = await connection.DeleteAsync(new
+                {
+                    Id = evnt.AggregateRootId,
+                    //Version = evnt.Version - 1
+                }, ConfigSettings.CategoryTable, transaction);
             });
         }
     }

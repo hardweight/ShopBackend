@@ -56,7 +56,9 @@ namespace Shop.Api.Controllers
                     Price = gs.Price,
                     OriginalPrice=gs.OriginalPrice,
                     Quantity = gs.Quantity,
-                    Benevolence = gs.Benevolence
+                    Benevolence = gs.Benevolence,
+                    IsGoodsPublished=gs.IsGoodsPublished,
+                    GoodsStatus=gs.GoodsStatus
                 })
             });
 
@@ -80,6 +82,8 @@ namespace Shop.Api.Controllers
                         Quantity = cg.Quantity,
                         Stock = cg.Stock,
                         Benevolence = cg.Benevolence,
+                        IsGoodsPublished=cg.IsGoodsPublished,
+                        GoodsStatus=cg.GoodsStatus.ToString(),
                         Checked=false
                     }).ToList()
                 }).ToList()

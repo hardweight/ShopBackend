@@ -1,0 +1,124 @@
+2017-09-20 09:41:48,581  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:2810
+2017-09-20 09:41:49,097  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11101, local endpoint:192.168.1.142:2811
+2017-09-20 09:41:49,098  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:2812
+2017-09-20 09:41:49,100  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:2813
+2017-09-20 09:41:49,103  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11101, local endpoint:192.168.1.142:2814
+2017-09-20 09:41:49,104  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:2815
+2017-09-20 09:41:49,106  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:2816
+2017-09-20 09:41:49,110  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11102, local endpoint:192.168.1.142:2817
+2017-09-20 09:41:49,111  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:2818
+2017-09-20 09:41:49,116  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:2819
+2017-09-20 09:41:49,152  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11102, local endpoint:192.168.1.142:2820
+2017-09-20 09:41:49,153  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:2821
+2017-09-20 09:41:49,154  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:2822
+2017-09-20 09:41:49,158  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11102, local endpoint:192.168.1.142:2823
+2017-09-20 09:41:49,159  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:2824
+2017-09-20 09:41:49,161  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:2825
+2017-09-20 09:41:49,166  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11101, local endpoint:192.168.1.142:2826
+2017-09-20 09:41:49,167  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:2827
+2017-09-20 09:41:49,169  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:2828
+2017-09-20 09:41:49,173  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11101, local endpoint:192.168.1.142:2829
+2017-09-20 09:41:49,174  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:2830
+2017-09-20 09:41:49,176  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:2831
+2017-09-20 09:41:49,186  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11102, local endpoint:192.168.1.142:2832
+2017-09-20 09:41:49,187  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:2833
+2017-09-20 11:22:06,544  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:11806
+2017-09-20 11:22:07,428  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11101, local endpoint:192.168.1.142:11809
+2017-09-20 11:22:07,434  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:11810
+2017-09-20 11:22:07,440  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:11811
+2017-09-20 11:22:07,444  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11101, local endpoint:192.168.1.142:11812
+2017-09-20 11:22:07,445  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:11813
+2017-09-20 11:22:07,448  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:11814
+2017-09-20 11:22:07,457  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11102, local endpoint:192.168.1.142:11815
+2017-09-20 11:22:07,458  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:11816
+2017-09-20 11:22:07,463  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:11817
+2017-09-20 11:22:07,518  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11102, local endpoint:192.168.1.142:11818
+2017-09-20 11:22:07,519  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:11819
+2017-09-20 11:22:07,521  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:11820
+2017-09-20 11:22:07,531  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11102, local endpoint:192.168.1.142:11821
+2017-09-20 11:22:07,532  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:11822
+2017-09-20 11:22:07,537  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:11823
+2017-09-20 11:22:07,555  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11101, local endpoint:192.168.1.142:11824
+2017-09-20 11:22:07,556  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:11825
+2017-09-20 11:22:07,559  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:11826
+2017-09-20 11:22:07,582  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11101, local endpoint:192.168.1.142:11827
+2017-09-20 11:22:07,582  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:11828
+2017-09-20 11:22:07,584  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:11829
+2017-09-20 11:22:07,598  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11102, local endpoint:192.168.1.142:11830
+2017-09-20 11:22:07,599  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:11831
+2017-09-20 14:02:02,663  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:21964
+2017-09-20 14:02:03,464  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11101, local endpoint:192.168.1.142:21967
+2017-09-20 14:02:03,465  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:21968
+2017-09-20 14:02:03,468  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:21969
+2017-09-20 14:02:03,471  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11101, local endpoint:192.168.1.142:21970
+2017-09-20 14:02:03,472  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:21971
+2017-09-20 14:02:03,475  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:21972
+2017-09-20 14:02:03,480  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11102, local endpoint:192.168.1.142:21973
+2017-09-20 14:02:03,481  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:21974
+2017-09-20 14:02:03,503  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:21975
+2017-09-20 14:02:03,535  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11102, local endpoint:192.168.1.142:21976
+2017-09-20 14:02:03,536  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:21977
+2017-09-20 14:02:03,538  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:21978
+2017-09-20 14:02:03,543  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11102, local endpoint:192.168.1.142:21979
+2017-09-20 14:02:03,543  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:21980
+2017-09-20 14:02:03,545  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:21981
+2017-09-20 14:02:03,551  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11101, local endpoint:192.168.1.142:21982
+2017-09-20 14:02:03,552  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:21983
+2017-09-20 14:02:03,554  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:21984
+2017-09-20 14:02:03,560  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11101, local endpoint:192.168.1.142:21985
+2017-09-20 14:02:03,561  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:21986
+2017-09-20 14:02:03,563  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:21987
+2017-09-20 14:02:03,592  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11102, local endpoint:192.168.1.142:21988
+2017-09-20 14:02:03,593  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:21989
+2017-09-20 14:03:36,714  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:9002, local endpoint:192.168.1.142:22161
+2017-09-20 14:03:36,956  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:9002, local endpoint:192.168.1.142:22162
+2017-09-20 15:06:55,109  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11101 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,109  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11101 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,117  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11103 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,119  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11101 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,119  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11103 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,119  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11103 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,120  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11103 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,120  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11102 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,121  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11103 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,121  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11102 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,121  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11103 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,122  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11101 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,122  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11103 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,122  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11103 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,123  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:9002 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,126  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:9002 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,127  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11100 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,127  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11100 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,128  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11100 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,128  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11100 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,128  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11100 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,129  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11100 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,129  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11100 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,129  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11100 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,142  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11102 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:06:55,147  INFO ECommon.Socketing.TcpConnection - Socket closed, remote endpoint:192.168.1.142:11102 socketError:ConnectionReset, reason:Socket receive error, ex:
+2017-09-20 15:07:51,689  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:28212
+2017-09-20 15:07:52,204  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11101, local endpoint:192.168.1.142:28215
+2017-09-20 15:07:52,206  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:28216
+2017-09-20 15:07:52,212  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:28217
+2017-09-20 15:07:52,215  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11101, local endpoint:192.168.1.142:28218
+2017-09-20 15:07:52,216  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:28219
+2017-09-20 15:07:52,218  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:28220
+2017-09-20 15:07:52,222  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11102, local endpoint:192.168.1.142:28221
+2017-09-20 15:07:52,223  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:28222
+2017-09-20 15:07:52,227  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:28223
+2017-09-20 15:07:52,252  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11102, local endpoint:192.168.1.142:28224
+2017-09-20 15:07:52,253  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:28225
+2017-09-20 15:07:52,254  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:28226
+2017-09-20 15:07:52,258  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11102, local endpoint:192.168.1.142:28227
+2017-09-20 15:07:52,259  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:28228
+2017-09-20 15:07:52,260  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:28229
+2017-09-20 15:07:52,264  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11101, local endpoint:192.168.1.142:28230
+2017-09-20 15:07:52,265  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:28231
+2017-09-20 15:07:52,266  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:28232
+2017-09-20 15:07:52,269  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11101, local endpoint:192.168.1.142:28233
+2017-09-20 15:07:52,269  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:28234
+2017-09-20 15:07:52,270  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11100, local endpoint:192.168.1.142:28235
+2017-09-20 15:07:52,277  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11102, local endpoint:192.168.1.142:28236
+2017-09-20 15:07:52,278  INFO ECommon.Socketing.ClientSocket - Socket connected, remote endpoint:192.168.1.142:11103, local endpoint:192.168.1.142:28237

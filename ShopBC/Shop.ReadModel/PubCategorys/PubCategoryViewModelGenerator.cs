@@ -15,7 +15,8 @@ namespace Shop.ReadModel.PubCategorys
     [Component]
     public class PubCategoryViewModelGenerator:BaseGenerator,
         IMessageHandler<PubCategoryCreatedEvent>,
-        IMessageHandler<PubCategoryUpdatedEvent>
+        IMessageHandler<PubCategoryUpdatedEvent>,
+        IMessageHandler<PubCategoryDeletedEvent>
     {
         public Task<AsyncTaskResult> HandleAsync(PubCategoryCreatedEvent evnt)
         {
@@ -27,6 +28,7 @@ namespace Shop.ReadModel.PubCategorys
                     ParentId = evnt.ParentId,
                     Name = evnt.Name,
                     Thumb=evnt.Thumb,
+                    IsShow=evnt.IsShow,
                     Sort=evnt.Sort,
                     CreatedOn = evnt.Timestamp,
                     Version = evnt.Version,
@@ -43,6 +45,7 @@ namespace Shop.ReadModel.PubCategorys
                 {
                     Name = evnt.Name,
                     Thumb = evnt.Thumb,
+                    IsShow=evnt.IsShow,
                     Sort = evnt.Sort,
                     Version = evnt.Version
                 }, new
@@ -50,6 +53,18 @@ namespace Shop.ReadModel.PubCategorys
                     Id = evnt.AggregateRootId,
                     //Version = evnt.Version - 1
                 }, ConfigSettings.PubCategoryTable);
+            });
+        }
+
+        public Task<AsyncTaskResult> HandleAsync(PubCategoryDeletedEvent evnt)
+        {
+            return TryTransactionAsync(async (connection, transaction) =>
+            {
+                var effectedRows = await connection.DeleteAsync(new
+                {
+                    Id = evnt.AggregateRootId,
+                    //Version = evnt.Version - 1
+                }, ConfigSettings.PubCategoryTable, transaction);
             });
         }
     }

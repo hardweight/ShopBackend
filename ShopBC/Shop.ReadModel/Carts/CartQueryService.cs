@@ -30,21 +30,23 @@ namespace Shop.ReadModel.Carts
         /// <returns></returns>
         public IEnumerable<CartGoods> CartGoodses(Guid cartId)
         {
-            var sql = string.Format(@"select a.Id,
-            a.StoreId,
-            a.GoodsId,
-            a.SpecificationId,
-            a.GoodsName,
-            a.GoodsPic,
-            a.SpecificationName,
-            a.Price,
-            a.OriginalPrice,
-            a.Quantity,
-            a.Stock,
-            a.Benevolence,
-            b.Name as StoreName
-            from {0} a inner join {1} b on a.StoreId=b.Id 
-            where a.CartId='{2}'", ConfigSettings.CartGoodsesTable, ConfigSettings.StoreTable,cartId);
+            var sql = string.Format(@"select b.Id,
+            b.StoreId,
+            b.GoodsId,
+            b.SpecificationId,
+            b.GoodsName,
+            b.GoodsPic,
+            b.SpecificationName,
+            b.Price,
+            b.OriginalPrice,
+            b.Quantity,
+            d.AvailableQuantity as Stock,
+            b.Benevolence,
+            a.Name as StoreName,
+            c.IsPublished as IsGoodsPublished,
+            c.Status as GoodsStatus 
+            from {0} a inner join {1} b on a.Id=b.StoreId inner join {2} c on b.GoodsId=c.Id left join {3} d on b.SpecificationId=d.Id 
+            where b.CartId='{4}'", ConfigSettings.StoreTable,ConfigSettings.CartGoodsesTable,ConfigSettings.GoodsTable,ConfigSettings.SpecificationTable ,cartId);
 
             using (var connection = GetConnection())
             {

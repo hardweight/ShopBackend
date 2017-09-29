@@ -53,18 +53,27 @@ namespace Shop.Api.Controllers
         {
             var users = _userQueryService.UserList();
             var wallets = _walletQueryService.AllWallets();
+            var stores = _storeQueryService.StoreList();
+            var incentiveBenevolenceTransfers = _walletQueryService.GetBenevolenceTransfers(BenevolenceTransferType.Incentive);
 
             return new DashBoardResponse
             {
                 UserCount = users.Count(),
-                NewRegCount=users.Where(x=>x.CreatedOn>DateTime.Now.AddDays(-7)).Count(),
-                AmbassadorCount=users.Where(x=>x.Role==UserRole.Ambassador).Count(),
-                NewAmbassadorCount=users.Where(x=>x.CreatedOn>DateTime.Now.AddDays(-7) && x.Role==UserRole.Ambassador).Count(),
+                NewRegCount = users.Where(x => x.CreatedOn > DateTime.Now.AddDays(-7)).Count(),
+                AmbassadorCount = users.Where(x => x.Role == UserRole.Ambassador).Count(),
+                NewAmbassadorCount = users.Where(x => x.CreatedOn > DateTime.Now.AddDays(-7) && x.Role == UserRole.Ambassador).Count(),
 
-                CashTotal=wallets.Sum(x=>x.Cash),
-                LockedCashTotal=wallets.Sum(x=>x.LockedCash),
-                BenevolenceTotal=wallets.Sum(x=>x.Benevolence),
-                TodayBenevolenceAddedTotal=wallets.Sum(x=>x.TodayBenevolenceAdded)
+                CashTotal = wallets.Sum(x => x.Cash),
+                LockedCashTotal = wallets.Sum(x => x.LockedCash),
+                BenevolenceTotal = wallets.Sum(x => x.Benevolence),
+                TodayBenevolenceAddedTotal = wallets.Sum(x => x.TodayBenevolenceAdded),
+                LastIncentiveAmount= incentiveBenevolenceTransfers.Where(x=>x.CreatedOn.Date.Equals(DateTime.Now.Date)).Sum(x => x.Amount),
+                TotalIncentiveAmount= incentiveBenevolenceTransfers.Sum(x=>x.Amount),
+
+                TotalSale = stores.Sum(x => x.TotalSale),
+                TodaySale = stores.Sum(x=>x.TodaySale),
+                StoreOrderCount=stores.Sum(x=>x.TotalOrder),
+                TodayStoreOrderCount=stores.Sum(x=>x.TodayOrder)
             };
         }
 

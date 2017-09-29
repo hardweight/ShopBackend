@@ -1,0 +1,440 @@
+2017-09-22 09:36:36,228  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 09:36:36,228  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 09:36:36,228  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-09-22 09:36:36,234  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 09:36:36,234  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 09:36:36,234  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-09-22 09:36:36,242  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 09:36:36,242  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 09:36:36,243  INFO EQueue.Clients.Consumers.PullMessageService - PullMessageService startted.
+2017-09-22 09:36:36,244  INFO EQueue.Clients.Consumers.RebalanceService - RebalanceService startted.
+2017-09-22 09:36:36,245  INFO EQueue.Clients.Consumers.CommitConsumeOffsetService - CommitConsumeOffsetService startted.
+2017-09-22 09:36:36,245  INFO EQueue.Clients.Consumers.Consumer - Consumer startted.
+2017-09-22 09:36:36,307  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 09:36:36,307  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 09:36:36,307  INFO EQueue.Clients.Consumers.PullMessageService - PullMessageService startted.
+2017-09-22 09:36:36,307  INFO EQueue.Clients.Consumers.RebalanceService - RebalanceService startted.
+2017-09-22 09:36:36,307  INFO EQueue.Clients.Consumers.CommitConsumeOffsetService - CommitConsumeOffsetService startted.
+2017-09-22 09:36:36,308  INFO EQueue.Clients.Consumers.Consumer - Consumer startted.
+2017-09-22 09:36:36,323  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 09:36:36,323  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 09:36:36,323  INFO EQueue.Clients.Consumers.PullMessageService - PullMessageService startted.
+2017-09-22 09:36:36,324  INFO EQueue.Clients.Consumers.RebalanceService - RebalanceService startted.
+2017-09-22 09:36:36,324  INFO EQueue.Clients.Consumers.CommitConsumeOffsetService - CommitConsumeOffsetService startted.
+2017-09-22 09:36:36,324  INFO EQueue.Clients.Consumers.Consumer - Consumer startted.
+2017-09-22 09:36:36,329  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 09:36:36,329  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 09:36:36,329  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-09-22 09:36:36,334  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 09:36:36,334  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 09:36:36,334  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-09-22 09:36:36,342  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 09:36:36,342  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 09:36:36,342  INFO EQueue.Clients.Consumers.PullMessageService - PullMessageService startted.
+2017-09-22 09:36:36,342  INFO EQueue.Clients.Consumers.RebalanceService - RebalanceService startted.
+2017-09-22 09:36:36,342  INFO EQueue.Clients.Consumers.CommitConsumeOffsetService - CommitConsumeOffsetService startted.
+2017-09-22 09:36:36,342  INFO EQueue.Clients.Consumers.Consumer - Consumer startted.
+2017-09-22 09:36:37,300  WARN EQueue.Clients.Consumers.RebalanceService - No available consumers found.
+2017-09-22 09:36:37,313  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopExceptionTopic, newRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopExceptionTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopExceptionTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopExceptionTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopExceptionTopic","QueueId":3}], oldRouteInfo: []
+2017-09-22 09:36:37,315  WARN EQueue.Clients.Consumers.RebalanceService - No available consumers found.
+2017-09-22 09:36:37,321  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopDomainEventTopic, newRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopDomainEventTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopDomainEventTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopDomainEventTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopDomainEventTopic","QueueId":3}], oldRouteInfo: []
+2017-09-22 09:36:37,328  WARN EQueue.Clients.Consumers.RebalanceService - No available consumers found.
+2017-09-22 09:36:37,331  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopCommandTopic, newRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":3}], oldRouteInfo: []
+2017-09-22 09:36:37,361  WARN EQueue.Clients.Consumers.RebalanceService - No available consumers found.
+2017-09-22 09:36:37,383  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopApplicationMessageTopic, newRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopApplicationMessageTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopApplicationMessageTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopApplicationMessageTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopApplicationMessageTopic","QueueId":3}], oldRouteInfo: []
+2017-09-22 09:36:38,324  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@12936@8, queue: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=0], tags: 
+2017-09-22 09:36:38,324  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@12936@8, queue: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=1], tags: 
+2017-09-22 09:36:38,331  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@12936@8, queue: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=2], tags: 
+2017-09-22 09:36:38,331  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@12936@8, queue: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=3], tags: 
+2017-09-22 09:36:38,336  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@12936@3, queue: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=0], tags: 
+2017-09-22 09:36:38,336  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@12936@3, queue: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=1], tags: 
+2017-09-22 09:36:38,336  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@12936@3, queue: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=2], tags: 
+2017-09-22 09:36:38,336  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@12936@3, queue: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=3], tags: 
+2017-09-22 09:36:38,344  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@12936@4, queue: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=0], tags: 
+2017-09-22 09:36:38,344  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@12936@4, queue: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=1], tags: 
+2017-09-22 09:36:38,344  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@12936@4, queue: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=2], tags: 
+2017-09-22 09:36:38,344  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@12936@4, queue: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=3], tags: 
+2017-09-22 09:36:38,353  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@12936@3, Group=ShopCommandConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=3], NextConsumeOffset=101, Tags=, IsDropped=False], oldOffset:-1, newOffset:101]
+2017-09-22 09:36:38,359  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@12936@8, Group=ShopExceptionConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=0], NextConsumeOffset=0, Tags=, IsDropped=False], oldOffset:-1, newOffset:0]
+2017-09-22 09:36:38,359  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@12936@4, Group=ShopEventConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=3], NextConsumeOffset=94, Tags=, IsDropped=False], oldOffset:-1, newOffset:94]
+2017-09-22 09:36:38,353  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@12936@8, Group=ShopExceptionConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=3], NextConsumeOffset=0, Tags=, IsDropped=False], oldOffset:-1, newOffset:0]
+2017-09-22 09:36:38,361  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@12936@4, Group=ShopEventConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=1], NextConsumeOffset=105, Tags=, IsDropped=False], oldOffset:-1, newOffset:105]
+2017-09-22 09:36:38,361  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@12936@4, Group=ShopEventConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=2], NextConsumeOffset=138, Tags=, IsDropped=False], oldOffset:-1, newOffset:138]
+2017-09-22 09:36:38,361  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@12936@4, Group=ShopEventConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=0], NextConsumeOffset=40, Tags=, IsDropped=False], oldOffset:-1, newOffset:40]
+2017-09-22 09:36:38,362  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@12936@3, Group=ShopCommandConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=0], NextConsumeOffset=40, Tags=, IsDropped=False], oldOffset:-1, newOffset:40]
+2017-09-22 09:36:38,363  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@12936@3, Group=ShopCommandConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=1], NextConsumeOffset=108, Tags=, IsDropped=False], oldOffset:-1, newOffset:108]
+2017-09-22 09:36:38,370  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@12936@8, Group=ShopExceptionConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=2], NextConsumeOffset=0, Tags=, IsDropped=False], oldOffset:-1, newOffset:0]
+2017-09-22 09:36:38,376  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@12936@8, Group=ShopExceptionConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=1], NextConsumeOffset=0, Tags=, IsDropped=False], oldOffset:-1, newOffset:0]
+2017-09-22 09:36:38,377  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@12936@3, Group=ShopCommandConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=2], NextConsumeOffset=138, Tags=, IsDropped=False], oldOffset:-1, newOffset:138]
+2017-09-22 09:36:38,381  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@12936@5, queue: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=0], tags: 
+2017-09-22 09:36:38,382  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@12936@5, queue: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=1], tags: 
+2017-09-22 09:36:38,382  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@12936@5, queue: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=2], tags: 
+2017-09-22 09:36:38,382  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@12936@5, queue: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=3], tags: 
+2017-09-22 09:36:38,405  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@12936@5, Group=ShopMessageConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=3], NextConsumeOffset=7, Tags=, IsDropped=False], oldOffset:-1, newOffset:7]
+2017-09-22 09:36:38,406  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@12936@5, Group=ShopMessageConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=2], NextConsumeOffset=6, Tags=, IsDropped=False], oldOffset:-1, newOffset:6]
+2017-09-22 09:36:38,406  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@12936@5, Group=ShopMessageConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=1], NextConsumeOffset=7, Tags=, IsDropped=False], oldOffset:-1, newOffset:7]
+2017-09-22 09:36:38,407  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@12936@5, Group=ShopMessageConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=0], NextConsumeOffset=5, Tags=, IsDropped=False], oldOffset:-1, newOffset:5]
+2017-09-22 09:56:15,478  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 09:56:15,478  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 09:56:15,478  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-09-22 09:56:15,487  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 09:56:15,487  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 09:56:15,487  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-09-22 09:56:15,513  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 09:56:15,513  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 09:56:15,514  INFO EQueue.Clients.Consumers.PullMessageService - PullMessageService startted.
+2017-09-22 09:56:15,515  INFO EQueue.Clients.Consumers.RebalanceService - RebalanceService startted.
+2017-09-22 09:56:15,516  INFO EQueue.Clients.Consumers.CommitConsumeOffsetService - CommitConsumeOffsetService startted.
+2017-09-22 09:56:15,516  INFO EQueue.Clients.Consumers.Consumer - Consumer startted.
+2017-09-22 09:56:15,548  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 09:56:15,548  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 09:56:15,548  INFO EQueue.Clients.Consumers.PullMessageService - PullMessageService startted.
+2017-09-22 09:56:15,548  INFO EQueue.Clients.Consumers.RebalanceService - RebalanceService startted.
+2017-09-22 09:56:15,548  INFO EQueue.Clients.Consumers.CommitConsumeOffsetService - CommitConsumeOffsetService startted.
+2017-09-22 09:56:15,548  INFO EQueue.Clients.Consumers.Consumer - Consumer startted.
+2017-09-22 09:56:15,553  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 09:56:15,553  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 09:56:15,553  INFO EQueue.Clients.Consumers.PullMessageService - PullMessageService startted.
+2017-09-22 09:56:15,553  INFO EQueue.Clients.Consumers.RebalanceService - RebalanceService startted.
+2017-09-22 09:56:15,553  INFO EQueue.Clients.Consumers.CommitConsumeOffsetService - CommitConsumeOffsetService startted.
+2017-09-22 09:56:15,553  INFO EQueue.Clients.Consumers.Consumer - Consumer startted.
+2017-09-22 09:56:15,558  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 09:56:15,558  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 09:56:15,558  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-09-22 09:56:15,563  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 09:56:15,564  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 09:56:15,564  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-09-22 09:56:15,572  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 09:56:15,572  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 09:56:15,573  INFO EQueue.Clients.Consumers.PullMessageService - PullMessageService startted.
+2017-09-22 09:56:15,573  INFO EQueue.Clients.Consumers.RebalanceService - RebalanceService startted.
+2017-09-22 09:56:15,573  INFO EQueue.Clients.Consumers.CommitConsumeOffsetService - CommitConsumeOffsetService startted.
+2017-09-22 09:56:15,573  INFO EQueue.Clients.Consumers.Consumer - Consumer startted.
+2017-09-22 09:56:16,545  WARN EQueue.Clients.Consumers.RebalanceService - No available consumers found.
+2017-09-22 09:56:16,549  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopExceptionTopic, newRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopExceptionTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopExceptionTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopExceptionTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopExceptionTopic","QueueId":3}], oldRouteInfo: []
+2017-09-22 09:56:16,562  WARN EQueue.Clients.Consumers.RebalanceService - No available consumers found.
+2017-09-22 09:56:16,564  WARN EQueue.Clients.Consumers.RebalanceService - No available consumers found.
+2017-09-22 09:56:16,570  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopCommandTopic, newRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":3}], oldRouteInfo: []
+2017-09-22 09:56:16,570  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopDomainEventTopic, newRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopDomainEventTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopDomainEventTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopDomainEventTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopDomainEventTopic","QueueId":3}], oldRouteInfo: []
+2017-09-22 09:56:16,576  WARN EQueue.Clients.Consumers.RebalanceService - No available consumers found.
+2017-09-22 09:56:16,582  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopApplicationMessageTopic, newRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopApplicationMessageTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopApplicationMessageTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopApplicationMessageTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopApplicationMessageTopic","QueueId":3}], oldRouteInfo: []
+2017-09-22 09:56:17,573  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@2840@8, queue: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=0], tags: 
+2017-09-22 09:56:17,573  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@2840@8, queue: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=1], tags: 
+2017-09-22 09:56:17,573  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@2840@8, queue: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=2], tags: 
+2017-09-22 09:56:17,574  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@2840@8, queue: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=3], tags: 
+2017-09-22 09:56:17,583  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@2840@5, queue: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=0], tags: 
+2017-09-22 09:56:17,583  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@2840@5, queue: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=1], tags: 
+2017-09-22 09:56:17,584  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@2840@5, queue: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=2], tags: 
+2017-09-22 09:56:17,584  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@2840@5, queue: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=3], tags: 
+2017-09-22 09:56:17,587  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@2840@4, queue: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=0], tags: 
+2017-09-22 09:56:17,587  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@2840@4, queue: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=1], tags: 
+2017-09-22 09:56:17,587  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@2840@4, queue: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=2], tags: 
+2017-09-22 09:56:17,587  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@2840@4, queue: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=3], tags: 
+2017-09-22 09:56:17,588  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@2840@3, queue: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=0], tags: 
+2017-09-22 09:56:17,588  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@2840@3, queue: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=1], tags: 
+2017-09-22 09:56:17,588  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@2840@3, queue: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=2], tags: 
+2017-09-22 09:56:17,588  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@2840@3, queue: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=3], tags: 
+2017-09-22 09:56:17,602  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@2840@4, Group=ShopEventConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=3], NextConsumeOffset=98, Tags=, IsDropped=False], oldOffset:-1, newOffset:98]
+2017-09-22 09:56:17,603  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@2840@8, Group=ShopExceptionConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=0], NextConsumeOffset=0, Tags=, IsDropped=False], oldOffset:-1, newOffset:0]
+2017-09-22 09:56:17,604  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@2840@5, Group=ShopMessageConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=1], NextConsumeOffset=8, Tags=, IsDropped=False], oldOffset:-1, newOffset:8]
+2017-09-22 09:56:17,604  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@2840@8, Group=ShopExceptionConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=2], NextConsumeOffset=0, Tags=, IsDropped=False], oldOffset:-1, newOffset:0]
+2017-09-22 09:56:17,604  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@2840@5, Group=ShopMessageConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=0], NextConsumeOffset=5, Tags=, IsDropped=False], oldOffset:-1, newOffset:5]
+2017-09-22 09:56:17,604  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@2840@8, Group=ShopExceptionConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=3], NextConsumeOffset=0, Tags=, IsDropped=False], oldOffset:-1, newOffset:0]
+2017-09-22 09:56:17,605  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@2840@5, Group=ShopMessageConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=3], NextConsumeOffset=7, Tags=, IsDropped=False], oldOffset:-1, newOffset:7]
+2017-09-22 09:56:17,606  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@2840@8, Group=ShopExceptionConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=1], NextConsumeOffset=0, Tags=, IsDropped=False], oldOffset:-1, newOffset:0]
+2017-09-22 09:56:17,606  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@2840@3, Group=ShopCommandConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=3], NextConsumeOffset=107, Tags=, IsDropped=False], oldOffset:-1, newOffset:107]
+2017-09-22 09:56:17,606  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@2840@5, Group=ShopMessageConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=2], NextConsumeOffset=9, Tags=, IsDropped=False], oldOffset:-1, newOffset:9]
+2017-09-22 09:56:17,622  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@2840@4, Group=ShopEventConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=0], NextConsumeOffset=44, Tags=, IsDropped=False], oldOffset:-1, newOffset:44]
+2017-09-22 09:56:17,623  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@2840@3, Group=ShopCommandConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=2], NextConsumeOffset=148, Tags=, IsDropped=False], oldOffset:-1, newOffset:148]
+2017-09-22 09:56:17,623  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@2840@4, Group=ShopEventConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=1], NextConsumeOffset=115, Tags=, IsDropped=False], oldOffset:-1, newOffset:115]
+2017-09-22 09:56:17,623  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@2840@3, Group=ShopCommandConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=1], NextConsumeOffset=118, Tags=, IsDropped=False], oldOffset:-1, newOffset:118]
+2017-09-22 09:56:17,648  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@2840@3, Group=ShopCommandConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=0], NextConsumeOffset=44, Tags=, IsDropped=False], oldOffset:-1, newOffset:44]
+2017-09-22 09:56:17,647  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@2840@4, Group=ShopEventConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=2], NextConsumeOffset=148, Tags=, IsDropped=False], oldOffset:-1, newOffset:148]
+2017-09-22 10:03:02,212  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 10:03:02,212  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 10:03:02,212  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-09-22 10:03:02,220  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 10:03:02,220  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 10:03:02,220  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-09-22 10:03:02,227  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 10:03:02,227  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 10:03:02,228  INFO EQueue.Clients.Consumers.PullMessageService - PullMessageService startted.
+2017-09-22 10:03:02,229  INFO EQueue.Clients.Consumers.RebalanceService - RebalanceService startted.
+2017-09-22 10:03:02,230  INFO EQueue.Clients.Consumers.CommitConsumeOffsetService - CommitConsumeOffsetService startted.
+2017-09-22 10:03:02,230  INFO EQueue.Clients.Consumers.Consumer - Consumer startted.
+2017-09-22 10:03:02,260  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 10:03:02,260  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 10:03:02,260  INFO EQueue.Clients.Consumers.PullMessageService - PullMessageService startted.
+2017-09-22 10:03:02,260  INFO EQueue.Clients.Consumers.RebalanceService - RebalanceService startted.
+2017-09-22 10:03:02,261  INFO EQueue.Clients.Consumers.CommitConsumeOffsetService - CommitConsumeOffsetService startted.
+2017-09-22 10:03:02,261  INFO EQueue.Clients.Consumers.Consumer - Consumer startted.
+2017-09-22 10:03:02,267  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 10:03:02,267  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 10:03:02,267  INFO EQueue.Clients.Consumers.PullMessageService - PullMessageService startted.
+2017-09-22 10:03:02,267  INFO EQueue.Clients.Consumers.RebalanceService - RebalanceService startted.
+2017-09-22 10:03:02,267  INFO EQueue.Clients.Consumers.CommitConsumeOffsetService - CommitConsumeOffsetService startted.
+2017-09-22 10:03:02,267  INFO EQueue.Clients.Consumers.Consumer - Consumer startted.
+2017-09-22 10:03:02,273  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 10:03:02,273  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 10:03:02,273  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-09-22 10:03:02,280  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 10:03:02,280  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 10:03:02,280  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-09-22 10:03:02,291  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 10:03:02,291  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 10:03:02,291  INFO EQueue.Clients.Consumers.PullMessageService - PullMessageService startted.
+2017-09-22 10:03:02,291  INFO EQueue.Clients.Consumers.RebalanceService - RebalanceService startted.
+2017-09-22 10:03:02,291  INFO EQueue.Clients.Consumers.CommitConsumeOffsetService - CommitConsumeOffsetService startted.
+2017-09-22 10:03:02,291  INFO EQueue.Clients.Consumers.Consumer - Consumer startted.
+2017-09-22 10:03:03,257  WARN EQueue.Clients.Consumers.RebalanceService - No available consumers found.
+2017-09-22 10:03:03,262  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopExceptionTopic, newRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopExceptionTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopExceptionTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopExceptionTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopExceptionTopic","QueueId":3}], oldRouteInfo: []
+2017-09-22 10:03:03,270  WARN EQueue.Clients.Consumers.RebalanceService - No available consumers found.
+2017-09-22 10:03:03,271  WARN EQueue.Clients.Consumers.RebalanceService - No available consumers found.
+2017-09-22 10:03:03,274  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopDomainEventTopic, newRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopDomainEventTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopDomainEventTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopDomainEventTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopDomainEventTopic","QueueId":3}], oldRouteInfo: []
+2017-09-22 10:03:03,275  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopCommandTopic, newRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":3}], oldRouteInfo: []
+2017-09-22 10:03:03,309  WARN EQueue.Clients.Consumers.RebalanceService - No available consumers found.
+2017-09-22 10:03:03,311  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopApplicationMessageTopic, newRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopApplicationMessageTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopApplicationMessageTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopApplicationMessageTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopApplicationMessageTopic","QueueId":3}], oldRouteInfo: []
+2017-09-22 10:03:04,296  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@13796@3, queue: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=0], tags: 
+2017-09-22 10:03:04,296  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@13796@3, queue: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=1], tags: 
+2017-09-22 10:03:04,296  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@13796@3, queue: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=2], tags: 
+2017-09-22 10:03:04,296  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@13796@3, queue: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=3], tags: 
+2017-09-22 10:03:04,296  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@13796@4, queue: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=0], tags: 
+2017-09-22 10:03:04,297  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@13796@4, queue: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=1], tags: 
+2017-09-22 10:03:04,297  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@13796@4, queue: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=2], tags: 
+2017-09-22 10:03:04,297  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@13796@4, queue: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=3], tags: 
+2017-09-22 10:03:04,302  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@13796@8, queue: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=0], tags: 
+2017-09-22 10:03:04,302  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@13796@8, queue: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=1], tags: 
+2017-09-22 10:03:04,302  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@13796@8, queue: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=2], tags: 
+2017-09-22 10:03:04,302  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@13796@8, queue: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=3], tags: 
+2017-09-22 10:03:04,325  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@13796@8, Group=ShopExceptionConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=3], NextConsumeOffset=0, Tags=, IsDropped=False], oldOffset:-1, newOffset:0]
+2017-09-22 10:03:04,327  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@13796@4, Group=ShopEventConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=2], NextConsumeOffset=153, Tags=, IsDropped=False], oldOffset:-1, newOffset:153]
+2017-09-22 10:03:04,329  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@13796@4, Group=ShopEventConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=3], NextConsumeOffset=104, Tags=, IsDropped=False], oldOffset:-1, newOffset:104]
+2017-09-22 10:03:04,329  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@13796@8, Group=ShopExceptionConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=1], NextConsumeOffset=0, Tags=, IsDropped=False], oldOffset:-1, newOffset:0]
+2017-09-22 10:03:04,329  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@13796@8, Group=ShopExceptionConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=0], NextConsumeOffset=0, Tags=, IsDropped=False], oldOffset:-1, newOffset:0]
+2017-09-22 10:03:04,330  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@13796@3, Group=ShopCommandConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=3], NextConsumeOffset=114, Tags=, IsDropped=False], oldOffset:-1, newOffset:114]
+2017-09-22 10:03:04,330  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@13796@3, Group=ShopCommandConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=0], NextConsumeOffset=44, Tags=, IsDropped=False], oldOffset:-1, newOffset:44]
+2017-09-22 10:03:04,332  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@13796@3, Group=ShopCommandConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=2], NextConsumeOffset=153, Tags=, IsDropped=False], oldOffset:-1, newOffset:153]
+2017-09-22 10:03:04,332  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@13796@3, Group=ShopCommandConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=1], NextConsumeOffset=121, Tags=, IsDropped=False], oldOffset:-1, newOffset:121]
+2017-09-22 10:03:04,334  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@13796@5, queue: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=0], tags: 
+2017-09-22 10:03:04,334  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@13796@5, queue: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=1], tags: 
+2017-09-22 10:03:04,334  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@13796@5, queue: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=2], tags: 
+2017-09-22 10:03:04,334  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@13796@5, queue: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=3], tags: 
+2017-09-22 10:03:04,334  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@13796@8, Group=ShopExceptionConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=2], NextConsumeOffset=0, Tags=, IsDropped=False], oldOffset:-1, newOffset:0]
+2017-09-22 10:03:04,334  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@13796@4, Group=ShopEventConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=0], NextConsumeOffset=44, Tags=, IsDropped=False], oldOffset:-1, newOffset:44]
+2017-09-22 10:03:04,336  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@13796@5, Group=ShopMessageConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=3], NextConsumeOffset=8, Tags=, IsDropped=False], oldOffset:-1, newOffset:8]
+2017-09-22 10:03:04,351  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@13796@5, Group=ShopMessageConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=1], NextConsumeOffset=8, Tags=, IsDropped=False], oldOffset:-1, newOffset:8]
+2017-09-22 10:03:04,351  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@13796@5, Group=ShopMessageConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=2], NextConsumeOffset=9, Tags=, IsDropped=False], oldOffset:-1, newOffset:9]
+2017-09-22 10:03:04,352  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@13796@4, Group=ShopEventConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=1], NextConsumeOffset=118, Tags=, IsDropped=False], oldOffset:-1, newOffset:118]
+2017-09-22 10:03:04,352  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@13796@5, Group=ShopMessageConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=0], NextConsumeOffset=6, Tags=, IsDropped=False], oldOffset:-1, newOffset:6]
+2017-09-22 10:04:03,170 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@13796@5, topic: ShopApplicationMessageTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:03,175  INFO EQueue.Clients.Consumers.RebalanceService - Dropped pull request, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@13796@5, queue: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=1], tags: 
+2017-09-22 10:04:03,175  INFO EQueue.Clients.Consumers.RebalanceService - Dropped pull request, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@13796@5, queue: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=0], tags: 
+2017-09-22 10:04:03,175  INFO EQueue.Clients.Consumers.RebalanceService - Dropped pull request, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@13796@5, queue: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=3], tags: 
+2017-09-22 10:04:03,175  INFO EQueue.Clients.Consumers.RebalanceService - Dropped pull request, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@13796@5, queue: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=2], tags: 
+2017-09-22 10:04:03,178 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@13796@4, topic: ShopDomainEventTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:03,179  INFO EQueue.Clients.Consumers.RebalanceService - Dropped pull request, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@13796@4, queue: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=3], tags: 
+2017-09-22 10:04:03,179  INFO EQueue.Clients.Consumers.RebalanceService - Dropped pull request, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@13796@4, queue: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=2], tags: 
+2017-09-22 10:04:03,179  INFO EQueue.Clients.Consumers.RebalanceService - Dropped pull request, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@13796@4, queue: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=1], tags: 
+2017-09-22 10:04:03,179  INFO EQueue.Clients.Consumers.RebalanceService - Dropped pull request, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@13796@4, queue: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=0], tags: 
+2017-09-22 10:04:03,180 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@13796@8, topic: ShopExceptionTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:03,180  INFO EQueue.Clients.Consumers.RebalanceService - Dropped pull request, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@13796@8, queue: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=0], tags: 
+2017-09-22 10:04:03,180  INFO EQueue.Clients.Consumers.RebalanceService - Dropped pull request, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@13796@8, queue: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=1], tags: 
+2017-09-22 10:04:03,180  INFO EQueue.Clients.Consumers.RebalanceService - Dropped pull request, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@13796@8, queue: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=2], tags: 
+2017-09-22 10:04:03,181  INFO EQueue.Clients.Consumers.RebalanceService - Dropped pull request, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@13796@8, queue: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=3], tags: 
+2017-09-22 10:04:03,187 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@13796@3, topic: ShopCommandTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:03,188  INFO EQueue.Clients.Consumers.RebalanceService - Dropped pull request, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@13796@3, queue: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=0], tags: 
+2017-09-22 10:04:03,188  INFO EQueue.Clients.Consumers.RebalanceService - Dropped pull request, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@13796@3, queue: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=1], tags: 
+2017-09-22 10:04:03,188  INFO EQueue.Clients.Consumers.RebalanceService - Dropped pull request, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@13796@3, queue: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=2], tags: 
+2017-09-22 10:04:03,188  INFO EQueue.Clients.Consumers.RebalanceService - Dropped pull request, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@13796@3, queue: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=3], tags: 
+2017-09-22 10:04:04,420 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@13796@3, topic: ShopCommandTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:04,425 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@13796@8, topic: ShopExceptionTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:04,426 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@13796@4, topic: ShopDomainEventTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:04,428 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@13796@5, topic: ShopApplicationMessageTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:06,572 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@13796@5, topic: ShopApplicationMessageTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:06,573 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@13796@4, topic: ShopDomainEventTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:06,574 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@13796@8, topic: ShopExceptionTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:06,577 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@13796@3, topic: ShopCommandTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:06,646 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@13796@5, topic: ShopApplicationMessageTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:06,648 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@13796@4, topic: ShopDomainEventTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:06,648 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@13796@8, topic: ShopExceptionTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:06,651 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@13796@3, topic: ShopCommandTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:07,655 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@13796@8, topic: ShopExceptionTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:07,655 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@13796@4, topic: ShopDomainEventTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:07,656 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@13796@5, topic: ShopApplicationMessageTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:07,657 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@13796@3, topic: ShopCommandTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:08,663 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@13796@5, topic: ShopApplicationMessageTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:08,664 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@13796@4, topic: ShopDomainEventTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:08,665 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@13796@8, topic: ShopExceptionTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:08,664 ERROR EQueue.Clients.Consumers.RebalanceService - RebalanceClustering has exception, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@13796@3, topic: ShopCommandTopic
+System.Exception: No available broker.
+   在 EQueue.Clients.ClientService.GetFirstBrokerConnection() 位置 D:\MyProjects\equeue\src\EQueue\Clients\ClientService.cs:行号 129
+   在 EQueue.Clients.Consumers.RebalanceService.GetConsumerIdsForTopic(String topic) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 128
+   在 EQueue.Clients.Consumers.RebalanceService.RebalanceClustering(KeyValuePair`2 pair) 位置 D:\MyProjects\equeue\src\EQueue\Clients\Consumers\RebalanceService.cs:行号 103
+2017-09-22 10:04:44,898  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 10:04:44,899  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 10:04:44,899  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-09-22 10:04:44,904  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 10:04:44,905  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 10:04:44,905  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-09-22 10:04:44,913  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 10:04:44,913  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 10:04:44,914  INFO EQueue.Clients.Consumers.PullMessageService - PullMessageService startted.
+2017-09-22 10:04:44,919  INFO EQueue.Clients.Consumers.RebalanceService - RebalanceService startted.
+2017-09-22 10:04:44,920  INFO EQueue.Clients.Consumers.CommitConsumeOffsetService - CommitConsumeOffsetService startted.
+2017-09-22 10:04:44,920  INFO EQueue.Clients.Consumers.Consumer - Consumer startted.
+2017-09-22 10:04:44,973  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 10:04:44,973  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 10:04:44,973  INFO EQueue.Clients.Consumers.PullMessageService - PullMessageService startted.
+2017-09-22 10:04:44,973  INFO EQueue.Clients.Consumers.RebalanceService - RebalanceService startted.
+2017-09-22 10:04:44,973  INFO EQueue.Clients.Consumers.CommitConsumeOffsetService - CommitConsumeOffsetService startted.
+2017-09-22 10:04:44,973  INFO EQueue.Clients.Consumers.Consumer - Consumer startted.
+2017-09-22 10:04:44,999  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 10:04:44,999  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 10:04:45,000  INFO EQueue.Clients.Consumers.PullMessageService - PullMessageService startted.
+2017-09-22 10:04:45,000  INFO EQueue.Clients.Consumers.RebalanceService - RebalanceService startted.
+2017-09-22 10:04:45,000  INFO EQueue.Clients.Consumers.CommitConsumeOffsetService - CommitConsumeOffsetService startted.
+2017-09-22 10:04:45,000  INFO EQueue.Clients.Consumers.Consumer - Consumer startted.
+2017-09-22 10:04:45,015  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 10:04:45,015  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 10:04:45,015  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-09-22 10:04:45,024  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 10:04:45,024  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 10:04:45,024  INFO EQueue.Clients.Producers.Producer - Producer startted.
+2017-09-22 10:04:45,041  INFO EQueue.Clients.ClientService - Added broker: [BrokerName=ShopBroker,GroupName=ShopGroupName,ClusterName=DefaultCluster,BrokerRole=0,ProducerAddress=192.168.1.142:11101,ConsumerAddress=192.168.1.142:11102,AdminAddress=192.168.1.142:11103]
+2017-09-22 10:04:45,041  INFO EQueue.Clients.ClientService - ClientService startted.
+2017-09-22 10:04:45,041  INFO EQueue.Clients.Consumers.PullMessageService - PullMessageService startted.
+2017-09-22 10:04:45,041  INFO EQueue.Clients.Consumers.RebalanceService - RebalanceService startted.
+2017-09-22 10:04:45,041  INFO EQueue.Clients.Consumers.CommitConsumeOffsetService - CommitConsumeOffsetService startted.
+2017-09-22 10:04:45,041  INFO EQueue.Clients.Consumers.Consumer - Consumer startted.
+2017-09-22 10:04:45,953  WARN EQueue.Clients.Consumers.RebalanceService - No available consumers found.
+2017-09-22 10:04:45,963  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopExceptionTopic, newRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopExceptionTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopExceptionTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopExceptionTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopExceptionTopic","QueueId":3}], oldRouteInfo: []
+2017-09-22 10:04:45,980  WARN EQueue.Clients.Consumers.RebalanceService - No available consumers found.
+2017-09-22 10:04:45,983  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopDomainEventTopic, newRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopDomainEventTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopDomainEventTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopDomainEventTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopDomainEventTopic","QueueId":3}], oldRouteInfo: []
+2017-09-22 10:04:46,014  WARN EQueue.Clients.Consumers.RebalanceService - No available consumers found.
+2017-09-22 10:04:46,015  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopCommandTopic, newRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopCommandTopic","QueueId":3}], oldRouteInfo: []
+2017-09-22 10:04:46,043  WARN EQueue.Clients.Consumers.RebalanceService - No available consumers found.
+2017-09-22 10:04:46,046  INFO EQueue.Clients.ClientService - Topic routeInfo changed, topic: ShopApplicationMessageTopic, newRouteInfo: [{"BrokerName":"ShopBroker","Topic":"ShopApplicationMessageTopic","QueueId":0},{"BrokerName":"ShopBroker","Topic":"ShopApplicationMessageTopic","QueueId":1},{"BrokerName":"ShopBroker","Topic":"ShopApplicationMessageTopic","QueueId":2},{"BrokerName":"ShopBroker","Topic":"ShopApplicationMessageTopic","QueueId":3}], oldRouteInfo: []
+2017-09-22 10:04:46,992  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@14576@4, queue: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=0], tags: 
+2017-09-22 10:04:46,992  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@14576@4, queue: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=1], tags: 
+2017-09-22 10:04:46,993  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@14576@4, queue: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=2], tags: 
+2017-09-22 10:04:46,993  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopEventConsumerGroup, consumerId: 192.168.1.142@default@14576@4, queue: [BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=3], tags: 
+2017-09-22 10:04:46,992  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@14576@8, queue: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=0], tags: 
+2017-09-22 10:04:46,993  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@14576@8, queue: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=1], tags: 
+2017-09-22 10:04:46,993  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@14576@8, queue: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=2], tags: 
+2017-09-22 10:04:46,993  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopExceptionConsumerGroup, consumerId: 192.168.1.142@default@14576@8, queue: [BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=3], tags: 
+2017-09-22 10:04:47,021  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@14576@4, Group=ShopEventConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=2], NextConsumeOffset=153, Tags=, IsDropped=False], oldOffset:-1, newOffset:153]
+2017-09-22 10:04:47,021  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@14576@8, Group=ShopExceptionConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=1], NextConsumeOffset=0, Tags=, IsDropped=False], oldOffset:-1, newOffset:0]
+2017-09-22 10:04:47,022  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@14576@8, Group=ShopExceptionConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=2], NextConsumeOffset=0, Tags=, IsDropped=False], oldOffset:-1, newOffset:0]
+2017-09-22 10:04:47,022  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@14576@8, Group=ShopExceptionConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=0], NextConsumeOffset=0, Tags=, IsDropped=False], oldOffset:-1, newOffset:0]
+2017-09-22 10:04:47,022  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@14576@8, Group=ShopExceptionConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopExceptionTopic, QueueId=3], NextConsumeOffset=0, Tags=, IsDropped=False], oldOffset:-1, newOffset:0]
+2017-09-22 10:04:47,023  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@14576@4, Group=ShopEventConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=0], NextConsumeOffset=44, Tags=, IsDropped=False], oldOffset:-1, newOffset:44]
+2017-09-22 10:04:47,021  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@14576@4, Group=ShopEventConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=1], NextConsumeOffset=118, Tags=, IsDropped=False], oldOffset:-1, newOffset:118]
+2017-09-22 10:04:47,021  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@14576@4, Group=ShopEventConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopDomainEventTopic, QueueId=3], NextConsumeOffset=104, Tags=, IsDropped=False], oldOffset:-1, newOffset:104]
+2017-09-22 10:04:47,030  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@14576@3, queue: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=0], tags: 
+2017-09-22 10:04:47,030  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@14576@3, queue: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=1], tags: 
+2017-09-22 10:04:47,030  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@14576@3, queue: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=2], tags: 
+2017-09-22 10:04:47,030  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopCommandConsumerGroup, consumerId: 192.168.1.142@default@14576@3, queue: [BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=3], tags: 
+2017-09-22 10:04:47,033  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@14576@3, Group=ShopCommandConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=3], NextConsumeOffset=114, Tags=, IsDropped=False], oldOffset:-1, newOffset:114]
+2017-09-22 10:04:47,036  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@14576@3, Group=ShopCommandConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=2], NextConsumeOffset=153, Tags=, IsDropped=False], oldOffset:-1, newOffset:153]
+2017-09-22 10:04:47,036  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@14576@3, Group=ShopCommandConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=1], NextConsumeOffset=121, Tags=, IsDropped=False], oldOffset:-1, newOffset:121]
+2017-09-22 10:04:47,036  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@14576@3, Group=ShopCommandConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopCommandTopic, QueueId=0], NextConsumeOffset=44, Tags=, IsDropped=False], oldOffset:-1, newOffset:44]
+2017-09-22 10:04:47,051  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@14576@5, queue: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=0], tags: 
+2017-09-22 10:04:47,051  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@14576@5, queue: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=1], tags: 
+2017-09-22 10:04:47,051  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@14576@5, queue: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=2], tags: 
+2017-09-22 10:04:47,051  INFO EQueue.Clients.Consumers.RebalanceService - Added pull request, consumerGroup: ShopMessageConsumerGroup, consumerId: 192.168.1.142@default@14576@5, queue: [BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=3], tags: 
+2017-09-22 10:04:47,052  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@14576@5, Group=ShopMessageConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=0], NextConsumeOffset=6, Tags=, IsDropped=False], oldOffset:-1, newOffset:6]
+2017-09-22 10:04:47,052  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@14576@5, Group=ShopMessageConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=1], NextConsumeOffset=8, Tags=, IsDropped=False], oldOffset:-1, newOffset:8]
+2017-09-22 10:04:47,067  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@14576@5, Group=ShopMessageConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=3], NextConsumeOffset=8, Tags=, IsDropped=False], oldOffset:-1, newOffset:8]
+2017-09-22 10:04:47,066  INFO EQueue.Clients.Consumers.PullMessageService - Resetted nextConsumeOffset, [pullRequest:[ConsumerId=192.168.1.142@default@14576@5, Group=ShopMessageConsumerGroup, MessageQueue=[BrokerName=ShopBroker, Topic=ShopApplicationMessageTopic, QueueId=2], NextConsumeOffset=9, Tags=, IsDropped=False], oldOffset:-1, newOffset:9]

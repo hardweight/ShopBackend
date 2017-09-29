@@ -36,5 +36,6 @@ namespace Shop.Api.Models.Response.Goodses
 
         public bool IsPublished { get; set; }
         public string Status { get; set; }
+        public string RefusedReason { get; set; }
     }
 }

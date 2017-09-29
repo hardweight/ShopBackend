@@ -43,6 +43,31 @@ namespace Shop.Api.Controllers
             _commandService = commandService;
             _storeOrderQueryService = storeOrderQueryService;
         }
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("StoreOrder/Delete")]
+        public async Task<BaseApiResponse> Delete(DeleteRequest request)
+        {
+            request.CheckNotNull(nameof(request));
+            //判断
+            var order = _storeOrderQueryService.Find(request.Id);
+            if (order == null)
+            {
+                return new BaseApiResponse { Code = 400, Message = "没找到该订单" };
+            }
+            //删除
+            var command = new DeleteStoreOrderCommand(request.Id);
+            var result = await ExecuteCommandAsync(command);
+            if (!result.IsSuccess())
+            {
+                return new BaseApiResponse { Code = 400, Message = "删除失败{0}，可能订单状态不允许删除".FormatWith(result.GetErrorMessage()) };
+            }
+            return new BaseApiResponse();
+        }
 
         #region 查询
         /// <summary>
@@ -103,7 +128,7 @@ namespace Shop.Api.Controllers
         {
             request.CheckNotNull(nameof(request));
 
-            var expressSchedule = ExpressScheduleUtil.GetSchedule("auto", request.ExpressNumber);
+            var expressSchedule = ExpressScheduleUtil.GetSchedule(request.ExpressName, request.ExpressNumber);
 
             return expressSchedule;
         }
@@ -117,21 +142,26 @@ namespace Shop.Api.Controllers
         [Route("StoreOrder/UserOrders")]
         public BaseApiResponse UserOrders(UserOrdersRequest request)
         {
+            request.CheckNotNull(nameof(request));
+
             TryInitUserModel();
-            int pageRecordCount = 10;
-            //获取指定状态的订单 分页数据
-            IEnumerable<ReadModel.StoreOrders.Dtos.StoreOrderDetails> storeOrders = null;
-            if (request.Status==StoreOrderStatus.All)
+
+            //获取数据
+            int pageSize = 10;
+            var storeOrders = _storeOrderQueryService.UserStoreOrderDetails(_user.Id);
+            var total = storeOrders.Count();
+            //筛选数据
+            if (request.Status!=StoreOrderStatus.All)
             {
-                storeOrders = _storeOrderQueryService.UserStoreOrderDetails(_user.Id).OrderByDescending(x => x.CreatedOn).Skip(pageRecordCount * request.Page).Take(pageRecordCount);
+                storeOrders = storeOrders.Where(x=>x.Status==request.Status);
             }
-            else
-            {
-                storeOrders = _storeOrderQueryService.UserStoreOrderDetails(_user.Id,request.Status).OrderByDescending(x=>x.CreatedOn).Skip(pageRecordCount*request.Page).Take(pageRecordCount);
-            }
+            total = storeOrders.Count();
+            //分页
+            storeOrders = storeOrders.OrderByDescending(x=>x.CreatedOn).Skip(pageSize * (request.Page-1)).Take(pageSize);
 
             return new UserOrdersResponse
             {
+                Total = total,
                 StoreOrders = storeOrders.Select(x => new StoreOrder
                 {
                     Id = x.Id,
@@ -143,6 +173,11 @@ namespace Shop.Api.Controllers
                     ExpressRegion = x.ExpressRegion,
                     ExpressMobile = x.ExpressMobile,
                     ExpressName = x.ExpressName,
+
+                    DeliverExpressName=x.DeliverExpressName,
+                    DeliverExpressCode=x.DeliverExpressCode,
+                    DeliverExpressNumber=x.DeliverExpressNumber,
+
                     ExpressZip = x.ExpressZip,
                     CreatedOn = x.CreatedOn,
                     Total = x.Total,
@@ -171,21 +206,31 @@ namespace Shop.Api.Controllers
         [Route("StoreOrder/StoreOrders")]
         public BaseApiResponse StoreOrders(StoreOrdersRequest request)
         {
+            request.CheckNotNull(nameof(request));
+            
             TryInitUserModel();
-            int pageRecordCount = 10;
-            //获取指定状态的订单
-            IEnumerable<ReadModel.StoreOrders.Dtos.StoreOrderDetails> storeOrders = null;
-            if (request.Status == StoreOrderStatus.All)
+
+            //获取数据
+            int pageSize = 10;
+            var storeOrders = _storeOrderQueryService.StoreStoreOrderDetails(request.Id);
+            var total = storeOrders.Count();
+            //筛选数据
+            if (request.Status != StoreOrderStatus.All)
             {
-                storeOrders = _storeOrderQueryService.StoreStoreOrderDetails(request.Id).OrderByDescending(x => x.CreatedOn).Skip(pageRecordCount * request.Page).Take(pageRecordCount);
+                storeOrders = storeOrders.Where(x => x.Status == request.Status);
             }
-            else
+            //订单号查询
+            if (!string.IsNullOrEmpty(request.OrderNumber))
             {
-                storeOrders = _storeOrderQueryService.StoreStoreOrderDetails(request.Id,request.Status).OrderByDescending(x => x.CreatedOn).Skip(pageRecordCount*request.Page).Take(pageRecordCount);
+                storeOrders = storeOrders.Where(x => x.Number.Contains(request.OrderNumber));
             }
+            total = storeOrders.Count();
+            //分页
+            storeOrders = storeOrders.OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page-1)).Take(pageSize);
 
             return new UserOrdersResponse
             {
+                Total=total,
                 StoreOrders = storeOrders.Select(x => new StoreOrder
                 {
                     Id = x.Id,
@@ -201,6 +246,11 @@ namespace Shop.Api.Controllers
                     CreatedOn = x.CreatedOn,
                     Total = x.Total,
                     Status = x.Status.ToDescription(),
+
+                    DeliverExpressName=x.DeliverExpressName,
+                    DeliverExpressCode=x.DeliverExpressCode,
+                    DeliverExpressNumber=x.DeliverExpressNumber,
+
                     StoreOrderGoodses = x.StoreOrderGoodses.Select(z => new StoreOrderGoods
                     {
                         Id = z.Id,
@@ -231,10 +281,10 @@ namespace Shop.Api.Controllers
         public async Task<BaseApiResponse> Deliver(DeliverRequest request)
         {
             request.CheckNotNull(nameof(request));
-            request.ExpressInfo.CheckNotNull(nameof(request.ExpressInfo));
 
-            var command = new DeliverCommand(request.ExpressInfo.ExpressName,
-                request.ExpressInfo.ExpressNumber)
+            var command = new DeliverCommand(request.ExpressName,
+                request.ExpressCode,
+                request.ExpressNumber)
             {
                 AggregateRootId=request.Id
             };
@@ -371,6 +421,67 @@ namespace Shop.Api.Controllers
             }
 
             return new BaseApiResponse();
+        }
+        #endregion
+
+        #region 后台管理
+        /// <summary>
+        /// 店铺列表
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("StoreOrderAdmin/ListPage")]
+        public ListPageResponse ListPage(ListPageRequest request)
+        {
+            request.CheckNotNull(nameof(request));
+
+            var pageSize = 20;
+            var storeOrders = _storeOrderQueryService.StoreOrderList();
+            var total = storeOrders.Count();
+            //筛选
+            if (request.Status != StoreOrderStatus.All)
+            {
+                storeOrders = storeOrders.Where(x => x.Status == request.Status);
+            }
+            if (!request.Number.IsNullOrEmpty())
+            {
+                storeOrders = storeOrders.Where(x => x.Number.Contains(request.Number));
+            }
+            total = storeOrders.Count();
+
+            //分页
+            storeOrders = storeOrders.OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
+
+            return new ListPageResponse
+            {
+                Total = total,
+                StoreOrders = storeOrders.Select(x => new StoreOrderWithInfo
+                {
+                    Id = x.Id,
+                    StoreId = x.StoreId,
+                    Name=x.Name,
+                    Mobile=x.Mobile,
+                    NickName=x.NickName,
+                    UserId=x.UserId,
+                    Region = x.Region,
+                    Number = x.Number,
+                    Remark = x.Remark,
+                    ExpressRegion = x.ExpressRegion,
+                    ExpressAddress = x.ExpressAddress,
+                    ExpressName = x.ExpressName,
+                    ExpressMobile = x.ExpressMobile,
+                    ExpressZip = x.ExpressZip,
+                    CreatedOn = x.CreatedOn,
+
+                    Total = x.Total,
+                    StoreTotal = x.StoreTotal,
+                    DeliverExpressName = x.DeliverExpressName,
+                    DeliverExpressCode=x.DeliverExpressCode,
+                    DeliverExpressNumber=x.DeliverExpressNumber,
+                    Status = x.Status.ToString()
+                }).ToList()
+            };
         }
         #endregion
 

@@ -55,7 +55,14 @@
     <Compile Include="Enums\UserEnums.cs" />
     <Compile Include="Enums\WalletEnums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomArray.cs" />
     <Compile Include="Topics.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Xia.Common\Xia.Common.csproj">
+      <Project>{F31F8B62-A8B2-4D83-B8E1-FC705D9F5A88}</Project>
+      <Name>Xia.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

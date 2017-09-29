@@ -34,21 +34,64 @@ namespace Shop.Api.Controllers
         {
             request.CheckNotNull(nameof(request));
 
-            if(request.Name!="admin" || request.Password!="wftx123456~")
+            if(request.Name=="admin")
             {
-                return new BaseApiResponse { Code = 400, Message = "登录不被允许" };
-            }
-            return new LoginResponse
-            {
-                User=new User
+                if (request.Password != "wftx123456~")
                 {
-                    Id=GuidUtil.NewSequentialId(),
-                    LoginName="admin",
-                    Name="夏某某",
-                    Password="123456",
-                    Portrait= "https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png"
+                    return new BaseApiResponse { Code = 400, Message = "密码不正确，登录不被允许" };
                 }
-            };
+                return new LoginResponse
+                {
+                    User = new User
+                    {
+                        Id = GuidUtil.NewSequentialId(),
+                        LoginName = "admin",
+                        Name = "夏某某",
+                        Password = "123456",
+                        Role="admin",
+                        Portrait = "https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png"
+                    }
+                };
+            }
+            if(request.Name== "accountant")
+            {
+                if (request.Password != "wftx666!")
+                {
+                    return new BaseApiResponse { Code = 400, Message = "密码不正确，登录不被允许" };
+                }
+                return new LoginResponse
+                {
+                    User = new User
+                    {
+                        Id = GuidUtil.NewSequentialId(),
+                        LoginName = "accountant",
+                        Name = "财务",
+                        Password = "123456",
+                        Role= "accountant",
+                        Portrait = "https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png"
+                    }
+                };
+            }
+            if (request.Name == "goodsmgr")
+            {
+                if (request.Password != "wftx666#")
+                {
+                    return new BaseApiResponse { Code = 400, Message = "密码不正确，登录不被允许" };
+                }
+                return new LoginResponse
+                {
+                    User = new User
+                    {
+                        Id = GuidUtil.NewSequentialId(),
+                        LoginName = "goodsmgr",
+                        Name = "商品审核员",
+                        Password = "123456",
+                        Role = "goodsmgr",
+                        Portrait = "https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png"
+                    }
+                };
+            }
+            return new BaseApiResponse { Code = 400, Message = "账号错误，登录不被允许" };
         }
 
         #region 私有方法

@@ -9,6 +9,7 @@ namespace Shop.ReadModel.Announcements
     /// </summary>
     public interface IAnnouncementQueryService
     {
+        Announcement Find(Guid id);
         IEnumerable<Announcement> ListPage();
     }
 }

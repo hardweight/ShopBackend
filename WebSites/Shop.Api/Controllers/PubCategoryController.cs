@@ -51,9 +51,11 @@ namespace Shop.Api.Controllers
                 node.Id = cat.Id;
                 node.Name = cat.Name;
                 node.Thumb = cat.Thumb;
+                node.IsShow = cat.IsShow;
+                node.Sort = cat.Sort;
                 node.Children = new List<dynamic>();
 
-                var childrens = _pubCategoryQueryService.GetChildren(cat.Id).OrderByDescending(x=>x.Sort);
+                var childrens = _pubCategoryQueryService.GetChildren(cat.Id).Where(x=>x.IsShow).OrderByDescending(x=>x.Sort);
                 foreach (var child in childrens)
                 {
                     node.Children.Add(getNodeData(child));
@@ -61,7 +63,7 @@ namespace Shop.Api.Controllers
                 return node;
             };
 
-            List<PubCategory> rootsCategory = _pubCategoryQueryService.RootCategorys().OrderByDescending(x=>x.Sort).ToList();
+            List<PubCategory> rootsCategory = _pubCategoryQueryService.RootCategorys().Where(x=>x.IsShow).OrderByDescending(x=>x.Sort).ToList();
             List<object> nodes = rootsCategory.Select(getNodeData).ToList();
 
             return new PubCategoryTreeResponse
@@ -91,6 +93,7 @@ namespace Shop.Api.Controllers
                 request.ParentId,
                 request.Name,
                 request.Thumb,
+                request.IsShow,
                 request.Sort);
 
             var result = await ExecuteCommandAsync(command);
@@ -101,7 +104,38 @@ namespace Shop.Api.Controllers
             return new BaseApiResponse();
 
         }
-
+        /// <summary>
+        /// 删除分类
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("PubCategoryAdmin/Delete")]
+        public async Task<BaseApiResponse> Delete(DeleteRequest request)
+        {
+            request.CheckNotNull(nameof(request));
+            //分类判断
+            var category = _pubCategoryQueryService.Find(request.Id);
+            if (category == null)
+            {
+                return new BaseApiResponse { Code = 400, Message = "没找到该分类" };
+            }
+            //判断是否有子分类
+            var children = _pubCategoryQueryService.GetChildren(request.Id);
+            if (children.Any())
+            {
+                return new BaseApiResponse { Code = 400, Message = "包含子分类，无法删除" };
+            }
+            //删除
+            var command = new DeletePubCategoryCommand(request.Id);
+            var result = await ExecuteCommandAsync(command);
+            if (!result.IsSuccess())
+            {
+                return new BaseApiResponse { Code = 400, Message = "命令没有执行成功：{0}".FormatWith(result.GetErrorMessage()) };
+            }
+            return new BaseApiResponse();
+        }
         /// <summary>
         /// 编辑类别
         /// </summary>
@@ -115,6 +149,7 @@ namespace Shop.Api.Controllers
             var command = new UpdatePubCategoryCommand(
                 request.Name,
                 request.Thumb,
+                request.IsShow,
                 request.Sort)
             {
                 AggregateRootId = request.Id
@@ -146,6 +181,7 @@ namespace Shop.Api.Controllers
                 node.Id = cat.Id;
                 node.Name = cat.Name;
                 node.Thumb = cat.Thumb;
+                node.IsShow = cat.IsShow;
                 node.Sort = cat.Sort;
                 node.Children = new List<dynamic>();
 
@@ -186,6 +222,7 @@ namespace Shop.Api.Controllers
                     Id = x.Id,
                     Name = x.Name,
                     Thumb = x.Thumb,
+                    IsShow=x.IsShow,
                     Sort = x.Sort
                 }).ToList()
             };

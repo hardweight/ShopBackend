@@ -100,7 +100,7 @@ namespace Shop.ProcessManagers
                     message.BenevolenceDeduct,
                     0,
                     WalletDirection.Out,
-                    "善心激励")));
+                    "善心指数：{0}".FormatWith(message.BenevolenceIndex))));
             //执行所以的任务  
             Task.WaitAll(tasks.ToArray());
             return Task.FromResult(AsyncTaskResult.Success);

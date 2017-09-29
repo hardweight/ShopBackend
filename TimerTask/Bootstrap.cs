@@ -5,6 +5,7 @@ using ENode.Configurations;
 using Shop.Common;
 using Shop.TimerTask.Jobs.OrderGoodses;
 using Shop.TimerTask.Jobs.Orders;
+using Shop.TimerTask.Jobs.Wallets;
 using Shop.TimerTask.Jobs.WithdrawClearWeekAmount;
 using System;
 using System.Reflection;
@@ -88,6 +89,7 @@ namespace Shop.TimerTask
         {
             OrderJobScheduler.Start();//预订单30分钟付款到期
             WithdrawClearWeekAmountJobScheduler.Start();//每周日晚上清空本周提现金额
+            IncentiveJobScheduler.Start();//善心激励
             //OrderGoodsJobScheduler.Start();//商品服务自动过期服务
         }
         /// <summary>

@@ -6,12 +6,14 @@ using Shop.Api.Models.Request.Goodses;
 using Shop.Api.Models.Response;
 using Shop.Api.Models.Response.Goodses;
 using Shop.Api.Models.Response.Store;
+using Shop.Commands.Comments;
 using Shop.Commands.Goodses;
 using Shop.Commands.Goodses.Specifications;
 using Shop.Common.Enums;
 using Shop.ReadModel.Goodses;
 using Shop.ReadModel.Stores;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -50,50 +52,47 @@ namespace Shop.Api.Controllers
         public BaseApiResponse GoodsList(GoodsListRequest request)
         {
             request.CheckNotNull(nameof(request));
-            int pageRecordCount = 10;
+            int pageSize = 10;
+            IEnumerable<ReadModel.Goodses.Dtos.GoodsAlias> goodses = null;
             if (request.Type.Equals("Search"))
             {
-                //搜索商品
-                var goodses = _goodsQueryService.Search(request.Search).OrderByDescending(x=>x.Rate);//默认根据评分
-                if (request.Sort.Equals("销量"))
-                {
-                    goodses = goodses.OrderByDescending(x => x.SellOut);//根据销量
-                }
-                else if(request.Sort.Equals("新品"))
-                {
-                    goodses = goodses.OrderByDescending(x => x.CreatedOn);//根据发布时间
-                }
-                var pageGoodses = goodses.Skip(pageRecordCount * request.Page).Take(pageRecordCount);
-                return new GoodsListResponse
-                {
-                    Goodses = pageGoodses.Select(x => new Goods
-                    {
-                        Id = x.Id,
-                        Pics = x.Pics.Split("|", true).Select(img => img.ToOssStyleUrl(OssImageStyles.GoodsMainPic.ToDescription())).ToList(),
-                        Name = x.Name,
-                        Price = x.Price,
-                        OriginalPrice=x.OriginalPrice,
-                        Benevolence = x.Benevolence
-                    }).ToList()
-                };
+                goodses = _goodsQueryService.Search(request.Search);
             }
-            if(request.Type.Equals("Category"))
+            if (request.Type.Equals("Category"))
             {
-                var goodses = _goodsQueryService.CategoryGoodses(request.CategoryId).Skip(pageRecordCount*request.Page).Take(pageRecordCount);
-                return new GoodsListResponse
-                {
-                    Goodses = goodses.Select(x => new Goods
-                    {
-                        Id = x.Id,
-                        Pics = x.Pics.Split("|", true).ToList(),
-                        Name = x.Name,
-                        Price = x.Price,
-                        OriginalPrice=x.OriginalPrice,
-                        Benevolence = x.Benevolence
-                    }).ToList()
-                };
+                goodses = _goodsQueryService.CategoryGoodses(request.CategoryId);
             }
-            return new BaseApiResponse();
+            //排序
+            if (request.Sort.Equals("销量"))
+            {
+                goodses = goodses.OrderByDescending(x => x.SellOut);//根据销量
+            }
+            else if (request.Sort.Equals("新品"))
+            {
+                goodses = goodses.OrderByDescending(x => x.CreatedOn);//根据发布时间
+            }
+            else
+            {
+                goodses = goodses.OrderByDescending(x => x.CreatedOn);
+            }
+            var total = goodses.Count();
+
+            //分页
+            var pageGoodses = goodses.Skip(pageSize * (request.Page - 1)).Take(pageSize);
+            return new GoodsListResponse
+            {
+                Total = total,
+                Goodses = pageGoodses.Select(x => new Goods
+                {
+                    Id = x.Id,
+                    Pics = x.Pics.Split("|", true).Select(img => img.ToOssStyleUrl(OssImageStyles.GoodsMainPic.ToDescription())).ToList(),
+                    Name = x.Name,
+                    Price = x.Price,
+                    OriginalPrice = x.OriginalPrice,
+                    Benevolence = x.Benevolence,
+                    SellOut = x.SellOut
+                }).ToList()
+            };
         }
 
         /// <summary>
@@ -105,40 +104,62 @@ namespace Shop.Api.Controllers
         [Route("Goods/HomePageGoodses")]
         public BaseApiResponse HomePageGoodses()
         {
-                var rateGoodses = _goodsQueryService.GoodRateGoodses(12);
-                var newGoodses = _goodsQueryService.NewGoodses(100);
-                var selloutGoodses = _goodsQueryService.GoodSellGoodses(12);
+            //从缓存获取商品
+            IEnumerable<ReadModel.Goodses.Dtos.GoodsAlias> rateGoodses = _apiSession.GetHomeRateGoodses();
+            if (rateGoodses == null)
+            {
+                rateGoodses = _goodsQueryService.GoodRateGoodses(12);
+                _apiSession.SetHomeRateGoodses(rateGoodses);
+            }
 
-                return new HomePageGoodsesResponse
+            IEnumerable<ReadModel.Goodses.Dtos.GoodsAlias> newGoodses = _apiSession.GetHomeNewGoodses();
+            if (newGoodses == null)
+            {
+                newGoodses = _goodsQueryService.NewGoodses(100);
+                _apiSession.SetHomeNewGoodses(newGoodses);
+            }
+
+            IEnumerable<ReadModel.Goodses.Dtos.GoodsAlias> selloutGoodses = _apiSession.GetHomeSelloutGoodses();
+            if (selloutGoodses == null)
+            {
+                selloutGoodses = _goodsQueryService.GoodSellGoodses(12);
+                _apiSession.SetHomeSelloutGoodses(selloutGoodses);
+            }
+
+
+            return new HomePageGoodsesResponse
+            {
+                RateGoodses = rateGoodses.Select(x => new Goods
                 {
-                    RateGoodses = rateGoodses.Select(x => new Goods
-                    {
-                        Id = x.Id,
-                        Pics = x.Pics.Split("|", true).Select(img=>img.ToOssStyleUrl(OssImageStyles.GoodsMainPic.ToDescription())).ToList(),
-                        Name = x.Name,
-                        Price = x.Price,
-                        OriginalPrice=x.OriginalPrice,
-                        Benevolence = x.Benevolence
-                    }).ToList(),
-                    NewGoodses = newGoodses.Select(x => new Goods
-                    {
-                        Id = x.Id,
-                        Pics = x.Pics.Split("|", true).Select(img => img.ToOssStyleUrl(OssImageStyles.GoodsMainPic.ToDescription())).ToList(),
-                        Name = x.Name,
-                        Price = x.Price,
-                        OriginalPrice=x.OriginalPrice,
-                        Benevolence = x.Benevolence
-                    }).ToList(),
-                    SellOutGoodses = selloutGoodses.Select(x => new Goods
-                    {
-                        Id = x.Id,
-                        Pics = x.Pics.Split("|", true).Select(img => img.ToOssStyleUrl(OssImageStyles.GoodsMainPic.ToDescription())).ToList(),
-                        Name = x.Name,
-                        Price = x.Price,
-                        OriginalPrice=x.OriginalPrice,
-                        Benevolence = x.Benevolence
-                    }).ToList()
-                };
+                    Id = x.Id,
+                    Pics = x.Pics.Split("|", true).Select(img=>img.ToOssStyleUrl(OssImageStyles.GoodsMainPic.ToDescription())).ToList(),
+                    Name = x.Name,
+                    Price = x.Price,
+                    OriginalPrice=x.OriginalPrice,
+                    Benevolence = x.Benevolence,
+                    SellOut=x.SellOut
+                }).ToList(),
+                NewGoodses = newGoodses.Select(x => new Goods
+                {
+                    Id = x.Id,
+                    Pics = x.Pics.Split("|", true).Select(img => img.ToOssStyleUrl(OssImageStyles.GoodsMainPic.ToDescription())).ToList(),
+                    Name = x.Name,
+                    Price = x.Price,
+                    OriginalPrice=x.OriginalPrice,
+                    Benevolence = x.Benevolence,
+                    SellOut=x.SellOut
+                }).ToList(),
+                SellOutGoodses = selloutGoodses.Select(x => new Goods
+                {
+                    Id = x.Id,
+                    Pics = x.Pics.Split("|", true).Select(img => img.ToOssStyleUrl(OssImageStyles.GoodsMainPic.ToDescription())).ToList(),
+                    Name = x.Name,
+                    Price = x.Price,
+                    OriginalPrice=x.OriginalPrice,
+                    Benevolence = x.Benevolence,
+                    SellOut = x.SellOut
+                }).ToList()
+            };
         }
         
         /// <summary>
@@ -153,9 +174,10 @@ namespace Shop.Api.Controllers
         {
             request.CheckNotNull(nameof(request));
             var goodsDetails = _goodsQueryService.GetGoodsDetails(request.Id);
+            var storeInfo = _storeQueryService.Info(goodsDetails.StoreId);
             var specifications = _goodsQueryService.GetPublishedSpecifications(request.Id);
             var goodsParams = _goodsQueryService.GetGoodsParams(request.Id);
-            var comments = _goodsQueryService.GetComments(5);
+            var comments = _goodsQueryService.GetComments(request.Id,5);
             if(goodsDetails==null)
             {
                 return new BaseApiResponse { Code = 400, Message = "没有该产品" };
@@ -182,7 +204,17 @@ namespace Shop.Api.Controllers
                     DescribeRate=goodsDetails.DescribeRate,
                     PriceRate=goodsDetails.PriceRate,
                     RateCount=goodsDetails.RateCount,
-                    Sort = goodsDetails.Sort
+                    Sort = goodsDetails.Sort,
+                    IsPublished=goodsDetails.IsPublished,
+                    Status=goodsDetails.Status.ToString()
+                },
+                StoreInfo=new StoreInfo
+                {
+                    Id=storeInfo.Id,
+                    Name=storeInfo.Name,
+                    Description=storeInfo.Description,
+                    Type=storeInfo.Type.ToDescription(),
+                    Address=storeInfo.Address
                 },
                 Specifications=specifications.Select(x=>new Specification {
                     Id=x.Id,
@@ -205,12 +237,44 @@ namespace Shop.Api.Controllers
                 Comments =comments.Select(x=>new Comment {
                     Id=x.Id,
                     Rate=x.Rate,
-                    UserName=x.UserName,
-                    CreatedOn=x.CreatedOn,
+                    NickName=x.NickName,
+                    CreatedOn=x.CreatedOn.GetTimeSpan(),
                     Thumbs=x.Thumbs.Split("|",true).ToList(),
                     Body=x.Body
                 }).ToList()
             };
+        }
+
+        /// <summary>
+        /// 评价商品
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Goods/Comment")]
+        public async Task<BaseApiResponse> Comment(CommentRequest request)
+        {
+            request.CheckNotNull(nameof(request));
+
+            TryInitUserModel();
+
+            var command = new CreateCommentCommand(
+                GuidUtil.NewSequentialId(),
+                request.GoodsId,
+                _user.Id,
+                request.Body,
+                request.Thumbs,
+                request.PriceRate,
+                request.DescribeRate,
+                request.QualityRate,
+                request.ExpressRate
+                );
+            var result = await ExecuteCommandAsync(command);
+            if (!result.IsSuccess())
+            {
+                return new BaseApiResponse { Code = 400, Message = "命令没有执行成功：{0}".FormatWith(result.GetErrorMessage()) };
+            }
+            return new BaseApiResponse();
         }
 
         #region 店铺商品管理
@@ -314,6 +378,33 @@ namespace Shop.Api.Controllers
             return new AddGoodsResponse {
                 GoodsId=goodsId
             };
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("GoodsStoreAdmin/Delete")]
+        public async Task<BaseApiResponse> Delete(DeleteRequest request)
+        {
+            request.CheckNotNull(nameof(request));
+            //判断
+            var goods = _goodsQueryService.GetGoodsAlias(request.Id);
+            if (goods == null)
+            {
+                return new BaseApiResponse { Code = 400, Message = "没找到该商品" };
+            }
+            //删除
+            var command = new DeleteGoodsCommand(request.Id);
+            var result = await ExecuteCommandAsync(command);
+            if (!result.IsSuccess())
+            {
+                return new BaseApiResponse { Code = 400, Message = "删除失败{0}，可能商品存在预定，无法删除".FormatWith(result.GetErrorMessage()) };
+            }
+            return new BaseApiResponse();
         }
 
         /// <summary>
@@ -535,8 +626,8 @@ namespace Shop.Api.Controllers
                     x.Value.ExpandAndToString(),
                     thumb,
                     x.Price,
-                    x.Price,//客户端传过来的就是原价
-                    x.Price/100M,
+                    x.OriginalPrice,
+                    0,
                     x.Number,
                     x.BarCode,
                     x.Stock)).ToList());
@@ -554,15 +645,33 @@ namespace Shop.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("GoodsStoreAdmin/AllGoodses")]
-        public BaseApiResponse AllGoodses()
+        public BaseApiResponse AllGoodses(ListPageRequest request)
         {
+            request.CheckNotNull(nameof(request));
             TryInitUserModel();
 
             var storeInfo = _storeQueryService.InfoByUserId(_user.Id);
-            var goodses = _goodsQueryService.GetStoreGoodses(storeInfo.Id);
+            var goodses  = _goodsQueryService.GetStoreGoodses(storeInfo.Id);
+            var pageSize = 20;
+            var total = goodses.Count();
+            //筛选
+            if (request.Status != GoodsStatus.All)
+            {
+                goodses = goodses.Where(x => x.Status == request.Status);
+            }
+            if (!request.Name.IsNullOrEmpty())
+            {
+                goodses = goodses.Where(x => x.Name.Contains(request.Name)).OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
+                total = goodses.Count();
+            }
+            total = goodses.Count();
+
+            //分页
+            goodses = goodses.OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
+
             return new AllGoodsResponse
             {
-                Total = goodses.Count(),
+                Total = total,
                 Goodses = goodses.Select(x => new GoodsDetails
                 {
                     Id = x.Id,
@@ -580,7 +689,8 @@ namespace Shop.Api.Controllers
                     CreatedOn = x.CreatedOn,
                     Sort = x.Sort,
                     IsPublished=x.IsPublished,
-                    Status = x.Status.ToString()
+                    Status = x.Status.ToString(),
+                    RefusedReason=x.RefusedReason
                 }).ToList()
             };
         }
@@ -598,18 +708,23 @@ namespace Shop.Api.Controllers
         {
             request.CheckNotNull(nameof(request));
 
-            var goodses = _goodsQueryService.Goodses().Where(x=>x.Status==request.Status);
+            var goodses = _goodsQueryService.Goodses();
             var pageSize = 20;
             var total = goodses.Count();
+            //筛选
+            if (request.Status != GoodsStatus.All)
+            {
+                goodses = goodses.Where(x => x.Status == request.Status);
+            }
             if (!request.Name.IsNullOrEmpty())
             {
-                goodses = goodses.Where(x => x.Name.Contains(request.Name)).OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
+                goodses = goodses.Where(x => x.Name.Contains(request.Name));
                 total = goodses.Count();
             }
-            else
-            {
-                goodses = goodses.OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
-            }
+            total = goodses.Count();
+            //分页
+            goodses = goodses.OrderByDescending(x => x.CreatedOn).Skip(pageSize * (request.Page - 1)).Take(pageSize);
+
             return new GoodsesResponse
             {
                 Total = total,
@@ -630,7 +745,8 @@ namespace Shop.Api.Controllers
                     CreatedOn = x.CreatedOn,
                     Sort = x.Sort,
                     IsPublished =x.IsPublished,
-                    Status=x.Status.ToString()
+                    Status=x.Status.ToString(),
+                    RefusedReason=x.RefusedReason
                 }).ToList()
             };
         }
@@ -654,7 +770,8 @@ namespace Shop.Api.Controllers
                 request.Price,
                 request.Benevolence,
                 request.SellOut,
-                request.Status)
+                request.Status,
+                request.RefusedReason)
             {
                 AggregateRootId = request.Id
             };
